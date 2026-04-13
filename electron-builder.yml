@@ -1,0 +1,15 @@
+appId: com.slowblink.app
+productName: slowblink
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+mac:
+  category: public.app-category.productivity
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  extendInfo:
+    NSScreenCaptureUsageDescription: "slowblink captures periodic screenshots to summarize your activity locally."
+    LSUIElement: true
