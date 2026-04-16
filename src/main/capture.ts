@@ -281,20 +281,24 @@ export function initCaptureSettingsWatcher(): () => void {
   });
 }
 
+function recordGuardFailure(msg: string, force: boolean) {
+  lastError = msg;
+  emit();
+  if (force) throw new Error(msg);
+}
+
 export async function captureOnce(force = false) {
   if (inFlight) {
     console.log('[capture] captureOnce skipped: already in flight');
     return;
   }
   if (!hasScreenPermission()) {
-    lastError = 'Screen recording permission not granted';
-    emit();
+    recordGuardFailure('Screen recording permission not granted', force);
     return;
   }
   const apiKey = getApiKey();
   if (!apiKey) {
-    lastError = 'No API key configured';
-    emit();
+    recordGuardFailure('No API key configured', force);
     return;
   }
   if (!force && powerMonitor.getSystemIdleState(60) !== 'active') {
@@ -320,6 +324,7 @@ export async function captureOnce(force = false) {
     lastError = null;
   } catch (err) {
     lastError = err instanceof Error ? err.message : String(err);
+    if (force) throw err;
   } finally {
     inFlight = false;
     emit();
