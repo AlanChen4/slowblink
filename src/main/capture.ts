@@ -305,6 +305,10 @@ export async function captureOnce(force = false) {
     console.log('[capture] captureOnce skipped: user idle');
     return;
   }
+  await runCapture(apiKey, force);
+}
+
+async function runCapture(apiKey: string, force: boolean) {
   inFlight = true;
   try {
     const { model } = getSettings();
