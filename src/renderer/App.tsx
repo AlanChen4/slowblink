@@ -1,5 +1,12 @@
 import type { CaptureStatus, Settings as SettingsT } from '@shared/types';
-import { Clock, Monitor, Moon, Settings, Sun } from 'lucide-react';
+import {
+  Clock,
+  FlaskConical,
+  Monitor,
+  Moon,
+  Settings,
+  Sun,
+} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -17,10 +24,11 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
+import { Dev } from '@/views/Dev';
 import { SettingsView } from '@/views/Settings';
 import { Timeline } from '@/views/Timeline';
 
-type NavId = 'timeline' | 'settings';
+type NavId = 'timeline' | 'dev' | 'settings';
 
 export default function App() {
   const [view, setView] = useState<NavId>('timeline');
@@ -91,6 +99,18 @@ export default function App() {
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
+            {import.meta.env.DEV && (
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={view === 'dev'}
+                  tooltip="Dev"
+                  onClick={() => setView('dev')}
+                >
+                  <FlaskConical />
+                  <span>Dev</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
             <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={view === 'settings'}
@@ -112,6 +132,7 @@ export default function App() {
         <main className="flex max-h-[92vh] flex-1 flex-col rounded-xl bg-background">
           <div className="flex flex-1 flex-col overflow-y-auto px-6 pt-4 pb-6">
             {view === 'timeline' && <Timeline />}
+            {view === 'dev' && <Dev />}
             {view === 'settings' && (
               <SettingsView status={status} settings={settings} />
             )}
