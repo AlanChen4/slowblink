@@ -84,34 +84,8 @@ function CaptureSection({ settings }: { settings: SettingsT }) {
         <Button variant="outline" onClick={togglePaused}>
           {settings.paused ? 'Resume' : 'Pause'}
         </Button>
-        {import.meta.env.DEV && <DevCaptureButton />}
       </div>
     </div>
-  );
-}
-
-function DevCaptureButton() {
-  async function trigger() {
-    try {
-      if (typeof window.slowblink.captureOnce !== 'function') {
-        toast.error('captureOnce not available', {
-          description:
-            'captureOnce is not exposed on the preload API — restart `pnpm dev` so the preload bundle reloads.',
-        });
-        return;
-      }
-      await window.slowblink.captureOnce();
-      toast.success('Capture complete');
-    } catch (err) {
-      toast.error('Capture failed', {
-        description: err instanceof Error ? err.message : String(err),
-      });
-    }
-  }
-  return (
-    <Button variant="secondary" onClick={trigger}>
-      Capture once (dev)
-    </Button>
   );
 }
 
