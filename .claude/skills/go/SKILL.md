@@ -10,7 +10,7 @@ Run this at the end of a coding task to verify the change in the live app, clean
 ## Prerequisites
 
 - Changes are committed-or-ready on the current branch.
-- The session is running in a git worktree under `.claude/worktrees/<name>/` (see [worktree-paths rule](../../../.claude/rules/worktree-paths.md)). Verify edit paths before writing.
+- The session is running in a git worktree under `.claude/worktrees/<name>/` (see [worktree-paths rule](../../rules/worktree-paths.md)). Verify edit paths before writing.
 
 ## Phase 1: Test in the Electron app via agent-browser
 
@@ -52,7 +52,7 @@ Invoke the `simplify` skill via the `Skill` tool. It launches three review agent
 
 ## Phase 3: Create or update the PR
 
-1. **Commit** any remaining changes using the [gitmoji convention](../../../.claude/rules/git-workflow.md). Heredoc the message so newlines survive:
+1. **Commit** any remaining changes using the [gitmoji convention](../../rules/git-workflow.md). Heredoc the message so newlines survive:
    ```bash
    git commit -m "$(cat <<'EOF'
    ♻️ Short description (50 chars max)

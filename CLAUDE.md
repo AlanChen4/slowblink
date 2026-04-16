@@ -13,4 +13,4 @@ An Electron app that uses AI to track how the user is spending their time on the
 ## Skills
 
 - [Electron automation](.agents/skills/electron/SKILL.md) — Automate Electron apps via Chrome DevTools Protocol using agent-browser
-- [/go](.agents/skills/go/SKILL.md) — End-of-task workflow: test via agent-browser, run /simplify, then create or update a PR
+- [/go](.claude/skills/go/SKILL.md) — End-of-task workflow: test via agent-browser, run /simplify, then create or update a PR
