@@ -1,5 +1,6 @@
 appId: com.slowblink.app
 productName: slowblink
+copyright: "Copyright © 2026 Alan Chen"
 directories:
   output: dist
   buildResources: build
@@ -10,6 +11,27 @@ mac:
   category: public.app-category.productivity
   hardenedRuntime: true
   gatekeeperAssess: false
+  entitlementsInherit: build/entitlements.mac.plist
+  notarize: true
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
   extendInfo:
     NSScreenCaptureUsageDescription: "slowblink captures periodic screenshots to summarize your activity locally."
+    NSAppleEventsUsageDescription: "slowblink uses AppleScript to read window titles for activity tracking."
     LSUIElement: true
+dmg:
+  icon: build/icon.icns
+  contents:
+    - x: 130
+      "y": 220
+    - x: 410
+      "y": 220
+      type: link
+      path: /Applications
+publish:
+  provider: github
+  owner: AlanChen4
+  repo: slowblink
