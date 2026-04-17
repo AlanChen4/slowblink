@@ -10,14 +10,7 @@ permissions:
 
 jobs:
   build-mac:
-    strategy:
-      matrix:
-        include:
-          - os: macos-15
-            arch: arm64
-          - os: macos-13
-            arch: x64
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +27,7 @@ jobs:
       - run: pnpm build
 
       - name: Build and publish
-        run: pnpm exec electron-builder --mac --${{ matrix.arch }} --publish always
+        run: pnpm exec electron-builder --mac --x64 --arm64 --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_LINK: ${{ secrets.CSC_LINK }}
