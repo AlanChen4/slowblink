@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint-and-typecheck:
     runs-on: ubuntu-latest
@@ -29,14 +33,7 @@ jobs:
       - run: pnpm test
 
   build-mac:
-    strategy:
-      matrix:
-        include:
-          - os: macos-15
-            arch: arm64
-          - os: macos-13
-            arch: x64
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v4
@@ -53,9 +50,9 @@ jobs:
       - run: pnpm build
 
       - name: Package (unsigned)
-        run: pnpm exec electron-builder --mac --${{ matrix.arch }} --publish never
+        run: pnpm exec electron-builder --mac --x64 --arm64 --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
-      - name: Verify DMG exists
+      - name: Verify DMGs exist
         run: ls -lh dist/*.dmg
