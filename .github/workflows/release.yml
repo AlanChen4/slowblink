@@ -2,6 +2,7 @@ name: Release
 
 on:
   push:
+    branches: [main]
     tags:
       - "v*"
 
@@ -9,7 +10,35 @@ permissions:
   contents: write
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - id: check
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "Triggered by tag push — releasing"
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          VERSION=$(jq -r .version package.json)
+          PREV_VERSION=$(git show HEAD~1:package.json 2>/dev/null | jq -r .version || echo "")
+          if [ "$PREV_VERSION" != "$VERSION" ]; then
+            echo "Version bumped: $PREV_VERSION -> $VERSION — releasing"
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No version change in package.json — skipping"
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          fi
+
   build-mac:
+    needs: check-version
+    if: needs.check-version.outputs.should_release == 'true'
     runs-on: macos-15
 
     steps:
@@ -26,12 +55,8 @@ jobs:
 
       - run: pnpm build
 
-      - name: Build and publish
+      - name: Build and publish (unsigned)
         run: pnpm exec electron-builder --mac --x64 --arm64 --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"

@@ -9,10 +9,7 @@ files:
   - package.json
 mac:
   category: public.app-category.productivity
-  hardenedRuntime: true
-  gatekeeperAssess: false
-  entitlementsInherit: build/entitlements.mac.plist
-  notarize: true
+  identity: null
   target:
     - target: dmg
       arch:
