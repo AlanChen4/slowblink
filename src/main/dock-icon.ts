@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { app, nativeImage, type NativeImage } from 'electron';
+import { app, type NativeImage, nativeImage } from 'electron';
 
 const ICON_SIZE = 1024;
 const PADDING = 96;
@@ -42,7 +42,6 @@ function composeDevIcon(base: NativeImage): NativeImage {
 }
 
 function drawBadge(out: Buffer) {
-  const { r, g, b } = BADGE_COLOR;
   const radius = Math.round(ICON_SIZE * 0.11);
   const cx = ICON_SIZE - PADDING - Math.round(radius * 0.3);
   const cy = PADDING + Math.round(radius * 0.3);
@@ -54,23 +53,27 @@ function drawBadge(out: Buffer) {
 
   for (let y = minY; y <= maxY; y++) {
     for (let x = minX; x <= maxX; x++) {
-      const dx = x - cx;
-      const dy = y - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      let a = 0;
-      if (dist <= radius - 1) a = 1;
-      else if (dist < radius) a = radius - dist;
-      if (a <= 0) continue;
-
-      const i = (y * ICON_SIZE + x) * 4;
-      const bgA = out[i + 3] / 255;
-      const finalA = a + bgA * (1 - a);
-      out[i] = Math.round((b * a + out[i] * bgA * (1 - a)) / finalA);
-      out[i + 1] = Math.round((g * a + out[i + 1] * bgA * (1 - a)) / finalA);
-      out[i + 2] = Math.round((r * a + out[i + 2] * bgA * (1 - a)) / finalA);
-      out[i + 3] = Math.round(finalA * 255);
+      const a = circleAlpha(x - cx, y - cy, radius);
+      if (a > 0) blendBadgePixel(out, (y * ICON_SIZE + x) * 4, a);
     }
   }
+}
+
+function circleAlpha(dx: number, dy: number, radius: number): number {
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist <= radius - 1) return 1;
+  if (dist < radius) return radius - dist;
+  return 0;
+}
+
+function blendBadgePixel(out: Buffer, i: number, a: number) {
+  const { r, g, b } = BADGE_COLOR;
+  const bgA = out[i + 3] / 255;
+  const finalA = a + bgA * (1 - a);
+  out[i] = Math.round((b * a + out[i] * bgA * (1 - a)) / finalA);
+  out[i + 1] = Math.round((g * a + out[i + 1] * bgA * (1 - a)) / finalA);
+  out[i + 2] = Math.round((r * a + out[i + 2] * bgA * (1 - a)) / finalA);
+  out[i + 3] = Math.round(finalA * 255);
 }
 
 function roundedCornerAlpha(
