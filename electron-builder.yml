@@ -7,6 +7,7 @@ directories:
 files:
   - out/**/*
   - package.json
+afterPack: scripts/ad-hoc-sign.js
 mac:
   category: public.app-category.productivity
   identity: null

@@ -15,7 +15,8 @@ slowblink runs in your menu bar and captures a screenshot every few seconds (con
 
 1. Download the latest `.dmg` from [GitHub Releases](https://github.com/AlanChen4/slowblink/releases)
 2. Open the DMG and drag slowblink to Applications
-3. Launch slowblink — it will appear in your menu bar
+3. First launch: right-click slowblink in Applications → **Open** → **Open** (builds are unsigned, so macOS needs this one-time override)
+4. slowblink will appear in your menu bar
 
 ## Setup
 
