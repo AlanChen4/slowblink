@@ -9,6 +9,7 @@ import {
   stopCaptureLoop,
 } from './capture';
 import { initDb } from './db';
+import { getDevDockIcon } from './dock-icon';
 import {
   broadcastSettingsUpdates,
   broadcastStatusUpdates,
@@ -18,6 +19,11 @@ import { getSettings, initSettings, setSettings } from './settings';
 
 let tray: Tray | null = null;
 let mainWindow: BrowserWindow | null = null;
+let devDockIcon: Electron.NativeImage | null = null;
+
+function applyDevDockIcon() {
+  if (devDockIcon) app.dock?.setIcon(devDockIcon);
+}
 
 function createWindow() {
   if (mainWindow) {
@@ -41,7 +47,9 @@ function createWindow() {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
-    if (process.platform === 'darwin') void app.dock?.show();
+    if (process.platform === 'darwin') {
+      void app.dock?.show().then(applyDevDockIcon);
+    }
   });
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -98,7 +106,11 @@ function refreshTray() {
 const disposers: (() => void)[] = [];
 
 app.whenReady().then(async () => {
-  if (process.platform === 'darwin') app.dock?.hide();
+  if (process.platform === 'darwin') {
+    devDockIcon = getDevDockIcon();
+    applyDevDockIcon();
+    app.dock?.hide();
+  }
   await initSettings();
   initDb();
   registerIpc();
