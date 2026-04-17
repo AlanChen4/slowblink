@@ -15,7 +15,6 @@ import {
   registerIpc,
 } from './ipc';
 import { getSettings, initSettings, setSettings } from './settings';
-import { initAutoUpdater } from './updater';
 
 let tray: Tray | null = null;
 let mainWindow: BrowserWindow | null = null;
@@ -116,7 +115,6 @@ app.whenReady().then(async () => {
   const { paused } = getSettings();
   if (!paused) startCaptureLoop();
 
-  initAutoUpdater();
   createWindow();
 });
 
