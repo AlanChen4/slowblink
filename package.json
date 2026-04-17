@@ -28,7 +28,15 @@
     "package": "electron-vite build && electron-builder",
     "package:mac": "electron-vite build && electron-builder --mac",
     "icon:build": "bash scripts/build-icon.sh",
-    "postinstall": "electron-rebuild -w better-sqlite3"
+    "postinstall": "electron-rebuild -w better-sqlite3",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
+    "supabase:db:reset": "supabase db reset",
+    "supabase:db:push": "supabase db push",
+    "supabase:db:diff": "supabase db diff",
+    "supabase:functions:serve": "supabase functions serve --env-file supabase/.env",
+    "supabase:functions:deploy": "supabase functions deploy"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.52",

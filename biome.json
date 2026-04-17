@@ -6,7 +6,14 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**/*.ts", "**/*.tsx", "!out", "!dist", "!node_modules"]
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "!out",
+      "!dist",
+      "!node_modules",
+      "!supabase"
+    ]
   },
   "formatter": {
     "enabled": true,

@@ -1,0 +1,2 @@
+-- Intentionally empty. Add local-only seed data here (e.g. test users, fixtures)
+-- that should run after `supabase db reset`. Do not put production data here.
