@@ -1,6 +1,9 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
 import type { CaptureStatus } from '../shared/types';
+import { registerProtocolHandler } from './auth/deep-link';
+import { loadSessionFromDisk } from './auth/session';
+import { initPlanCache } from './billing/plan-cache';
 import {
   getStatus,
   initCaptureSettingsWatcher,
@@ -11,11 +14,15 @@ import {
 import { initDb } from './db';
 import { getDevDockIcon } from './dock-icon';
 import {
+  broadcastPlanUpdates,
+  broadcastSessionUpdates,
   broadcastSettingsUpdates,
   broadcastStatusUpdates,
+  broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
 import { getSettings, initSettings, setSettings } from './settings';
+import { initSync } from './sync/flusher';
 
 let tray: Tray | null = null;
 let mainWindow: BrowserWindow | null = null;
@@ -105,6 +112,8 @@ function refreshTray() {
 
 const disposers: (() => void)[] = [];
 
+registerProtocolHandler();
+
 app.whenReady().then(async () => {
   if (process.platform === 'darwin') {
     devDockIcon = getDevDockIcon();
@@ -116,7 +125,14 @@ app.whenReady().then(async () => {
   registerIpc();
   disposers.push(broadcastStatusUpdates());
   disposers.push(broadcastSettingsUpdates());
+  disposers.push(broadcastSessionUpdates());
+  disposers.push(broadcastSyncUpdates());
+  disposers.push(broadcastPlanUpdates());
   disposers.push(initCaptureSettingsWatcher());
+
+  initSync();
+  initPlanCache();
+  void loadSessionFromDisk();
 
   tray = new Tray(nativeImage.createEmpty());
   refreshTray();
@@ -124,8 +140,9 @@ app.whenReady().then(async () => {
 
   disposers.push(onStatusChange(() => refreshTray()));
 
-  const { paused } = getSettings();
-  if (!paused) startCaptureLoop();
+  const settings = getSettings();
+  const canCapture = settings.aiMode === 'cloud-ai' || settings.hasApiKey;
+  if (!settings.paused && canCapture) startCaptureLoop();
 
   createWindow();
 });

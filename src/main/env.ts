@@ -20,6 +20,9 @@ export const env = createEnv({
     CLOUDFLARE_API_TOKEN: z.string().min(1).optional(),
     CLOUDFLARE_GATEWAY_ID: z.string().min(1).default('default'),
     OPENAI_API_KEY: z.string().min(1).optional(),
+    SUPABASE_URL: z.url().optional(),
+    SUPABASE_ANON_KEY: z.string().min(1).optional(),
+    SLOWBLINK_API_BASE: z.url().optional(),
   },
   runtimeEnv: { ...import.meta.env },
 });

@@ -213,7 +213,7 @@ export function getStatus(): CaptureStatus {
     lastCaptureTs,
     hasPermission: hasScreenPermission(),
     hasAccessibility: hasAccessibilityPermission(),
-    hasApiKey: s.hasApiKey,
+    hasApiKey: s.aiMode === 'cloud-ai' ? true : s.hasApiKey,
   };
 }
 
@@ -271,7 +271,8 @@ export function stopCaptureLoop() {
 
 export function initCaptureSettingsWatcher(): () => void {
   return onSettingsChange((s) => {
-    if (s.paused || !s.hasApiKey) {
+    const canCapture = s.aiMode === 'cloud-ai' || s.hasApiKey;
+    if (s.paused || !canCapture) {
       stopCaptureLoop();
       return;
     }
@@ -296,8 +297,9 @@ export async function captureOnce(force = false) {
     recordGuardFailure('Screen recording permission not granted', force);
     return;
   }
-  const apiKey = getApiKey();
-  if (!apiKey) {
+  const { aiMode } = getSettings();
+  const apiKey = aiMode === 'cloud-ai' ? null : getApiKey();
+  if (aiMode === 'byo-key' && !apiKey) {
     recordGuardFailure('No API key configured', force);
     return;
   }
@@ -308,7 +310,7 @@ export async function captureOnce(force = false) {
   await runCapture(apiKey, force);
 }
 
-async function runCapture(apiKey: string, force: boolean) {
+async function runCapture(apiKey: string | null, force: boolean) {
   inFlight = true;
   try {
     const { model } = getSettings();

@@ -1,35 +1,62 @@
 import type {
   ApiKeySource,
+  AuthSession,
   CaptureStatus,
+  Plan,
   Settings as SettingsT,
+  SyncStatus,
 } from '@shared/types';
 import { useState } from 'react';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { AccountSection } from '@/views/settings-sections/AccountSection';
+import { AISourceSection } from '@/views/settings-sections/AISourceSection';
+import { PermissionsSection } from '@/views/settings-sections/PermissionsSection';
+import { SyncSection } from '@/views/settings-sections/SyncSection';
 
 export function SettingsView({
   status,
   settings,
+  session,
+  plan,
+  sync,
 }: {
   status: CaptureStatus | null;
   settings: SettingsT | null;
+  session: AuthSession | null;
+  plan: Plan;
+  sync: SyncStatus | null;
 }) {
   if (!settings) return null;
 
   return (
     <div className="space-y-6">
+      <AccountSection session={session} plan={plan} />
+      <Separator />
+      <SyncSection
+        settings={settings}
+        sync={sync}
+        session={session}
+        plan={plan}
+      />
+      <Separator />
+      <AISourceSection settings={settings} session={session} plan={plan} />
+      {settings.aiMode === 'byo-key' && (
+        <>
+          <Separator />
+          <ApiKeySection settings={settings} />
+        </>
+      )}
+      <Separator />
       <CaptureSection
         key={`${settings.intervalMs}|${settings.model}`}
         settings={settings}
       />
       <Separator />
-      <ApiKeySection settings={settings} />
-      <Separator />
       <PermissionsSection status={status} />
       <Separator />
-      <DataSection />
+      <DataSection session={session} />
     </div>
   );
 }
@@ -150,89 +177,22 @@ function ApiKeySection({ settings }: { settings: SettingsT }) {
   );
 }
 
-function PermissionsSection({ status }: { status: CaptureStatus | null }) {
-  async function requestScreen() {
-    const granted = await window.slowblink.requestPermission();
-    if (!granted) {
-      toast.error('Screen recording not granted', {
-        description:
-          'System Settings has been opened — enable slowblink (or Electron in dev) under Privacy & Security → Screen Recording, then quit and relaunch the app.',
-      });
-    }
-  }
-
-  return (
-    <div className="space-y-4">
-      <h3 className="font-medium text-sm">Permissions</h3>
-      <PermissionRow
-        label="Screen recording"
-        granted={status?.hasPermission}
-        requestLabel="Request screen recording"
-        onRequest={requestScreen}
-        onOpenSettings={() => window.slowblink.openPermissionSettings()}
-      />
-      <PermissionRow
-        label="Accessibility"
-        granted={status?.hasAccessibility}
-        hint="Enables reading the focused window title and open windows across apps for richer context."
-        requestLabel="Request accessibility"
-        onRequest={() => window.slowblink.requestAccessibilityPermission()}
-        onOpenSettings={() =>
-          window.slowblink.openAccessibilityPermissionSettings()
-        }
-      />
-    </div>
-  );
-}
-
-function PermissionRow({
-  label,
-  granted,
-  hint,
-  requestLabel,
-  onRequest,
-  onOpenSettings,
-}: {
-  label: string;
-  granted: boolean | undefined;
-  hint?: string;
-  requestLabel: string;
-  onRequest: () => unknown;
-  onOpenSettings: () => unknown;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="min-w-0 space-y-0.5">
-        <p className="text-sm">
-          {label}:{' '}
-          <span className={granted ? 'text-green-600' : 'text-red-600'}>
-            {granted ? 'granted' : 'not granted'}
-          </span>
-        </p>
-        {hint && <p className="text-muted-foreground text-xs">{hint}</p>}
-      </div>
-      <div className="flex shrink-0 items-center gap-2">
-        <Button variant="outline" disabled={granted} onClick={onRequest}>
-          {granted ? 'Already granted' : requestLabel}
-        </Button>
-        <Button variant="outline" onClick={onOpenSettings}>
-          Open Settings
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-function DataSection() {
+function DataSection({ session }: { session: AuthSession | null }) {
   async function deleteAll() {
-    if (!confirm('Delete all recorded samples?')) return;
+    const msg = session
+      ? 'Delete all recorded samples, both on this Mac AND in your account? This cannot be undone.'
+      : 'Delete all recorded samples on this Mac? This cannot be undone.';
+    if (!confirm(msg)) return;
     await window.slowblink.deleteAllData();
   }
   return (
     <div className="space-y-4">
       <h3 className="font-medium text-sm">Data</h3>
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm">Permanently delete all recorded samples.</p>
+        <p className="text-sm">
+          Permanently delete all recorded samples
+          {session ? ' (local + cloud)' : ''}.
+        </p>
         <Button variant="destructive" onClick={deleteAll}>
           Delete all data
         </Button>

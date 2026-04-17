@@ -1,5 +1,13 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IPC } from '../shared/ipc-channels';
+import { signInWithGoogle } from './auth/oauth';
+import {
+  signOut as authSignOut,
+  getCurrentSession,
+  onSessionChange,
+} from './auth/session';
+import { openCheckout, openPortal } from './billing/checkout';
+import { getPlan, onPlanChange, refreshPlan } from './billing/plan-cache';
 import {
   captureOnce,
   getStatus,
@@ -21,6 +29,12 @@ import {
   setApiKey,
   setSettings,
 } from './settings';
+import {
+  flushNow,
+  getSyncStatus,
+  onSyncStatusChange,
+  retryFailed,
+} from './sync/flusher';
 
 export function registerIpc() {
   ipcMain.handle(IPC.samplesGet, (_e, start: number, end: number) =>
@@ -60,6 +74,23 @@ export function registerIpc() {
   );
 
   ipcMain.handle(IPC.dataDeleteAll, () => deleteAll());
+
+  ipcMain.handle(IPC.authSignIn, () => signInWithGoogle());
+  ipcMain.handle(IPC.authSignOut, () => authSignOut());
+  ipcMain.handle(IPC.authSessionGet, () => getCurrentSession());
+
+  ipcMain.handle(IPC.syncStatusGet, () => getSyncStatus());
+  ipcMain.handle(IPC.syncFlushNow, () => flushNow());
+  ipcMain.handle(IPC.syncRetryFailed, () => retryFailed());
+
+  ipcMain.handle(IPC.billingPlanGet, () => getPlan());
+  ipcMain.handle(IPC.billingCheckout, () => openCheckout());
+  ipcMain.handle(IPC.billingPortal, async () => {
+    await openPortal();
+    // Returning from the portal may have changed the plan; kick a refresh so
+    // UI reflects it shortly after the user is back.
+    setTimeout(() => void refreshPlan(), 3000);
+  });
 }
 
 function broadcast<T>(
@@ -79,4 +110,16 @@ export function broadcastStatusUpdates() {
 
 export function broadcastSettingsUpdates() {
   return broadcast(IPC.settingsUpdate, onSettingsChange);
+}
+
+export function broadcastSessionUpdates() {
+  return broadcast(IPC.authSessionUpdate, onSessionChange);
+}
+
+export function broadcastSyncUpdates() {
+  return broadcast(IPC.syncStatusUpdate, onSyncStatusChange);
+}
+
+export function broadcastPlanUpdates() {
+  return broadcast(IPC.billingPlanUpdate, onPlanChange);
 }

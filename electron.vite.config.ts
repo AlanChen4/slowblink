@@ -4,7 +4,13 @@ import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 
 export default defineConfig({
   main: {
-    envPrefix: ['MAIN_VITE_', 'CLOUDFLARE_', 'OPENAI_'],
+    envPrefix: [
+      'MAIN_VITE_',
+      'CLOUDFLARE_',
+      'OPENAI_',
+      'SUPABASE_',
+      'SLOWBLINK_',
+    ],
     plugins: [externalizeDepsPlugin()],
     build: {
       rollupOptions: {
