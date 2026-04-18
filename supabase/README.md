@@ -12,11 +12,23 @@ pnpm dlx supabase@latest --version
 
 ## Local bootstrap (first time)
 
+**Recommended: use Doppler** (see [`.claude/rules/doppler.md`](../.claude/rules/doppler.md)).
+Once `doppler setup` is linked to the `dev` config, every command below runs
+through `doppler run --` and you never touch `supabase/.env` or root `.env`:
+
+```bash
+doppler run -- pnpm supabase:start             # prints anon + service-role keys
+doppler run -- pnpm supabase:db:reset          # apply migrations + seed
+doppler run -- pnpm supabase:functions:serve   # in a separate shell
+```
+
+**Fallback: plain `.env` files.** If you're not using Doppler:
+
 ```bash
 cp supabase/.env.example supabase/.env    # then fill in values
 pnpm supabase:start                       # prints anon + service-role keys
-pnpm supabase:db:reset                    # apply migrations + seed
-pnpm supabase:functions:serve             # in a separate shell
+pnpm supabase:db:reset
+pnpm supabase:functions:serve
 ```
 
 Paste the printed `SUPABASE_URL` and `SUPABASE_ANON_KEY` into the root `.env`
@@ -35,7 +47,14 @@ Copy the printed `whsec_...` into `supabase/.env` as `STRIPE_WEBHOOK_SECRET`.
 
 ```bash
 supabase link --project-ref <ref>
-supabase secrets set --env-file supabase/.env
+
+# With Doppler (recommended): pipe secrets straight from the prd config.
+doppler secrets download --config prd --no-file --format env \
+  | supabase secrets set --env-file /dev/stdin
+
+# Without Doppler: use the local .env file.
+# supabase secrets set --env-file supabase/.env
+
 pnpm supabase:db:push
 pnpm supabase:functions:deploy
 ```
