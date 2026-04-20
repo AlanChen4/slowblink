@@ -10,5 +10,5 @@
   "project": ["src/**/*.{ts,tsx}"],
   "ignoreExportsUsedInFile": true,
   "ignore": ["src/renderer/components/ui/**"],
-  "ignoreBinaries": ["supabase"]
+  "ignoreBinaries": ["supabase", "stripe"]
 }
