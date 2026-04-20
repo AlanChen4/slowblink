@@ -1,6 +1,6 @@
 import type { Plan } from '../../shared/types';
-import { onSessionChange } from '../auth/session';
-import { cloudAuthHeaders, cloudEndpoint } from '../cloud/endpoint';
+import { getSupabase } from '../auth/client';
+import { getCurrentSession, onSessionChange } from '../auth/session';
 import { createEmitter } from '../emitter';
 import { getPlanCache, setPlanCache } from '../settings';
 
@@ -21,22 +21,32 @@ function setPlan(next: Plan) {
   planEmitter.emit(next);
 }
 
+// Reads the caller's own row from public.profiles through the JS SDK. RLS
+// policy `profiles_self_select` restricts the result to their own id. No
+// dedicated /plan edge function — the tier is already on profiles and the
+// webhook (stripe-webhook) is the source of truth for updates.
 export async function refreshPlan(): Promise<Plan> {
-  const url = cloudEndpoint('plan', 'plan');
-  if (!url) {
+  const sb = getSupabase();
+  const session = getCurrentSession();
+  if (!sb || !session) {
     setPlan(DEFAULT_PLAN);
     return DEFAULT_PLAN;
   }
   try {
-    const res = await fetch(url, { headers: cloudAuthHeaders() });
-    if (!res.ok) {
-      console.log('[billing] plan fetch failed:', res.status);
+    const { data, error } = await sb
+      .from('profiles')
+      .select('tier, renews_at')
+      .eq('id', session.user.id)
+      .maybeSingle();
+    if (error) {
+      console.log('[billing] plan fetch failed:', error.message);
       return current;
     }
-    const data = (await res.json()) as Plan;
+    const tier = data?.tier === 'paid' ? 'paid' : 'free';
+    const parsedRenewsAt = data?.renews_at ? Date.parse(data.renews_at) : NaN;
     setPlan({
-      tier: data.tier === 'paid' ? 'paid' : 'free',
-      renewsAt: typeof data.renewsAt === 'number' ? data.renewsAt : null,
+      tier,
+      renewsAt: Number.isFinite(parsedRenewsAt) ? parsedRenewsAt : null,
     });
     return current;
   } catch (err) {
