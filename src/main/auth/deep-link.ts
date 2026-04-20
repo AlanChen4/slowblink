@@ -17,14 +17,30 @@ async function handleUrl(rawUrl: string) {
   try {
     url = new URL(rawUrl);
   } catch {
+    console.log('[deep-link] not a parseable url, ignoring');
     return;
   }
-  if (url.protocol !== `${PROTOCOL}:`) return;
-  if (url.host !== AUTH_CALLBACK_HOST) return;
+  // Avoid logging the full URL — the search params include the single-use
+  // OAuth code.
+  console.log('[deep-link] received:', `${url.protocol}//${url.host}${url.pathname}`);
+  if (url.protocol !== `${PROTOCOL}:`) {
+    console.log('[deep-link] wrong protocol, ignoring:', url.protocol);
+    return;
+  }
+  if (url.host !== AUTH_CALLBACK_HOST) {
+    console.log('[deep-link] wrong host, ignoring:', url.host);
+    return;
+  }
   const code = url.searchParams.get('code');
-  if (!code) return;
+  if (!code) {
+    const error = url.searchParams.get('error');
+    const description = url.searchParams.get('error_description');
+    console.log('[deep-link] no code in callback:', { error, description });
+    return;
+  }
   try {
     await completeOAuthCallback(code);
+    console.log('[deep-link] session established');
     focusMainWindow();
   } catch (err) {
     console.log('[deep-link] auth callback failed:', err);
