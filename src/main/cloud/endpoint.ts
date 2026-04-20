@@ -19,7 +19,11 @@ export function requireCloudEndpoint(
   supabasePath: string,
 ): string {
   const url = cloudEndpoint(directPath, supabasePath);
-  if (!url) throw new Error('Cloud features are not configured');
+  if (!url) {
+    throw new Error(
+      'Cloud features are not configured — missing SUPABASE_URL (or SLOWBLINK_API_BASE). Set via Doppler (doppler secrets set) or .env.local.',
+    );
+  }
   return url;
 }
 
