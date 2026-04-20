@@ -19,7 +19,7 @@
     "dev": "concurrently -n electron,stripe -c cyan,magenta \"electron-vite dev\" \"pnpm stripe:listen\"",
     "dev:app": "electron-vite dev",
     "stripe:listen": "stripe listen --forward-to http://127.0.0.1:54321/functions/v1/stripe-webhook",
-    "build": "electron-vite build",
+    "build": "electron-vite build && node scripts/check-bundle-secrets.js",
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
     "lint": "biome check",
