@@ -31,7 +31,7 @@
     "package:mac": "electron-vite build && electron-builder --mac",
     "icon:build": "bash scripts/build-icon.sh",
     "postinstall": "electron-rebuild -w better-sqlite3",
-    "db:start": "supabase start",
+    "db:start": "supabase start -x realtime,storage-api,imgproxy,mailpit,logflare,vector,supavisor",
     "db:stop": "supabase stop",
     "db:status": "supabase status",
     "db:reset": "supabase db reset",
