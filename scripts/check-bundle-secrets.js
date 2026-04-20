@@ -30,7 +30,9 @@ const FORBIDDEN_NAMES = [
 ];
 
 // Forbidden *value* patterns — catches the case where a secret value was
-// baked under a renamed key we didn't think to denylist.
+// baked under a renamed key we didn't think to denylist, OR where a BYO
+// user key (OPENAI_*) sneaks into the bundle (it shouldn't: envPrefix in
+// electron.vite.config.ts excludes these, but this catches regressions).
 const FORBIDDEN_PATTERNS = [
   // Supabase new-format service role key (2024+)
   /sb_secret_[A-Za-z0-9_-]{16,}/,
@@ -38,6 +40,9 @@ const FORBIDDEN_PATTERNS = [
   /sk_live_[A-Za-z0-9]{16,}/,
   /rk_live_[A-Za-z0-9]{16,}/,
   /whsec_[A-Za-z0-9]{16,}/,
+  // OpenAI API keys — developer's BYO key must never ship to users.
+  /sk-proj-[A-Za-z0-9_-]{30,}/,
+  /sk-svcacct-[A-Za-z0-9_-]{30,}/,
 ];
 
 function rendererBundles() {

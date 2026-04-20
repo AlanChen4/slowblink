@@ -1,8 +1,15 @@
 import { shell } from 'electron';
+import { env } from '../env';
 import { getSupabase, missingSupabaseEnvVars } from './client';
-import { PROTOCOL } from './deep-link';
 
-const REDIRECT_URL = `${PROTOCOL}://auth/callback`;
+// Supabase redirects the browser here after Google consent. The edge
+// function responds with an HTML page that deep-links into Electron and
+// closes the tab — avoids leaving the user on a "can't reach site" screen
+// for the custom `slowblink://` scheme. See supabase/functions/auth-callback.
+function authCallbackUrl(): string {
+  const base = (env.SUPABASE_URL ?? '').replace(/\/$/, '');
+  return `${base}/functions/v1/auth-callback`;
+}
 
 export async function signInWithGoogle(): Promise<void> {
   const sb = getSupabase();
@@ -15,7 +22,7 @@ export async function signInWithGoogle(): Promise<void> {
   const { data, error } = await sb.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: REDIRECT_URL,
+      redirectTo: authCallbackUrl(),
       skipBrowserRedirect: true,
     },
   });
