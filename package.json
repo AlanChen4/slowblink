@@ -16,7 +16,9 @@
   "homepage": "https://github.com/AlanChen4/slowblink",
   "main": "out/main/index.js",
   "scripts": {
-    "dev": "electron-vite dev",
+    "dev": "concurrently -n electron,stripe -c cyan,magenta \"electron-vite dev\" \"pnpm stripe:listen\"",
+    "dev:app": "electron-vite dev",
+    "stripe:listen": "stripe listen --forward-to http://127.0.0.1:54321/functions/v1/stripe-webhook",
     "build": "electron-vite build",
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
@@ -66,6 +68,7 @@
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "concurrently": "^9.2.1",
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0",
     "electron-vite": "^2.3.0",

@@ -36,12 +36,17 @@ Paste the printed `SUPABASE_URL` and `SUPABASE_ANON_KEY` into the root `.env`
 
 ## Stripe webhooks (local)
 
+`pnpm dev` runs the Stripe CLI listener alongside Electron. If you just want
+the listener (e.g. paired with a standalone `pnpm dev:app`):
+
 ```bash
-stripe listen --forward-to http://127.0.0.1:54321/functions/v1/stripe-webhook
-stripe trigger customer.subscription.updated
+pnpm stripe:listen                              # forwards to local stripe-webhook
+stripe trigger customer.subscription.updated    # in another shell
 ```
 
-Copy the printed `whsec_...` into `supabase/.env` as `STRIPE_WEBHOOK_SECRET`.
+First run only: copy the printed `whsec_...` into Doppler (or
+`supabase/.env`) as `STRIPE_WEBHOOK_SECRET`. The Stripe CLI reuses the same
+secret across runs, so you set it once.
 
 ## Remote bootstrap
 
