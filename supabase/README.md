@@ -17,18 +17,18 @@ Once `doppler setup` is linked to the `dev` config, every command below runs
 through `doppler run --` and you never touch `supabase/.env` or root `.env`:
 
 ```bash
-doppler run -- pnpm supabase:start             # prints anon + service-role keys
-doppler run -- pnpm supabase:db:reset          # apply migrations + seed
-doppler run -- pnpm supabase:functions:serve   # in a separate shell
+doppler run -- pnpm db:start             # prints anon + service-role keys
+doppler run -- pnpm db:reset             # apply migrations + seed
+doppler run -- pnpm db:functions:serve   # in a separate shell
 ```
 
 **Fallback: plain `.env` files.** If you're not using Doppler:
 
 ```bash
 cp supabase/.env.example supabase/.env    # then fill in values
-pnpm supabase:start                       # prints anon + service-role keys
-pnpm supabase:db:reset
-pnpm supabase:functions:serve
+pnpm db:start                             # prints anon + service-role keys
+pnpm db:reset
+pnpm db:functions:serve
 ```
 
 Paste the printed `SUPABASE_URL` and `SUPABASE_ANON_KEY` into the root `.env`
@@ -60,8 +60,8 @@ doppler secrets download --config prd --no-file --format env \
 # Without Doppler: use the local .env file.
 # supabase secrets set --env-file supabase/.env
 
-pnpm supabase:db:push
-pnpm supabase:functions:deploy
+pnpm db:push
+pnpm db:functions:deploy
 ```
 
 Then in the Stripe Dashboard → Developers → Webhooks, add an endpoint at

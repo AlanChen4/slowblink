@@ -9,7 +9,7 @@ to install another tool.
 ## How agents should decide which mode to use
 
 Before running a command that needs secrets (`pnpm dev`,
-`pnpm supabase:start`, `pnpm supabase:functions:serve`, etc.), check which
+`pnpm db:start`, `pnpm db:functions:serve`, etc.), check which
 mode this checkout is in:
 
 1. **`.doppler.yaml` present at repo root** → the user has opted into Doppler.
@@ -43,9 +43,9 @@ Prefix every command that needs secrets with `doppler run --`:
 
 ```bash
 doppler run -- pnpm dev                        # Electron app
-doppler run -- pnpm supabase:start             # local Postgres + Studio
-doppler run -- pnpm supabase:functions:serve   # edge functions
-doppler run -- pnpm supabase:db:reset          # applies migrations
+doppler run -- pnpm db:start             # local Postgres + Studio
+doppler run -- pnpm db:functions:serve   # edge functions
+doppler run -- pnpm db:reset             # applies migrations
 ```
 
 `doppler run` injects Doppler secrets as env vars into the subprocess. The
@@ -53,7 +53,7 @@ Supabase CLI picks up `SUPABASE_AUTH_GOOGLE_CLIENT_ID` et al. from
 `config.toml`'s `env(...)` refs, and edge functions see them via
 `Deno.env.get()`.
 
-**Note on `supabase:functions:serve`**: the script passes
+**Note on `db:functions:serve`**: the script passes
 `--env-file supabase/.env` for plain-env users. The easiest path for Doppler
 users is to prepopulate that file once:
 
