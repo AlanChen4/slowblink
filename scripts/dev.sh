@@ -7,6 +7,24 @@
 
 set -euo pipefail
 
+# Auto-wrap in `doppler run` when the project uses Doppler. Keeps `pnpm dev`
+# as the single entry point regardless of whether the user remembers the
+# prefix. Skipped when already inside a doppler-run shell (DOPPLER_CONFIG
+# set), when Doppler is intentionally disabled via NO_DOPPLER=1, or when
+# the CLI/config isn't available (plain `.env.local` users).
+if [[ -z "${DOPPLER_CONFIG:-}" ]] \
+   && [[ -z "${NO_DOPPLER:-}" ]] \
+   && [[ -f .doppler.yaml ]] \
+   && command -v doppler >/dev/null 2>&1; then
+  # Read the config name out of the committed yaml directly — works on
+  # fresh checkouts and worktrees without requiring `doppler setup`.
+  doppler_config=$(awk '/^[[:space:]]+config:/ {print $2; exit}' .doppler.yaml)
+  if [[ -n "${doppler_config}" ]]; then
+    echo "→ re-exec under doppler run --config ${doppler_config} (set NO_DOPPLER=1 to skip)"
+    exec doppler run --config "${doppler_config}" -- bash "$0"
+  fi
+fi
+
 echo "→ booting Supabase stack (idempotent)"
 pnpm db:start
 
