@@ -16,7 +16,7 @@
   "homepage": "https://github.com/AlanChen4/slowblink",
   "main": "out/main/index.js",
   "scripts": {
-    "dev": "concurrently -n electron,stripe -c cyan,magenta \"electron-vite dev\" \"pnpm stripe:listen\"",
+    "dev": "concurrently -n electron,stripe,fns -c cyan,magenta,yellow \"electron-vite dev\" \"pnpm stripe:listen\" \"pnpm db:functions:serve\"",
     "dev:app": "electron-vite dev",
     "stripe:listen": "stripe listen --forward-to http://127.0.0.1:54321/functions/v1/stripe-webhook",
     "build": "electron-vite build && node scripts/check-bundle-secrets.js",
@@ -37,7 +37,8 @@
     "db:reset": "supabase db reset",
     "db:push": "supabase db push",
     "db:diff": "supabase db diff",
-    "db:functions:serve": "supabase functions serve --env-file supabase/.env",
+    "db:functions:env": "bash scripts/setup-functions-env.sh",
+    "db:functions:serve": "pnpm db:functions:env && supabase functions serve --env-file supabase/.env",
     "db:functions:deploy": "supabase functions deploy"
   },
   "dependencies": {
