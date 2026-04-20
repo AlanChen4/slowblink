@@ -1,0 +1,7 @@
+# Pre-committed Doppler defaults. `doppler setup` reads this so every
+# contributor who opts in gets the same project/config without manual picks.
+# See .claude/rules/doppler.md. Doppler is optional — if you don't install
+# it, use .env.local + supabase/.env instead.
+setup:
+  project: slowblink
+  config: dev
