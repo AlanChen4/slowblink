@@ -24,5 +24,9 @@ export const env = createEnv({
     SUPABASE_ANON_KEY: z.string().min(1).optional(),
     SLOWBLINK_API_BASE: z.url().optional(),
   },
-  runtimeEnv: { ...import.meta.env },
+  // `import.meta.env` is baked in at build time from dotenv files (.env,
+  // .env.local) filtered by electron-vite's `envPrefix`. `process.env` is
+  // what Doppler / the shell inject at runtime. Merge both so either path
+  // works and runtime values win over build-time defaults.
+  runtimeEnv: { ...import.meta.env, ...process.env },
 });
