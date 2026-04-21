@@ -1,5 +1,6 @@
 import type { CaptureStatus } from '@shared/types';
 import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 export function PermissionsSection({
@@ -19,7 +20,6 @@ export function PermissionsSection({
 
   return (
     <div className="space-y-4">
-      <h3 className="font-medium text-sm">Permissions</h3>
       <PermissionRow
         label="Screen recording"
         granted={status?.hasPermission}
@@ -58,20 +58,22 @@ export function PermissionRow({
 }) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <div className="min-w-0 space-y-0.5">
-        <p className="text-sm">
-          {label}:{' '}
-          <span className={granted ? 'text-green-600' : 'text-red-600'}>
-            {granted ? 'granted' : 'not granted'}
-          </span>
-        </p>
+      <div className="min-w-0 space-y-1">
+        <div className="flex items-center gap-2 text-sm">
+          <span>{label}</span>
+          <Badge variant={granted ? 'default' : 'destructive'}>
+            {granted ? 'Granted' : 'Not granted'}
+          </Badge>
+        </div>
         {hint && <p className="text-muted-foreground text-xs">{hint}</p>}
       </div>
       <div className="flex shrink-0 items-center gap-2">
-        <Button variant="outline" disabled={granted} onClick={onRequest}>
-          {granted ? 'Already granted' : requestLabel}
-        </Button>
-        <Button variant="outline" onClick={onOpenSettings}>
+        {!granted && (
+          <Button variant="secondary" onClick={onRequest}>
+            {requestLabel}
+          </Button>
+        )}
+        <Button variant="secondary" onClick={onOpenSettings}>
           Open Settings
         </Button>
       </div>

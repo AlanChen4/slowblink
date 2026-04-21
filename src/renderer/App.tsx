@@ -10,12 +10,15 @@ import {
   FlaskConical,
   Monitor,
   Moon,
+  Pause,
+  Play,
   Settings,
   Sun,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
@@ -105,10 +108,11 @@ export default function App() {
           <SidebarTrigger />
         </div>
         <div
-          className="flex items-center pt-2 pr-6 text-sm"
+          className="flex items-center gap-2 pt-2 pr-6 text-sm"
           style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         >
           <StatusBadge status={status} sync={sync} settings={settings} />
+          <PauseButton paused={settings.paused} />
         </div>
       </div>
       <Sidebar collapsible="icon" variant="inset">
@@ -145,6 +149,9 @@ export default function App() {
               </SidebarMenuItem>
             )}
             <SidebarMenuItem>
+              <ThemeToggle />
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={view === 'settings'}
                 tooltip="Settings"
@@ -153,9 +160,6 @@ export default function App() {
                 <Settings />
                 <span>Settings</span>
               </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <ThemeToggle />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
@@ -179,6 +183,24 @@ export default function App() {
         </main>
       </div>
     </SidebarProvider>
+  );
+}
+
+function PauseButton({ paused }: { paused: boolean }) {
+  function toggle() {
+    return paused ? window.slowblink.resume() : window.slowblink.pause();
+  }
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="size-7"
+      onClick={toggle}
+      aria-label={paused ? 'Resume capture' : 'Pause capture'}
+      title={paused ? 'Resume capture' : 'Pause capture'}
+    >
+      {paused ? <Play className="size-4" /> : <Pause className="size-4" />}
+    </Button>
   );
 }
 

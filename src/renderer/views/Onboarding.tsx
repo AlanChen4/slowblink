@@ -9,6 +9,7 @@ import type {
 import { Check, Cloud, HardDrive, KeyRound, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PermissionRow } from '@/views/settings-sections/PermissionsSection';
@@ -335,7 +336,8 @@ function SignInStep({ session, onAdvance, onBack }: StepPanelProps) {
       }
     >
       <div className="space-y-3">
-        <Button variant="outline" onClick={signIn} className="w-full">
+        <Button variant="outline" onClick={signIn} className="w-full gap-2">
+          <GoogleIcon className="size-4" />
           Continue with Google
         </Button>
         {launched && !session && (

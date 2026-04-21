@@ -1,12 +1,20 @@
 import type { AuthSession, Plan, Settings, SyncStatus } from '@shared/types';
 import { toast } from 'sonner';
+import { Badge, type BadgeVariant } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 
-function formatState(s: SyncStatus): string {
-  if (!s.enabled) return 'disabled';
-  if (s.state === 'idle' && s.lastFlushTs)
-    return `synced ${new Date(s.lastFlushTs).toLocaleTimeString()}`;
-  return s.state;
+function stateBadge(s: SyncStatus): { label: string; variant: BadgeVariant } {
+  if (!s.enabled) return { label: 'Disabled', variant: 'secondary' };
+  if (s.state === 'error') return { label: 'Error', variant: 'destructive' };
+  if (s.state === 'offline') return { label: 'Offline', variant: 'secondary' };
+  if (s.state === 'idle' && s.lastFlushTs) {
+    return {
+      label: `Synced ${new Date(s.lastFlushTs).toLocaleTimeString()}`,
+      variant: 'default',
+    };
+  }
+  return { label: s.state, variant: 'secondary' };
 }
 
 export function SyncSection({
@@ -47,36 +55,34 @@ export function SyncSection({
     lastError: null,
   };
   const isCloud = settings.storageMode === 'cloud-sync';
+  const badge = stateBadge(counts);
 
   return (
     <div className="space-y-4">
-      <h3 className="font-medium text-sm">Cloud sync</h3>
       <div className="flex items-center justify-between gap-4">
-        <div className="space-y-0.5">
-          <p className="text-sm">
-            {isCloud ? 'Syncing to your account' : 'Local only'}
-          </p>
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-sm">
+            <span>{isCloud ? 'Syncing to your account' : 'Local only'}</span>
+            <Badge variant={badge.variant}>{badge.label}</Badge>
+          </div>
           <p className="text-muted-foreground text-xs">
             Retention: {retention}. Pending {counts.pending} · failed{' '}
-            {counts.failed} · state: {formatState(counts)}
+            {counts.failed}
             {counts.lastError ? ` · ${counts.lastError}` : ''}
           </p>
         </div>
-        <div className="flex shrink-0 gap-2">
-          <Button variant="outline" onClick={() => toggle(!isCloud)}>
-            {isCloud ? 'Disable' : 'Enable'}
-          </Button>
+        <div className="flex shrink-0 items-center gap-3">
           {isCloud && (
             <>
               <Button
-                variant="outline"
+                variant="secondary"
                 onClick={() => window.slowblink.syncFlushNow()}
               >
                 Sync now
               </Button>
               {counts.failed > 0 && (
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   onClick={() => window.slowblink.syncRetryFailed()}
                 >
                   Retry failed
@@ -84,6 +90,11 @@ export function SyncSection({
               )}
             </>
           )}
+          <Switch
+            checked={isCloud}
+            onCheckedChange={toggle}
+            aria-label="Cloud sync"
+          />
         </div>
       </div>
     </div>
