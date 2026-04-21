@@ -22,7 +22,10 @@ async function handleUrl(rawUrl: string) {
   }
   // Avoid logging the full URL — the search params include the single-use
   // OAuth code.
-  console.log('[deep-link] received:', `${url.protocol}//${url.host}${url.pathname}`);
+  console.log(
+    '[deep-link] received:',
+    `${url.protocol}//${url.host}${url.pathname}`,
+  );
   if (url.protocol !== `${PROTOCOL}:`) {
     console.log('[deep-link] wrong protocol, ignoring:', url.protocol);
     return;
