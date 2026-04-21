@@ -7,7 +7,7 @@ import {
   onSessionChange,
 } from './auth/session';
 import { openCheckout, openPortal } from './billing/checkout';
-import { getPlan, onPlanChange, refreshPlan } from './billing/plan-cache';
+import { getPlan, onPlanChange } from './billing/plan-cache';
 import {
   captureOnce,
   getStatus,
@@ -85,12 +85,7 @@ export function registerIpc() {
 
   ipcMain.handle(IPC.billingPlanGet, () => getPlan());
   ipcMain.handle(IPC.billingCheckout, () => openCheckout());
-  ipcMain.handle(IPC.billingPortal, async () => {
-    await openPortal();
-    // Returning from the portal may have changed the plan; kick a refresh so
-    // UI reflects it shortly after the user is back.
-    setTimeout(() => void refreshPlan(), 3000);
-  });
+  ipcMain.handle(IPC.billingPortal, () => openPortal());
 }
 
 function broadcast<T>(
