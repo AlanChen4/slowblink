@@ -5,7 +5,11 @@
 import Stripe from 'stripe';
 import { requireEnv } from './env.ts';
 
-export const STRIPE_API_VERSION = '2024-11-20' as const;
+// Stripe API versions since late-2024 carry a release-label suffix
+// (`.acacia` for 2024-11-20, `.basil` for the 2025-03-31 release, etc.).
+// A bare `YYYY-MM-DD` string is rejected at runtime as "Invalid Stripe
+// API version" even though TypeScript accepts it.
+export const STRIPE_API_VERSION = '2024-11-20.acacia' as const;
 
 export function getStripe(): Stripe {
   return new Stripe(requireEnv('STRIPE_SECRET_KEY'), { apiVersion: STRIPE_API_VERSION });
