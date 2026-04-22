@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { createOpenAI } from '@ai-sdk/openai';
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
@@ -57,7 +58,14 @@ async function buildModel(apiKey: string, modelId: string) {
 }
 
 async function createModel(apiKey: string, modelId: string): Promise<Model> {
-  const cacheKey = `${apiKey}\u0000${modelId}`;
+  // Hash the key before using it as a Map key so the plaintext stays out of
+  // heap dumps, logs, or any future caching layer. 16 hex chars is ample
+  // collision-resistance for a per-process cache.
+  const keyHash = createHash('sha256')
+    .update(apiKey)
+    .digest('hex')
+    .slice(0, 16);
+  const cacheKey = `${keyHash}\u0000${modelId}`;
   const cached = modelCache.get(cacheKey);
   if (cached) return cached;
   const model = await buildModel(apiKey, modelId);

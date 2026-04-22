@@ -46,7 +46,18 @@ export async function loadSessionFromDisk() {
     return;
   }
   try {
-    const parsed = JSON.parse(json) as Session;
+    const parsed = JSON.parse(json) as Partial<Session> | null;
+    if (
+      !parsed ||
+      typeof parsed.access_token !== 'string' ||
+      typeof parsed.refresh_token !== 'string' ||
+      !parsed.access_token ||
+      !parsed.refresh_token
+    ) {
+      console.log('[auth] stored session failed shape check, clearing');
+      persist(null);
+      return;
+    }
     const sb = getSupabase();
     if (!sb) {
       sessionEmitter.emit(null);
@@ -76,7 +87,8 @@ async function refreshSession() {
     refresh_token: currentSession.refresh_token,
   });
   if (error) {
-    console.log('[auth] refresh failed:', error.message);
+    console.log('[auth] refresh failed, clearing session:', error.message);
+    persist(null);
     return;
   }
   persist(data.session ?? null);

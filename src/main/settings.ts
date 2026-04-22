@@ -49,6 +49,12 @@ export const onSettingsChange = settingsEmitter.on;
 
 let store: StoreInstance | null = null;
 
+// Cache of the decrypted API key keyed by the ciphertext on disk. Keying by
+// ciphertext means any path that rewrites `apiKeyEncrypted` (even ones we
+// don't fully control, e.g. electron-store migrations) forces a re-decrypt
+// on the next read instead of returning a stale plaintext.
+let decryptedKeyCache: { enc: string; key: string } | null = null;
+
 export async function initSettings(): Promise<void> {
   if (store) return;
   const { default: Store } = await import('electron-store');
@@ -94,7 +100,6 @@ export function getSettings(): Settings {
     hasApiKey: hasSaved || hasEnv,
     apiKeySource: apiKeySource(hasSaved, hasEnv),
     apiKeyHint: activeKey ? maskKey(activeKey) : null,
-    apiKey: activeKey,
     storageMode: s.get('storageMode'),
     aiMode: effectiveAiMode(s.get('aiMode'), getCurrentSession(), getPlan()),
     onboardingComplete: s.get('onboardingComplete'),
@@ -128,20 +133,26 @@ export function setApiKey(key: string): void {
   }
   const enc = safeStorage.encryptString(key).toString('base64');
   requireStore().set('apiKeyEncrypted', enc);
+  decryptedKeyCache = { enc, key };
   settingsEmitter.emit(getSettings());
 }
 
 export function clearApiKey(): void {
   requireStore().set('apiKeyEncrypted', null);
+  decryptedKeyCache = null;
   settingsEmitter.emit(getSettings());
 }
 
 export function getApiKey(): string | null {
   const enc = requireStore().get('apiKeyEncrypted');
   if (enc) {
+    if (decryptedKeyCache?.enc === enc) return decryptedKeyCache.key;
     try {
-      return safeStorage.decryptString(Buffer.from(enc, 'base64'));
+      const key = safeStorage.decryptString(Buffer.from(enc, 'base64'));
+      decryptedKeyCache = { enc, key };
+      return key;
     } catch {
+      decryptedKeyCache = null;
       // fall through to env
     }
   }

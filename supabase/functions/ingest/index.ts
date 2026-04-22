@@ -21,6 +21,10 @@ const DAILY_ROW_CAP = 20_000;
 const FREE_TIER_RETENTION_DAYS = 7;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+// Thrown by the `ingest_samples_with_cap` Postgres function when accepting
+// the batch would push the user past DAILY_ROW_CAP in the last 24h.
+const CAP_ERR_MESSAGE = 'daily_row_cap_exceeded';
+
 interface SamplePayload {
   client_id: string;
   ts: string;
@@ -69,23 +73,6 @@ function splitValidRows(userId: string, samples: SamplePayload[]): SplitRows {
     valid.push({ ...sample, user_id: userId });
   }
   return { valid, rejected };
-}
-
-async function enforceDailyCap(
-  admin: SupabaseClient,
-  userId: string,
-  batchSize: number,
-): Promise<void> {
-  const since = new Date(Date.now() - DAY_MS).toISOString();
-  const { count, error } = await admin
-    .from('samples')
-    .select('*', { count: 'exact', head: true })
-    .eq('user_id', userId)
-    .gte('inserted_at', since);
-  if (error) throw new Error(`daily cap check failed: ${error.message}`);
-  if ((count ?? 0) + batchSize > DAILY_ROW_CAP) {
-    throw new RateLimitError('daily_row_cap_exceeded');
-  }
 }
 
 async function trimFreeTierSamples(admin: SupabaseClient, userId: string): Promise<void> {
@@ -148,15 +135,27 @@ Deno.serve(
       .single();
     const tier = (profile?.tier ?? TIERS.FREE) as Tier;
 
-    await enforceDailyCap(admin, user.id, valid.length);
+    // Strip user_id before handing off — the RPC re-injects it from p_user_id
+    // so the caller can't impersonate another user by crafting the payload.
+    const rowsPayload = valid.map(({ user_id: _ignored, ...row }) => row);
+    const { data: inserted, error } = await admin.rpc('ingest_samples_with_cap', {
+      p_user_id: user.id,
+      p_rows: rowsPayload,
+      p_cap: DAILY_ROW_CAP,
+    });
+    if (error) {
+      if (error.message.includes(CAP_ERR_MESSAGE)) {
+        throw new RateLimitError(CAP_ERR_MESSAGE);
+      }
+      throw new Error(`ingest upsert failed: ${error.message}`);
+    }
 
-    const { data: inserted, error } = await admin
-      .from('samples')
-      .upsert(valid, { onConflict: 'user_id,client_id', ignoreDuplicates: true })
-      .select('id, client_id');
-    if (error) throw new Error(`ingest upsert failed: ${error.message}`);
-
-    const accepted = await resolveServerIds(admin, user.id, valid, inserted ?? []);
+    const accepted = await resolveServerIds(
+      admin,
+      user.id,
+      valid,
+      (inserted ?? []) as Array<{ id: string; client_id: string }>,
+    );
 
     // Fire-and-forget retention trim for free users — doesn't block the response.
     if (tier === TIERS.FREE) {

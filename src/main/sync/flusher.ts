@@ -29,6 +29,9 @@ const IDLE_FLUSH_MS = 5_000;
 const BATCH_ROW_THRESHOLD = 50;
 const MAX_BATCH_SIZE = 200;
 const MAX_ATTEMPTS = 8;
+// Indexed by retry attempt; `backoffFor` clamps beyond the last entry, so
+// attempts 4..MAX_ATTEMPTS-1 all wait 1h. Extend this array to change the
+// ramp — raising MAX_ATTEMPTS alone just adds more 1h retries.
 const BACKOFF_LADDER_MS = [
   60_000,
   5 * 60_000,

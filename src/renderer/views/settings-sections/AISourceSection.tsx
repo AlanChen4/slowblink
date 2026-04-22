@@ -108,19 +108,20 @@ function RadioOption({
 }
 
 function ApiKey({ settings }: { settings: Settings }) {
-  const [apiKey, setApiKey] = useState(settings.apiKey ?? '');
+  const [apiKey, setApiKey] = useState('');
 
   async function saveKey() {
-    if (!apiKey || apiKey === settings.apiKey) return;
+    if (!apiKey) return;
     await window.slowblink.setApiKey(apiKey);
+    setApiKey('');
   }
 
   async function clearKey() {
     await window.slowblink.clearApiKey();
   }
 
-  const unchanged = apiKey === (settings.apiKey ?? '');
   const missing = settings.apiKeySource === null;
+  const placeholder = settings.apiKeyHint ?? 'sk-...';
 
   return (
     <div className="flex items-center justify-between gap-4">
@@ -136,14 +137,11 @@ function ApiKey({ settings }: { settings: Settings }) {
           type="password"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
+          placeholder={placeholder}
           error={missing}
           className="w-64"
         />
-        <Button
-          variant="outline"
-          onClick={saveKey}
-          disabled={!apiKey || unchanged}
-        >
+        <Button variant="outline" onClick={saveKey} disabled={!apiKey}>
           Save
         </Button>
         {settings.apiKeySource === 'saved' && (

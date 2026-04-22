@@ -35,14 +35,13 @@ export interface Settings {
   hasApiKey: boolean;
   apiKeySource: ApiKeySource;
   apiKeyHint: string | null;
-  apiKey: string | null;
   storageMode: StorageMode;
   aiMode: AIMode;
   onboardingComplete: boolean;
 }
 
 export type SettingsPatch = Partial<
-  Omit<Settings, 'hasApiKey' | 'apiKeySource' | 'apiKeyHint' | 'apiKey'>
+  Omit<Settings, 'hasApiKey' | 'apiKeySource' | 'apiKeyHint'>
 >;
 
 export interface CaptureStatus {

@@ -86,6 +86,10 @@ Deno.serve((req) => {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': 'no-store',
+      // The page only loads the inline script + inline styles below and has
+      // no external fetches. Lock the policy down to match.
+      'content-security-policy':
+        "default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
     },
   });
 });

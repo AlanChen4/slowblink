@@ -40,10 +40,16 @@ async function getOrCreateCustomer(
   if (error) throw new Error(`profile lookup failed: ${error.message}`);
   if (profile?.stripe_customer_id) return profile.stripe_customer_id;
 
-  const customer = await stripe.customers.create({
-    email,
-    metadata: { supabase_user_id: userId },
-  });
+  // Use the stable user id as the idempotency key so a retried request after
+  // a timeout doesn't create a duplicate customer. Stripe caches by key for
+  // 24h; the prefix keeps the namespace distinct from any future usage.
+  const customer = await stripe.customers.create(
+    {
+      email,
+      metadata: { supabase_user_id: userId },
+    },
+    { idempotencyKey: `customer:${userId}` },
+  );
 
   const { error: updateError } = await admin
     .from('profiles')

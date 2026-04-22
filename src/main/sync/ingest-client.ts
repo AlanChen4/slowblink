@@ -1,3 +1,4 @@
+import { net } from 'electron';
 import { cloudAuthHeaders, requireCloudEndpoint } from '../cloud/endpoint';
 import type { PendingSampleRow } from '../db';
 
@@ -57,7 +58,7 @@ async function sendRequest(rows: PendingSampleRow[]): Promise<Response> {
     throw new AuthRequiredError('No access token');
   }
   try {
-    return await fetch(requireCloudEndpoint('ingest', 'ingest'), {
+    return await net.fetch(requireCloudEndpoint('ingest', 'ingest'), {
       method: 'POST',
       headers: { ...headers, 'content-type': 'application/json' },
       body: JSON.stringify({ samples: rows.map(rowToPayload) }),

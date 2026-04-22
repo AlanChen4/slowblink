@@ -123,11 +123,19 @@ function parseStructuredOutput(raw: unknown): {
   ) {
     throw new Error('malformed structured output');
   }
+  // Structured Outputs should enforce the enum, but if the model ever returns
+  // an out-of-vocab category we coerce to 'other' so the cloud row stays
+  // consistent with what local SQLite would accept.
+  let category = parsed.category;
+  if (!(CATEGORIES as readonly string[]).includes(category)) {
+    console.warn('ai-summarize: unknown category from model, coercing to other:', category);
+    category = 'other';
+  }
   return {
     confidence: parsed.confidence,
     app: typeof parsed.app === 'string' ? parsed.app : null,
     activity: parsed.activity,
-    category: parsed.category,
+    category,
   };
 }
 

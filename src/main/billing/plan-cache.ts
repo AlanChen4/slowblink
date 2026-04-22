@@ -5,6 +5,7 @@ import { createEmitter } from '../emitter';
 import { getPlanCache, setPlanCache } from '../settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
+const PLAN_FETCH_TIMEOUT_MS = 5_000;
 
 const planEmitter = createEmitter<Plan>();
 export const onPlanChange = planEmitter.on;
@@ -37,6 +38,7 @@ export async function refreshPlan(): Promise<Plan> {
       .from('profiles')
       .select('tier, renews_at')
       .eq('id', session.user.id)
+      .abortSignal(AbortSignal.timeout(PLAN_FETCH_TIMEOUT_MS))
       .maybeSingle();
     if (error) {
       console.log('[billing] plan fetch failed:', error.message);

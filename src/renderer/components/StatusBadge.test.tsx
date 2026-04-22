@@ -22,7 +22,6 @@ const BASE_SETTINGS: Settings = {
   hasApiKey: false,
   apiKeySource: null,
   apiKeyHint: null,
-  apiKey: null,
   storageMode: 'local',
   aiMode: 'byo-key',
   onboardingComplete: true,
