@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
-import type { CaptureStatus } from '../shared/types';
+import type { CaptureStatus, Settings } from '../shared/types';
 import { registerProtocolHandler } from './auth/deep-link';
 import { loadSessionFromDisk, onSessionChange } from './auth/session';
 import { initPlanCache, onPlanChange } from './billing/plan-cache';
@@ -24,6 +24,7 @@ import {
 import {
   getSettings,
   initSettings,
+  onSettingsChange,
   refreshSettings,
   setSettings,
 } from './settings';
@@ -75,29 +76,29 @@ function createWindow() {
   }
 }
 
-function statusLabel(s: CaptureStatus): string {
-  if (s.paused) return 'paused';
-  if (s.running) return 'running';
+function statusLabel(status: CaptureStatus, settings: Settings): string {
+  if (settings.paused) return 'paused';
+  if (status.running) return 'running';
   return 'idle';
 }
 
-function trayTitle(s: CaptureStatus): string {
-  if (!s.hasPermission || !s.hasApiKey) return '●!';
-  if (s.paused) return '◌';
+function trayTitle(status: CaptureStatus, settings: Settings): string {
+  if (!status.hasPermission || !status.hasApiKey) return '●!';
+  if (settings.paused) return '◌';
   return '●';
 }
 
-function buildTrayMenu(status: CaptureStatus) {
+function buildTrayMenu(status: CaptureStatus, settings: Settings) {
   return Menu.buildFromTemplate([
     {
-      label: `slowblink — ${statusLabel(status)}`,
+      label: `slowblink — ${statusLabel(status, settings)}`,
       enabled: false,
     },
     { type: 'separator' },
     {
-      label: status.paused ? 'Resume capture' : 'Pause capture',
+      label: settings.paused ? 'Resume capture' : 'Pause capture',
       click: () => {
-        setSettings({ paused: !status.paused });
+        setSettings({ paused: !settings.paused });
         refreshTray();
       },
     },
@@ -109,10 +110,11 @@ function buildTrayMenu(status: CaptureStatus) {
 
 function refreshTray() {
   if (!tray) return;
-  const s = getStatus();
-  tray.setTitle(trayTitle(s));
-  tray.setToolTip(`slowblink — ${statusLabel(s)}`);
-  tray.setContextMenu(buildTrayMenu(s));
+  const status = getStatus();
+  const settings = getSettings();
+  tray.setTitle(trayTitle(status, settings));
+  tray.setToolTip(`slowblink — ${statusLabel(status, settings)}`);
+  tray.setContextMenu(buildTrayMenu(status, settings));
 }
 
 const disposers: (() => void)[] = [];
@@ -146,6 +148,7 @@ app.whenReady().then(async () => {
   tray.on('click', () => createWindow());
 
   disposers.push(onStatusChange(() => refreshTray()));
+  disposers.push(onSettingsChange(() => refreshTray()));
 
   const settings = getSettings();
   const canCapture = settings.aiMode === 'cloud-ai' || settings.hasApiKey;

@@ -46,7 +46,6 @@ export type SettingsPatch = Partial<
 
 export interface CaptureStatus {
   running: boolean;
-  paused: boolean;
   lastError: string | null;
   lastCaptureTs: number | null;
   hasPermission: boolean;
