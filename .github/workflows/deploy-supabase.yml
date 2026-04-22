@@ -1,0 +1,32 @@
+name: Deploy Supabase (Production)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "supabase/migrations/**"
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.PRODUCTION_DB_PASSWORD }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: 2.93.0
+
+      - name: Link to production project
+        run: supabase link --project-ref ${{ secrets.PRODUCTION_PROJECT_ID }}
+
+      - name: Preview pending migrations (dry run)
+        run: supabase db push --dry-run
+
+      - name: Push migrations to production
+        run: supabase db push
