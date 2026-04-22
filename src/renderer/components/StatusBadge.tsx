@@ -50,14 +50,13 @@ export function StatusBadge({
   onNavigateToApiKey,
 }: {
   status: CaptureStatus | null;
-  settings: Settings | null;
+  settings: Settings;
   sync: SyncStatus | null;
   issues: string[];
   onNavigateToApiKey?: () => void;
 }) {
   if (!status) return null;
-  const paused = settings?.paused ?? false;
-  const color = statusColor(status, paused, issues.length > 0);
+  const color = statusColor(status, settings.paused, issues.length > 0);
   const syncPart = sync ? syncLabel(sync) : null;
   const textColor =
     issues.length > 0
@@ -69,7 +68,7 @@ export function StatusBadge({
       {issues.length > 0 ? (
         <IssueList issues={issues} onNavigateToApiKey={onNavigateToApiKey} />
       ) : (
-        statusLabel(status, paused)
+        statusLabel(status, settings.paused)
       )}
       {syncPart && <span className="text-xs">· {syncPart}</span>}
     </div>

@@ -7,7 +7,6 @@ afterEach(cleanup);
 
 const BASE_STATUS: CaptureStatus = {
   running: true,
-  paused: false,
   lastError: null,
   lastCaptureTs: null,
   hasPermission: true,
@@ -27,23 +26,17 @@ const BASE_SETTINGS: Settings = {
   onboardingComplete: true,
 };
 
-// The bug: `status.paused` and `settings.paused` travel to the renderer on two
-// separate IPC channels (`statusUpdate`, `settingsUpdate`). The PauseButton
-// reads `settings.paused`, the StatusBadge reads `status.paused`. During a
-// pause/resume transition the two channels can arrive out of sync, and the
-// renderer shows an inconsistent state — e.g. badge says "Running" while the
-// button offers Resume.
-//
-// Invariant: there is one source of truth for paused. `Settings.paused` is the
-// persisted user intent and should drive both UI surfaces.
+// Regression guard: paused used to live on both `CaptureStatus` and `Settings`
+// and arrive on two separate IPC channels, so the badge (reading status) and
+// the pause button (reading settings) could briefly disagree mid-transition.
+// Settings.paused is now the single source of truth; these tests pin that.
 describe('StatusBadge pause-state source of truth', () => {
-  test('shows "Paused" when settings.paused=true, even while status.paused is stale', () => {
-    const staleStatus: CaptureStatus = { ...BASE_STATUS, paused: false };
+  test('shows "Paused" when settings.paused=true', () => {
     const freshSettings: Settings = { ...BASE_SETTINGS, paused: true };
 
     render(
       <StatusBadge
-        status={staleStatus}
+        status={BASE_STATUS}
         settings={freshSettings}
         sync={null}
         issues={[]}
@@ -53,14 +46,11 @@ describe('StatusBadge pause-state source of truth', () => {
     expect(screen.getByText('Paused')).toBeDefined();
   });
 
-  test('shows live state when settings.paused=false, even while status.paused is stale', () => {
-    const staleStatus: CaptureStatus = { ...BASE_STATUS, paused: true };
-    const freshSettings: Settings = { ...BASE_SETTINGS, paused: false };
-
+  test('shows live state when settings.paused=false', () => {
     render(
       <StatusBadge
-        status={staleStatus}
-        settings={freshSettings}
+        status={BASE_STATUS}
+        settings={BASE_SETTINGS}
         sync={null}
         issues={[]}
       />,

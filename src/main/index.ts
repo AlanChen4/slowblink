@@ -76,7 +76,7 @@ function createWindow() {
   }
 }
 
-function statusLabel(status: CaptureStatus, settings: Settings): string {
+function trayStatusLabel(status: CaptureStatus, settings: Settings): string {
   if (settings.paused) return 'paused';
   if (status.running) return 'running';
   return 'idle';
@@ -91,16 +91,13 @@ function trayTitle(status: CaptureStatus, settings: Settings): string {
 function buildTrayMenu(status: CaptureStatus, settings: Settings) {
   return Menu.buildFromTemplate([
     {
-      label: `slowblink — ${statusLabel(status, settings)}`,
+      label: `slowblink — ${trayStatusLabel(status, settings)}`,
       enabled: false,
     },
     { type: 'separator' },
     {
       label: settings.paused ? 'Resume capture' : 'Pause capture',
-      click: () => {
-        setSettings({ paused: !settings.paused });
-        refreshTray();
-      },
+      click: () => setSettings({ paused: !settings.paused }),
     },
     { label: 'Open slowblink…', click: () => createWindow() },
     { type: 'separator' },
@@ -113,7 +110,7 @@ function refreshTray() {
   const status = getStatus();
   const settings = getSettings();
   tray.setTitle(trayTitle(status, settings));
-  tray.setToolTip(`slowblink — ${statusLabel(status, settings)}`);
+  tray.setToolTip(`slowblink — ${trayStatusLabel(status, settings)}`);
   tray.setContextMenu(buildTrayMenu(status, settings));
 }
 

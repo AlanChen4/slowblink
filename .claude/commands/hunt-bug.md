@@ -88,17 +88,48 @@ If 4a or 4b fails:
 
 Do not cap the iteration count — keep looping until both pass. If you're stuck after several iterations without progress, report what you've tried and what you need from the user; don't silently give up or declare partial success.
 
-## Phase 6 — Finalize
+## Phase 6 — Simplify
 
 Only after **both** 4a and 4b are clean:
 
 1. Commit the fix (gitmoji `🐛` for bug fix) referring to the failing test now passing.
-2. Report back with: what the bug was, where the divergent state lived, the one-line fix summary, and links to the commits (test commit + fix commit).
-3. If appropriate, run the `/go` skill to open the PR. Otherwise hand off to the user.
+2. **Run `/simplify`** via the `Skill` tool. It launches reuse / quality / efficiency reviewers in parallel against the diff. Apply any actionable fixes; skip false positives. Common catches for bug fixes:
+   - Stale fixtures / dead properties that don't fail the Stop hook because an earlier `&&`-chained step already failed (e.g. `tsc --noEmit -p tsconfig.web.json` is skipped when `tsconfig.node.json` errors first). Run each `tsc -p <config>` separately to confirm.
+   - Over-permissive `| null` prop types that are impossible at the actual call sites.
+   - Redundant cache / refresh calls you added defensively that the existing subscribers already cover.
+3. If `/simplify` applies changes, commit them separately with `♻️`.
+
+## Phase 7 — Open the PR
+
+Push and open (or update) the PR yourself rather than delegating to `/go` — the visual verification from Phase 4b already covers what `/go` would re-run.
+
+1. **Push**: `git push -u origin <branch>` (the branch may be `main` if that's what you're on — check `git status`; if so, push the commits straight to main per the repo convention, otherwise push the feature branch).
+2. **Create or update the PR** with `gh pr create` (or rely on auto-update if a PR already exists on this branch). Title uses a gitmoji matching the primary commit (`🐛 …`). Body:
+   ```
+   ## Summary
+   - The bug, one line.
+   - The root cause, one line.
+   - The fix, one line.
+
+   ## Test plan
+   - [x] New test `<path>` — fails before the fix, passes after.
+   - [x] Visual verification in Electron via agent-browser (describe what you clicked).
+   - [ ] Anything the human should verify manually (packaged build, permission flows).
+   ```
+3. Return the PR URL to the user.
+
+## Phase 8 — Report
+
+End with a concise summary:
+- What the bug was and where the divergent state / root cause lived.
+- Commits (test repro + fix + optional simplify) and the PR link.
+- Any findings from `/simplify` that were applied.
+- Any caveats (tests you couldn't run, follow-ups worth separate PRs).
 
 ## Guardrails
 
 - **Never** mark the task complete while any test fails or while visual verification has not been performed.
 - **Never** skip Phase 4b by claiming the test is sufficient — the user asked for both because tests can pass while the UI is still wrong (e.g. the test mocks away the real state flow).
 - **Never** amend the failing-test commit after fixing. Keep the repro commit intact so the history shows: "test fails" → "fix makes test pass".
-- If the Stop hook runs checks automatically, let it; don't double-run format/lint.
+- **Never** open the PR before running `/simplify` — that skill has caught real issues (dead properties, unused null-permissive types, redundant refresh calls) that would otherwise land in the PR.
+- If the Stop hook runs checks automatically, let it; don't double-run format/lint. But **do** run each `tsc -p <config>` separately once before pushing, since the Stop hook's `&&`-chained typecheck can mask web-config errors when the node-config step fails first.
