@@ -118,6 +118,7 @@ export default function App() {
         >
           <StatusBadge
             status={status}
+            settings={settings}
             sync={sync}
             issues={issues}
             onNavigateToApiKey={() => {

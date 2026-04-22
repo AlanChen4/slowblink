@@ -16,14 +16,18 @@ export function collectIssues(
   return issues;
 }
 
-function statusColor(status: CaptureStatus, hasIssues: boolean): string {
+function statusColor(
+  status: CaptureStatus,
+  paused: boolean,
+  hasIssues: boolean,
+): string {
   if (hasIssues || status.lastError) return 'bg-destructive';
-  if (status.paused) return 'bg-amber-500';
+  if (paused) return 'bg-amber-500';
   return 'bg-emerald-500';
 }
 
-function statusLabel(status: CaptureStatus): string {
-  if (status.paused) return 'Paused';
+function statusLabel(status: CaptureStatus, paused: boolean): string {
+  if (paused) return 'Paused';
   if (status.lastCaptureTs) {
     return `Last Updated at ${new Date(status.lastCaptureTs).toLocaleTimeString()}`;
   }
@@ -40,17 +44,19 @@ function syncLabel(sync: SyncStatus): string | null {
 
 export function StatusBadge({
   status,
+  settings,
   sync,
   issues,
   onNavigateToApiKey,
 }: {
   status: CaptureStatus | null;
+  settings: Settings;
   sync: SyncStatus | null;
   issues: string[];
   onNavigateToApiKey?: () => void;
 }) {
   if (!status) return null;
-  const color = statusColor(status, issues.length > 0);
+  const color = statusColor(status, settings.paused, issues.length > 0);
   const syncPart = sync ? syncLabel(sync) : null;
   const textColor =
     issues.length > 0
@@ -62,7 +68,7 @@ export function StatusBadge({
       {issues.length > 0 ? (
         <IssueList issues={issues} onNavigateToApiKey={onNavigateToApiKey} />
       ) : (
-        statusLabel(status)
+        statusLabel(status, settings.paused)
       )}
       {syncPart && <span className="text-xs">· {syncPart}</span>}
     </div>

@@ -7,7 +7,6 @@ afterEach(cleanup);
 
 const BASE_STATUS: CaptureStatus = {
   running: true,
-  paused: false,
   lastError: null,
   lastCaptureTs: null,
   hasPermission: true,
@@ -48,7 +47,12 @@ describe('collectIssues', () => {
 describe('StatusBadge', () => {
   test('renders error label with red text when issues are present', () => {
     render(
-      <StatusBadge status={BASE_STATUS} sync={null} issues={['No API Key']} />,
+      <StatusBadge
+        status={BASE_STATUS}
+        settings={BASE_SETTINGS}
+        sync={null}
+        issues={['No API Key']}
+      />,
     );
 
     const label = screen.getByText('No API Key');
@@ -57,7 +61,14 @@ describe('StatusBadge', () => {
   });
 
   test('renders running state with no issues', () => {
-    render(<StatusBadge status={BASE_STATUS} sync={null} issues={[]} />);
+    render(
+      <StatusBadge
+        status={BASE_STATUS}
+        settings={BASE_SETTINGS}
+        sync={null}
+        issues={[]}
+      />,
+    );
 
     expect(screen.getByText('Running')).toBeDefined();
     expect(screen.queryByText(/no api key/i)).toBeNull();
@@ -68,6 +79,7 @@ describe('StatusBadge', () => {
     render(
       <StatusBadge
         status={BASE_STATUS}
+        settings={BASE_SETTINGS}
         sync={null}
         issues={['No API Key']}
         onNavigateToApiKey={onNavigateToApiKey}
@@ -81,7 +93,12 @@ describe('StatusBadge', () => {
 
   test('renders "No API Key" as plain text when no handler is provided', () => {
     render(
-      <StatusBadge status={BASE_STATUS} sync={null} issues={['No API Key']} />,
+      <StatusBadge
+        status={BASE_STATUS}
+        settings={BASE_SETTINGS}
+        sync={null}
+        issues={['No API Key']}
+      />,
     );
 
     expect(screen.queryByRole('button', { name: 'No API Key' })).toBeNull();

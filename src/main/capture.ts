@@ -216,7 +216,6 @@ export function getStatus(): CaptureStatus {
   const s = getSettings();
   return {
     running: timer !== null,
-    paused: s.paused,
     lastError,
     lastCaptureTs,
     hasPermission: hasScreenPermission(),
@@ -228,7 +227,6 @@ export function getStatus(): CaptureStatus {
 function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
   return (
     a.running === b.running &&
-    a.paused === b.paused &&
     a.lastError === b.lastError &&
     a.lastCaptureTs === b.lastCaptureTs &&
     a.hasPermission === b.hasPermission &&
