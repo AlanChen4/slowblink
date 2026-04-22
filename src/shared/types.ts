@@ -57,6 +57,7 @@ export interface CaptureStatus {
 export interface User {
   id: string;
   email: string;
+  avatarUrl: string | null;
 }
 
 export interface AuthSession {

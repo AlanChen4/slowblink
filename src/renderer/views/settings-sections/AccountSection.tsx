@@ -1,6 +1,7 @@
 import type { AuthSession, Plan } from '@shared/types';
 import { toast } from 'sonner';
 import { GoogleIcon } from '@/components/icons/google';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
 export function AccountSection({
@@ -45,8 +46,19 @@ export function AccountSection({
     <div className="space-y-4">
       {session ? (
         <div className="flex items-center justify-between gap-4">
-          <p className="text-sm">
-            Signed in as{' '}
+          <p className="flex items-center gap-2 text-sm">
+            <span>Signed in as</span>
+            <Avatar className="size-5">
+              {session.user.avatarUrl && (
+                <AvatarImage
+                  src={session.user.avatarUrl}
+                  alt={session.user.email}
+                />
+              )}
+              <AvatarFallback>
+                {session.user.email.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
             <span className="font-medium">{session.user.email}</span>
           </p>
           <div className="flex shrink-0 gap-2">

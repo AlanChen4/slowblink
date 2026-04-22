@@ -12,8 +12,13 @@ let refreshTimer: NodeJS.Timeout | null = null;
 
 function toPublic(session: Session | null): AuthSession | null {
   if (!session?.user?.email) return null;
+  const metadata = session.user.user_metadata as
+    | { avatar_url?: unknown; picture?: unknown }
+    | undefined;
+  const rawAvatar = metadata?.avatar_url ?? metadata?.picture;
+  const avatarUrl = typeof rawAvatar === 'string' ? rawAvatar : null;
   return {
-    user: { id: session.user.id, email: session.user.email },
+    user: { id: session.user.id, email: session.user.email, avatarUrl },
     expiresAt: (session.expires_at ?? 0) * 1000,
   };
 }
