@@ -4,12 +4,12 @@ project_id = "slowblink"
 
 [api]
 enabled = true
-port = 54321
+port = 55321
 schemas = ["public", "graphql_public"]
 
 [db]
-port = 54322
-shadow_port = 54320
+port = 55322
+shadow_port = 55320
 major_version = 17
 
 [db.seed]
@@ -18,11 +18,11 @@ sql_paths = ["./seed.sql"]
 
 [studio]
 enabled = true
-port = 54323
+port = 55323
 
 [inbucket]
 enabled = true
-port = 54324
+port = 55324
 
 [storage]
 enabled = true
@@ -36,8 +36,8 @@ additional_redirect_urls = [
   "slowblink://auth/callback",
   # Edge function bridge page that deep-links back into Electron and closes
   # the browser tab. See supabase/functions/auth-callback/index.ts.
-  "http://127.0.0.1:54321/functions/v1/auth-callback",
-  "http://localhost:54321/functions/v1/auth-callback",
+  "http://127.0.0.1:55321/functions/v1/auth-callback",
+  "http://localhost:55321/functions/v1/auth-callback",
 ]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true

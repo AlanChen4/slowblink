@@ -1,10 +1,16 @@
 import { type ZodType, z } from 'zod';
 
-function createEnv<TSchema extends Record<string, ZodType>>(opts: {
+export function createEnv<TSchema extends Record<string, ZodType>>(opts: {
   schema: TSchema;
   runtimeEnv: Record<string, unknown>;
 }): Readonly<z.infer<z.ZodObject<TSchema>>> {
-  const result = z.object(opts.schema).safeParse(opts.runtimeEnv);
+  const normalized = Object.fromEntries(
+    Object.entries(opts.runtimeEnv).map(([k, v]) => [
+      k,
+      v === '' ? undefined : v,
+    ]),
+  );
+  const result = z.object(opts.schema).safeParse(normalized);
   if (!result.success) {
     const details = result.error.issues
       .map((i) => `  ${i.path.join('.')}: ${i.message}`)

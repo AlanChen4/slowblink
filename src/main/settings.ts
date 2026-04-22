@@ -7,6 +7,9 @@ import type {
   SettingsPatch,
   StorageMode,
 } from '../shared/types';
+import { getCurrentSession } from './auth/session';
+import { getPlan } from './billing/plan-cache';
+import { effectiveAiMode } from './effective-ai-mode';
 import { createEmitter } from './emitter';
 import { env } from './env';
 
@@ -91,10 +94,15 @@ export function getSettings(): Settings {
     hasApiKey: hasSaved || hasEnv,
     apiKeySource: apiKeySource(hasSaved, hasEnv),
     apiKeyHint: activeKey ? maskKey(activeKey) : null,
+    apiKey: activeKey,
     storageMode: s.get('storageMode'),
-    aiMode: s.get('aiMode'),
+    aiMode: effectiveAiMode(s.get('aiMode'), getCurrentSession(), getPlan()),
     onboardingComplete: s.get('onboardingComplete'),
   };
+}
+
+export function refreshSettings(): void {
+  settingsEmitter.emit(getSettings());
 }
 
 export function setSettings(patch: SettingsPatch): Settings {

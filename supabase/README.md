@@ -32,7 +32,7 @@ pnpm db:functions:serve
 ```
 
 Paste the printed `SUPABASE_URL` and `SUPABASE_ANON_KEY` into the root `.env`
-(the Electron app reads from there). Studio is at http://127.0.0.1:54323.
+(the Electron app reads from there). Studio is at http://127.0.0.1:55323.
 
 ## Stripe webhooks (local)
 
@@ -82,9 +82,9 @@ Copy the endpoint's signing secret back into `STRIPE_WEBHOOK_SECRET` and re-run
 | `STRIPE_SECRET_KEY`               | Stripe Dashboard → Developers → API keys                   |
 | `STRIPE_WEBHOOK_SECRET`           | Stripe Dashboard → Webhooks → endpoint → Signing secret    |
 | `STRIPE_PRICE_ID`                 | Stripe product → price                                     |
-| `CF_ACCOUNT_ID`                   | Cloudflare dashboard → right sidebar                       |
-| `CF_GATEWAY_ID`                   | Cloudflare AI → gateway name                               |
-| `CF_AI_TOKEN`                     | Cloudflare AI → API token with AI Gateway Run permission   |
+| `CLOUDFLARE_ACCOUNT_ID`           | Cloudflare dashboard → right sidebar                       |
+| `CLOUDFLARE_GATEWAY_ID`           | Cloudflare AI → gateway name                               |
+| `CLOUDFLARE_API_TOKEN`            | Cloudflare AI → API token with AI Gateway Run permission   |
 | `OPENAI_API_KEY`                  | OpenAI dashboard                                           |
 | `SUPABASE_AUTH_GOOGLE_CLIENT_ID`  | Google Cloud → Credentials → OAuth 2.0 Client ID           |
 | `SUPABASE_AUTH_GOOGLE_SECRET`     | same                                                       |

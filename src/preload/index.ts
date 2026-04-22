@@ -32,6 +32,7 @@ const api: SlowblinkAPI = {
   openAccessibilityPermissionSettings: () =>
     ipcRenderer.invoke(IPC.permissionAccessibilityOpen),
   deleteAllData: () => ipcRenderer.invoke(IPC.dataDeleteAll),
+  getLocalStorageSize: () => ipcRenderer.invoke(IPC.dataStorageSizeGet),
   onStatus: (cb) => subscribe<CaptureStatus>(IPC.statusUpdate, cb),
   onSettings: (cb) => subscribe<Settings>(IPC.settingsUpdate, cb),
 

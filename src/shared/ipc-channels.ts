@@ -14,6 +14,7 @@ export const IPC = {
   permissionAccessibilityRequest: 'permission:accessibility:request',
   permissionAccessibilityOpen: 'permission:accessibility:open',
   dataDeleteAll: 'data:deleteAll',
+  dataStorageSizeGet: 'data:storageSize:get',
   statusUpdate: 'status:update',
   settingsUpdate: 'settings:update',
 

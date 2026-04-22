@@ -1,3 +1,4 @@
+import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import Database from 'better-sqlite3';
 import { app } from 'electron';
@@ -29,13 +30,14 @@ interface DbHandles {
 }
 
 let handles: DbHandles | null = null;
+let dbPath: string | null = null;
 
 const sampleInsertEmitter = createEmitter<Sample>();
 export const onSampleInserted = sampleInsertEmitter.on;
 
 export function initDb() {
-  const path = join(app.getPath('userData'), 'slowblink.db');
-  const db = new Database(path);
+  dbPath = join(app.getPath('userData'), 'slowblink.db');
+  const db = new Database(dbPath);
   db.pragma('journal_mode = WAL');
   runMigrations(db);
   handles = {
@@ -43,6 +45,20 @@ export function initDb() {
     samples: prepareSampleStatements(db),
     sync: prepareSyncStatements(db),
   };
+}
+
+export function getLocalStorageSize(): number {
+  if (!dbPath) return 0;
+  const paths = [dbPath, `${dbPath}-wal`, `${dbPath}-shm`];
+  let total = 0;
+  for (const p of paths) {
+    try {
+      total += statSync(p).size;
+    } catch {
+      // sidecar may not exist yet; ignore
+    }
+  }
+  return total;
 }
 
 function requireHandles(): DbHandles {

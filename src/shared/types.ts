@@ -35,13 +35,14 @@ export interface Settings {
   hasApiKey: boolean;
   apiKeySource: ApiKeySource;
   apiKeyHint: string | null;
+  apiKey: string | null;
   storageMode: StorageMode;
   aiMode: AIMode;
   onboardingComplete: boolean;
 }
 
 export type SettingsPatch = Partial<
-  Omit<Settings, 'hasApiKey' | 'apiKeySource' | 'apiKeyHint'>
+  Omit<Settings, 'hasApiKey' | 'apiKeySource' | 'apiKeyHint' | 'apiKey'>
 >;
 
 export interface CaptureStatus {
@@ -102,6 +103,7 @@ export interface SlowblinkAPI {
   requestAccessibilityPermission(): Promise<boolean>;
   openAccessibilityPermissionSettings(): Promise<void>;
   deleteAllData(): Promise<void>;
+  getLocalStorageSize(): Promise<number>;
   onStatus(cb: (s: CaptureStatus) => void): () => void;
   onSettings(cb: (s: Settings) => void): () => void;
 

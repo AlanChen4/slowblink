@@ -54,7 +54,6 @@ export function Timeline() {
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-lg">Today</h2>
         <div className="flex items-center gap-2">
-          <span className="text-muted-foreground text-xs">Granularity</span>
           <select
             value={granIdx}
             onChange={(e) => setGranIdx(Number(e.target.value))}

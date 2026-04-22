@@ -76,8 +76,8 @@ function buildWindowLine(focusedApp: string | null, focusedWindow: string | null
 }
 
 function gatewayUrl(): string {
-  const account = requireEnv('CF_ACCOUNT_ID');
-  const gateway = requireEnv('CF_GATEWAY_ID');
+  const account = requireEnv('CLOUDFLARE_ACCOUNT_ID');
+  const gateway = requireEnv('CLOUDFLARE_GATEWAY_ID');
   return `https://gateway.ai.cloudflare.com/v1/${account}/${gateway}/openai/chat/completions`;
 }
 
@@ -133,7 +133,7 @@ function parseStructuredOutput(raw: unknown): {
 
 async function callGateway(body: RequestBody): Promise<Response> {
   const openaiKey = requireEnv('OPENAI_API_KEY');
-  const cfToken = requireEnv('CF_AI_TOKEN');
+  const cfToken = requireEnv('CLOUDFLARE_API_TOKEN');
 
   return fetch(gatewayUrl(), {
     method: 'POST',

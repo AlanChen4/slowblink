@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "bash scripts/dev.sh",
     "dev:app": "electron-vite dev",
-    "stripe:listen": "stripe listen --forward-to http://127.0.0.1:54321/functions/v1/stripe-webhook",
+    "stripe:listen": "stripe listen --forward-to http://127.0.0.1:55321/functions/v1/stripe-webhook",
     "build": "electron-vite build && node scripts/check-bundle-secrets.js",
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
@@ -26,7 +26,7 @@
     "lint:fix": "biome check --write",
     "format": "biome format --write",
     "knip": "knip",
-    "test": "echo 'No tests configured' && exit 0",
+    "test": "vitest run",
     "package": "electron-vite build && electron-builder",
     "package:mac": "electron-vite build && electron-builder --mac",
     "icon:build": "bash scripts/build-icon.sh",
@@ -45,6 +45,7 @@
     "@ai-sdk/openai": "^3.0.52",
     "@calcom/cal-sans-ui": "^1.3.0",
     "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-radio-group": "^1.3.8",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
@@ -63,6 +64,8 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@electron/rebuild": "^4.0.3",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.5",
@@ -75,6 +78,7 @@
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0",
     "electron-vite": "^2.3.0",
+    "jsdom": "^29.0.2",
     "knip": "^6.3.0",
     "postcss": "^8.4.47",
     "react": "^18.3.1",
@@ -84,7 +88,8 @@
     "tailwindcss": "^3.4.13",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.6.2",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vitest": "^2.1.9"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

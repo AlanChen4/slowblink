@@ -14,7 +14,7 @@ import {
   onStatusChange,
   refreshStatus,
 } from './capture';
-import { deleteAll, getSamples } from './db';
+import { deleteAll, getLocalStorageSize, getSamples } from './db';
 import {
   hasScreenPermission,
   openAccessibilityPermissionSettings,
@@ -74,6 +74,7 @@ export function registerIpc() {
   );
 
   ipcMain.handle(IPC.dataDeleteAll, () => deleteAll());
+  ipcMain.handle(IPC.dataStorageSizeGet, () => getLocalStorageSize());
 
   ipcMain.handle(IPC.authSignIn, () => signInWithGoogle());
   ipcMain.handle(IPC.authSignOut, () => authSignOut());

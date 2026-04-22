@@ -26,7 +26,7 @@ const FORBIDDEN_NAMES = [
   'SUPABASE_AUTH_GOOGLE_SECRET',
   'STRIPE_SECRET_KEY',
   'STRIPE_WEBHOOK_SECRET',
-  'CF_AI_TOKEN',
+  'CLOUDFLARE_API_TOKEN',
 ];
 
 // Forbidden *value* patterns — catches the case where a secret value was

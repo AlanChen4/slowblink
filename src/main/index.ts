@@ -2,8 +2,8 @@ import { join } from 'node:path';
 import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
 import type { CaptureStatus } from '../shared/types';
 import { registerProtocolHandler } from './auth/deep-link';
-import { loadSessionFromDisk } from './auth/session';
-import { initPlanCache } from './billing/plan-cache';
+import { loadSessionFromDisk, onSessionChange } from './auth/session';
+import { initPlanCache, onPlanChange } from './billing/plan-cache';
 import {
   getStatus,
   initCaptureSettingsWatcher,
@@ -21,7 +21,12 @@ import {
   broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
-import { getSettings, initSettings, setSettings } from './settings';
+import {
+  getSettings,
+  initSettings,
+  refreshSettings,
+  setSettings,
+} from './settings';
 import { initSync } from './sync/flusher';
 
 let tray: Tray | null = null;
@@ -129,6 +134,8 @@ app.whenReady().then(async () => {
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
   disposers.push(initCaptureSettingsWatcher());
+  disposers.push(onSessionChange(refreshSettings));
+  disposers.push(onPlanChange(refreshSettings));
 
   initSync();
   initPlanCache();

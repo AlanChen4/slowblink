@@ -5,7 +5,12 @@ import { summarizeScreenshot } from './ai/summarizer';
 import { insertSample } from './db';
 import { createEmitter } from './emitter';
 import { hasAccessibilityPermission, hasScreenPermission } from './permissions';
-import { getApiKey, getSettings, onSettingsChange } from './settings';
+import {
+  getApiKey,
+  getSettings,
+  onSettingsChange,
+  setSettings,
+} from './settings';
 
 export interface WindowContext {
   focusedApp: string | null;
@@ -194,10 +199,13 @@ function applyTag(
   }
 }
 
+const ERROR_PAUSE_THRESHOLD = 3;
+
 let timer: NodeJS.Timeout | null = null;
 let currentIntervalMs: number | null = null;
 let inFlight = false;
 let lastError: string | null = null;
+let consecutiveErrors = 0;
 let lastCaptureTs: number | null = null;
 let lastEmitted: CaptureStatus | null = null;
 const statusEmitter = createEmitter<CaptureStatus>();
@@ -251,6 +259,7 @@ export function startCaptureLoop() {
     emit();
     return;
   }
+  consecutiveErrors = 0;
   currentIntervalMs = intervalMs;
   // Wrap in arrow so Node doesn't pass the timer iteration count as `force`.
   timer = setInterval(() => {
@@ -282,8 +291,24 @@ export function initCaptureSettingsWatcher(): () => void {
   });
 }
 
-function recordGuardFailure(msg: string, force: boolean) {
+function recordFailure(msg: string) {
   lastError = msg;
+  consecutiveErrors += 1;
+  if (consecutiveErrors >= ERROR_PAUSE_THRESHOLD) {
+    console.log(
+      `[capture] auto-pausing after ${consecutiveErrors} consecutive errors: ${msg}`,
+    );
+    setSettings({ paused: true });
+  }
+}
+
+function recordSuccess() {
+  lastError = null;
+  consecutiveErrors = 0;
+}
+
+function recordGuardFailure(msg: string, force: boolean) {
+  recordFailure(msg);
   emit();
   if (force) throw new Error(msg);
 }
@@ -327,9 +352,9 @@ async function runCapture(apiKey: string | null, force: boolean) {
       openWindows: windowCtx.openWindows,
     });
     lastCaptureTs = ts;
-    lastError = null;
+    recordSuccess();
   } catch (err) {
-    lastError = err instanceof Error ? err.message : String(err);
+    recordFailure(err instanceof Error ? err.message : String(err));
     if (force) throw err;
   } finally {
     inFlight = false;

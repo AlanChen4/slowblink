@@ -1,0 +1,63 @@
+import type { CaptureStatus, Settings, SyncStatus } from '@shared/types';
+import { cn } from '@/lib/utils';
+
+export function collectIssues(
+  status: CaptureStatus,
+  settings: Settings,
+): string[] {
+  const issues: string[] = [];
+  if (!status.hasPermission) issues.push('No permission');
+  if (settings.aiMode === 'byo-key' && !settings.hasApiKey) {
+    issues.push('No API Key');
+  }
+  return issues;
+}
+
+function statusColor(status: CaptureStatus, hasIssues: boolean): string {
+  if (hasIssues || status.lastError) return 'bg-destructive';
+  if (status.paused) return 'bg-amber-500';
+  return 'bg-emerald-500';
+}
+
+function statusLabel(status: CaptureStatus, issues: string[]): string {
+  if (issues.length) return issues.join(' • ');
+  if (status.paused) return 'Paused';
+  if (status.lastCaptureTs) {
+    return `Last Updated at ${new Date(status.lastCaptureTs).toLocaleTimeString()}`;
+  }
+  return 'Running';
+}
+
+function syncLabel(sync: SyncStatus): string | null {
+  if (!sync.enabled) return null;
+  if (sync.state === 'offline') return 'Offline';
+  if (sync.state === 'error') return 'Sync error';
+  if (sync.pending > 0) return `Syncing ${sync.pending}`;
+  return null;
+}
+
+export function StatusBadge({
+  status,
+  sync,
+  issues,
+}: {
+  status: CaptureStatus | null;
+  sync: SyncStatus | null;
+  issues: string[];
+}) {
+  if (!status) return null;
+  const color = statusColor(status, issues.length > 0);
+  const syncPart = sync ? syncLabel(sync) : null;
+  const label = statusLabel(status, issues);
+  const textColor =
+    issues.length > 0
+      ? 'text-red-600 dark:text-red-400'
+      : 'text-muted-foreground';
+  return (
+    <div className={cn('flex items-center gap-2', textColor)}>
+      <span className={`inline-block h-2 w-2 rounded-full ${color}`} />
+      {label}
+      {syncPart && <span className="text-xs">· {syncPart}</span>}
+    </div>
+  );
+}
