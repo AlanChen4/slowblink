@@ -1,0 +1,25 @@
+name: Deploy Supabase Functions (Production)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "supabase/functions/**"
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: 2.93.0
+
+      - name: Deploy edge functions
+        run: supabase functions deploy --project-ref ${{ secrets.PRODUCTION_PROJECT_ID }}

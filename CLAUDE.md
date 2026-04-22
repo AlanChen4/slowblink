@@ -9,6 +9,7 @@ An Electron app that uses AI to track how the user is spending their time on the
 - [No section-separator comments](.claude/rules/no-section-comments.md) — Don't add banner/divider comments; split the file instead
 - [Git workflow](.claude/rules/git-workflow.md) — Commit with a gitmoji prefix from the provided list
 - [Worktree paths](.claude/rules/worktree-paths.md) — In a worktree session, verify edit paths and brief subagents to stay inside the worktree root
+- [Doppler secrets](.claude/rules/doppler.md) — Recommended secret manager; when `.doppler.yaml` is present, prefix dev commands with `doppler run --`. Falls back to `.env.local` + `supabase/.env`.
 
 ## Skills
 

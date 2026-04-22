@@ -5,7 +5,12 @@ import { summarizeScreenshot } from './ai/summarizer';
 import { insertSample } from './db';
 import { createEmitter } from './emitter';
 import { hasAccessibilityPermission, hasScreenPermission } from './permissions';
-import { getApiKey, getSettings, onSettingsChange } from './settings';
+import {
+  getApiKey,
+  getSettings,
+  onSettingsChange,
+  setSettings,
+} from './settings';
 
 export interface WindowContext {
   focusedApp: string | null;
@@ -194,10 +199,13 @@ function applyTag(
   }
 }
 
+const ERROR_PAUSE_THRESHOLD = 3;
+
 let timer: NodeJS.Timeout | null = null;
 let currentIntervalMs: number | null = null;
 let inFlight = false;
 let lastError: string | null = null;
+let consecutiveErrors = 0;
 let lastCaptureTs: number | null = null;
 let lastEmitted: CaptureStatus | null = null;
 const statusEmitter = createEmitter<CaptureStatus>();
@@ -213,7 +221,7 @@ export function getStatus(): CaptureStatus {
     lastCaptureTs,
     hasPermission: hasScreenPermission(),
     hasAccessibility: hasAccessibilityPermission(),
-    hasApiKey: s.hasApiKey,
+    hasApiKey: s.aiMode === 'cloud-ai' ? true : s.hasApiKey,
   };
 }
 
@@ -251,6 +259,7 @@ export function startCaptureLoop() {
     emit();
     return;
   }
+  consecutiveErrors = 0;
   currentIntervalMs = intervalMs;
   // Wrap in arrow so Node doesn't pass the timer iteration count as `force`.
   timer = setInterval(() => {
@@ -271,7 +280,8 @@ export function stopCaptureLoop() {
 
 export function initCaptureSettingsWatcher(): () => void {
   return onSettingsChange((s) => {
-    if (s.paused || !s.hasApiKey) {
+    const canCapture = s.aiMode === 'cloud-ai' || s.hasApiKey;
+    if (s.paused || !canCapture) {
       stopCaptureLoop();
       return;
     }
@@ -281,8 +291,24 @@ export function initCaptureSettingsWatcher(): () => void {
   });
 }
 
-function recordGuardFailure(msg: string, force: boolean) {
+function recordFailure(msg: string) {
   lastError = msg;
+  consecutiveErrors += 1;
+  if (consecutiveErrors >= ERROR_PAUSE_THRESHOLD) {
+    console.log(
+      `[capture] auto-pausing after ${consecutiveErrors} consecutive errors: ${msg}`,
+    );
+    setSettings({ paused: true });
+  }
+}
+
+function recordSuccess() {
+  lastError = null;
+  consecutiveErrors = 0;
+}
+
+function recordGuardFailure(msg: string, force: boolean) {
+  recordFailure(msg);
   emit();
   if (force) throw new Error(msg);
 }
@@ -296,8 +322,9 @@ export async function captureOnce(force = false) {
     recordGuardFailure('Screen recording permission not granted', force);
     return;
   }
-  const apiKey = getApiKey();
-  if (!apiKey) {
+  const { aiMode } = getSettings();
+  const apiKey = aiMode === 'cloud-ai' ? null : getApiKey();
+  if (aiMode === 'byo-key' && !apiKey) {
     recordGuardFailure('No API key configured', force);
     return;
   }
@@ -308,7 +335,7 @@ export async function captureOnce(force = false) {
   await runCapture(apiKey, force);
 }
 
-async function runCapture(apiKey: string, force: boolean) {
+async function runCapture(apiKey: string | null, force: boolean) {
   inFlight = true;
   try {
     const { model } = getSettings();
@@ -325,9 +352,9 @@ async function runCapture(apiKey: string, force: boolean) {
       openWindows: windowCtx.openWindows,
     });
     lastCaptureTs = ts;
-    lastError = null;
+    recordSuccess();
   } catch (err) {
-    lastError = err instanceof Error ? err.message : String(err);
+    recordFailure(err instanceof Error ? err.message : String(err));
     if (force) throw err;
   } finally {
     inFlight = false;

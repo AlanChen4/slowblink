@@ -5,9 +5,12 @@
     "src/preload/index.ts",
     "src/renderer/main.tsx",
     "src/renderer/vite-env.d.ts",
-    "electron.vite.config.ts"
+    "electron.vite.config.ts",
+    "src/**/*.test.{ts,tsx}"
   ],
   "project": ["src/**/*.{ts,tsx}"],
   "ignoreExportsUsedInFile": true,
-  "ignore": ["src/renderer/components/ui/**"]
+  "ignore": ["src/renderer/components/ui/**"],
+  "ignoreDependencies": ["concurrently"],
+  "ignoreBinaries": ["stripe"]
 }

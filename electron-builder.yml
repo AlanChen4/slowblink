@@ -19,6 +19,14 @@ mac:
     NSScreenCaptureUsageDescription: "slowblink captures periodic screenshots to summarize your activity locally."
     NSAppleEventsUsageDescription: "slowblink uses AppleScript to read window titles for activity tracking."
     LSUIElement: true
+    CFBundleURLTypes:
+      - CFBundleURLName: slowblink
+        CFBundleURLSchemes:
+          - slowblink
+protocols:
+  - name: slowblink
+    schemes:
+      - slowblink
 dmg:
   icon: build/icon.icns
   contents:

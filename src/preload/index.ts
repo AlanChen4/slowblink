@@ -1,6 +1,19 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { IPC } from '../shared/ipc-channels';
-import type { CaptureStatus, Settings, SlowblinkAPI } from '../shared/types';
+import type {
+  AuthSession,
+  CaptureStatus,
+  Plan,
+  Settings,
+  SlowblinkAPI,
+  SyncStatus,
+} from '../shared/types';
+
+function subscribe<T>(channel: string, cb: (value: T) => void): () => void {
+  const listener = (_e: unknown, value: T) => cb(value);
+  ipcRenderer.on(channel, listener);
+  return () => ipcRenderer.removeListener(channel, listener);
+}
 
 const api: SlowblinkAPI = {
   getSamples: (start, end) => ipcRenderer.invoke(IPC.samplesGet, start, end),
@@ -19,16 +32,24 @@ const api: SlowblinkAPI = {
   openAccessibilityPermissionSettings: () =>
     ipcRenderer.invoke(IPC.permissionAccessibilityOpen),
   deleteAllData: () => ipcRenderer.invoke(IPC.dataDeleteAll),
-  onStatus: (cb) => {
-    const listener = (_e: unknown, s: CaptureStatus) => cb(s);
-    ipcRenderer.on(IPC.statusUpdate, listener);
-    return () => ipcRenderer.removeListener(IPC.statusUpdate, listener);
-  },
-  onSettings: (cb) => {
-    const listener = (_e: unknown, s: Settings) => cb(s);
-    ipcRenderer.on(IPC.settingsUpdate, listener);
-    return () => ipcRenderer.removeListener(IPC.settingsUpdate, listener);
-  },
+  getLocalStorageSize: () => ipcRenderer.invoke(IPC.dataStorageSizeGet),
+  onStatus: (cb) => subscribe<CaptureStatus>(IPC.statusUpdate, cb),
+  onSettings: (cb) => subscribe<Settings>(IPC.settingsUpdate, cb),
+
+  signIn: () => ipcRenderer.invoke(IPC.authSignIn),
+  signOut: () => ipcRenderer.invoke(IPC.authSignOut),
+  getSession: () => ipcRenderer.invoke(IPC.authSessionGet),
+  onSession: (cb) => subscribe<AuthSession | null>(IPC.authSessionUpdate, cb),
+
+  getSyncStatus: () => ipcRenderer.invoke(IPC.syncStatusGet),
+  onSyncStatus: (cb) => subscribe<SyncStatus>(IPC.syncStatusUpdate, cb),
+  syncFlushNow: () => ipcRenderer.invoke(IPC.syncFlushNow),
+  syncRetryFailed: () => ipcRenderer.invoke(IPC.syncRetryFailed),
+
+  getPlan: () => ipcRenderer.invoke(IPC.billingPlanGet),
+  onPlan: (cb) => subscribe<Plan>(IPC.billingPlanUpdate, cb),
+  openCheckout: () => ipcRenderer.invoke(IPC.billingCheckout),
+  openPortal: () => ipcRenderer.invoke(IPC.billingPortal),
 };
 
 contextBridge.exposeInMainWorld('slowblink', api);

@@ -1,15 +1,25 @@
-import type { CaptureStatus, Settings as SettingsT } from '@shared/types';
+import type {
+  AuthSession,
+  CaptureStatus,
+  Plan,
+  Settings as SettingsT,
+  SyncStatus,
+} from '@shared/types';
 import {
   Clock,
   FlaskConical,
   Monitor,
   Moon,
+  Pause,
+  Play,
   Settings,
   Sun,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { collectIssues, StatusBadge } from '@/components/StatusBadge';
+import { Button } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
@@ -25,19 +35,26 @@ import {
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { Dev } from '@/views/Dev';
-import { SettingsView } from '@/views/Settings';
+import { Onboarding } from '@/views/Onboarding';
+import { type SettingsSection, SettingsView } from '@/views/Settings';
 import { Timeline } from '@/views/Timeline';
 
 type NavId = 'timeline' | 'dev' | 'settings';
 
+const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
+
 export default function App() {
   const [view, setView] = useState<NavId>('timeline');
+  const [settingsSection, setSettingsSection] =
+    useState<SettingsSection>('account');
   const [status, setStatus] = useState<CaptureStatus | null>(null);
   const [settings, setSettings] = useState<SettingsT | null>(null);
+  const [session, setSession] = useState<AuthSession | null>(null);
+  const [plan, setPlan] = useState<Plan>(DEFAULT_PLAN);
+  const [sync, setSync] = useState<SyncStatus | null>(null);
 
   useMountEffect(() => {
     let prevError: string | null = null;
-
     function handleStatus(s: CaptureStatus) {
       setStatus(s);
       if (s.lastError && s.lastError !== prevError) {
@@ -51,13 +68,37 @@ export default function App() {
 
     void window.slowblink.getStatus().then(handleStatus);
     void window.slowblink.getSettings().then(setSettings);
+    void window.slowblink.getSession().then(setSession);
+    void window.slowblink.getPlan().then(setPlan);
+    void window.slowblink.getSyncStatus().then(setSync);
+
     const unsubStatus = window.slowblink.onStatus(handleStatus);
     const unsubSettings = window.slowblink.onSettings(setSettings);
+    const unsubSession = window.slowblink.onSession(setSession);
+    const unsubPlan = window.slowblink.onPlan(setPlan);
+    const unsubSync = window.slowblink.onSyncStatus(setSync);
     return () => {
       unsubStatus();
       unsubSettings();
+      unsubSession();
+      unsubPlan();
+      unsubSync();
     };
   });
+
+  if (!settings) return null;
+  if (!settings.onboardingComplete) {
+    return (
+      <Onboarding
+        settings={settings}
+        status={status}
+        session={session}
+        plan={plan}
+      />
+    );
+  }
+
+  const issues = status ? collectIssues(status, settings) : [];
 
   return (
     <SidebarProvider>
@@ -72,10 +113,21 @@ export default function App() {
           <SidebarTrigger />
         </div>
         <div
-          className="flex items-center pt-2 pr-6 text-sm"
+          className="flex items-center gap-2 pt-2 pr-6 text-sm"
           style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         >
-          <StatusBadge status={status} />
+          <StatusBadge
+            status={status}
+            sync={sync}
+            issues={issues}
+            onNavigateToApiKey={() => {
+              setView('settings');
+              setSettingsSection('capture');
+            }}
+          />
+          {status && issues.length === 0 && (
+            <PauseButton paused={settings.paused} />
+          )}
         </div>
       </div>
       <Sidebar collapsible="icon" variant="inset">
@@ -112,6 +164,9 @@ export default function App() {
               </SidebarMenuItem>
             )}
             <SidebarMenuItem>
+              <ThemeToggle />
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={view === 'settings'}
                 tooltip="Settings"
@@ -120,9 +175,6 @@ export default function App() {
                 <Settings />
                 <span>Settings</span>
               </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <ThemeToggle />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
@@ -134,12 +186,39 @@ export default function App() {
             {view === 'timeline' && <Timeline />}
             {view === 'dev' && <Dev />}
             {view === 'settings' && (
-              <SettingsView status={status} settings={settings} />
+              <SettingsView
+                status={status}
+                settings={settings}
+                session={session}
+                plan={plan}
+                sync={sync}
+                section={settingsSection}
+                onSectionChange={setSettingsSection}
+              />
             )}
           </div>
         </main>
       </div>
     </SidebarProvider>
+  );
+}
+
+function PauseButton({ paused }: { paused: boolean }) {
+  function toggle() {
+    return paused ? window.slowblink.resume() : window.slowblink.pause();
+  }
+  const label = paused ? 'Resume capture' : 'Pause capture';
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="size-7"
+      onClick={toggle}
+      aria-label={label}
+      title={label}
+    >
+      {paused ? <Play className="size-4" /> : <Pause className="size-4" />}
+    </Button>
   );
 }
 
@@ -169,40 +248,5 @@ function ThemeToggle() {
       {theme !== 'dark' && theme !== 'light' && <Monitor />}
       <span>{label}</span>
     </SidebarMenuButton>
-  );
-}
-
-function collectIssues(status: CaptureStatus): string[] {
-  const issues: string[] = [];
-  if (!status.hasPermission) issues.push('no permission');
-  if (!status.hasApiKey) issues.push('no API key');
-  return issues;
-}
-
-function statusColor(status: CaptureStatus, hasIssues: boolean): string {
-  if (hasIssues || status.lastError) return 'bg-destructive';
-  if (status.paused) return 'bg-amber-500';
-  return 'bg-emerald-500';
-}
-
-function statusLabel(status: CaptureStatus, issues: string[]): string {
-  if (issues.length) return issues.join(' • ');
-  if (status.paused) return 'paused';
-  if (status.lastCaptureTs) {
-    return `Last Updated at ${new Date(status.lastCaptureTs).toLocaleTimeString()}`;
-  }
-  return 'Running';
-}
-
-function StatusBadge({ status }: { status: CaptureStatus | null }) {
-  if (!status) return null;
-  const issues = collectIssues(status);
-  const color = statusColor(status, issues.length > 0);
-  const label = statusLabel(status, issues);
-  return (
-    <div className="flex items-center gap-2 text-muted-foreground">
-      <span className={`inline-block h-2 w-2 rounded-full ${color}`} />
-      {label}
-    </div>
   );
 }

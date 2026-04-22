@@ -14,6 +14,22 @@ export const IPC = {
   permissionAccessibilityRequest: 'permission:accessibility:request',
   permissionAccessibilityOpen: 'permission:accessibility:open',
   dataDeleteAll: 'data:deleteAll',
+  dataStorageSizeGet: 'data:storageSize:get',
   statusUpdate: 'status:update',
   settingsUpdate: 'settings:update',
+
+  authSignIn: 'auth:signIn',
+  authSignOut: 'auth:signOut',
+  authSessionGet: 'auth:session:get',
+  authSessionUpdate: 'auth:session:update',
+
+  syncStatusGet: 'sync:status:get',
+  syncStatusUpdate: 'sync:status:update',
+  syncFlushNow: 'sync:flushNow',
+  syncRetryFailed: 'sync:retryFailed',
+
+  billingCheckout: 'billing:checkout',
+  billingPortal: 'billing:portal',
+  billingPlanGet: 'billing:plan:get',
+  billingPlanUpdate: 'billing:plan:update',
 } as const;
