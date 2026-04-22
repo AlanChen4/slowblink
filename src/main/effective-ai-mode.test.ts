@@ -3,7 +3,7 @@ import type { AuthSession, Plan } from '../shared/types';
 import { effectiveAiMode } from './effective-ai-mode';
 
 const SIGNED_IN: AuthSession = {
-  user: { id: 'u1', email: 'a@example.com' },
+  user: { id: 'u1', email: 'a@example.com', avatarUrl: null },
   expiresAt: Date.now() + 1_000_000,
 };
 const FREE: Plan = { tier: 'free', renewsAt: null };
