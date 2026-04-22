@@ -20,13 +20,18 @@ const RENDERER_ASSET_DIR = 'out/renderer/assets';
 
 // Forbidden *names* — if any of these strings appear in the bundle (as a
 // baked key in `__vite_import_meta_env__` or anywhere else), something has
-// gone wrong. These are all server-only.
+// gone wrong. These are all server-only — never referenced by main/preload
+// source, so appearing in the bundle means env-baking widened by mistake.
+// (CLOUDFLARE_API_TOKEN is intentionally omitted: the BYO Cloudflare Gateway
+// path in src/main/ai/providers/byo-openai.ts reads it at runtime via
+// process.env, so the destructure-variable name legitimately appears in
+// out/main/index.js. envPrefix in electron.vite.config.ts keeps the value
+// from being baked.)
 const FORBIDDEN_NAMES = [
   'SUPABASE_SERVICE_ROLE_KEY',
   'SUPABASE_AUTH_GOOGLE_SECRET',
   'STRIPE_SECRET_KEY',
   'STRIPE_WEBHOOK_SECRET',
-  'CLOUDFLARE_API_TOKEN',
 ];
 
 // Forbidden *value* patterns — catches the case where a secret value was
