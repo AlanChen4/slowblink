@@ -1,6 +1,6 @@
 import type { CaptureStatus, Settings } from '@shared/types';
-import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, test } from 'vitest';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 import { collectIssues, StatusBadge } from './StatusBadge';
 
 afterEach(cleanup);
@@ -61,5 +61,30 @@ describe('StatusBadge', () => {
 
     expect(screen.getByText('Running')).toBeDefined();
     expect(screen.queryByText(/no api key/i)).toBeNull();
+  });
+
+  test('renders "No API Key" as a button that fires onNavigateToApiKey', () => {
+    const onNavigateToApiKey = vi.fn();
+    render(
+      <StatusBadge
+        status={BASE_STATUS}
+        sync={null}
+        issues={['No API Key']}
+        onNavigateToApiKey={onNavigateToApiKey}
+      />,
+    );
+
+    const button = screen.getByRole('button', { name: 'No API Key' });
+    fireEvent.click(button);
+    expect(onNavigateToApiKey).toHaveBeenCalledTimes(1);
+  });
+
+  test('renders "No API Key" as plain text when no handler is provided', () => {
+    render(
+      <StatusBadge status={BASE_STATUS} sync={null} issues={['No API Key']} />,
+    );
+
+    expect(screen.queryByRole('button', { name: 'No API Key' })).toBeNull();
+    expect(screen.getByText('No API Key')).toBeDefined();
   });
 });

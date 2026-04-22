@@ -116,7 +116,15 @@ export default function App() {
           className="flex items-center gap-2 pt-2 pr-6 text-sm"
           style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         >
-          <StatusBadge status={status} sync={sync} issues={issues} />
+          <StatusBadge
+            status={status}
+            sync={sync}
+            issues={issues}
+            onNavigateToApiKey={() => {
+              setView('settings');
+              setSettingsSection('capture');
+            }}
+          />
           {status && issues.length === 0 && (
             <PauseButton paused={settings.paused} />
           )}
