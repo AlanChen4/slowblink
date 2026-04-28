@@ -81,7 +81,7 @@ export function AccountSection({
           <p className="text-muted-foreground text-sm">
             Create an account for sync and more cool features
           </p>
-          <Button variant="outline" onClick={signIn} className="gap-2">
+          <Button variant="outline" onClick={signIn}>
             <GoogleIcon className="size-4" />
             Continue with Google
           </Button>

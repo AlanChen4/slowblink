@@ -2,12 +2,12 @@
 //
 // Paid-only. Proxies screenshots through Cloudflare AI Gateway → OpenAI with
 // DLP filtering. If DLP blocks the content, we return { blocked: true } so
-// the client can still record a timeline sample (marked as [Blocked by DLP])
-// rather than dropping it.
+// the client can still record a sample (marked as [Blocked by DLP]) rather
+// than dropping it.
 //
 // Contract (matches src/main/ai/providers/cloud-proxy.ts):
 //   Request:  { image: base64str, focusedApp: string|null, focusedWindow: string|null }
-//   Response: { activity, category, confidence, app? } | { blocked: true, reason }
+//   Response: { activity, confidence, app? } | { blocked: true, reason }
 
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import { getUser, requirePaid } from '../_shared/auth.ts';
@@ -22,31 +22,17 @@ const MODEL = 'gpt-5.4-nano';
 const SYSTEM_PROMPT =
   "You will be given a screenshot of a user's device along with metadata about " +
   'their active window. Your objective is to summarize what the user is doing ' +
-  'in this screenshot. Be concise and specific. Pick the best category.';
-
-// Matches shared/types.ts CATEGORIES. Keep in sync — Deno edge functions can't
-// import from src/, so this is duplicated intentionally.
-const CATEGORIES = [
-  'coding',
-  'writing',
-  'communication',
-  'browsing',
-  'meeting',
-  'media',
-  'design',
-  'other',
-] as const;
+  'in this screenshot. Be concise and specific.';
 
 // OpenAI JSON-schema for structured outputs. The gateway passes this through.
 const RESPONSE_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['confidence', 'app', 'activity', 'category'],
+  required: ['confidence', 'app', 'activity'],
   properties: {
     confidence: { type: 'number', minimum: 0, maximum: 1 },
     app: { type: ['string', 'null'] },
     activity: { type: 'string' },
-    category: { type: 'string', enum: [...CATEGORIES] },
   },
 } as const;
 
@@ -109,7 +95,6 @@ function parseStructuredOutput(raw: unknown): {
   confidence: number;
   app: string | null;
   activity: string;
-  category: string;
 } {
   if (!raw || typeof raw !== 'object') throw new Error('empty model response');
   const choices = (raw as OpenAIResponse).choices;
@@ -118,24 +103,14 @@ function parseStructuredOutput(raw: unknown): {
   const parsed = JSON.parse(content);
   if (
     typeof parsed.activity !== 'string' ||
-    typeof parsed.category !== 'string' ||
     typeof parsed.confidence !== 'number'
   ) {
     throw new Error('malformed structured output');
-  }
-  // Structured Outputs should enforce the enum, but if the model ever returns
-  // an out-of-vocab category we coerce to 'other' so the cloud row stays
-  // consistent with what local SQLite would accept.
-  let category = parsed.category;
-  if (!(CATEGORIES as readonly string[]).includes(category)) {
-    console.warn('ai-summarize: unknown category from model, coercing to other:', category);
-    category = 'other';
   }
   return {
     confidence: parsed.confidence,
     app: typeof parsed.app === 'string' ? parsed.app : null,
     activity: parsed.activity,
-    category,
   };
 }
 

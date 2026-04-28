@@ -6,12 +6,13 @@ import type {
   SyncStatus,
 } from '@shared/types';
 import {
-  Clock,
   FlaskConical,
+  LayoutDashboard,
   Monitor,
   Moon,
   Pause,
   Play,
+  ScrollText,
   Settings,
   Sun,
 } from 'lucide-react';
@@ -35,16 +36,17 @@ import {
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { Dev } from '@/views/Dev';
+import { Logs } from '@/views/Logs';
 import { Onboarding } from '@/views/Onboarding';
+import { Overview } from '@/views/Overview';
 import { type SettingsSection, SettingsView } from '@/views/Settings';
-import { Timeline } from '@/views/Timeline';
 
-type NavId = 'timeline' | 'dev' | 'settings';
+type NavId = 'overview' | 'logs' | 'dev' | 'settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
 
 export default function App() {
-  const [view, setView] = useState<NavId>('timeline');
+  const [view, setView] = useState<NavId>('overview');
   const [settingsSection, setSettingsSection] =
     useState<SettingsSection>('account');
   const [status, setStatus] = useState<CaptureStatus | null>(null);
@@ -138,12 +140,22 @@ export default function App() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    isActive={view === 'timeline'}
-                    tooltip="Timeline"
-                    onClick={() => setView('timeline')}
+                    isActive={view === 'overview'}
+                    tooltip="Overview"
+                    onClick={() => setView('overview')}
                   >
-                    <Clock />
-                    <span>Timeline</span>
+                    <LayoutDashboard />
+                    <span>Overview</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={view === 'logs'}
+                    tooltip="Logs"
+                    onClick={() => setView('logs')}
+                  >
+                    <ScrollText />
+                    <span>Logs</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -184,7 +196,10 @@ export default function App() {
       <div className="flex max-w-[76vw] flex-1 flex-col pt-12 transition-[max-width] duration-200 ease-linear peer-data-[state=collapsed]:max-w-[calc(76vw+12rem)]">
         <main className="flex max-h-[92vh] flex-1 flex-col rounded-xl bg-background">
           <div className="flex flex-1 flex-col overflow-y-auto px-6 pt-4 pb-6">
-            {view === 'timeline' && <Timeline />}
+            {view === 'overview' && (
+              <Overview settings={settings} session={session} plan={plan} />
+            )}
+            {view === 'logs' && <Logs />}
             {view === 'dev' && <Dev />}
             {view === 'settings' && (
               <SettingsView

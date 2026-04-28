@@ -1,5 +1,6 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IPC } from '../shared/ipc-channels';
+import type { OverviewScope } from '../shared/types';
 import { signInWithGoogle } from './auth/oauth';
 import {
   signOut as authSignOut,
@@ -15,6 +16,8 @@ import {
   refreshStatus,
 } from './capture';
 import { deleteAll, getLocalStorageSize, getSamples } from './db';
+import { getOverview } from './overview';
+import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
 import {
   hasScreenPermission,
   openAccessibilityPermissionSettings,
@@ -39,6 +42,22 @@ import {
 export function registerIpc() {
   ipcMain.handle(IPC.samplesGet, (_e, start: number, end: number) =>
     getSamples(start, end),
+  );
+
+  ipcMain.handle(
+    IPC.overviewGet,
+    (_e, start: number, end: number, scope: OverviewScope) =>
+      getOverview(start, end, scope),
+  );
+  ipcMain.handle(
+    IPC.overviewDebugGet,
+    (_e, start: number, end: number, scope: OverviewScope) =>
+      getOverviewDebug(start, end, scope),
+  );
+  ipcMain.handle(
+    IPC.overviewDebugRefresh,
+    (_e, start: number, end: number, scope: OverviewScope) =>
+      refreshOverviewDebug(start, end, scope),
   );
 
   ipcMain.handle(IPC.settingsGet, () => getSettings());

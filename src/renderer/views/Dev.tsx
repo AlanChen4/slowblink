@@ -1,20 +1,23 @@
+import type { Settings } from '@shared/types';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { useMountEffect } from '@/hooks/use-mount-effect';
+import { OverviewInspector } from './dev-sections/OverviewInspector';
 
 export function Dev() {
+  const [settings, setSettings] = useState<Settings | null>(null);
+  useMountEffect(() => {
+    void window.slowblink.getSettings().then(setSettings);
+    return window.slowblink.onSettings(setSettings);
+  });
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h3 className="font-medium text-sm">Dev tools</h3>
-        <p className="text-muted-foreground text-xs">
-          Utilities for local development. This view is only visible when
-          running `pnpm dev`.
-        </p>
-      </div>
+    <div className="space-y-8">
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm">Trigger a capture immediately.</p>
+        <p className="text-sm">Trigger a capture</p>
         <DevCaptureButton />
       </div>
+      {settings && <OverviewInspector settings={settings} />}
     </div>
   );
 }

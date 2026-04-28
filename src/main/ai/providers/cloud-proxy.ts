@@ -13,7 +13,6 @@ interface CloudSummarizeResponse {
   confidence?: number;
   app?: string | null;
   activity?: string;
-  category?: SummarizeResult['category'];
 }
 
 export async function summarizeWithCloud(
@@ -49,7 +48,6 @@ export async function summarizeWithCloud(
   }
   if (
     typeof data.activity !== 'string' ||
-    typeof data.category !== 'string' ||
     typeof data.confidence !== 'number'
   ) {
     throw new Error('Cloud AI returned malformed response');
@@ -58,6 +56,5 @@ export async function summarizeWithCloud(
     confidence: data.confidence,
     app: data.app ?? null,
     activity: data.activity,
-    category: data.category,
   };
 }

@@ -50,6 +50,13 @@ const api: SlowblinkAPI = {
   onPlan: (cb) => subscribe<Plan>(IPC.billingPlanUpdate, cb),
   openCheckout: () => ipcRenderer.invoke(IPC.billingCheckout),
   openPortal: () => ipcRenderer.invoke(IPC.billingPortal),
+
+  getOverview: (start, end, scope) =>
+    ipcRenderer.invoke(IPC.overviewGet, start, end, scope),
+  getOverviewDebug: (start, end, scope) =>
+    ipcRenderer.invoke(IPC.overviewDebugGet, start, end, scope),
+  refreshOverviewDebug: (start, end, scope) =>
+    ipcRenderer.invoke(IPC.overviewDebugRefresh, start, end, scope),
 };
 
 contextBridge.exposeInMainWorld('slowblink', api);
