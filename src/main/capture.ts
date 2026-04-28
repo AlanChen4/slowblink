@@ -343,11 +343,9 @@ async function runCapture(apiKey: string | null, force: boolean) {
     insertSample({
       ts,
       activity: result.activity,
-      category: result.category,
       confidence: result.confidence,
       focusedApp: windowCtx.focusedApp,
       focusedWindow: windowCtx.focusedWindow,
-      openWindows: windowCtx.openWindows,
     });
     lastCaptureTs = ts;
     recordSuccess();

@@ -32,4 +32,8 @@ export const IPC = {
   billingPortal: 'billing:portal',
   billingPlanGet: 'billing:plan:get',
   billingPlanUpdate: 'billing:plan:update',
+
+  overviewGet: 'overview:get',
+  overviewDebugGet: 'overview:debug:get',
+  overviewDebugRefresh: 'overview:debug:refresh',
 } as const;

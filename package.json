@@ -34,12 +34,14 @@
     "db:start": "supabase start -x realtime,storage-api,imgproxy,mailpit,logflare,vector,supavisor",
     "db:stop": "supabase stop",
     "db:status": "supabase status",
-    "db:reset": "supabase db reset",
+    "db:reset": "tsx scripts/reset-local-db.ts && supabase db reset",
     "db:push": "supabase db push",
     "db:diff": "supabase db diff",
     "db:functions:env": "bash scripts/setup-functions-env.sh",
     "db:functions:serve": "pnpm db:functions:env && supabase functions serve --env-file supabase/.env",
-    "db:functions:deploy": "supabase functions deploy"
+    "db:functions:deploy": "supabase functions deploy",
+    "overview:seed": "tsx scripts/seed-overview.ts",
+    "overview:export-samples": "tsx scripts/export-samples.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.52",
@@ -88,6 +90,7 @@
     "tailwind-merge": "^2.5.3",
     "tailwindcss": "^3.4.13",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.2",
     "vite": "^5.4.8",
     "vitest": "^2.1.9"

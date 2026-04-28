@@ -336,7 +336,7 @@ function SignInStep({ session, onAdvance, onBack }: StepPanelProps) {
       }
     >
       <div className="space-y-3">
-        <Button variant="outline" onClick={signIn} className="w-full gap-2">
+        <Button variant="outline" onClick={signIn} className="w-full">
           <GoogleIcon className="size-4" />
           Continue with Google
         </Button>
