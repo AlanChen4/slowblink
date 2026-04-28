@@ -39,13 +39,13 @@ describe('aggregate', () => {
   test('windows nest under their app and rank by duration', () => {
     const agg = aggregate(samplesToSegments(seedBrowserHeavyDay()));
     const brave = agg.apps.find((a) => a.app === 'Brave Browser');
-    expect(brave).toBeDefined();
-    expect(brave!.windows.length).toBeGreaterThanOrEqual(4);
-    const unique = new Set(brave!.windows.map((w) => w.window));
-    expect(unique.size).toBe(brave!.windows.length);
-    for (let i = 1; i < brave!.windows.length; i++) {
-      expect(brave!.windows[i - 1].durationMs).toBeGreaterThanOrEqual(
-        brave!.windows[i].durationMs,
+    if (!brave) throw new Error('expected Brave Browser app');
+    expect(brave.windows.length).toBeGreaterThanOrEqual(4);
+    const unique = new Set(brave.windows.map((w) => w.window));
+    expect(unique.size).toBe(brave.windows.length);
+    for (let i = 1; i < brave.windows.length; i++) {
+      expect(brave.windows[i - 1].durationMs).toBeGreaterThanOrEqual(
+        brave.windows[i].durationMs,
       );
     }
   });

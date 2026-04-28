@@ -20,8 +20,8 @@ describe('overview integration — browser-heavy grouping', () => {
 
     const agg = aggregate(segments);
     const brave = agg.apps.find((a) => a.app === 'Brave Browser');
-    expect(brave).toBeDefined();
-    const windowNames = brave!.windows.map((w) => w.window);
+    if (!brave) throw new Error('expected Brave Browser app');
+    const windowNames = brave.windows.map((w) => w.window);
     expect(new Set(windowNames).size).toBe(windowNames.length);
     expect(windowNames.length).toBeGreaterThanOrEqual(4);
   });
@@ -36,10 +36,10 @@ describe('overview integration — brief interruption grouping', () => {
     const agg = aggregate(segments);
     const cursor = agg.apps.find((a) => a.app === 'Cursor');
     const slack = agg.apps.find((a) => a.app === 'Slack');
-    expect(cursor).toBeDefined();
-    expect(slack).toBeDefined();
+    if (!cursor) throw new Error('expected Cursor app');
+    if (!slack) throw new Error('expected Slack app');
     // Cursor's two segments combine in the per-app total.
-    expect(cursor!.durationMs).toBeGreaterThan(slack!.durationMs);
+    expect(cursor.durationMs).toBeGreaterThan(slack.durationMs);
   });
 });
 
@@ -51,9 +51,9 @@ describe('overview integration — focusedWindow normalization', () => {
 
     const agg = aggregate(segments);
     const brave = agg.apps.find((a) => a.app === 'Brave Browser');
-    expect(brave).toBeDefined();
-    expect(brave!.windows).toHaveLength(1);
-    expect(brave!.windows[0].window).toMatch(/YouTube$/);
-    expect(brave!.windows[0].durationMs).toBe(brave!.durationMs);
+    if (!brave) throw new Error('expected Brave Browser app');
+    expect(brave.windows).toHaveLength(1);
+    expect(brave.windows[0].window).toMatch(/YouTube$/);
+    expect(brave.windows[0].durationMs).toBe(brave.durationMs);
   });
 });
