@@ -28,3 +28,17 @@ The `/ship` workflow spawns five specialist agents in parallel. Each returns a s
 - [dead-code-detector](.claude/agents/dead-code-detector.md) — `knip` + stub implementations + unused exports
 
 Agents are read-only: they report, the coordinator decides. An agent can be invoked standalone via the `Agent` tool with `subagent_type: "<agent-name>"` when you want just one facet reviewed without the full ship loop.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues at `AlanChen4/slowblink`. Use the `gh` CLI. See [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md).
+
+### Triage labels
+
+Five canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See [docs/agents/triage-labels.md](docs/agents/triage-labels.md).
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See [docs/agents/domain.md](docs/agents/domain.md).
