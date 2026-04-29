@@ -29,11 +29,9 @@ interface SamplePayload {
   client_id: string;
   ts: string;
   activity: string;
-  category: string;
   confidence: number | null;
   focused_app: string | null;
   focused_window: string | null;
-  open_windows: unknown;
 }
 
 function validateBody(body: unknown): SamplePayload[] {
@@ -52,7 +50,6 @@ function rowShapeError(sample: SamplePayload): string | null {
   if (typeof sample.ts !== 'string' || !sample.ts) return 'missing_ts';
   if (Number.isNaN(Date.parse(sample.ts))) return 'invalid_ts';
   if (typeof sample.activity !== 'string') return 'missing_activity';
-  if (typeof sample.category !== 'string') return 'missing_category';
   return null;
 }
 

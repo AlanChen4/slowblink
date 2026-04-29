@@ -24,6 +24,8 @@ const BASE_SETTINGS: Settings = {
   storageMode: 'local',
   aiMode: 'byo-key',
   onboardingComplete: true,
+  overviewScope: 'this-device',
+  overviewMinDurationMs: 5 * 60 * 1000,
 };
 
 describe('collectIssues', () => {

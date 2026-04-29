@@ -6,11 +6,9 @@ interface IngestRequestRow {
   client_id: string;
   ts: string;
   activity: string;
-  category: string;
   confidence: number | null;
   focused_app: string | null;
   focused_window: string | null;
-  open_windows: unknown;
 }
 
 interface IngestResponse {
@@ -28,25 +26,14 @@ export class PermanentIngestError extends Error {}
 export class TransientIngestError extends Error {}
 export class AuthRequiredError extends Error {}
 
-function safeParseOpenWindows(raw: string | null): unknown {
-  if (!raw) return [];
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
 function rowToPayload(row: PendingSampleRow): IngestRequestRow {
   return {
     client_id: String(row.id),
     ts: new Date(row.ts).toISOString(),
     activity: row.activity,
-    category: row.category,
     confidence: row.confidence,
     focused_app: row.focused_app,
     focused_window: row.focused_window,
-    open_windows: safeParseOpenWindows(row.open_windows),
   };
 }
 

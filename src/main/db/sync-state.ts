@@ -1,15 +1,13 @@
 import type Database from 'better-sqlite3';
-import type { Category, SyncState } from '../../shared/types';
+import type { SyncState } from '../../shared/types';
 
 export interface PendingSampleRow {
   id: number;
   ts: number;
   activity: string;
-  category: Category;
   confidence: number | null;
   focused_app: string | null;
   focused_window: string | null;
-  open_windows: string | null;
   sync_attempts: number;
 }
 
@@ -27,7 +25,7 @@ export function prepareSyncStatements(db: Database.Database): SyncStatements {
     // Only rows whose next-attempt time has arrived — lets us keep exponential
     // backoff without a separate in-memory schedule.
     getPending: db.prepare(
-      `SELECT id, ts, activity, category, confidence, focused_app, focused_window, open_windows, sync_attempts
+      `SELECT id, ts, activity, confidence, focused_app, focused_window, sync_attempts
        FROM samples
        WHERE sync_state = 'pending' AND sync_next_attempt_ts <= ?
        ORDER BY ts ASC

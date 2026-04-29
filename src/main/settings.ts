@@ -2,6 +2,7 @@ import { safeStorage } from 'electron';
 import type {
   AIMode,
   ApiKeySource,
+  OverviewScope,
   Plan,
   Settings,
   SettingsPatch,
@@ -34,6 +35,8 @@ interface StoreShape {
   onboardingComplete: boolean;
   supabaseSessionEncrypted: string | null;
   planCache: Plan | null;
+  overviewScope: OverviewScope;
+  overviewMinDurationMs: number;
 }
 
 // electron-store v10 is ESM-only; load it lazily via dynamic import so this
@@ -69,6 +72,8 @@ export async function initSettings(): Promise<void> {
       onboardingComplete: false,
       supabaseSessionEncrypted: null,
       planCache: null,
+      overviewScope: 'this-device',
+      overviewMinDurationMs: 5 * 60 * 1000,
     },
   }) as unknown as StoreInstance;
 
@@ -103,6 +108,8 @@ export function getSettings(): Settings {
     storageMode: s.get('storageMode'),
     aiMode: effectiveAiMode(s.get('aiMode'), getCurrentSession(), getPlan()),
     onboardingComplete: s.get('onboardingComplete'),
+    overviewScope: s.get('overviewScope'),
+    overviewMinDurationMs: s.get('overviewMinDurationMs'),
   };
 }
 
@@ -121,6 +128,12 @@ export function setSettings(patch: SettingsPatch): Settings {
   if (patch.aiMode !== undefined) s.set('aiMode', patch.aiMode);
   if (patch.onboardingComplete !== undefined) {
     s.set('onboardingComplete', patch.onboardingComplete);
+  }
+  if (patch.overviewScope !== undefined) {
+    s.set('overviewScope', patch.overviewScope);
+  }
+  if (patch.overviewMinDurationMs !== undefined) {
+    s.set('overviewMinDurationMs', Math.max(0, patch.overviewMinDurationMs));
   }
   const result = getSettings();
   settingsEmitter.emit(result);

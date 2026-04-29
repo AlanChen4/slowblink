@@ -1,25 +1,10 @@
-export const CATEGORIES = [
-  'coding',
-  'writing',
-  'communication',
-  'browsing',
-  'meeting',
-  'media',
-  'design',
-  'other',
-] as const;
-
-export type Category = (typeof CATEGORIES)[number];
-
 export interface Sample {
   id: number;
   ts: number;
   activity: string;
-  category: Category;
   confidence: number;
   focusedApp: string | null;
   focusedWindow: string | null;
-  openWindows: { app: string; title: string }[];
 }
 
 export type ApiKeySource = 'saved' | 'env' | null;
@@ -27,6 +12,7 @@ export type StorageMode = 'local' | 'cloud-sync';
 export type AIMode = 'byo-key' | 'cloud-ai';
 export type PlanTier = 'free' | 'paid';
 export type SyncState = 'pending' | 'synced' | 'failed';
+export type OverviewScope = 'this-device' | 'all-devices';
 
 export interface Settings {
   intervalMs: number;
@@ -38,6 +24,8 @@ export interface Settings {
   storageMode: StorageMode;
   aiMode: AIMode;
   onboardingComplete: boolean;
+  overviewScope: OverviewScope;
+  overviewMinDurationMs: number;
 }
 
 export type SettingsPatch = Partial<
@@ -87,6 +75,50 @@ export interface SyncStatus {
   lastError: string | null;
 }
 
+export interface Segment {
+  startTs: number;
+  endTs: number;
+  durationMs: number;
+  focusedApp: string | null;
+  focusedWindow: string | null;
+}
+
+export interface WindowDuration {
+  window: string;
+  durationMs: number;
+}
+
+export interface AppDuration {
+  app: string;
+  durationMs: number;
+  windows: WindowDuration[];
+}
+
+export interface OverviewAggregate {
+  apps: AppDuration[];
+}
+
+export interface Overview {
+  scope: OverviewScope;
+  rangeStart: number;
+  rangeEnd: number;
+  segments: Segment[];
+  aggregate: OverviewAggregate;
+}
+
+export interface OverviewDebug {
+  range: {
+    startTs: number;
+    endTs: number;
+    rangeKey: string;
+    scope: OverviewScope;
+    timezone: string;
+  };
+  samples: Sample[];
+  segments: Segment[];
+  aggregate: OverviewAggregate;
+}
+
 export interface SlowblinkAPI {
   getSamples(rangeStart: number, rangeEnd: number): Promise<Sample[]>;
   getSettings(): Promise<Settings>;
@@ -120,6 +152,22 @@ export interface SlowblinkAPI {
   onPlan(cb: (p: Plan) => void): () => void;
   openCheckout(): Promise<void>;
   openPortal(): Promise<void>;
+
+  getOverview(
+    rangeStart: number,
+    rangeEnd: number,
+    scope: OverviewScope,
+  ): Promise<Overview>;
+  getOverviewDebug(
+    rangeStart: number,
+    rangeEnd: number,
+    scope: OverviewScope,
+  ): Promise<OverviewDebug>;
+  refreshOverviewDebug(
+    rangeStart: number,
+    rangeEnd: number,
+    scope: OverviewScope,
+  ): Promise<OverviewDebug>;
 }
 
 declare global {

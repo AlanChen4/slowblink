@@ -1,4 +1,4 @@
-import type { CaptureStatus, Settings } from '@shared/types';
+import type { CaptureStatus, Settings, SyncStatus } from '@shared/types';
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, test } from 'vitest';
 import { StatusBadge } from './StatusBadge';
@@ -24,6 +24,8 @@ const BASE_SETTINGS: Settings = {
   storageMode: 'local',
   aiMode: 'byo-key',
   onboardingComplete: true,
+  overviewScope: 'this-device',
+  overviewMinDurationMs: 5 * 60 * 1000,
 };
 
 // Regression guard: paused used to live on both `CaptureStatus` and `Settings`
@@ -58,5 +60,31 @@ describe('StatusBadge pause-state source of truth', () => {
 
     expect(screen.queryByText('Paused')).toBeNull();
     expect(screen.getByText('Running')).toBeDefined();
+  });
+
+  test('sync detail replaces the status label when present', () => {
+    const pausedSettings: Settings = { ...BASE_SETTINGS, paused: true };
+    const sync: SyncStatus = {
+      enabled: true,
+      state: 'error',
+      lastFlushTs: null,
+      pending: 0,
+      synced: 0,
+      failed: 1,
+      lastError: 'boom',
+    };
+
+    render(
+      <StatusBadge
+        status={BASE_STATUS}
+        settings={pausedSettings}
+        sync={sync}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Sync error')).toBeDefined();
+    expect(screen.queryByText('Paused')).toBeNull();
+    expect(screen.queryByText(/·/)).toBeNull();
   });
 });
