@@ -16,10 +16,7 @@ const credentials = getLocalCredentials();
 
 describe('ingest_samples_with_cap RPC (requires pnpm db:start)', () => {
   if (!credentials) {
-    it.skip(
-      'skipped without local Supabase (set SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)',
-      () => {},
-    );
+    it.skip('skipped without local Supabase (set SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)', () => {});
     return;
   }
   const admin = createClient(credentials.url, credentials.serviceKey, {
@@ -66,9 +63,9 @@ describe('ingest_samples_with_cap RPC (requires pnpm db:start)', () => {
     });
 
     expect(error).toBeNull();
-    const rows = (data ?? []) as { id: string; client_id: string }[];
+    const rows = (data ?? []) as { inserted_id: string; inserted_client_id: string }[];
     expect(rows).toHaveLength(1);
-    expect(rows[0].client_id).toBe('rpc-test-1');
-    expect(rows[0].id).toMatch(/^[0-9a-f-]{36}$/);
+    expect(rows[0].inserted_client_id).toBe('rpc-test-1');
+    expect(rows[0].inserted_id).toMatch(/^[0-9a-f-]{36}$/);
   });
 });
