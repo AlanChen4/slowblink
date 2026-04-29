@@ -68,9 +68,8 @@ export function StatusBadge({
       {issues.length > 0 ? (
         <IssueList issues={issues} onNavigateToApiKey={onNavigateToApiKey} />
       ) : (
-        statusLabel(status, settings.paused)
+        (syncPart ?? statusLabel(status, settings.paused))
       )}
-      {syncPart && <span className="text-xs">· {syncPart}</span>}
     </div>
   );
 }
