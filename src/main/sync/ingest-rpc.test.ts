@@ -14,11 +14,6 @@ function getLocalCredentials(): { url: string; serviceKey: string } | null {
 
 const credentials = getLocalCredentials();
 
-interface IngestedRow {
-  id: string;
-  client_id: string;
-}
-
 describe.runIf(credentials !== null)(
   'ingest_samples_with_cap RPC (requires pnpm db:start)',
   () => {
@@ -30,7 +25,8 @@ describe.runIf(credentials !== null)(
     let userId: string | null = null;
 
     beforeAll(async () => {
-      const email = `ingest-rpc-test-${Date.now()}@example.local`;
+      const suffix = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const email = `ingest-rpc-test-${suffix}@example.local`;
       const password = `rpc-test-${Math.random().toString(36).slice(2)}`;
       const { data, error } = await admin.auth.admin.createUser({
         email,
@@ -50,7 +46,6 @@ describe.runIf(credentials !== null)(
     });
 
     it('inserts one row and returns its server id without raising column ambiguity', async () => {
-      if (!userId) throw new Error('test user not provisioned');
       const { data, error } = await admin.rpc('ingest_samples_with_cap', {
         p_user_id: userId,
         p_rows: [
@@ -67,10 +62,10 @@ describe.runIf(credentials !== null)(
       });
 
       expect(error).toBeNull();
-      const rows = (data ?? []) as IngestedRow[];
+      const rows = (data ?? []) as { id: string; client_id: string }[];
       expect(rows).toHaveLength(1);
-      expect(rows[0]?.client_id).toBe('rpc-test-1');
-      expect(rows[0]?.id).toMatch(/^[0-9a-f-]{36}$/);
+      expect(rows[0].client_id).toBe('rpc-test-1');
+      expect(rows[0].id).toMatch(/^[0-9a-f-]{36}$/);
     });
   },
 );
