@@ -107,6 +107,10 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+-- The OUT params from `returns table (id, client_id)` shadow the same-named
+-- columns of public.samples; this directive tells plpgsql to prefer the
+-- column when a name could refer to either.
+#variable_conflict use_column
 declare
   v_batch_size int;
   v_count int;
