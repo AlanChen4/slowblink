@@ -8,6 +8,7 @@ An Electron app that uses AI to track how the user is spending their time on the
 - [Main process layout](.claude/rules/main-process-layout.md) — AI code in `src/main/ai/`, tightly-coupled code stays together, new domains get subdirectories
 - [No section-separator comments](.claude/rules/no-section-comments.md) — Don't add banner/divider comments; split the file instead
 - [Git workflow](.claude/rules/git-workflow.md) — Commit with a gitmoji prefix from the provided list
+- [Issue titles](.claude/rules/issue-titles.md) — Prefix issue titles with the matching gitmoji (`✨` features, `🐛` bugs, `🏗️` design, etc.)
 - [Worktree paths](.claude/rules/worktree-paths.md) — In a worktree session, verify edit paths and brief subagents to stay inside the worktree root
 - [Doppler secrets](.claude/rules/doppler.md) — Recommended secret manager; when `.doppler.yaml` is present, prefix dev commands with `doppler run --`. Falls back to `.env.local` + `supabase/.env`.
 
@@ -28,3 +29,17 @@ The `/ship` workflow spawns five specialist agents in parallel. Each returns a s
 - [dead-code-detector](.claude/agents/dead-code-detector.md) — `knip` + stub implementations + unused exports
 
 Agents are read-only: they report, the coordinator decides. An agent can be invoked standalone via the `Agent` tool with `subagent_type: "<agent-name>"` when you want just one facet reviewed without the full ship loop.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues at `AlanChen4/slowblink`. Use the `gh` CLI. See [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md).
+
+### Triage labels
+
+Five canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See [docs/agents/triage-labels.md](docs/agents/triage-labels.md).
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See [docs/agents/domain.md](docs/agents/domain.md).
