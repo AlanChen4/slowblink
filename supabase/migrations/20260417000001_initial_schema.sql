@@ -102,7 +102,9 @@ create function public.ingest_samples_with_cap(
   p_rows jsonb,
   p_cap int
 )
-returns table (id uuid, client_id text)
+-- OUT-param names are deliberately distinct from any public.samples column
+-- so plpgsql's variable-vs-column resolver has nothing to disambiguate.
+returns table (inserted_id uuid, inserted_client_id text)
 language plpgsql
 security definer
 set search_path = public
