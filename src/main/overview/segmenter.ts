@@ -75,14 +75,6 @@ function stripTrailingBrowserSuffix(
   return window;
 }
 
-function sameKey(a: Sample, b: Sample): boolean {
-  return (
-    a.focusedApp === b.focusedApp &&
-    normalizeFocusedWindow(a.focusedWindow, a.focusedApp) ===
-      normalizeFocusedWindow(b.focusedWindow, b.focusedApp)
-  );
-}
-
 function medianInterval(samples: Sample[]): number {
   const gaps: number[] = [];
   for (let i = 1; i < samples.length; i++) {
@@ -122,6 +114,12 @@ function emitIdleSegment(startTs: number, endTs: number): Segment {
 export function samplesToSegments(samples: Sample[]): Segment[] {
   if (samples.length === 0) return [];
   const interval = medianInterval(samples);
+  // Normalize each window once. Without this, the loop below would re-run the
+  // regex chain on both sides of every consecutive pair — O(2N) regex passes
+  // instead of O(N).
+  const keys = samples.map((s) =>
+    normalizeFocusedWindow(s.focusedWindow, s.focusedApp),
+  );
   const segments: Segment[] = [];
   let run: Sample[] = [samples[0]];
 
@@ -140,7 +138,7 @@ export function samplesToSegments(samples: Sample[]): Segment[] {
       continue;
     }
 
-    if (!sameKey(prev, curr)) {
+    if (prev.focusedApp !== curr.focusedApp || keys[i - 1] !== keys[i]) {
       segments.push(emitRunSegment(run, curr.ts));
       run = [curr];
       continue;
