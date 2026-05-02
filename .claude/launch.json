@@ -1,0 +1,34 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "slowblink-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 5173
+    },
+    {
+      "name": "electron-app",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev:app"],
+      "port": 5173
+    },
+    {
+      "name": "supabase",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["db:start"],
+      "port": 55321
+    },
+    {
+      "name": "edge-functions",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["db:functions:serve"],
+      "port": 55321
+    },
+    {
+      "name": "stripe-listener",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["stripe:listen"]
+    }
+  ]
+}
