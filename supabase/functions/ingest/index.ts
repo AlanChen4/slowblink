@@ -81,10 +81,10 @@ async function resolveServerIds(
   admin: SupabaseClient,
   userId: string,
   valid: SplitRows['valid'],
-  inserted: Array<{ id: string; client_id: string }>,
+  inserted: Array<{ inserted_id: string; inserted_client_id: string }>,
 ): Promise<Array<{ client_id: string; server_id: string }>> {
   const idMap = new Map<string, string>();
-  for (const row of inserted) idMap.set(row.client_id, row.id);
+  for (const row of inserted) idMap.set(row.inserted_client_id, row.inserted_id);
 
   // Rows not returned by `upsert(..., ignoreDuplicates: true)` are pre-existing.
   // Fetch their server ids in a single round-trip instead of per-row.
@@ -151,7 +151,7 @@ Deno.serve(
       admin,
       user.id,
       valid,
-      (inserted ?? []) as Array<{ id: string; client_id: string }>,
+      (inserted ?? []) as Array<{ inserted_id: string; inserted_client_id: string }>,
     );
 
     // Fire-and-forget retention trim for free users — doesn't block the response.
