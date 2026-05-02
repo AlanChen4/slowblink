@@ -1,10 +1,5 @@
 import { net } from 'electron';
-import type {
-  Sample,
-  Settings,
-  SyncRuntimeState,
-  SyncStatus,
-} from '../../shared/types';
+import type { Sample, SyncRuntimeState, SyncStatus } from '../../shared/types';
 import { getCurrentSession, onSessionChange } from '../auth/session';
 import {
   bumpSyncAttempts,
@@ -16,7 +11,11 @@ import {
   retryFailedSamples,
 } from '../db';
 import { createEmitter } from '../emitter';
-import { getSettings, onSettingsChange } from '../settings';
+import {
+  getStoredSettings,
+  onStoredSettingsChange,
+  type StoredSettings,
+} from '../settings';
 import {
   AuthRequiredError,
   PermanentIngestError,
@@ -51,7 +50,7 @@ let lastFlushTs: number | null = null;
 let lastError: string | null = null;
 let runtimeState: SyncRuntimeState = 'disabled';
 
-function enabled(settings: Settings): boolean {
+function enabled(settings: StoredSettings): boolean {
   if (settings.storageMode !== 'cloud-sync') return false;
   const session = getCurrentSession();
   return !!session;
@@ -59,7 +58,7 @@ function enabled(settings: Settings): boolean {
 
 export function getSyncStatus(): SyncStatus {
   const counts = safeCounts();
-  const settings = getSettings();
+  const settings = getStoredSettings();
   const isEnabled = enabled(settings);
   const state: SyncRuntimeState = isEnabled ? runtimeState : 'disabled';
   return {
@@ -145,7 +144,7 @@ function backoffFor(attempts: number): number {
 
 async function flush(reason: 'periodic' | 'idle' | 'size' | 'manual') {
   if (flushInFlight) return;
-  const settings = getSettings();
+  const settings = getStoredSettings();
   if (!enabled(settings)) {
     setRuntimeState('disabled');
     return;
@@ -223,7 +222,7 @@ function handleFlushError(
 }
 
 function onSampleInsertedHandler(_: Sample) {
-  const settings = getSettings();
+  const settings = getStoredSettings();
   if (!enabled(settings)) return;
   pendingSinceInsert += 1;
   if (pendingSinceInsert >= BATCH_ROW_THRESHOLD) {
@@ -241,13 +240,13 @@ export function initSync() {
   if (syncInitialized) return;
   syncInitialized = true;
   onSampleInserted(onSampleInsertedHandler);
-  onSettingsChange(refresh);
+  onStoredSettingsChange(refresh);
   onSessionChange(refresh);
   refresh();
 }
 
 function refresh() {
-  const settings = getSettings();
+  const settings = getStoredSettings();
   if (enabled(settings)) {
     schedulePeriodic();
     setRuntimeState('idle');

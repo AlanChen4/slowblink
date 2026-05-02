@@ -1,5 +1,5 @@
+import type { AIMode } from '../../shared/types';
 import type { WindowContext } from '../capture';
-import { getSettings } from '../settings';
 import { summarizeWithByoKey } from './providers/byo-openai';
 import { summarizeWithCloud } from './providers/cloud-proxy';
 import type { SummarizeResult } from './types';
@@ -9,8 +9,8 @@ export async function summarizeScreenshot(
   apiKey: string | null,
   model: string,
   windowCtx: WindowContext,
+  aiMode: AIMode,
 ): Promise<SummarizeResult> {
-  const { aiMode } = getSettings();
   if (aiMode === 'cloud-ai') {
     return summarizeWithCloud(image, windowCtx);
   }

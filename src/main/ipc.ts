@@ -7,14 +7,9 @@ import {
   getCurrentSession,
   onSessionChange,
 } from './auth/session';
+import type { Automation } from './automation';
 import { openCheckout, openPortal } from './billing/checkout';
 import { getPlan, onPlanChange } from './billing/plan-cache';
-import {
-  captureOnce,
-  getStatus,
-  onStatusChange,
-  refreshStatus,
-} from './capture';
 import { deleteAll, getLocalStorageSize, getSamples } from './db';
 import { getOverview } from './overview';
 import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
@@ -25,13 +20,7 @@ import {
   requestAccessibilityPermission,
   requestScreenPermission,
 } from './permissions';
-import {
-  clearApiKey,
-  getSettings,
-  onSettingsChange,
-  setApiKey,
-  setSettings,
-} from './settings';
+import { clearApiKey, setApiKey } from './settings';
 import {
   flushNow,
   getSyncStatus,
@@ -39,7 +28,7 @@ import {
   retryFailed,
 } from './sync/flusher';
 
-export function registerIpc() {
+export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.samplesGet, (_e, start: number, end: number) =>
     getSamples(start, end),
   );
@@ -60,24 +49,31 @@ export function registerIpc() {
       refreshOverviewDebug(start, end, scope),
   );
 
-  ipcMain.handle(IPC.settingsGet, () => getSettings());
-  ipcMain.handle(IPC.settingsSet, (_e, patch) => setSettings(patch));
+  ipcMain.handle(IPC.settingsGet, () => automation.getState().settings);
+  ipcMain.handle(
+    IPC.settingsSet,
+    (_e, patch) => automation.applyIntent(patch).settings,
+  );
 
   ipcMain.handle(IPC.apiKeySet, (_e, key: string) => {
     setApiKey(key);
-    return getSettings();
+    return automation.getState().settings;
   });
   ipcMain.handle(IPC.apiKeyClear, () => clearApiKey());
 
-  ipcMain.handle(IPC.statusGet, () => getStatus());
+  ipcMain.handle(IPC.statusGet, () => automation.getState().status);
 
-  ipcMain.handle(IPC.capturePause, () => setSettings({ paused: true }));
-  ipcMain.handle(IPC.captureResume, () => setSettings({ paused: false }));
-  ipcMain.handle(IPC.captureOnce, () => captureOnce(true));
+  ipcMain.handle(IPC.capturePause, () => {
+    automation.applyIntent({ paused: true });
+  });
+  ipcMain.handle(IPC.captureResume, () => {
+    automation.applyIntent({ paused: false });
+  });
+  ipcMain.handle(IPC.captureOnce, () => automation.captureNow());
 
   ipcMain.handle(IPC.permissionRequest, async () => {
     const granted = await requestScreenPermission();
-    refreshStatus();
+    automation.notifyPermissionsChanged();
     return granted;
   });
   ipcMain.handle(IPC.permissionOpen, () => openScreenPermissionSettings());
@@ -85,7 +81,7 @@ export function registerIpc() {
 
   ipcMain.handle(IPC.permissionAccessibilityRequest, async () => {
     const granted = await requestAccessibilityPermission();
-    refreshStatus();
+    automation.notifyPermissionsChanged();
     return granted;
   });
   ipcMain.handle(IPC.permissionAccessibilityOpen, () =>
@@ -119,12 +115,20 @@ function broadcast<T>(
   });
 }
 
-export function broadcastStatusUpdates() {
-  return broadcast(IPC.statusUpdate, onStatusChange);
+export function broadcastStatusUpdates(automation: Automation) {
+  return automation.subscribe((state) => {
+    for (const win of BrowserWindow.getAllWindows()) {
+      win.webContents.send(IPC.statusUpdate, state.status);
+    }
+  });
 }
 
-export function broadcastSettingsUpdates() {
-  return broadcast(IPC.settingsUpdate, onSettingsChange);
+export function broadcastSettingsUpdates(automation: Automation) {
+  return automation.subscribe((state) => {
+    for (const win of BrowserWindow.getAllWindows()) {
+      win.webContents.send(IPC.settingsUpdate, state.settings);
+    }
+  });
 }
 
 export function broadcastSessionUpdates() {

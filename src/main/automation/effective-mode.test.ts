@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import type { AuthSession, Plan } from '../shared/types';
-import { effectiveAiMode } from './effective-ai-mode';
+import type { AuthSession, Plan } from '../../shared/types';
+import { effectiveAiMode } from './effective-mode';
 
 const SIGNED_IN: AuthSession = {
   user: { id: 'u1', email: 'a@example.com', avatarUrl: null },

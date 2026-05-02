@@ -4,58 +4,39 @@ import type {
   ApiKeySource,
   OverviewScope,
   Plan,
-  Settings,
   SettingsPatch,
   StorageMode,
 } from '../shared/types';
-import { getCurrentSession } from './auth/session';
-import { getPlan } from './billing/plan-cache';
-import { effectiveAiMode } from './effective-ai-mode';
 import { createEmitter } from './emitter';
 import { env } from './env';
 
-function apiKeySource(hasSaved: boolean, hasEnv: boolean): ApiKeySource {
-  if (hasSaved) return 'saved';
-  if (hasEnv) return 'env';
-  return null;
-}
-
-function maskKey(key: string): string {
-  if (key.length <= 8) return `${key.slice(0, 3)}…`;
-  return `${key.slice(0, 7)}…${key.slice(-4)}`;
-}
-
-interface StoreShape {
+export interface StoredSettings {
   intervalMs: number;
   model: string;
   paused: boolean;
-  apiKeyEncrypted: string | null;
   storageMode: StorageMode;
   aiMode: AIMode;
   onboardingComplete: boolean;
-  supabaseSessionEncrypted: string | null;
-  planCache: Plan | null;
   overviewScope: OverviewScope;
   overviewMinDurationMs: number;
 }
 
-// electron-store v10 is ESM-only; load it lazily via dynamic import so this
-// CommonJS bundle can consume it. initSettings() must be awaited during
-// app startup before any of the exports below are called.
+interface StoreShape extends StoredSettings {
+  apiKeyEncrypted: string | null;
+  supabaseSessionEncrypted: string | null;
+  planCache: Plan | null;
+}
+
 type StoreInstance = {
   get<K extends keyof StoreShape>(key: K): StoreShape[K];
   set<K extends keyof StoreShape>(key: K, value: StoreShape[K]): void;
 };
 
-const settingsEmitter = createEmitter<Settings>();
-export const onSettingsChange = settingsEmitter.on;
+const storedSettingsEmitter = createEmitter<StoredSettings>();
+export const onStoredSettingsChange = storedSettingsEmitter.on;
 
 let store: StoreInstance | null = null;
 
-// Cache of the decrypted API key keyed by the ciphertext on disk. Keying by
-// ciphertext means any path that rewrites `apiKeyEncrypted` (even ones we
-// don't fully control, e.g. electron-store migrations) forces a re-decrypt
-// on the next read instead of returning a stale plaintext.
 let decryptedKeyCache: { enc: string; key: string } | null = null;
 
 export async function initSettings(): Promise<void> {
@@ -93,31 +74,21 @@ function requireStore(): StoreInstance {
   return store;
 }
 
-export function getSettings(): Settings {
+export function getStoredSettings(): StoredSettings {
   const s = requireStore();
-  const hasSaved = !!s.get('apiKeyEncrypted');
-  const hasEnv = !!env.OPENAI_API_KEY;
-  const activeKey = getApiKey();
   return {
     intervalMs: s.get('intervalMs'),
     model: s.get('model'),
     paused: s.get('paused'),
-    hasApiKey: hasSaved || hasEnv,
-    apiKeySource: apiKeySource(hasSaved, hasEnv),
-    apiKeyHint: activeKey ? maskKey(activeKey) : null,
     storageMode: s.get('storageMode'),
-    aiMode: effectiveAiMode(s.get('aiMode'), getCurrentSession(), getPlan()),
+    aiMode: s.get('aiMode'),
     onboardingComplete: s.get('onboardingComplete'),
     overviewScope: s.get('overviewScope'),
     overviewMinDurationMs: s.get('overviewMinDurationMs'),
   };
 }
 
-export function refreshSettings(): void {
-  settingsEmitter.emit(getSettings());
-}
-
-export function setSettings(patch: SettingsPatch): Settings {
+export function setStoredSettings(patch: SettingsPatch): StoredSettings {
   const s = requireStore();
   if (patch.intervalMs !== undefined) {
     s.set('intervalMs', Math.max(1000, Math.floor(patch.intervalMs)));
@@ -135,9 +106,31 @@ export function setSettings(patch: SettingsPatch): Settings {
   if (patch.overviewMinDurationMs !== undefined) {
     s.set('overviewMinDurationMs', Math.max(0, patch.overviewMinDurationMs));
   }
-  const result = getSettings();
-  settingsEmitter.emit(result);
-  return result;
+  const next = getStoredSettings();
+  storedSettingsEmitter.emit(next);
+  return next;
+}
+
+export function hasApiKey(): boolean {
+  const s = requireStore();
+  return !!s.get('apiKeyEncrypted') || !!env.OPENAI_API_KEY;
+}
+
+export function apiKeySource(): ApiKeySource {
+  const s = requireStore();
+  if (s.get('apiKeyEncrypted')) return 'saved';
+  if (env.OPENAI_API_KEY) return 'env';
+  return null;
+}
+
+export function apiKeyHint(): string | null {
+  const key = getApiKey();
+  return key ? maskKey(key) : null;
+}
+
+function maskKey(key: string): string {
+  if (key.length <= 8) return `${key.slice(0, 3)}…`;
+  return `${key.slice(0, 7)}…${key.slice(-4)}`;
 }
 
 export function setApiKey(key: string): void {
@@ -147,13 +140,13 @@ export function setApiKey(key: string): void {
   const enc = safeStorage.encryptString(key).toString('base64');
   requireStore().set('apiKeyEncrypted', enc);
   decryptedKeyCache = { enc, key };
-  settingsEmitter.emit(getSettings());
+  storedSettingsEmitter.emit(getStoredSettings());
 }
 
 export function clearApiKey(): void {
   requireStore().set('apiKeyEncrypted', null);
   decryptedKeyCache = null;
-  settingsEmitter.emit(getSettings());
+  storedSettingsEmitter.emit(getStoredSettings());
 }
 
 export function getApiKey(): string | null {

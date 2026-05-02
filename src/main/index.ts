@@ -1,16 +1,15 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
-import type { CaptureStatus, Settings } from '../shared/types';
 import { registerProtocolHandler } from './auth/deep-link';
-import { loadSessionFromDisk, onSessionChange } from './auth/session';
-import { initPlanCache, onPlanChange } from './billing/plan-cache';
 import {
-  getStatus,
-  initCaptureSettingsWatcher,
-  onStatusChange,
-  startCaptureLoop,
-  stopCaptureLoop,
-} from './capture';
+  getCurrentSession,
+  loadSessionFromDisk,
+  onSessionChange,
+} from './auth/session';
+import type { Automation, AutomationState } from './automation';
+import { createAutomation } from './automation';
+import { runCaptureTick } from './automation/runner';
+import { getPlan, initPlanCache, onPlanChange } from './billing/plan-cache';
 import { initDb } from './db';
 import { getDevDockIcon } from './dock-icon';
 import {
@@ -21,14 +20,24 @@ import {
   broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
+import { hasAccessibilityPermission, hasScreenPermission } from './permissions';
 import {
-  getSettings,
+  apiKeyHint,
+  apiKeySource,
+  getApiKey,
+  getStoredSettings,
+  hasApiKey,
   initSettings,
-  onSettingsChange,
-  refreshSettings,
-  setSettings,
+  onStoredSettingsChange,
+  setStoredSettings,
 } from './settings';
 import { initSync } from './sync/flusher';
+
+// Open the Chrome DevTools Protocol port in dev so agent-browser (and any
+// other CDP client) can attach for E2E checks. Skipped in packaged builds.
+if (!app.isPackaged) {
+  app.commandLine.appendSwitch('remote-debugging-port', '9222');
+}
 
 let tray: Tray | null = null;
 let mainWindow: BrowserWindow | null = null;
@@ -76,28 +85,28 @@ function createWindow() {
   }
 }
 
-function trayStatusLabel(status: CaptureStatus, settings: Settings): string {
-  if (settings.paused) return 'paused';
-  if (status.running) return 'running';
+function trayStatusLabel(state: AutomationState): string {
+  if (state.settings.paused) return 'paused';
+  if (state.status.running) return 'running';
   return 'idle';
 }
 
-function trayTitle(status: CaptureStatus, settings: Settings): string {
-  if (!status.hasPermission || !status.hasApiKey) return '●!';
-  if (settings.paused) return '◌';
+function trayTitle(state: AutomationState): string {
+  if (!state.status.hasPermission || !state.status.hasApiKey) return '●!';
+  if (state.settings.paused) return '◌';
   return '●';
 }
 
-function buildTrayMenu(status: CaptureStatus, settings: Settings) {
+function buildTrayMenu(state: AutomationState, automation: Automation) {
   return Menu.buildFromTemplate([
     {
-      label: `slowblink — ${trayStatusLabel(status, settings)}`,
+      label: `slowblink — ${trayStatusLabel(state)}`,
       enabled: false,
     },
     { type: 'separator' },
     {
-      label: settings.paused ? 'Resume capture' : 'Pause capture',
-      click: () => setSettings({ paused: !settings.paused }),
+      label: state.settings.paused ? 'Resume capture' : 'Pause capture',
+      click: () => automation.applyIntent({ paused: !state.settings.paused }),
     },
     { label: 'Open slowblink…', click: () => createWindow() },
     { type: 'separator' },
@@ -105,16 +114,15 @@ function buildTrayMenu(status: CaptureStatus, settings: Settings) {
   ]);
 }
 
-function refreshTray() {
+function refreshTray(state: AutomationState, automation: Automation) {
   if (!tray) return;
-  const status = getStatus();
-  const settings = getSettings();
-  tray.setTitle(trayTitle(status, settings));
-  tray.setToolTip(`slowblink — ${trayStatusLabel(status, settings)}`);
-  tray.setContextMenu(buildTrayMenu(status, settings));
+  tray.setTitle(trayTitle(state));
+  tray.setToolTip(`slowblink — ${trayStatusLabel(state)}`);
+  tray.setContextMenu(buildTrayMenu(state, automation));
 }
 
 const disposers: (() => void)[] = [];
+let automation: Automation | null = null;
 
 registerProtocolHandler();
 
@@ -126,36 +134,62 @@ app.whenReady().then(async () => {
   }
   await initSettings();
   initDb();
-  registerIpc();
-  disposers.push(broadcastStatusUpdates());
-  disposers.push(broadcastSettingsUpdates());
+
+  automation = createAutomation({
+    store: {
+      get: getStoredSettings,
+      set: (patch) => {
+        setStoredSettings(patch);
+      },
+      onChange: (cb) => onStoredSettingsChange(() => cb()),
+      hasApiKey,
+      apiKeySource,
+      apiKeyHint,
+      getApiKey,
+    },
+    session: {
+      get: getCurrentSession,
+      on: (cb) => onSessionChange(() => cb()),
+    },
+    plan: {
+      get: getPlan,
+      on: (cb) => onPlanChange(() => cb()),
+    },
+    permissions: {
+      hasScreen: hasScreenPermission,
+      hasAccessibility: hasAccessibilityPermission,
+    },
+    runner: runCaptureTick,
+  });
+
+  registerIpc(automation);
+  disposers.push(broadcastStatusUpdates(automation));
+  disposers.push(broadcastSettingsUpdates(automation));
   disposers.push(broadcastSessionUpdates());
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
-  disposers.push(initCaptureSettingsWatcher());
-  disposers.push(onSessionChange(refreshSettings));
-  disposers.push(onPlanChange(refreshSettings));
 
   initSync();
   initPlanCache();
   void loadSessionFromDisk();
 
   tray = new Tray(nativeImage.createEmpty());
-  refreshTray();
+  refreshTray(automation.getState(), automation);
   tray.on('click', () => createWindow());
 
-  disposers.push(onStatusChange(() => refreshTray()));
-  disposers.push(onSettingsChange(() => refreshTray()));
+  disposers.push(
+    automation.subscribe((state) => {
+      if (automation) refreshTray(state, automation);
+    }),
+  );
 
-  const settings = getSettings();
-  const canCapture = settings.aiMode === 'cloud-ai' || settings.hasApiKey;
-  if (!settings.paused && canCapture) startCaptureLoop();
+  automation.start();
 
   createWindow();
 });
 
 app.on('before-quit', () => {
-  stopCaptureLoop();
+  automation?.stop();
   while (disposers.length) {
     const dispose = disposers.pop();
     try {
