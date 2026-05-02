@@ -20,7 +20,11 @@ import {
   broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
-import { hasAccessibilityPermission, hasScreenPermission } from './permissions';
+import {
+  hasAccessibilityPermission,
+  hasScreenPermission,
+  onPermissionsChange,
+} from './permissions';
 import {
   apiKeyHint,
   apiKeySource,
@@ -158,6 +162,7 @@ app.whenReady().then(async () => {
     permissions: {
       hasScreen: hasScreenPermission,
       hasAccessibility: hasAccessibilityPermission,
+      on: (cb) => onPermissionsChange(() => cb()),
     },
     runner: runCaptureTick,
   });

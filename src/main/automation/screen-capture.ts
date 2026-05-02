@@ -1,11 +1,6 @@
 import { execFile } from 'node:child_process';
 import { desktopCapturer, screen } from 'electron';
-
-export interface WindowContext {
-  focusedApp: string | null;
-  focusedWindow: string | null;
-  openWindows: { app: string; title: string }[];
-}
+import type { WindowContext } from '../../shared/types';
 
 const EMPTY: WindowContext = {
   focusedApp: null,

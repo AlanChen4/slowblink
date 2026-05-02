@@ -1,7 +1,7 @@
 import type { AIMode } from '../../shared/types';
 import { summarizeScreenshot } from '../ai/summarizer';
-import { takeScreenshot } from '../capture';
 import { insertSample } from '../db';
+import { takeScreenshot } from './screen-capture';
 
 export interface RunnerContext {
   apiKey: string | null;

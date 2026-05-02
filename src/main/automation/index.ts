@@ -1,56 +1,22 @@
 import { powerMonitor } from 'electron';
-import type {
-  ApiKeySource,
-  AuthSession,
-  CaptureStatus,
-  Plan,
-  Settings,
-  SettingsPatch,
-} from '../../shared/types';
+import type { Settings, SettingsPatch } from '../../shared/types';
 import { createEmitter } from '../emitter';
-import type { StoredSettings } from '../settings';
-import { effectiveAiMode } from './effective-mode';
+import { createErrorTracker, type ErrorTracker } from './error-policy';
 import type { Runner } from './runner';
+import {
+  type AutomationRuntime,
+  type AutomationState,
+  automationStateEqual,
+  composeAutomationState,
+  type StateDeps,
+} from './state';
+
+export type { AutomationState } from './state';
 
 const ERROR_PAUSE_THRESHOLD = 3;
 const IDLE_THRESHOLD_SECONDS = 60;
 
-export interface AutomationState {
-  settings: Settings;
-  status: CaptureStatus;
-  reasons: { autoPaused: string | null };
-}
-
-export interface SettingsStore {
-  get(): StoredSettings;
-  set(patch: SettingsPatch): void;
-  onChange(cb: () => void): () => void;
-  hasApiKey(): boolean;
-  apiKeySource(): ApiKeySource;
-  apiKeyHint(): string | null;
-  getApiKey(): string | null;
-}
-
-export interface SessionAdapter {
-  get(): AuthSession | null;
-  on(cb: () => void): () => void;
-}
-
-export interface PlanAdapter {
-  get(): Plan;
-  on(cb: () => void): () => void;
-}
-
-export interface PermissionsAdapter {
-  hasScreen(): boolean;
-  hasAccessibility(): boolean;
-}
-
-export interface AutomationDeps {
-  store: SettingsStore;
-  session: SessionAdapter;
-  plan: PlanAdapter;
-  permissions: PermissionsAdapter;
+export interface AutomationDeps extends StateDeps {
   runner: Runner;
   isIdle?: () => boolean;
 }
@@ -60,7 +26,6 @@ export interface Automation {
   stop(): void;
   applyIntent(patch: SettingsPatch): AutomationState;
   captureNow(): Promise<void>;
-  notifyPermissionsChanged(): void;
   getState(): AutomationState;
   subscribe(cb: (s: AutomationState) => void): () => void;
 }
@@ -72,67 +37,37 @@ export function createAutomation(deps: AutomationDeps): Automation {
     (() =>
       powerMonitor.getSystemIdleState(IDLE_THRESHOLD_SECONDS) !== 'active');
   const stateEmitter = createEmitter<AutomationState>();
+  const errors: ErrorTracker = createErrorTracker({
+    threshold: ERROR_PAUSE_THRESHOLD,
+  });
 
   let timer: NodeJS.Timeout | null = null;
   let currentIntervalMs: number | null = null;
   let inFlight: Promise<void> | null = null;
-  let consecutiveErrors = 0;
-  let lastError: string | null = null;
   let lastCaptureTs: number | null = null;
-  let autoPaused: string | null = null;
   let lastEmitted: AutomationState | null = null;
   let started = false;
   const unsubs: (() => void)[] = [];
 
-  function projectSettings(): Settings {
-    const stored = deps.store.get();
-    const aiMode = effectiveAiMode(
-      stored.aiMode,
-      deps.session.get(),
-      deps.plan.get(),
-    );
-    return {
-      intervalMs: stored.intervalMs,
-      model: stored.model,
-      paused: stored.paused,
-      hasApiKey: deps.store.hasApiKey(),
-      apiKeySource: deps.store.apiKeySource(),
-      apiKeyHint: deps.store.apiKeyHint(),
-      storageMode: stored.storageMode,
-      aiMode,
-      onboardingComplete: stored.onboardingComplete,
-      overviewScope: stored.overviewScope,
-      overviewMinDurationMs: stored.overviewMinDurationMs,
-    };
-  }
-
-  function projectStatus(settings: Settings): CaptureStatus {
-    return {
-      running: timer !== null,
-      lastError: autoPaused ?? lastError,
-      lastCaptureTs,
-      hasPermission: deps.permissions.hasScreen(),
-      hasAccessibility: deps.permissions.hasAccessibility(),
-      hasApiKey: settings.aiMode === 'cloud-ai' ? true : settings.hasApiKey,
-    };
+  function runtime(): AutomationRuntime {
+    const { lastError, autoPaused } = errors.getState();
+    return { timer, lastError, lastCaptureTs, autoPaused };
   }
 
   function getState(): AutomationState {
-    const settings = projectSettings();
-    const status = projectStatus(settings);
-    return { settings, status, reasons: { autoPaused } };
+    return composeAutomationState(deps, runtime());
   }
 
   function emit() {
     const next = getState();
-    if (lastEmitted && stateEqual(lastEmitted, next)) return;
+    if (lastEmitted && automationStateEqual(lastEmitted, next)) return;
     lastEmitted = next;
     stateEmitter.emit(next);
   }
 
   function canCapture(settings: Settings): boolean {
     if (settings.paused) return false;
-    if (autoPaused) return false;
+    if (errors.getState().autoPaused) return false;
     if (!deps.permissions.hasScreen()) return false;
     if (settings.aiMode === 'byo-key' && !settings.hasApiKey) return false;
     return true;
@@ -156,7 +91,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
   }
 
   function reconcile() {
-    const settings = projectSettings();
+    const { settings } = getState();
     if (!canCapture(settings)) {
       stopTimer();
       emit();
@@ -169,27 +104,15 @@ export function createAutomation(deps: AutomationDeps): Automation {
   }
 
   function recordFailure(msg: string) {
-    lastError = msg;
-    consecutiveErrors += 1;
-    if (consecutiveErrors >= ERROR_PAUSE_THRESHOLD) {
-      autoPaused = msg;
-      stopTimer();
-    }
+    errors.recordFailure(msg);
+    if (errors.getState().autoPaused) stopTimer();
     emit();
   }
 
   function recordSuccess(sampleTs: number) {
     lastCaptureTs = sampleTs;
-    lastError = null;
-    consecutiveErrors = 0;
-    autoPaused = null;
+    errors.clearFailures();
     emit();
-  }
-
-  function resetTransientFailureState() {
-    consecutiveErrors = 0;
-    lastError = null;
-    autoPaused = null;
   }
 
   async function awaitInFlight() {
@@ -206,7 +129,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
     model: string;
     aiMode: Settings['aiMode'];
   } | null {
-    const settings = projectSettings();
+    const { settings } = getState();
     if (!deps.permissions.hasScreen()) {
       return guardFail('Screen recording permission not granted', force);
     }
@@ -257,7 +180,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
   function applyIntent(patch: SettingsPatch): AutomationState {
     const before = deps.store.get();
     if (patch.paused === false && before.paused) {
-      resetTransientFailureState();
+      errors.clearFailures();
     }
     deps.store.set(patch);
     return getState();
@@ -267,29 +190,30 @@ export function createAutomation(deps: AutomationDeps): Automation {
     return tick(true);
   }
 
-  function notifyPermissionsChanged(): void {
-    resetTransientFailureState();
-    reconcile();
-  }
-
   function start(): void {
     if (!started) {
       started = true;
       unsubs.push(deps.store.onChange(() => reconcile()));
       unsubs.push(
         deps.session.on(() => {
-          resetTransientFailureState();
+          errors.clearFailures();
           reconcile();
         }),
       );
       unsubs.push(
         deps.plan.on(() => {
-          resetTransientFailureState();
+          errors.clearFailures();
+          reconcile();
+        }),
+      );
+      unsubs.push(
+        deps.permissions.on(() => {
+          errors.clearFailures();
           reconcile();
         }),
       );
     }
-    resetTransientFailureState();
+    errors.clearFailures();
     reconcile();
   }
 
@@ -312,43 +236,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
     stop,
     applyIntent,
     captureNow,
-    notifyPermissionsChanged,
     getState,
     subscribe: stateEmitter.on,
   };
-}
-
-function stateEqual(a: AutomationState, b: AutomationState): boolean {
-  return (
-    settingsEqual(a.settings, b.settings) &&
-    statusEqual(a.status, b.status) &&
-    a.reasons.autoPaused === b.reasons.autoPaused
-  );
-}
-
-function settingsEqual(a: Settings, b: Settings): boolean {
-  return (
-    a.intervalMs === b.intervalMs &&
-    a.model === b.model &&
-    a.paused === b.paused &&
-    a.hasApiKey === b.hasApiKey &&
-    a.apiKeySource === b.apiKeySource &&
-    a.apiKeyHint === b.apiKeyHint &&
-    a.storageMode === b.storageMode &&
-    a.aiMode === b.aiMode &&
-    a.onboardingComplete === b.onboardingComplete &&
-    a.overviewScope === b.overviewScope &&
-    a.overviewMinDurationMs === b.overviewMinDurationMs
-  );
-}
-
-function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
-  return (
-    a.running === b.running &&
-    a.lastError === b.lastError &&
-    a.lastCaptureTs === b.lastCaptureTs &&
-    a.hasPermission === b.hasPermission &&
-    a.hasAccessibility === b.hasAccessibility &&
-    a.hasApiKey === b.hasApiKey
-  );
 }

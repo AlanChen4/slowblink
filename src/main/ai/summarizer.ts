@@ -1,5 +1,4 @@
-import type { AIMode } from '../../shared/types';
-import type { WindowContext } from '../capture';
+import type { AIMode, WindowContext } from '../../shared/types';
 import { summarizeWithByoKey } from './providers/byo-openai';
 import { summarizeWithCloud } from './providers/cloud-proxy';
 import type { SummarizeResult } from './types';

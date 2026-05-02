@@ -1,5 +1,6 @@
 import { exec } from 'node:child_process';
 import { desktopCapturer, shell, systemPreferences } from 'electron';
+import { createEmitter } from './emitter';
 
 const SCREEN_CAPTURE_PREF_URL =
   'x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture';
@@ -12,6 +13,9 @@ const ACCESSIBILITY_PREF_URL =
 const PERMISSION_CACHE_TTL_MS = 10_000;
 let cachedScreen: { ts: number; value: boolean } | null = null;
 let cachedAccessibility: { ts: number; value: boolean } | null = null;
+
+const permissionsEmitter = createEmitter<void>();
+export const onPermissionsChange = permissionsEmitter.on;
 
 export function hasScreenPermission(): boolean {
   if (process.platform !== 'darwin') return true;
@@ -41,6 +45,7 @@ export function hasAccessibilityPermission(): boolean {
 export async function requestScreenPermission(): Promise<boolean> {
   if (process.platform !== 'darwin') return true;
   cachedScreen = null;
+  permissionsEmitter.emit();
 
   const status = systemPreferences.getMediaAccessStatus('screen');
   console.log('[permissions] requestScreenPermission: status =', status);
@@ -75,6 +80,7 @@ export async function requestScreenPermission(): Promise<boolean> {
 export async function requestAccessibilityPermission(): Promise<boolean> {
   if (process.platform !== 'darwin') return true;
   cachedAccessibility = null;
+  permissionsEmitter.emit();
   // Passing true triggers the macOS prompt the first time. On subsequent
   // calls when still untrusted, the prompt is suppressed, so fall back to
   // opening System Settings directly so the user has somewhere to go.

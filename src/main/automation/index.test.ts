@@ -53,6 +53,7 @@ function makeHarness(opts: HarnessOpts = {}) {
   let hasScreen = opts.hasScreen ?? true;
   const sessionListeners = new Set<() => void>();
   const planListeners = new Set<() => void>();
+  const permissionsListeners = new Set<() => void>();
   const runner = vi.fn(opts.runner ?? (async () => ({ sampleTs: Date.now() })));
 
   const automation = createAutomation({
@@ -88,6 +89,10 @@ function makeHarness(opts: HarnessOpts = {}) {
     permissions: {
       hasScreen: () => hasScreen,
       hasAccessibility: () => true,
+      on: (cb) => {
+        permissionsListeners.add(cb);
+        return () => permissionsListeners.delete(cb);
+      },
     },
     runner,
     isIdle: opts.isIdle ?? (() => false),
@@ -106,6 +111,7 @@ function makeHarness(opts: HarnessOpts = {}) {
     },
     setHasScreen: (v: boolean) => {
       hasScreen = v;
+      for (const l of permissionsListeners) l();
     },
     getStored: () => ({ ...stored }),
   };
@@ -267,7 +273,7 @@ describe('automation', () => {
     h2.automation.stop();
   });
 
-  test('notifyPermissionsChanged() resets transient state and reconciles', async () => {
+  test('permissions emitter unsticks the loop without explicit prodding', async () => {
     const h = makeHarness({
       stored: { aiMode: 'cloud-ai' },
       session: SIGNED_IN,
@@ -279,7 +285,6 @@ describe('automation', () => {
     expect(h.automation.getState().status.hasPermission).toBe(false);
 
     h.setHasScreen(true);
-    h.automation.notifyPermissionsChanged();
     expect(h.automation.getState().status.running).toBe(true);
     expect(h.automation.getState().status.hasPermission).toBe(true);
     expect(h.getStored().paused).toBe(false);

@@ -83,6 +83,12 @@ export interface Segment {
   focusedWindow: string | null;
 }
 
+export interface WindowContext {
+  focusedApp: string | null;
+  focusedWindow: string | null;
+  openWindows: { app: string; title: string }[];
+}
+
 export interface WindowDuration {
   window: string;
   durationMs: number;

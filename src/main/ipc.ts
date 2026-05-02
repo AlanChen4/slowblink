@@ -71,19 +71,13 @@ export function registerIpc(automation: Automation) {
   });
   ipcMain.handle(IPC.captureOnce, () => automation.captureNow());
 
-  ipcMain.handle(IPC.permissionRequest, async () => {
-    const granted = await requestScreenPermission();
-    automation.notifyPermissionsChanged();
-    return granted;
-  });
+  ipcMain.handle(IPC.permissionRequest, () => requestScreenPermission());
   ipcMain.handle(IPC.permissionOpen, () => openScreenPermissionSettings());
   ipcMain.handle(IPC.permissionHas, () => hasScreenPermission());
 
-  ipcMain.handle(IPC.permissionAccessibilityRequest, async () => {
-    const granted = await requestAccessibilityPermission();
-    automation.notifyPermissionsChanged();
-    return granted;
-  });
+  ipcMain.handle(IPC.permissionAccessibilityRequest, () =>
+    requestAccessibilityPermission(),
+  );
   ipcMain.handle(IPC.permissionAccessibilityOpen, () =>
     openAccessibilityPermissionSettings(),
   );
