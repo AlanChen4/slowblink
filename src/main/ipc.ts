@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IPC } from '../shared/ipc-channels';
-import type { OverviewScope } from '../shared/types';
+import type { CaptureStatus, OverviewScope, Settings } from '../shared/types';
 import { signInWithGoogle } from './auth/oauth';
 import {
   signOut as authSignOut,
@@ -8,6 +8,7 @@ import {
   onSessionChange,
 } from './auth/session';
 import type { Automation } from './automation';
+import { settingsEqual, statusEqual } from './automation/state';
 import { openCheckout, openPortal } from './billing/checkout';
 import { getPlan, onPlanChange } from './billing/plan-cache';
 import { deleteAll, getLocalStorageSize, getSamples } from './db';
@@ -98,29 +99,30 @@ export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.billingPortal, () => openPortal());
 }
 
+function sendToAllWindows(channel: string, payload: unknown) {
+  for (const win of BrowserWindow.getAllWindows()) {
+    win.webContents.send(channel, payload);
+  }
+}
+
 function broadcast<T>(
   channel: string,
   subscribe: (cb: (value: T) => void) => () => void,
 ): () => void {
-  return subscribe((value) => {
-    for (const win of BrowserWindow.getAllWindows()) {
-      win.webContents.send(channel, value);
-    }
-  });
+  return subscribe((value) => sendToAllWindows(channel, value));
 }
 
-export function broadcastStatusUpdates(automation: Automation) {
+export function broadcastAutomationUpdates(automation: Automation) {
+  let lastSettings: Settings | null = null;
+  let lastStatus: CaptureStatus | null = null;
   return automation.subscribe((state) => {
-    for (const win of BrowserWindow.getAllWindows()) {
-      win.webContents.send(IPC.statusUpdate, state.status);
+    if (!lastSettings || !settingsEqual(lastSettings, state.settings)) {
+      lastSettings = state.settings;
+      sendToAllWindows(IPC.settingsUpdate, state.settings);
     }
-  });
-}
-
-export function broadcastSettingsUpdates(automation: Automation) {
-  return automation.subscribe((state) => {
-    for (const win of BrowserWindow.getAllWindows()) {
-      win.webContents.send(IPC.settingsUpdate, state.settings);
+    if (!lastStatus || !statusEqual(lastStatus, state.status)) {
+      lastStatus = state.status;
+      sendToAllWindows(IPC.statusUpdate, state.status);
     }
   });
 }

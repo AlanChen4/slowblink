@@ -225,7 +225,10 @@ describe('automationStateEqual', () => {
   });
 
   test('status difference breaks equality', () => {
-    const status: CaptureStatus = { ...base.status, running: !base.status.running };
+    const status: CaptureStatus = {
+      ...base.status,
+      running: !base.status.running,
+    };
     const next: AutomationState = { ...base, status };
     expect(automationStateEqual(base, next)).toBe(false);
   });

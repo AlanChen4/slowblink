@@ -13,10 +13,9 @@ import { getPlan, initPlanCache, onPlanChange } from './billing/plan-cache';
 import { initDb } from './db';
 import { getDevDockIcon } from './dock-icon';
 import {
+  broadcastAutomationUpdates,
   broadcastPlanUpdates,
   broadcastSessionUpdates,
-  broadcastSettingsUpdates,
-  broadcastStatusUpdates,
   broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
@@ -168,8 +167,7 @@ app.whenReady().then(async () => {
   });
 
   registerIpc(automation);
-  disposers.push(broadcastStatusUpdates(automation));
-  disposers.push(broadcastSettingsUpdates(automation));
+  disposers.push(broadcastAutomationUpdates(automation));
   disposers.push(broadcastSessionUpdates());
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());

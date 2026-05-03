@@ -116,7 +116,7 @@ export function automationStateEqual(
   );
 }
 
-function settingsEqual(a: Settings, b: Settings): boolean {
+export function settingsEqual(a: Settings, b: Settings): boolean {
   return (
     a.intervalMs === b.intervalMs &&
     a.model === b.model &&
@@ -132,7 +132,7 @@ function settingsEqual(a: Settings, b: Settings): boolean {
   );
 }
 
-function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
+export function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
   return (
     a.running === b.running &&
     a.lastError === b.lastError &&
