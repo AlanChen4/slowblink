@@ -104,12 +104,14 @@ export function createAutomation(deps: AutomationDeps): Automation {
   }
 
   function recordFailure(msg: string) {
+    if (!started) return;
     errors.recordFailure(msg);
     if (errors.getState().autoPaused) stopTimer();
     emit();
   }
 
   function recordSuccess(sampleTs: number) {
+    if (!started) return;
     lastCaptureTs = sampleTs;
     errors.clearFailures();
     emit();
