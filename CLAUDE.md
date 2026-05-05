@@ -11,6 +11,7 @@ An Electron app that uses AI to track how the user is spending their time on the
 - [Issue titles](.claude/rules/issue-titles.md) — Prefix issue titles with the matching gitmoji (`✨` features, `🐛` bugs, `🏗️` design, etc.)
 - [Worktree paths](.claude/rules/worktree-paths.md) — In a worktree session, verify edit paths and brief subagents to stay inside the worktree root
 - [Doppler secrets](.claude/rules/doppler.md) — Recommended secret manager; when `.doppler.yaml` is present, prefix dev commands with `doppler run --`. Falls back to `.env.local` + `supabase/.env`.
+- [Preview verification](.claude/rules/preview-verification.md) — Verify Electron changes via agent-browser on CDP port 9222, not `preview_screenshot` (the Vite URL renders blank without the preload bridge).
 
 ## Skills
 

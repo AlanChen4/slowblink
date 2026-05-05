@@ -1,20 +1,16 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IPC } from '../shared/ipc-channels';
-import type { OverviewScope } from '../shared/types';
+import type { CaptureStatus, OverviewScope, Settings } from '../shared/types';
 import { signInWithGoogle } from './auth/oauth';
 import {
   signOut as authSignOut,
   getCurrentSession,
   onSessionChange,
 } from './auth/session';
+import type { Automation } from './automation';
+import { settingsEqual, statusEqual } from './automation/state';
 import { openCheckout, openPortal } from './billing/checkout';
 import { getPlan, onPlanChange } from './billing/plan-cache';
-import {
-  captureOnce,
-  getStatus,
-  onStatusChange,
-  refreshStatus,
-} from './capture';
 import { deleteAll, getLocalStorageSize, getSamples } from './db';
 import { getOverview } from './overview';
 import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
@@ -25,13 +21,7 @@ import {
   requestAccessibilityPermission,
   requestScreenPermission,
 } from './permissions';
-import {
-  clearApiKey,
-  getSettings,
-  onSettingsChange,
-  setApiKey,
-  setSettings,
-} from './settings';
+import { clearApiKey, setApiKey } from './settings';
 import {
   flushNow,
   getSyncStatus,
@@ -39,7 +29,7 @@ import {
   retryFailed,
 } from './sync/flusher';
 
-export function registerIpc() {
+export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.samplesGet, (_e, start: number, end: number) =>
     getSamples(start, end),
   );
@@ -60,34 +50,35 @@ export function registerIpc() {
       refreshOverviewDebug(start, end, scope),
   );
 
-  ipcMain.handle(IPC.settingsGet, () => getSettings());
-  ipcMain.handle(IPC.settingsSet, (_e, patch) => setSettings(patch));
+  ipcMain.handle(IPC.settingsGet, () => automation.getState().settings);
+  ipcMain.handle(
+    IPC.settingsSet,
+    (_e, patch) => automation.applyIntent(patch).settings,
+  );
 
   ipcMain.handle(IPC.apiKeySet, (_e, key: string) => {
     setApiKey(key);
-    return getSettings();
+    return automation.getState().settings;
   });
   ipcMain.handle(IPC.apiKeyClear, () => clearApiKey());
 
-  ipcMain.handle(IPC.statusGet, () => getStatus());
+  ipcMain.handle(IPC.statusGet, () => automation.getState().status);
 
-  ipcMain.handle(IPC.capturePause, () => setSettings({ paused: true }));
-  ipcMain.handle(IPC.captureResume, () => setSettings({ paused: false }));
-  ipcMain.handle(IPC.captureOnce, () => captureOnce(true));
-
-  ipcMain.handle(IPC.permissionRequest, async () => {
-    const granted = await requestScreenPermission();
-    refreshStatus();
-    return granted;
+  ipcMain.handle(IPC.capturePause, () => {
+    automation.applyIntent({ paused: true });
   });
+  ipcMain.handle(IPC.captureResume, () => {
+    automation.applyIntent({ paused: false });
+  });
+  ipcMain.handle(IPC.captureOnce, () => automation.captureNow());
+
+  ipcMain.handle(IPC.permissionRequest, () => requestScreenPermission());
   ipcMain.handle(IPC.permissionOpen, () => openScreenPermissionSettings());
   ipcMain.handle(IPC.permissionHas, () => hasScreenPermission());
 
-  ipcMain.handle(IPC.permissionAccessibilityRequest, async () => {
-    const granted = await requestAccessibilityPermission();
-    refreshStatus();
-    return granted;
-  });
+  ipcMain.handle(IPC.permissionAccessibilityRequest, () =>
+    requestAccessibilityPermission(),
+  );
   ipcMain.handle(IPC.permissionAccessibilityOpen, () =>
     openAccessibilityPermissionSettings(),
   );
@@ -108,23 +99,32 @@ export function registerIpc() {
   ipcMain.handle(IPC.billingPortal, () => openPortal());
 }
 
+function sendToAllWindows(channel: string, payload: unknown) {
+  for (const win of BrowserWindow.getAllWindows()) {
+    win.webContents.send(channel, payload);
+  }
+}
+
 function broadcast<T>(
   channel: string,
   subscribe: (cb: (value: T) => void) => () => void,
 ): () => void {
-  return subscribe((value) => {
-    for (const win of BrowserWindow.getAllWindows()) {
-      win.webContents.send(channel, value);
+  return subscribe((value) => sendToAllWindows(channel, value));
+}
+
+export function broadcastAutomationUpdates(automation: Automation) {
+  let lastSettings: Settings | null = null;
+  let lastStatus: CaptureStatus | null = null;
+  return automation.subscribe((state) => {
+    if (!lastSettings || !settingsEqual(lastSettings, state.settings)) {
+      lastSettings = state.settings;
+      sendToAllWindows(IPC.settingsUpdate, state.settings);
+    }
+    if (!lastStatus || !statusEqual(lastStatus, state.status)) {
+      lastStatus = state.status;
+      sendToAllWindows(IPC.statusUpdate, state.status);
     }
   });
-}
-
-export function broadcastStatusUpdates() {
-  return broadcast(IPC.statusUpdate, onStatusChange);
-}
-
-export function broadcastSettingsUpdates() {
-  return broadcast(IPC.settingsUpdate, onSettingsChange);
 }
 
 export function broadcastSessionUpdates() {

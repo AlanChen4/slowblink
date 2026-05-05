@@ -1,6 +1,8 @@
 #!/bin/bash
 set -uo pipefail
 
+if [ -n "${CI:-}" ]; then exit 0; fi
+
 if [ ! -d node_modules ]; then
   echo "📦 node_modules missing — running pnpm install..." >&2
   if ! pnpm install --frozen-lockfile >&2; then

@@ -1,5 +1,5 @@
 import { net } from 'electron';
-import type { WindowContext } from '../../capture';
+import type { WindowContext } from '../../../shared/types';
 import { cloudAuthHeaders, requireCloudEndpoint } from '../../cloud/endpoint';
 import { blockedResult, type SummarizeResult } from '../types';
 

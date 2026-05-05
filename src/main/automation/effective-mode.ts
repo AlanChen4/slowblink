@@ -1,4 +1,4 @@
-import type { AIMode, AuthSession, Plan } from '../shared/types';
+import type { AIMode, AuthSession, Plan } from '../../shared/types';
 
 export function effectiveAiMode(
   stored: AIMode,
