@@ -39,6 +39,8 @@ const OUTCOME_THEME: Record<Outcome, { fg: string; bg: string }> = {
   error: { fg: '#e15a5a', bg: '#e15a5a22' },
 };
 
+const EMPTY_VALUE = '—';
+
 function useMountEffect(effect: EffectCallback) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
   useEffect(effect, []);
@@ -75,7 +77,7 @@ function formatTime(ts: number): string {
 }
 
 function formatLatency(start: number | null, end: number | null): string {
-  if (start === null || end === null) return '—';
+  if (start === null || end === null) return EMPTY_VALUE;
   return `${end - start} ms`;
 }
 
@@ -139,7 +141,6 @@ export function App() {
           background: '#0f0f0f',
         }}
       >
-        <strong style={{ fontSize: 16 }}>slowblink replay</strong>
         <div style={{ display: 'flex', gap: 4 }}>
           {FILTERS.map((f) => (
             <button
@@ -158,13 +159,11 @@ export function App() {
             </button>
           ))}
         </div>
-        <span style={{ marginLeft: 'auto', color: '#666', fontSize: 12 }}>
-          {captures.length} capture{captures.length === 1 ? '' : 's'}
-        </span>
         <button
           type="button"
           onClick={onClear}
           style={{
+            marginLeft: 'auto',
             padding: '4px 12px',
             background: '#3a1a1a',
             color: '#ff8a8a',
@@ -186,7 +185,7 @@ export function App() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '320px 1fr',
+          gridTemplateColumns: '240px 1fr',
           minHeight: 0,
         }}
       >
@@ -303,44 +302,47 @@ function ListPane(props: {
             color: '#e7e7e7',
           }}
         >
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              alignItems: 'center',
+              minWidth: 0,
+            }}
+          >
             <span
               style={{
                 width: 8,
                 height: 8,
                 borderRadius: 999,
                 background: OUTCOME_THEME[c.outcome].fg,
+                flexShrink: 0,
               }}
             />
-            <span style={{ fontSize: 13, fontWeight: 500 }}>
+            <span style={{ fontSize: 13, fontWeight: 500, flexShrink: 0 }}>
               {c.focused_app ?? '(no app)'}
             </span>
-          </div>
-          <div
-            style={{
-              fontSize: 11,
-              color: '#888',
-              marginTop: 2,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {c.focused_window ?? '(no window)'}
+            <span
+              style={{
+                fontSize: 13,
+                color: '#888',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                minWidth: 0,
+              }}
+            >
+              {c.focused_window ?? '(no window)'}
+            </span>
           </div>
           <div
             style={{
               fontSize: 11,
               color: '#666',
               marginTop: 4,
-              display: 'flex',
-              justifyContent: 'space-between',
             }}
           >
-            <span>{formatTime(c.captured_at)}</span>
-            <span style={{ color: OUTCOME_THEME[c.outcome].fg }}>
-              {c.outcome}
-            </span>
+            {formatTime(c.captured_at)}
           </div>
         </button>
       ))}
@@ -373,37 +375,23 @@ function DetailPane({ detail }: { detail: CaptureDetail | null }) {
       </div>
     );
   }
-  const theme = OUTCOME_THEME[detail.outcome];
   const hasImage = detail.image_size_bytes !== null;
   return (
     <div style={{ overflowY: 'auto', padding: 24 }}>
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
-          <h2 style={{ margin: 0 }}>{detail.focused_app ?? '(no app)'}</h2>
-          <span
-            style={{
-              padding: '2px 8px',
-              borderRadius: 4,
-              background: theme.bg,
-              color: theme.fg,
-              fontSize: 12,
-            }}
-          >
-            {detail.outcome}
-          </span>
-        </div>
-        <div style={{ color: '#888', fontSize: 13, marginTop: 4 }}>
-          {detail.focused_window ?? '(no window)'}
-        </div>
-        <div style={{ color: '#666', fontSize: 12, marginTop: 4 }}>
-          {formatTime(detail.captured_at)} · {detail.provider}
-          {detail.model ? ` · ${detail.model}` : ''} · API latency{' '}
-          {formatLatency(
+      <div style={{ display: 'flex', gap: 32, marginBottom: 24 }}>
+        <DetailStat label="Provider" value={detail.provider} />
+        <DetailStat label="Model" value={detail.model ?? EMPTY_VALUE} />
+        <DetailStat
+          label="Latency"
+          value={formatLatency(
             detail.request_started_at,
             detail.response_received_at,
-          )}{' '}
-          · sample_id {detail.sample_id ?? '—'}
-        </div>
+          )}
+        />
+        <DetailStat
+          label="Sample"
+          value={detail.sample_id !== null ? `#${detail.sample_id}` : EMPTY_VALUE}
+        />
       </div>
 
       {detail.error_message && (
@@ -442,15 +430,34 @@ function DetailPane({ detail }: { detail: CaptureDetail | null }) {
         <pre>{JSON.stringify(detail.request, null, 2)}</pre>
       </Section>
 
-      <Section title="Response">
-        <pre>{JSON.stringify(detail.response, null, 2)}</pre>
-      </Section>
-
       {detail.parsed_result !== null && (
-        <Section title="Parsed result (written to samples)">
+        <Section title="Parsed result">
           <pre>{JSON.stringify(detail.parsed_result, null, 2)}</pre>
         </Section>
       )}
+
+      <Section title="Response">
+        <pre>{JSON.stringify(detail.response, null, 2)}</pre>
+      </Section>
+    </div>
+  );
+}
+
+function DetailStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div
+        style={{
+          fontSize: 11,
+          color: '#888',
+          textTransform: 'uppercase',
+          letterSpacing: 0.5,
+          marginBottom: 2,
+        }}
+      >
+        {label}
+      </div>
+      <div style={{ fontSize: 14, color: '#e7e7e7' }}>{value}</div>
     </div>
   );
 }
