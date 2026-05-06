@@ -174,6 +174,9 @@ export interface SlowblinkAPI {
     rangeEnd: number,
     scope: OverviewScope,
   ): Promise<OverviewDebug>;
+
+  getReplayLogging(): Promise<boolean>;
+  setReplayLogging(enabled: boolean): Promise<boolean>;
 }
 
 declare global {

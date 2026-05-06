@@ -36,4 +36,7 @@ export const IPC = {
   overviewGet: 'overview:get',
   overviewDebugGet: 'overview:debug:get',
   overviewDebugRefresh: 'overview:debug:refresh',
+
+  devReplayLoggingGet: 'dev:replay-logging:get',
+  devReplayLoggingSet: 'dev:replay-logging:set',
 } as const;

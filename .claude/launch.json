@@ -29,6 +29,12 @@
       "name": "stripe-listener",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["stripe:listen"]
+    },
+    {
+      "name": "replay",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["replay"],
+      "port": 5174
     }
   ]
 }

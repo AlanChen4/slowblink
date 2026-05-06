@@ -21,7 +21,12 @@ import {
   requestAccessibilityPermission,
   requestScreenPermission,
 } from './permissions';
-import { clearApiKey, setApiKey } from './settings';
+import {
+  clearApiKey,
+  isReplayLoggingEnabled,
+  setApiKey,
+  setReplayLoggingEnabled,
+} from './settings';
 import {
   flushNow,
   getSyncStatus,
@@ -97,6 +102,11 @@ export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.billingPlanGet, () => getPlan());
   ipcMain.handle(IPC.billingCheckout, () => openCheckout());
   ipcMain.handle(IPC.billingPortal, () => openPortal());
+
+  ipcMain.handle(IPC.devReplayLoggingGet, () => isReplayLoggingEnabled());
+  ipcMain.handle(IPC.devReplayLoggingSet, (_e, enabled: boolean) =>
+    setReplayLoggingEnabled(enabled),
+  );
 }
 
 function sendToAllWindows(channel: string, payload: unknown) {

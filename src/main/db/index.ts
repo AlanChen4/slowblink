@@ -1,9 +1,18 @@
-import { statSync } from 'node:fs';
+import { mkdirSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import Database from 'better-sqlite3';
 import { app } from 'electron';
 import type { Sample } from '../../shared/types';
 import { createEmitter } from '../emitter';
+import {
+  type DevCaptureRow,
+  type DevCapturesStatements,
+  deleteCapturesByIds,
+  insertCapture,
+  listAllCaptureIds,
+  prepareDevCapturesStatements,
+  reconcileOrphans,
+} from './dev-captures';
 import { runMigrations } from './migrations';
 import {
   getSamplesInRange,
@@ -27,10 +36,12 @@ interface DbHandles {
   db: Database.Database;
   samples: SampleStatements;
   sync: SyncStatements;
+  devCaptures: DevCapturesStatements;
 }
 
 let handles: DbHandles | null = null;
 let dbPath: string | null = null;
+let devCapturesDir: string | null = null;
 
 const sampleInsertEmitter = createEmitter<Sample>();
 export const onSampleInserted = sampleInsertEmitter.on;
@@ -40,11 +51,25 @@ export function initDb() {
   const db = new Database(dbPath);
   db.pragma('journal_mode = WAL');
   runMigrations(db);
+  const devCaptures = prepareDevCapturesStatements(db);
   handles = {
     db,
     samples: prepareSampleStatements(db),
     sync: prepareSyncStatements(db),
+    devCaptures,
   };
+  devCapturesDir = join(app.getPath('userData'), 'dev-captures');
+  if (!app.isPackaged) {
+    mkdirSync(devCapturesDir, { recursive: true });
+    sweepDevCaptureOrphans(devCaptures, devCapturesDir);
+  }
+}
+
+export function getDevCapturesDir(): string {
+  if (!devCapturesDir) {
+    throw new Error('database not initialized; call initDb() first');
+  }
+  return devCapturesDir;
 }
 
 export function getLocalStorageSize(): number {
@@ -117,4 +142,35 @@ export function retryFailedSamples() {
   requireHandles().sync.resetFailedToPending.run();
 }
 
+export function insertDevCapture(row: DevCaptureRow): void {
+  insertCapture(requireHandles().devCaptures, row);
+}
+
+function sweepDevCaptureOrphans(
+  stmts: DevCapturesStatements,
+  dir: string,
+): void {
+  let files: string[];
+  try {
+    files = readdirSync(dir);
+  } catch {
+    return;
+  }
+  const fileIds: string[] = [];
+  for (const f of files) {
+    if (f.endsWith('.jpg')) fileIds.push(f.slice(0, -4));
+  }
+  const rowIds = listAllCaptureIds(stmts);
+  const { filesToUnlink, rowsToDelete } = reconcileOrphans(fileIds, rowIds);
+  for (const id of filesToUnlink) {
+    try {
+      unlinkSync(join(dir, `${id}.jpg`));
+    } catch {
+      // best-effort
+    }
+  }
+  if (rowsToDelete.length > 0) deleteCapturesByIds(stmts, rowsToDelete);
+}
+
+export type { DevCaptureRow } from './dev-captures';
 export type { PendingSampleRow, SyncCounts } from './sync-state';

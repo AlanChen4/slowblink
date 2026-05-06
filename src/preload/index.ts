@@ -57,6 +57,10 @@ const api: SlowblinkAPI = {
     ipcRenderer.invoke(IPC.overviewDebugGet, start, end, scope),
   refreshOverviewDebug: (start, end, scope) =>
     ipcRenderer.invoke(IPC.overviewDebugRefresh, start, end, scope),
+
+  getReplayLogging: () => ipcRenderer.invoke(IPC.devReplayLoggingGet),
+  setReplayLogging: (enabled) =>
+    ipcRenderer.invoke(IPC.devReplayLoggingSet, enabled),
 };
 
 contextBridge.exposeInMainWorld('slowblink', api);
