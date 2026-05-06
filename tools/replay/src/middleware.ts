@@ -1,9 +1,4 @@
-import {
-  existsSync,
-  readdirSync,
-  readFileSync,
-  unlinkSync,
-} from 'node:fs';
+import { existsSync, readdirSync, readFileSync, unlinkSync } from 'node:fs';
 import type { ServerResponse } from 'node:http';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
@@ -132,7 +127,9 @@ function listCaptures(
 }
 
 function getCapture(id: string): DevCaptureRow | null {
-  const row = getStmts().getById.get(id) as unknown as DevCaptureRow | undefined;
+  const row = getStmts().getById.get(id) as unknown as
+    | DevCaptureRow
+    | undefined;
   return row ?? null;
 }
 

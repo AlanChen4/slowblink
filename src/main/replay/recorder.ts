@@ -3,11 +3,7 @@ import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { app } from 'electron';
 import type { WindowContext } from '../../shared/types';
-import type {
-  ProviderDebug,
-  ProviderId,
-  SummarizeResult,
-} from '../ai/types';
+import type { ProviderDebug, ProviderId, SummarizeResult } from '../ai/types';
 import { type DevCaptureRow, getDevCapturesDir, insertDevCapture } from '../db';
 
 interface SuccessEvent {
@@ -47,6 +43,32 @@ function rowProvider(event: CaptureEvent): string {
   return event.debug.provider;
 }
 
+function rowErrorMessage(event: CaptureEvent): string | null {
+  return event.kind === 'error' ? event.errorMessage : null;
+}
+
+function buildRequestJson(
+  debug: ProviderDebug | null,
+  image: Buffer | null,
+  rowId: string,
+): string | null {
+  if (!debug) return null;
+  return JSON.stringify({
+    ...debug.request,
+    image_ref: image ? `dev-captures/${rowId}.jpg` : null,
+  });
+}
+
+function buildResponseJson(debug: ProviderDebug | null): string | null {
+  if (!debug?.response) return null;
+  return JSON.stringify(debug.response);
+}
+
+function buildParsedResultJson(event: CaptureEvent): string | null {
+  if (event.kind !== 'success') return null;
+  return JSON.stringify(event.result);
+}
+
 function buildRow(event: CaptureEvent): DevCaptureRow {
   const id = randomUUID();
   const { image, debug } = event;
@@ -59,19 +81,13 @@ function buildRow(event: CaptureEvent): DevCaptureRow {
     provider: rowProvider(event),
     model: debug?.model ?? null,
     outcome: event.kind,
-    error_message: event.kind === 'error' ? event.errorMessage : null,
+    error_message: rowErrorMessage(event),
     focused_app: event.windowCtx?.focusedApp ?? null,
     focused_window: event.windowCtx?.focusedWindow ?? null,
     image_size_bytes: image?.length ?? null,
-    request_json: debug
-      ? JSON.stringify({
-          ...debug.request,
-          image_ref: image ? `dev-captures/${id}.jpg` : null,
-        })
-      : null,
-    response_json: debug?.response ? JSON.stringify(debug.response) : null,
-    parsed_result_json:
-      event.kind === 'success' ? JSON.stringify(event.result) : null,
+    request_json: buildRequestJson(debug, image, id),
+    response_json: buildResponseJson(debug),
+    parsed_result_json: buildParsedResultJson(event),
   };
 }
 

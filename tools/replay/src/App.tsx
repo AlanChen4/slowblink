@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { type EffectCallback, useEffect, useState } from 'react';
 
 type Outcome = 'success' | 'dlp_blocked' | 'error';
 type FilterValue = 'all' | Outcome;
@@ -39,8 +39,8 @@ const OUTCOME_THEME: Record<Outcome, { fg: string; bg: string }> = {
   error: { fg: '#e15a5a', bg: '#e15a5a22' },
 };
 
-function useMountEffect(effect: () => void | (() => void)) {
-  /* eslint-disable no-restricted-syntax */
+function useMountEffect(effect: EffectCallback) {
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
   useEffect(effect, []);
 }
 
