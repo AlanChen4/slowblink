@@ -390,7 +390,9 @@ function DetailPane({ detail }: { detail: CaptureDetail | null }) {
         />
         <DetailStat
           label="Sample"
-          value={detail.sample_id !== null ? `#${detail.sample_id}` : EMPTY_VALUE}
+          value={
+            detail.sample_id !== null ? `#${detail.sample_id}` : EMPTY_VALUE
+          }
         />
       </div>
 
