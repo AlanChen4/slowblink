@@ -1,7 +1,7 @@
 import type { AIMode, WindowContext } from '../../shared/types';
 import { summarizeWithByoKey } from './providers/byo-openai';
 import { summarizeWithCloud } from './providers/cloud-proxy';
-import type { SummarizeResult } from './types';
+import type { ProviderId, SummarizeOutcome } from './types';
 
 export async function summarizeScreenshot(
   image: Buffer,
@@ -9,10 +9,14 @@ export async function summarizeScreenshot(
   model: string,
   windowCtx: WindowContext,
   aiMode: AIMode,
-): Promise<SummarizeResult> {
+): Promise<SummarizeOutcome> {
   if (aiMode === 'cloud-ai') {
     return summarizeWithCloud(image, windowCtx);
   }
   if (!apiKey) throw new Error('No API key configured');
   return summarizeWithByoKey(image, apiKey, model, windowCtx);
+}
+
+export function providerIdFor(aiMode: AIMode): ProviderId {
+  return aiMode === 'cloud-ai' ? 'cloud-proxy' : 'byo-openai';
 }

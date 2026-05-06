@@ -1,4 +1,4 @@
-import { safeStorage } from 'electron';
+import { app, safeStorage } from 'electron';
 import type {
   AIMode,
   ApiKeySource,
@@ -25,6 +25,7 @@ interface StoreShape extends StoredSettings {
   apiKeyEncrypted: string | null;
   supabaseSessionEncrypted: string | null;
   planCache: Plan | null;
+  replayLogging: boolean;
 }
 
 type StoreInstance = {
@@ -55,6 +56,7 @@ export async function initSettings(): Promise<void> {
       planCache: null,
       overviewScope: 'this-device',
       overviewMinDurationMs: 5 * 60 * 1000,
+      replayLogging: false,
     },
   }) as unknown as StoreInstance;
 
@@ -195,4 +197,16 @@ export function setPlanCache(plan: Plan | null) {
 
 export function getPlanCache(): Plan | null {
   return requireStore().get('planCache');
+}
+
+export function isReplayLoggingEnabled(): boolean {
+  if (app.isPackaged) return false;
+  if (!store) return false;
+  return !!store.get('replayLogging');
+}
+
+export function setReplayLoggingEnabled(enabled: boolean): boolean {
+  if (app.isPackaged) return false;
+  requireStore().set('replayLogging', enabled);
+  return enabled;
 }

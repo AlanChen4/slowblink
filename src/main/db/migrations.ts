@@ -27,6 +27,30 @@ export const MIGRATIONS: Migration[] = [
       CREATE INDEX IF NOT EXISTS samples_sync ON samples(sync_state, ts);
     `,
   },
+  {
+    version: 2,
+    sql: `
+      CREATE TABLE IF NOT EXISTS dev_captures (
+        id TEXT PRIMARY KEY,
+        sample_id INTEGER,
+        captured_at INTEGER NOT NULL,
+        request_started_at INTEGER,
+        response_received_at INTEGER,
+        provider TEXT NOT NULL,
+        model TEXT,
+        outcome TEXT NOT NULL,
+        error_message TEXT,
+        focused_app TEXT,
+        focused_window TEXT,
+        image_size_bytes INTEGER,
+        request_json TEXT,
+        response_json TEXT,
+        parsed_result_json TEXT
+      );
+      CREATE INDEX IF NOT EXISTS dev_captures_captured_at ON dev_captures(captured_at DESC);
+      CREATE INDEX IF NOT EXISTS dev_captures_outcome ON dev_captures(outcome, captured_at DESC);
+    `,
+  },
 ];
 
 export function runMigrations(db: Database.Database) {

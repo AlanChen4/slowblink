@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "replay",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["replay"],
+      "port": 5174
+    },
+    {
       "name": "slowblink-dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["dev"],

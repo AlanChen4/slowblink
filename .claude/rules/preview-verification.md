@@ -1,6 +1,8 @@
 # Preview Verification
 
-After starting the dev preview (`preview_start` on the `slowblink-dev` config in [.claude/launch.json](../launch.json), or `doppler run -- pnpm dev` directly), do **not** verify Electron-app changes with `preview_screenshot`.
+The default `preview_start` config in [.claude/launch.json](../launch.json) is `replay` — the standalone Vite-served capture viewer at `http://localhost:5174`. That viewer is fine to verify with `preview_screenshot`.
+
+For changes to the Electron renderer, the dev server is started from the terminal (`doppler run -- pnpm dev` or `pnpm dev`) so screen-recording / accessibility permission prompts can be approved in the foreground. The `slowblink-dev` config in `launch.json` does the same thing but isn't the default. Either way, do **not** verify Electron-app changes with `preview_screenshot`.
 
 ## Why
 
@@ -21,7 +23,7 @@ This attaches to the running Electron process, so the screenshot, IPC bridge (`w
 
 ## Workflow
 
-1. `preview_start` (or confirm `slowblink-dev` is already running).
+1. Start Electron from a terminal (`doppler run -- pnpm dev`) — or, if permissions are already granted, `preview_start` on the `slowblink-dev` config.
 2. Wait for CDP: `until curl -s http://127.0.0.1:9222/json/version >/dev/null; do sleep 1; done`.
 3. `agent-browser connect 9222`.
 4. Drive the verification — screenshot, `eval` IPC calls, `snapshot -i` for interactive elements, `click`/`fill` for flows.
