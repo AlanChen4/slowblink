@@ -25,6 +25,10 @@ import {
   onPermissionsChange,
 } from './permissions';
 import {
+  type ControlServer,
+  createControlServer,
+} from './replay/control-server';
+import {
   apiKeyHint,
   apiKeySource,
   getApiKey,
@@ -126,6 +130,7 @@ function refreshTray(state: AutomationState, automation: Automation) {
 
 const disposers: (() => void)[] = [];
 let automation: Automation | null = null;
+let controlServer: ControlServer | null = null;
 
 registerProtocolHandler();
 
@@ -188,11 +193,15 @@ app.whenReady().then(async () => {
 
   automation.start();
 
+  controlServer = createControlServer({ automation });
+  controlServer.start();
+
   createWindow();
 });
 
 app.on('before-quit', () => {
   automation?.stop();
+  void controlServer?.stop();
   while (disposers.length) {
     const dispose = disposers.pop();
     try {

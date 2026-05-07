@@ -1,4 +1,4 @@
-import { type EffectCallback, useEffect, useState } from 'react';
+import { type EffectCallback, useEffect, useRef, useState } from 'react';
 
 type Outcome = 'success' | 'dlp_blocked' | 'error';
 type FilterValue = 'all' | Outcome;
@@ -25,6 +25,9 @@ interface CaptureDetail extends CaptureListRow {
 }
 
 const PAGE_SIZE = 50;
+const POLL_INTERVAL_MS = 3000;
+const CAPTURE_TIMEOUT_MS = 30_000;
+const CONTROL_ENDPOINT = 'http://127.0.0.1:5175/capture';
 
 const FILTERS: { value: FilterValue; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -72,6 +75,35 @@ async function clearAll(): Promise<{ rows: number; files: number }> {
   return (await res.json()) as { rows: number; files: number };
 }
 
+async function triggerCapture(): Promise<void> {
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), CAPTURE_TIMEOUT_MS);
+  try {
+    const res = await fetch(CONTROL_ENDPOINT, {
+      method: 'POST',
+      signal: ac.signal,
+    });
+    if (res.status === 409) {
+      throw new Error(
+        'Replay logging is off — enable it in the Electron Dev tab.',
+      );
+    }
+    if (!res.ok) {
+      const body = (await res.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+      throw new Error(body?.error ?? `capture failed: ${res.status}`);
+    }
+  } catch (err) {
+    if (err instanceof TypeError) {
+      throw new Error('Electron app not running.');
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function formatTime(ts: number): string {
   return new Date(ts).toLocaleString();
 }
@@ -87,12 +119,49 @@ export function App() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detail, setDetail] = useState<CaptureDetail | null>(null);
   const [listError, setListError] = useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [capturePending, setCapturePending] = useState(false);
+  const [captureError, setCaptureError] = useState<string | null>(null);
+
+  const filterRef = useRef(filter);
+  filterRef.current = filter;
+  const capturesRef = useRef(captures);
+  capturesRef.current = captures;
+  const selectedRef = useRef(selectedId);
+  selectedRef.current = selectedId;
+
+  async function refresh() {
+    const usedFilter = filterRef.current;
+    try {
+      const fresh = await fetchCaptures(usedFilter, null);
+      if (filterRef.current !== usedFilter) return;
+      const previous = capturesRef.current;
+      const merged = mergeRows(previous, fresh);
+      setCaptures(merged);
+      const next = nextSelection(previous, merged, selectedRef.current);
+      if (next !== selectedRef.current) setSelectedId(next);
+    } catch (err) {
+      if (filterRef.current === usedFilter) setListError(String(err));
+    }
+  }
+
+  useMountEffect(() => {
+    void refresh();
+    const id = setInterval(() => {
+      void refresh();
+    }, POLL_INTERVAL_MS);
+    return () => clearInterval(id);
+  });
 
   function changeFilter(next: FilterValue) {
     if (next === filter) return;
+    filterRef.current = next;
+    capturesRef.current = [];
+    selectedRef.current = null;
     setFilter(next);
+    setCaptures([]);
+    setSelectedId(null);
     setListError(null);
+    void refresh();
   }
 
   async function loadMore() {
@@ -112,14 +181,30 @@ export function App() {
     try {
       const result = await clearAll();
       alert(`Cleared ${result.rows} row(s) and ${result.files} file(s).`);
+      capturesRef.current = [];
+      selectedRef.current = null;
       setCaptures([]);
       setSelectedId(null);
       setDetail(null);
-      setRefreshKey((k) => k + 1);
+      void refresh();
     } catch (err) {
       alert(
         `Clear failed: ${err instanceof Error ? err.message : String(err)}`,
       );
+    }
+  }
+
+  async function onCaptureNow() {
+    if (capturePending) return;
+    setCapturePending(true);
+    setCaptureError(null);
+    try {
+      await triggerCapture();
+    } catch (err) {
+      setCaptureError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setCapturePending(false);
+      void refresh();
     }
   }
 
@@ -159,29 +244,49 @@ export function App() {
             </button>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={onClear}
+        <div
           style={{
             marginLeft: 'auto',
-            padding: '4px 12px',
-            background: '#3a1a1a',
-            color: '#ff8a8a',
-            border: '1px solid #5a2a2a',
-            borderRadius: 4,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
           }}
         >
-          Clear all
-        </button>
+          {captureError && (
+            <span style={{ color: '#ff8a8a', fontSize: 12 }}>
+              {captureError}
+            </span>
+          )}
+          <button
+            type="button"
+            onClick={onCaptureNow}
+            disabled={capturePending}
+            style={{
+              padding: '4px 12px',
+              background: capturePending ? '#1a2a1a' : '#1a3a1a',
+              color: capturePending ? '#888' : '#8aff8a',
+              border: '1px solid #2a5a2a',
+              borderRadius: 4,
+              cursor: capturePending ? 'wait' : 'pointer',
+            }}
+          >
+            {capturePending ? 'Capturing…' : 'Capture now'}
+          </button>
+          <button
+            type="button"
+            onClick={onClear}
+            style={{
+              padding: '4px 12px',
+              background: '#3a1a1a',
+              color: '#ff8a8a',
+              border: '1px solid #5a2a2a',
+              borderRadius: 4,
+            }}
+          >
+            Clear all
+          </button>
+        </div>
       </header>
-      <CaptureListLoader
-        key={`${filter}-${refreshKey}`}
-        filter={filter}
-        currentSelectedId={selectedId}
-        onLoaded={setCaptures}
-        onAutoSelect={setSelectedId}
-        onError={setListError}
-      />
       <div
         style={{
           display: 'grid',
@@ -207,33 +312,31 @@ export function App() {
   );
 }
 
-function CaptureListLoader({
-  filter,
-  currentSelectedId,
-  onLoaded,
-  onAutoSelect,
-  onError,
-}: {
-  filter: FilterValue;
-  currentSelectedId: string | null;
-  onLoaded: (rows: CaptureListRow[]) => void;
-  onAutoSelect: (id: string | null) => void;
-  onError: (msg: string) => void;
-}) {
-  useMountEffect(() => {
-    void fetchCaptures(filter, null)
-      .then((rows) => {
-        onLoaded(rows);
-        if (rows.length === 0) {
-          onAutoSelect(null);
-          return;
-        }
-        const stillSelected = rows.find((r) => r.id === currentSelectedId);
-        if (!stillSelected) onAutoSelect(rows[0]?.id ?? null);
-      })
-      .catch((err) => onError(String(err)));
-  });
-  return null;
+function mergeRows(
+  previous: CaptureListRow[],
+  fresh: CaptureListRow[],
+): CaptureListRow[] {
+  if (previous.length === 0) return fresh;
+  const previousIds = new Set(previous.map((r) => r.id));
+  const newRows = fresh.filter((r) => !previousIds.has(r.id));
+  if (newRows.length === 0) return previous;
+  return [...newRows, ...previous];
+}
+
+function nextSelection(
+  previous: CaptureListRow[],
+  merged: CaptureListRow[],
+  currentSelected: string | null,
+): string | null {
+  const newTopId = merged[0]?.id ?? null;
+  if (newTopId === null) return null;
+  if (currentSelected === null) return newTopId;
+  const stillInList = merged.some((r) => r.id === currentSelected);
+  if (!stillInList) return newTopId;
+  const previousTopId = previous[0]?.id ?? null;
+  const haveNewerRows = previousTopId !== null && newTopId !== previousTopId;
+  if (haveNewerRows && currentSelected === previousTopId) return newTopId;
+  return currentSelected;
 }
 
 function CaptureDetailLoader({
