@@ -79,8 +79,9 @@ jobs:
           APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "$APPLE_API_KEY_BASE64" | base64 --decode \
-            > "$HOME/.appstoreconnect/private_keys/AuthKey_${APPLE_API_KEY_ID}.p8"
+          KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${APPLE_API_KEY_ID}.p8"
+          echo "$APPLE_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          echo "APPLE_API_KEY=$KEY_PATH" >> "$GITHUB_ENV"
 
       - name: Build, sign, notarize
         env:
