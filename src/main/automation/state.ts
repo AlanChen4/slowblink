@@ -71,7 +71,6 @@ export function deriveSettings(
     aiMode: effectiveAiMode(stored.aiMode, session, plan),
     onboardingComplete: stored.onboardingComplete,
     overviewScope: stored.overviewScope,
-    overviewMinDurationMs: stored.overviewMinDurationMs,
   };
 }
 
@@ -125,8 +124,7 @@ export function settingsEqual(a: Settings, b: Settings): boolean {
     a.storageMode === b.storageMode &&
     a.aiMode === b.aiMode &&
     a.onboardingComplete === b.onboardingComplete &&
-    a.overviewScope === b.overviewScope &&
-    a.overviewMinDurationMs === b.overviewMinDurationMs
+    a.overviewScope === b.overviewScope
   );
 }
 

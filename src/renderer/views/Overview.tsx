@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { startOfDay } from '@/lib/categories';
-import { MinDurationControl } from './overview-sections/MinDurationControl';
 import { ScopeToggle } from './overview-sections/ScopeToggle';
 import { TopApps } from './overview-sections/TopApps';
 
@@ -46,12 +45,6 @@ export function Overview({ settings, plan = null }: Props) {
     }
   }
 
-  async function handleMinDurationChange(next: number) {
-    if (next !== settings.overviewMinDurationMs) {
-      await window.slowblink.setSettings({ overviewMinDurationMs: next });
-    }
-  }
-
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-6">
       <div className="flex items-center justify-between gap-3">
@@ -78,29 +71,20 @@ export function Overview({ settings, plan = null }: Props) {
             </Button>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <MinDurationControl
-            value={settings.overviewMinDurationMs}
-            onChange={(next) => {
-              void handleMinDurationChange(next);
-            }}
-          />
-          <ScopeToggle
-            scope={settings.overviewScope}
-            settings={settings}
-            plan={plan}
-            onChange={(next) => {
-              void handleScopeChange(next);
-            }}
-          />
-        </div>
+        <ScopeToggle
+          scope={settings.overviewScope}
+          settings={settings}
+          plan={plan}
+          onChange={(next) => {
+            void handleScopeChange(next);
+          }}
+        />
       </div>
       <OverviewForScope
         key={`${settings.overviewScope}-${dayStart}`}
         scope={settings.overviewScope}
         dayStart={dayStart}
         isToday={isToday}
-        minDurationMs={settings.overviewMinDurationMs}
       />
     </div>
   );
@@ -110,7 +94,6 @@ interface ScopedProps {
   scope: OverviewScope;
   dayStart: number;
   isToday: boolean;
-  minDurationMs: number;
 }
 
 interface LoadHandlers {
@@ -138,12 +121,7 @@ async function loadOverview(
   }
 }
 
-function OverviewForScope({
-  scope,
-  dayStart,
-  isToday,
-  minDurationMs,
-}: ScopedProps) {
+function OverviewForScope({ scope, dayStart, isToday }: ScopedProps) {
   const [overview, setOverview] = useState<OverviewT | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -184,9 +162,7 @@ function OverviewForScope({
   }
   if (!overview) return null;
 
-  return (
-    <TopApps aggregate={overview.aggregate} minDurationMs={minDurationMs} />
-  );
+  return <TopApps aggregate={overview.aggregate} />;
 }
 
 interface ErrorStateProps {

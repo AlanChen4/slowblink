@@ -3,16 +3,17 @@ import { formatDuration } from './format';
 
 interface Props {
   aggregate: OverviewAggregate;
-  minDurationMs: number;
 }
 
-export function TopApps({ aggregate, minDurationMs }: Props) {
+const MIN_DURATION_MS = 60_000;
+
+export function TopApps({ aggregate }: Props) {
   const apps = aggregate.apps
     .map((a) => ({
       ...a,
-      windows: a.windows.filter((w) => w.durationMs >= minDurationMs),
+      windows: a.windows.filter((w) => w.durationMs >= MIN_DURATION_MS),
     }))
-    .filter((a) => a.durationMs >= minDurationMs || a.windows.length > 0);
+    .filter((a) => a.durationMs >= MIN_DURATION_MS || a.windows.length > 0);
 
   if (apps.length === 0) {
     return (

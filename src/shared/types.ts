@@ -25,7 +25,6 @@ export interface Settings {
   aiMode: AIMode;
   onboardingComplete: boolean;
   overviewScope: OverviewScope;
-  overviewMinDurationMs: number;
 }
 
 export type SettingsPatch = Partial<

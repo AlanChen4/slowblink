@@ -66,10 +66,7 @@ export function Logs() {
                           className="size-4 shrink-0 rounded-sm"
                         />
                       ) : (
-                        <span
-                          className="size-4 shrink-0"
-                          aria-hidden="true"
-                        />
+                        <span className="size-4 shrink-0" aria-hidden="true" />
                       )}
                       <span className="min-w-0 truncate">
                         {s.focusedApp ?? '—'}

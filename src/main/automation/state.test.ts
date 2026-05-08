@@ -33,7 +33,6 @@ const STORED: StoredSettings = {
   aiMode: 'cloud-ai',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 0,
 };
 
 const STORE_FRAGMENT: Pick<
@@ -108,7 +107,6 @@ describe('deriveStatus', () => {
     aiMode: 'cloud-ai',
     onboardingComplete: true,
     overviewScope: 'this-device',
-    overviewMinDurationMs: 0,
   };
 
   test('running mirrors timer presence', () => {

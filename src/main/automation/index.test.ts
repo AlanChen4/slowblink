@@ -30,7 +30,6 @@ const DEFAULT_STORED: StoredSettings = {
   aiMode: 'cloud-ai',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 0,
 };
 
 interface HarnessOpts {
