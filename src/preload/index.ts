@@ -51,6 +51,8 @@ const api: SlowblinkAPI = {
   openCheckout: () => ipcRenderer.invoke(IPC.billingCheckout),
   openPortal: () => ipcRenderer.invoke(IPC.billingPortal),
 
+  getAppIcons: (names) => ipcRenderer.invoke(IPC.appIconsGet, names),
+
   getOverview: (start, end, scope) =>
     ipcRenderer.invoke(IPC.overviewGet, start, end, scope),
   getOverviewDebug: (start, end, scope) =>

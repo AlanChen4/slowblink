@@ -28,3 +28,10 @@ for the id convention used by the new table.
 | **Capture record** | A single recorded tick — the JPEG that was sent to the LLM, the request envelope, the provider-level response, plus enough metadata to correlate to a `samples` row. Identified by UUIDv4. |
 | **Replay logging toggle** | The setting (`replayLogging` in [src/main/settings.ts](src/main/settings.ts)) that gates the recorder. Default off. UI lives in the Dev tab and only renders when `import.meta.env.DEV` is true. |
 | **Replay control endpoint** | Dev-only HTTP server in the Electron main process at `127.0.0.1:5175` ([src/main/replay/control-server.ts](src/main/replay/control-server.ts)). Single route `POST /capture` invokes `automation.captureNow()`. Hard guard: refuses to start if `app.isPackaged`. Returns 409 if Replay logging is off. Used by the viewer's "Capture now" button. |
+
+## App icons
+
+| Term | Meaning |
+|---|---|
+| **App icon** | A macOS-resolved icon for a given app name, stored locally as a base64 data URL keyed by name (table: `app_icons`). Resolved fire-and-forget after each capture (`osascript` + `app.getFileIcon`); cached locally with a 30-day TTL; mirrored to Supabase per user so cross-device "All devices" overviews can render icons for apps the local Mac never had installed. |
+| **Negative cache** | An in-memory `Set<string>` of app names whose icon resolution failed during this session. Skipped on re-attempts until the next process restart. Pairs with the 30-day TTL: TTL governs *how often* we re-resolve; the negative cache prevents *retry storms* within a single session when osascript is failing. |

@@ -103,7 +103,13 @@ export default function App() {
   const issues = status ? collectIssues(status, settings) : [];
 
   return (
-    <SidebarProvider>
+    <SidebarProvider
+      style={
+        {
+          '--sidebar-width': 'calc(16rem * 2 / 3)',
+        } as React.CSSProperties
+      }
+    >
       <div
         className="fixed inset-x-0 top-0 z-50 flex h-10 items-center justify-between"
         style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
@@ -193,7 +199,7 @@ export default function App() {
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      <div className="flex max-w-[76vw] flex-1 flex-col pt-12 transition-[max-width] duration-200 ease-linear peer-data-[state=collapsed]:max-w-[calc(76vw+12rem)]">
+      <div className="flex max-w-[calc(76vw+5.3333rem)] flex-1 flex-col pt-12 transition-[max-width] duration-200 ease-linear peer-data-[state=collapsed]:max-w-[calc(76vw+12rem)]">
         <main className="flex max-h-[92vh] flex-1 flex-col rounded-xl bg-background">
           <div className="flex flex-1 flex-col overflow-y-auto px-6 pt-4 pb-6">
             {view === 'overview' && (

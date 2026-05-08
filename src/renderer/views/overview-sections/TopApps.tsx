@@ -30,14 +30,25 @@ export function TopApps({ aggregate, minDurationMs }: Props) {
       <ul className="space-y-3">
         {apps.map((a) => (
           <li key={a.app} className="space-y-1.5">
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="truncate font-medium text-sm">{a.app}</span>
-              <span className="shrink-0 text-muted-foreground text-xs tabular-nums">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                {a.iconDataUrl ? (
+                  <img
+                    src={a.iconDataUrl}
+                    alt=""
+                    className="size-10 shrink-0 rounded-md"
+                  />
+                ) : (
+                  <div className="size-10 shrink-0" aria-hidden="true" />
+                )}
+                <span className="truncate font-medium text-base">{a.app}</span>
+              </div>
+              <span className="shrink-0 text-muted-foreground text-sm tabular-nums">
                 {formatDuration(a.durationMs)}
               </span>
             </div>
             {a.windows.length > 0 && (
-              <ul className="space-y-1 pl-3">
+              <ul className="space-y-1 pl-[3.25rem]">
                 {a.windows.map((w) => (
                   <li
                     key={w.window}

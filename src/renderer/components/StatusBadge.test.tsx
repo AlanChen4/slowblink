@@ -8,7 +8,6 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
-  lastCaptureTs: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: false,
@@ -72,7 +71,7 @@ describe('StatusBadge', () => {
       />,
     );
 
-    expect(screen.getByText('Running')).toBeDefined();
+    expect(screen.getByText('Running — 5s autocapture')).toBeDefined();
     expect(screen.queryByText(/no api key/i)).toBeNull();
   });
 
@@ -105,5 +104,36 @@ describe('StatusBadge', () => {
 
     expect(screen.queryByRole('button', { name: 'No API Key' })).toBeNull();
     expect(screen.getByText('No API Key')).toBeDefined();
+  });
+
+  test('renders error label when lastError is set', () => {
+    render(
+      <StatusBadge
+        status={{
+          ...BASE_STATUS,
+          running: false,
+          lastError: 'fetch failed',
+        }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Error — fetch failed')).toBeDefined();
+  });
+
+  test('paused beats lastError in the label', () => {
+    render(
+      <StatusBadge
+        status={{ ...BASE_STATUS, lastError: 'fetch failed' }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true, paused: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Paused')).toBeDefined();
+    expect(screen.queryByText(/Error — /)).toBeNull();
   });
 });

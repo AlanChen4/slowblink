@@ -5,6 +5,7 @@ import { startOfDay } from '@/lib/categories';
 
 export function Logs() {
   const [samples, setSamples] = useState<Sample[]>([]);
+  const [icons, setIcons] = useState<Record<string, string | null>>({});
   const [dayStart] = useState(() => startOfDay());
 
   useMountEffect(() => {
@@ -17,6 +18,17 @@ export function Logs() {
       lastSeenLength = next.length;
       lastSeenId = newest;
       setSamples(next);
+      const names = Array.from(
+        new Set(
+          next
+            .map((s) => s.focusedApp)
+            .filter((n): n is string => n !== null && n !== ''),
+        ),
+      );
+      if (names.length > 0) {
+        const fetched = await window.slowblink.getAppIcons(names);
+        setIcons((prev) => ({ ...prev, ...fetched }));
+      }
     };
     void refresh();
     const t = setInterval(() => {
@@ -39,17 +51,34 @@ export function Logs() {
             {samples
               .slice(-50)
               .reverse()
-              .map((s) => (
-                <div key={s.id} className="flex items-center gap-3">
-                  <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
-                    {new Date(s.ts).toLocaleTimeString()}
-                  </span>
-                  <span className="w-24 shrink-0 truncate text-muted-foreground">
-                    {s.focusedApp ?? '—'}
-                  </span>
-                  <span className="min-w-0 truncate">{s.activity}</span>
-                </div>
-              ))}
+              .map((s) => {
+                const iconUrl = s.focusedApp ? icons[s.focusedApp] : null;
+                return (
+                  <div key={s.id} className="flex items-center gap-3">
+                    <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
+                      {new Date(s.ts).toLocaleTimeString()}
+                    </span>
+                    <span className="flex w-28 shrink-0 items-center gap-1.5 text-muted-foreground">
+                      {iconUrl ? (
+                        <img
+                          src={iconUrl}
+                          alt=""
+                          className="size-4 shrink-0 rounded-sm"
+                        />
+                      ) : (
+                        <span
+                          className="size-4 shrink-0"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span className="min-w-0 truncate">
+                        {s.focusedApp ?? '—'}
+                      </span>
+                    </span>
+                    <span className="min-w-0 truncate">{s.activity}</span>
+                  </div>
+                );
+              })}
           </div>
         )}
       </div>

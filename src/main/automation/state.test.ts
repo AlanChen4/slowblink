@@ -54,7 +54,6 @@ const PERMISSIONS_ALL: PermissionsAdapter = {
 const RUNTIME_IDLE: AutomationRuntime = {
   timer: null,
   lastError: null,
-  lastCaptureTs: null,
   autoPaused: null,
 };
 

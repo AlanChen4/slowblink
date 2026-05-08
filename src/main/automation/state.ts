@@ -45,7 +45,6 @@ export interface StateDeps {
 export interface AutomationRuntime {
   timer: NodeJS.Timeout | null;
   lastError: string | null;
-  lastCaptureTs: number | null;
   autoPaused: string | null;
 }
 
@@ -84,7 +83,6 @@ export function deriveStatus(
   return {
     running: runtime.timer !== null,
     lastError: runtime.autoPaused ?? runtime.lastError,
-    lastCaptureTs: runtime.lastCaptureTs,
     hasPermission: permissions.hasScreen(),
     hasAccessibility: permissions.hasAccessibility(),
     hasApiKey: settings.aiMode === 'cloud-ai' ? true : settings.hasApiKey,
@@ -136,7 +134,6 @@ export function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
   return (
     a.running === b.running &&
     a.lastError === b.lastError &&
-    a.lastCaptureTs === b.lastCaptureTs &&
     a.hasPermission === b.hasPermission &&
     a.hasAccessibility === b.hasAccessibility &&
     a.hasApiKey === b.hasApiKey

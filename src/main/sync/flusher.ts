@@ -7,6 +7,7 @@ import {
   getSyncCounts,
   markFailed,
   markSynced,
+  onAppIconUpserted,
   onSampleInserted,
   retryFailedSamples,
 } from '../db';
@@ -16,6 +17,7 @@ import {
   onStoredSettingsChange,
   type StoredSettings,
 } from '../settings';
+import { uploadPendingAppIcons } from './app-icons-upload';
 import {
   AuthRequiredError,
   PermanentIngestError,
@@ -157,29 +159,44 @@ async function flush(reason: 'periodic' | 'idle' | 'size' | 'manual') {
   flushInFlight = true;
   const batch = getPendingForSync(Date.now(), MAX_BATCH_SIZE);
   try {
-    if (batch.length === 0) {
-      pendingSinceInsert = 0;
-      setRuntimeState('idle');
-      return;
+    if (batch.length > 0) {
+      setRuntimeState('syncing');
+      console.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
+      const result = await postIngestBatch(batch);
+      const syncedIds = batch
+        .map((r) => r.id)
+        .filter((id) => !result.rejectedIds.includes(id));
+      markSynced(syncedIds, result.serverIds, Date.now());
+      if (result.rejectedIds.length > 0) {
+        const msg = `Rejected ${result.rejectedIds.length} row(s): ${Object.values(result.rejectedReasons)[0] ?? 'unknown'}`;
+        markFailed(result.rejectedIds, msg);
+      }
+      lastFlushTs = Date.now();
     }
-    setRuntimeState('syncing');
-    console.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
-    const result = await postIngestBatch(batch);
-    const syncedIds = batch
-      .map((r) => r.id)
-      .filter((id) => !result.rejectedIds.includes(id));
-    markSynced(syncedIds, result.serverIds, Date.now());
-    if (result.rejectedIds.length > 0) {
-      const msg = `Rejected ${result.rejectedIds.length} row(s): ${Object.values(result.rejectedReasons)[0] ?? 'unknown'}`;
-      markFailed(result.rejectedIds, msg);
-    }
-    lastFlushTs = Date.now();
+    await flushAppIcons(reason);
     pendingSinceInsert = 0;
     setRuntimeState('idle');
   } catch (err) {
     handleFlushError(err, batch);
   } finally {
     flushInFlight = false;
+  }
+}
+
+async function flushAppIcons(
+  reason: 'periodic' | 'idle' | 'size' | 'manual',
+): Promise<void> {
+  try {
+    const result = await uploadPendingAppIcons(backoffFor);
+    if (result.attempted > 0) {
+      console.log(
+        `[sync] uploaded ${result.uploaded}/${result.attempted} app icons (reason=${reason})`,
+      );
+      lastFlushTs = Date.now();
+    }
+  } catch (err) {
+    if (err instanceof AuthRequiredError) throw err;
+    console.log('[sync] app icons upload failed:', err);
   }
 }
 
@@ -234,12 +251,19 @@ function onSampleInsertedHandler(_: Sample) {
   }
 }
 
+function onAppIconUpsertedHandler(_: string) {
+  const settings = getStoredSettings();
+  if (!enabled(settings)) return;
+  bumpIdleTimer();
+}
+
 let syncInitialized = false;
 
 export function initSync() {
   if (syncInitialized) return;
   syncInitialized = true;
   onSampleInserted(onSampleInsertedHandler);
+  onAppIconUpserted(onAppIconUpsertedHandler);
   onStoredSettingsChange(refresh);
   onSessionChange(refresh);
   refresh();

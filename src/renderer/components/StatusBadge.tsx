@@ -26,12 +26,11 @@ function statusColor(
   return 'bg-emerald-500';
 }
 
-function statusLabel(status: CaptureStatus, paused: boolean): string {
-  if (paused) return 'Paused';
-  if (status.lastCaptureTs) {
-    return `Last Updated at ${new Date(status.lastCaptureTs).toLocaleTimeString()}`;
-  }
-  return 'Running';
+function statusLabel(status: CaptureStatus, settings: Settings): string {
+  if (settings.paused) return 'Paused';
+  if (status.lastError) return `Error — ${status.lastError}`;
+  const seconds = Math.round(settings.intervalMs / 1000);
+  return `Running — ${seconds}s autocapture`;
 }
 
 function syncLabel(sync: SyncStatus): string | null {
@@ -68,7 +67,7 @@ export function StatusBadge({
       {issues.length > 0 ? (
         <IssueList issues={issues} onNavigateToApiKey={onNavigateToApiKey} />
       ) : (
-        (syncPart ?? statusLabel(status, settings.paused))
+        (syncPart ?? statusLabel(status, settings))
       )}
     </div>
   );

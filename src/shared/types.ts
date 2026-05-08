@@ -35,7 +35,6 @@ export type SettingsPatch = Partial<
 export interface CaptureStatus {
   running: boolean;
   lastError: string | null;
-  lastCaptureTs: number | null;
   hasPermission: boolean;
   hasAccessibility: boolean;
   hasApiKey: boolean;
@@ -98,6 +97,7 @@ export interface AppDuration {
   app: string;
   durationMs: number;
   windows: WindowDuration[];
+  iconDataUrl: string | null;
 }
 
 export interface OverviewAggregate {
@@ -158,6 +158,8 @@ export interface SlowblinkAPI {
   onPlan(cb: (p: Plan) => void): () => void;
   openCheckout(): Promise<void>;
   openPortal(): Promise<void>;
+
+  getAppIcons(names: string[]): Promise<Record<string, string | null>>;
 
   getOverview(
     rangeStart: number,

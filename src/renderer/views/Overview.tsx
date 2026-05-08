@@ -67,15 +67,16 @@ export function Overview({ settings, plan = null }: Props) {
           <h1 className="min-w-[8rem] text-center font-semibold text-xl">
             {formatDayTitle(dayOffset, dayStart)}
           </h1>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDayOffset((n) => Math.max(0, n - 1))}
-            disabled={isToday}
-            aria-label="Next day"
-          >
-            <ChevronRight className="size-4" />
-          </Button>
+          {!isToday && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setDayOffset((n) => Math.max(0, n - 1))}
+              aria-label="Next day"
+            >
+              <ChevronRight className="size-4" />
+            </Button>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <MinDurationControl

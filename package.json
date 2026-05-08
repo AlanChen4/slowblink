@@ -43,7 +43,7 @@
     "db:functions:serve": "pnpm db:functions:env && supabase functions serve --env-file supabase/.env",
     "db:functions:deploy": "supabase functions deploy",
     "overview:seed": "tsx scripts/seed-overview.ts",
-    "overview:export-samples": "tsx scripts/export-samples.ts"
+    "overview:export-db": "tsx scripts/export-db.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.52",

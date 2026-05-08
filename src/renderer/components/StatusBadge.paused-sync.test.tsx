@@ -8,7 +8,6 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
-  lastCaptureTs: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: true,
@@ -59,7 +58,7 @@ describe('StatusBadge pause-state source of truth', () => {
     );
 
     expect(screen.queryByText('Paused')).toBeNull();
-    expect(screen.getByText('Running')).toBeDefined();
+    expect(screen.getByText('Running — 5s autocapture')).toBeDefined();
   });
 
   test('sync detail replaces the status label when present', () => {
