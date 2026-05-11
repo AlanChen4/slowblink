@@ -72,6 +72,12 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
+      // In dev, keep the compositor running when the window is hidden so
+      // CDP `Page.captureScreenshot` (and therefore agent-browser screenshots)
+      // doesn't block forever waiting on a frame from a suspended renderer.
+      // In production the renderer UI is rarely visible and throttling is the
+      // right battery-saving default.
+      backgroundThrottling: app.isPackaged,
     },
   });
 

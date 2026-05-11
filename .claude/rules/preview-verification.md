@@ -38,6 +38,24 @@ agent-browser eval 'window.slowblink.getStatus().then(s => JSON.stringify(s))'
 
 This attaches to the running Electron process, so the screenshot, IPC bridge (`window.slowblink.*`), and DOM snapshot all reflect the actual app — not a browser-only render of the same HTML.
 
+## If screenshots hang
+
+CDP `Page.captureScreenshot` (and therefore `agent-browser screenshot`) requires the renderer's compositor to produce a fresh frame. macOS Chromium suspends the compositor whenever `document.visibilityState === 'hidden'`, and the CDP call then waits forever for a frame that never comes. `Runtime.evaluate` still works in that state, which makes the failure look like an agent-browser bug — it isn't.
+
+The dev `BrowserWindow` sets `backgroundThrottling: app.isPackaged` ([src/main/index.ts](../../src/main/index.ts)), which keeps the compositor running in dev so screenshots succeed whether or not the window is focused. If that line is reverted or you're running a stale build, screenshots will hang silently — diagnose with:
+
+```bash
+agent-browser eval 'JSON.stringify({hidden: document.hidden, visState: document.visibilityState})'
+```
+
+If `hidden` is `true`, `backgroundThrottling` is back on; the quickest recovery without editing source is `osascript -e 'tell application "Electron" to activate'; sleep 2; agent-browser screenshot …` — but fix the BrowserWindow option instead of relying on activate-before-each-screenshot.
+
+**Don't waste time on:**
+
+- `agent-browser tab` showing `about:blank` after a daemon respawn — `agent-browser connect 9222` fixes it; it's a separate symptom from screenshot hangs.
+- `Emulation.setVisibilityState` — not implemented in Electron 33's Chromium build (returns `wasn't found`).
+- `Page.bringToFront` via CDP — doesn't un-hide a hidden Electron `BrowserWindow`.
+
 ## When `preview_screenshot` is fine
 
 For the rare case where you want to inspect the Vite-served HTML in isolation (e.g. debugging a build artifact). Otherwise, default to agent-browser.

@@ -17,7 +17,7 @@
   "main": "out/main/index.js",
   "scripts": {
     "dev": "bash scripts/dev.sh",
-    "dev:app": "electron-vite dev",
+    "dev:app": "electron-vite dev --watch",
     "stripe:listen": "stripe listen --forward-to http://127.0.0.1:55321/functions/v1/stripe-webhook",
     "build": "electron-vite build && node scripts/check-bundle-secrets.js",
     "start": "electron-vite preview",
