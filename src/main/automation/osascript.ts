@@ -9,7 +9,7 @@ export interface OsascriptResult {
 
 export function runOsascript(script: string): Promise<OsascriptResult> {
   return new Promise((resolve, reject) => {
-    const child = execFile(
+    execFile(
       'osascript',
       ['-e', script],
       { timeout: OSASCRIPT_TIMEOUT_MS, maxBuffer: 1024 * 1024 },
@@ -18,6 +18,5 @@ export function runOsascript(script: string): Promise<OsascriptResult> {
         else resolve({ stdout, stderr });
       },
     );
-    child.on('error', reject);
   });
 }

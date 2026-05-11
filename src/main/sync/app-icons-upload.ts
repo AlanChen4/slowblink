@@ -64,6 +64,10 @@ function handleUploadError(
   if (status === 401 || status === 403) {
     throw new AuthRequiredError(`app_icons auth rejected (${status})`);
   }
+  if (status === 429) {
+    applyBackoff(rows, message, backoffFor);
+    return;
+  }
   if (status >= 400 && status < 500) {
     markAppIconsFailed(names, message);
     return;

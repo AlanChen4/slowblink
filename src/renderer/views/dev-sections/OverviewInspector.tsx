@@ -1,6 +1,6 @@
 import type { OverviewDebug, OverviewScope, Settings } from '@shared/types';
 import { ChevronLeft, ChevronRight, Copy, RefreshCw } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -61,8 +61,10 @@ function OverviewInspectorBody({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const cancelRef = useRef<{ value: boolean }>({ value: false });
 
   async function load() {
+    const cancel = cancelRef.current;
     setLoading(true);
     setError(null);
     const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
@@ -72,15 +74,18 @@ function OverviewInspectorBody({
         end,
         scope,
       );
-      setDebug(result);
+      if (!cancel.value) setDebug(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      if (!cancel.value) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
     } finally {
-      setLoading(false);
+      if (!cancel.value) setLoading(false);
     }
   }
 
   async function refresh() {
+    const cancel = cancelRef.current;
     setRefreshing(true);
     setError(null);
     const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
@@ -90,20 +95,26 @@ function OverviewInspectorBody({
         end,
         scope,
       );
-      setDebug(result);
+      if (!cancel.value) setDebug(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      if (!cancel.value) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
     } finally {
-      setRefreshing(false);
+      if (!cancel.value) setRefreshing(false);
     }
   }
 
   useMountEffect(() => {
-    const cancel = { value: false };
+    cancelRef.current = { value: false };
+    const cancel = cancelRef.current;
     void load();
+    if (!isToday || scope !== 'this-device') {
+      return () => {
+        cancel.value = true;
+      };
+    }
     const unsubscribe = window.slowblink.onSampleInserted((sample) => {
-      if (cancel.value) return;
-      if (!isToday || scope !== 'this-device') return;
       if (sample.ts < dayStart) return;
       void refresh();
     });
