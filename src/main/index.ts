@@ -15,6 +15,7 @@ import { getDevDockIcon } from './dock-icon';
 import {
   broadcastAutomationUpdates,
   broadcastPlanUpdates,
+  broadcastSampleUpdates,
   broadcastSessionUpdates,
   broadcastSyncUpdates,
   registerIpc,
@@ -176,6 +177,7 @@ app.whenReady().then(async () => {
   disposers.push(broadcastSessionUpdates());
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
+  disposers.push(broadcastSampleUpdates());
 
   initSync();
   initPlanCache();

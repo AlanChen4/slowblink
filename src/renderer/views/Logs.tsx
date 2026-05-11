@@ -9,14 +9,10 @@ export function Logs() {
   const [dayStart] = useState(() => startOfDay());
 
   useMountEffect(() => {
-    let lastSeenId: number | null = null;
-    let lastSeenLength = 0;
+    const cancel = { value: false };
     const refresh = async () => {
       const next = await window.slowblink.getSamples(dayStart, Date.now());
-      const newest = next.length > 0 ? next[next.length - 1].id : null;
-      if (next.length === lastSeenLength && newest === lastSeenId) return;
-      lastSeenLength = next.length;
-      lastSeenId = newest;
+      if (cancel.value) return;
       setSamples(next);
       const names = Array.from(
         new Set(
@@ -27,14 +23,20 @@ export function Logs() {
       );
       if (names.length > 0) {
         const fetched = await window.slowblink.getAppIcons(names);
+        if (cancel.value) return;
         setIcons((prev) => ({ ...prev, ...fetched }));
       }
     };
     void refresh();
-    const t = setInterval(() => {
+    const unsubscribe = window.slowblink.onSampleInserted((sample) => {
+      if (cancel.value) return;
+      if (sample.ts < dayStart) return;
       void refresh();
-    }, 5_000);
-    return () => clearInterval(t);
+    });
+    return () => {
+      cancel.value = true;
+      unsubscribe();
+    };
   });
 
   return (

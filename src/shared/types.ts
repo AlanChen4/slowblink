@@ -142,6 +142,7 @@ export interface SlowblinkAPI {
   getLocalStorageSize(): Promise<number>;
   onStatus(cb: (s: CaptureStatus) => void): () => void;
   onSettings(cb: (s: Settings) => void): () => void;
+  onSampleInserted(cb: (s: Sample) => void): () => void;
 
   signIn(): Promise<void>;
   signOut(): Promise<void>;

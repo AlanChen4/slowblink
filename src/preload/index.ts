@@ -4,6 +4,7 @@ import type {
   AuthSession,
   CaptureStatus,
   Plan,
+  Sample,
   Settings,
   SlowblinkAPI,
   SyncStatus,
@@ -35,6 +36,7 @@ const api: SlowblinkAPI = {
   getLocalStorageSize: () => ipcRenderer.invoke(IPC.dataStorageSizeGet),
   onStatus: (cb) => subscribe<CaptureStatus>(IPC.statusUpdate, cb),
   onSettings: (cb) => subscribe<Settings>(IPC.settingsUpdate, cb),
+  onSampleInserted: (cb) => subscribe<Sample>(IPC.samplesInserted, cb),
 
   signIn: () => ipcRenderer.invoke(IPC.authSignIn),
   signOut: () => ipcRenderer.invoke(IPC.authSignOut),

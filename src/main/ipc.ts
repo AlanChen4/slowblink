@@ -16,6 +16,7 @@ import {
   getAppIconsForNames,
   getLocalStorageSize,
   getSamples,
+  onSampleInserted,
 } from './db';
 import { getOverview } from './overview';
 import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
@@ -163,4 +164,8 @@ export function broadcastSyncUpdates() {
 
 export function broadcastPlanUpdates() {
   return broadcast(IPC.billingPlanUpdate, onPlanChange);
+}
+
+export function broadcastSampleUpdates() {
+  return broadcast(IPC.samplesInserted, onSampleInserted);
 }
