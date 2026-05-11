@@ -3,38 +3,70 @@ import { useState } from 'react';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { startOfDay } from '@/lib/categories';
 
+interface RefreshState {
+  dayStart: number;
+  cancel: { value: boolean };
+  known: Set<string>;
+  setSamples: (s: Sample[]) => void;
+  setIcons: (
+    updater: (
+      prev: Record<string, string | null>,
+    ) => Record<string, string | null>,
+  ) => void;
+}
+
+async function fetchSamplesAndIcons(state: RefreshState): Promise<void> {
+  const next = await window.slowblink.getSamples(state.dayStart, Date.now());
+  if (state.cancel.value) return;
+  state.setSamples(next);
+  const missing = Array.from(
+    new Set(
+      next
+        .map((s) => s.focusedApp)
+        .filter((n): n is string => !!n && !state.known.has(n)),
+    ),
+  );
+  if (missing.length === 0) return;
+  const fetched = await window.slowblink.getAppIcons(missing);
+  if (state.cancel.value) return;
+  // Only cache names that resolved to a real icon. A null means main is still
+  // resolving (or the bundle isn't installed); retry on the next refresh so
+  // the icon shows up once it lands in the DB.
+  for (const name of missing) if (fetched[name]) state.known.add(name);
+  state.setIcons((prev) => ({ ...prev, ...fetched }));
+}
+
 export function Logs() {
   const [samples, setSamples] = useState<Sample[]>([]);
   const [icons, setIcons] = useState<Record<string, string | null>>({});
   const [dayStart] = useState(() => startOfDay());
 
   useMountEffect(() => {
-    const cancel = { value: false };
+    const state: RefreshState = {
+      dayStart,
+      cancel: { value: false },
+      known: new Set<string>(),
+      setSamples,
+      setIcons,
+    };
+    let inFlight = false;
     const refresh = async () => {
-      const next = await window.slowblink.getSamples(dayStart, Date.now());
-      if (cancel.value) return;
-      setSamples(next);
-      const names = Array.from(
-        new Set(
-          next
-            .map((s) => s.focusedApp)
-            .filter((n): n is string => n !== null && n !== ''),
-        ),
-      );
-      if (names.length > 0) {
-        const fetched = await window.slowblink.getAppIcons(names);
-        if (cancel.value) return;
-        setIcons((prev) => ({ ...prev, ...fetched }));
+      if (inFlight || state.cancel.value) return;
+      inFlight = true;
+      try {
+        await fetchSamplesAndIcons(state);
+      } finally {
+        inFlight = false;
       }
     };
+
     void refresh();
     const unsubscribe = window.slowblink.onSampleInserted((sample) => {
-      if (cancel.value) return;
       if (sample.ts < dayStart) return;
       void refresh();
     });
     return () => {
-      cancel.value = true;
+      state.cancel.value = true;
       unsubscribe();
     };
   });

@@ -1,10 +1,12 @@
+import { execFile } from 'node:child_process';
 import { nativeImage } from 'electron';
 import { getAppIcon, upsertAppIcon } from '../db';
-import { runOsascript } from './osascript';
 
 const ICON_SIZE = 64;
 
 const ICON_CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+const MDFIND_TIMEOUT_MS = 4000;
 
 const sessionNegativeCache = new Set<string>();
 
@@ -35,16 +37,31 @@ export async function resolveAndStoreAppIcon(appName: string): Promise<void> {
   }
 }
 
-async function resolveAppPath(appName: string): Promise<string | null> {
-  const escaped = appName.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-  const script = `POSIX path of (path to application "${escaped}")`;
-  const { stdout } = await runOsascript(script);
-  // osascript returns paths with a trailing slash for directories (e.g.
-  // "/Applications/Claude.app/"). Electron's app.getFileIcon resolves the
-  // trailing-slash form to a generic folder icon instead of the bundle icon,
-  // so strip it before passing through.
-  const path = stdout.trim().replace(/\/$/, '');
-  return path || null;
+function resolveAppPath(appName: string): Promise<string | null> {
+  // Spotlight rather than osascript's `path to application` because Apple
+  // Event sandboxing (Messages, Mail, Contacts) blocks the latter with -1743
+  // unless this app holds Automation permission for each target. mdfind
+  // needs no permission and reaches the same bundle.
+  const escaped = appName.replace(/"/g, '\\"');
+  const query = `kMDItemFSName == "${escaped}.app"`;
+  return new Promise((resolve) => {
+    execFile(
+      'mdfind',
+      [query],
+      { timeout: MDFIND_TIMEOUT_MS, maxBuffer: 1024 * 64 },
+      (err, stdout) => {
+        if (err) {
+          resolve(null);
+          return;
+        }
+        const first = stdout
+          .split('\n')
+          .map((l) => l.trim())
+          .find((l) => l.length > 0);
+        resolve(first ?? null);
+      },
+    );
+  });
 }
 
 async function getIconDataUrl(appPath: string): Promise<string | null> {
