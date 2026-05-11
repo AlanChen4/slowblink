@@ -29,8 +29,7 @@ function statusColor(
 function statusLabel(status: CaptureStatus, settings: Settings): string {
   if (settings.paused) return 'Paused';
   if (status.lastError) return `Error — ${status.lastError}`;
-  const seconds = Math.round(settings.intervalMs / 1000);
-  return `Running — ${seconds}s autocapture`;
+  return 'Running';
 }
 
 function syncLabel(sync: SyncStatus): string | null {

@@ -70,7 +70,7 @@ describe('StatusBadge', () => {
       />,
     );
 
-    expect(screen.getByText('Running — 5s autocapture')).toBeDefined();
+    expect(screen.getByText('Running')).toBeDefined();
     expect(screen.queryByText(/no api key/i)).toBeNull();
   });
 

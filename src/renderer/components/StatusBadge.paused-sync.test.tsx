@@ -57,7 +57,7 @@ describe('StatusBadge pause-state source of truth', () => {
     );
 
     expect(screen.queryByText('Paused')).toBeNull();
-    expect(screen.getByText('Running — 5s autocapture')).toBeDefined();
+    expect(screen.getByText('Running')).toBeDefined();
   });
 
   test('sync detail replaces the status label when present', () => {
