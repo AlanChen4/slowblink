@@ -24,6 +24,31 @@ function formatDayTitle(offset: number, dayStart: number): string {
   });
 }
 
+interface DebugFetchHandlers {
+  setLoading: (v: boolean) => void;
+  setError: (e: string | null) => void;
+  setDebug: (d: OverviewDebug) => void;
+}
+
+async function fetchDebug(
+  fetcher: () => Promise<OverviewDebug>,
+  cancel: { value: boolean },
+  handlers: DebugFetchHandlers,
+): Promise<void> {
+  handlers.setLoading(true);
+  handlers.setError(null);
+  try {
+    const result = await fetcher();
+    if (cancel.value) return;
+    handlers.setDebug(result);
+    handlers.setLoading(false);
+  } catch (err) {
+    if (cancel.value) return;
+    handlers.setError(err instanceof Error ? err.message : String(err));
+    handlers.setLoading(false);
+  }
+}
+
 export function OverviewInspector({ settings }: Props) {
   const [scope, setScope] = useState<OverviewScope>(settings.overviewScope);
   const [todayAnchor] = useState(() => startOfDay());
@@ -64,45 +89,21 @@ function OverviewInspectorBody({
   const cancelRef = useRef<{ value: boolean }>({ value: false });
 
   async function load() {
-    const cancel = cancelRef.current;
-    setLoading(true);
-    setError(null);
     const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
-    try {
-      const result = await window.slowblink.getOverviewDebug(
-        dayStart,
-        end,
-        scope,
-      );
-      if (!cancel.value) setDebug(result);
-    } catch (err) {
-      if (!cancel.value) {
-        setError(err instanceof Error ? err.message : String(err));
-      }
-    } finally {
-      if (!cancel.value) setLoading(false);
-    }
+    await fetchDebug(
+      () => window.slowblink.getOverviewDebug(dayStart, end, scope),
+      cancelRef.current,
+      { setLoading, setError, setDebug },
+    );
   }
 
   async function refresh() {
-    const cancel = cancelRef.current;
-    setRefreshing(true);
-    setError(null);
     const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
-    try {
-      const result = await window.slowblink.refreshOverviewDebug(
-        dayStart,
-        end,
-        scope,
-      );
-      if (!cancel.value) setDebug(result);
-    } catch (err) {
-      if (!cancel.value) {
-        setError(err instanceof Error ? err.message : String(err));
-      }
-    } finally {
-      if (!cancel.value) setRefreshing(false);
-    }
+    await fetchDebug(
+      () => window.slowblink.refreshOverviewDebug(dayStart, end, scope),
+      cancelRef.current,
+      { setLoading: setRefreshing, setError, setDebug },
+    );
   }
 
   useMountEffect(() => {
