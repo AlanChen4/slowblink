@@ -239,7 +239,11 @@ function PauseButton({ paused }: { paused: boolean }) {
       aria-label={label}
       title={label}
     >
-      {paused ? <Play className="size-4" /> : <Pause className="size-4" />}
+      {paused ? (
+        <Play className="size-4 text-muted-foreground" />
+      ) : (
+        <Pause className="size-4 text-muted-foreground" />
+      )}
     </Button>
   );
 }

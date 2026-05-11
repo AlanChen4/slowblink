@@ -151,21 +151,31 @@ function OverviewBody({
 
   function renderBody() {
     if (loading) {
-      return <TopAppsSkeleton />;
+      return (
+        <div className="fade-in-0 animate-in duration-150 [animation-delay:200ms] [animation-fill-mode:both]">
+          <TopAppsSkeleton />
+        </div>
+      );
     }
     if (loadError) {
       return (
-        <OverviewErrorState
-          scope={scope}
-          error={loadError}
-          onSwitchToThisDevice={() => {
-            void handleSwitchToThisDevice();
-          }}
-        />
+        <div className="fade-in-0 animate-in duration-150">
+          <OverviewErrorState
+            scope={scope}
+            error={loadError}
+            onSwitchToThisDevice={() => {
+              void handleSwitchToThisDevice();
+            }}
+          />
+        </div>
       );
     }
     if (!overview) return null;
-    return <TopApps apps={filteredApps} totalDurationMs={totalDurationMs} />;
+    return (
+      <div className="fade-in-0 animate-in duration-150">
+        <TopApps apps={filteredApps} totalDurationMs={totalDurationMs} />
+      </div>
+    );
   }
 
   return (
@@ -183,7 +193,7 @@ function OverviewBody({
           <h1 className="font-semibold text-xl">
             {formatDayTitle(dayOffset, dayStart)}
             {overview && (
-              <span className="ml-3 text-muted-foreground">
+              <span className="fade-in-0 ml-3 animate-in text-muted-foreground duration-150">
                 {formatDuration(totalDurationMs)}
               </span>
             )}
