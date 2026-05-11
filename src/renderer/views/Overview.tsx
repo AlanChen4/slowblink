@@ -78,6 +78,45 @@ interface BodyProps {
   onScopeChange: (next: OverviewScope) => void;
 }
 
+interface LoadHandlers {
+  setOverview: (o: OverviewT) => void;
+  setLoadError: (e: string) => void;
+  setLoading: (v: boolean) => void;
+}
+
+async function loadOverview(
+  scope: OverviewScope,
+  dayStart: number,
+  dayEnd: number,
+  cancel: { value: boolean },
+  handlers: LoadHandlers,
+): Promise<void> {
+  try {
+    const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
+    if (!cancel.value) handlers.setOverview(result);
+  } catch (err) {
+    if (!cancel.value)
+      handlers.setLoadError(err instanceof Error ? err.message : String(err));
+  } finally {
+    if (!cancel.value) handlers.setLoading(false);
+  }
+}
+
+async function refreshOverview(
+  scope: OverviewScope,
+  dayStart: number,
+  dayEnd: number,
+  cancel: { value: boolean },
+  setOverview: (o: OverviewT) => void,
+): Promise<void> {
+  try {
+    const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
+    if (!cancel.value) setOverview(result);
+  } catch (err) {
+    if (!cancel.value) console.log('[overview] refresh failed:', err);
+  }
+}
+
 function OverviewBody({
   scope,
   dayStart,
@@ -99,41 +138,17 @@ function OverviewBody({
 
   useMountEffect(() => {
     const cancel = { value: false };
-
-    const load = async () => {
-      try {
-        const result = await window.slowblink.getOverview(
-          dayStart,
-          dayEnd(),
-          scope,
-        );
-        if (!cancel.value) setOverview(result);
-      } catch (err) {
-        if (!cancel.value)
-          setLoadError(err instanceof Error ? err.message : String(err));
-      } finally {
-        if (!cancel.value) setLoading(false);
-      }
-    };
-
-    void load();
-
-    const unsubscribe = window.slowblink.onSampleInserted(async (sample) => {
+    void loadOverview(scope, dayStart, dayEnd(), cancel, {
+      setOverview,
+      setLoadError,
+      setLoading,
+    });
+    const unsubscribe = window.slowblink.onSampleInserted((sample) => {
       if (cancel.value) return;
       if (!isToday || scope !== 'this-device') return;
       if (sample.ts < dayStart) return;
-      try {
-        const result = await window.slowblink.getOverview(
-          dayStart,
-          Date.now(),
-          scope,
-        );
-        if (!cancel.value) setOverview(result);
-      } catch (err) {
-        if (!cancel.value) console.log('[overview] refresh failed:', err);
-      }
+      void refreshOverview(scope, dayStart, Date.now(), cancel, setOverview);
     });
-
     return () => {
       cancel.value = true;
       unsubscribe();

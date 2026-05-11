@@ -103,7 +103,9 @@ export function TopAppsSkeleton() {
             <Skeleton className="h-5 w-12 shrink-0" />
           </div>
           <div className="pl-[3.25rem]">
-            <Skeleton className={cn('h-1.5 rounded-full', SKELETON_BAR_WIDTHS[i])} />
+            <Skeleton
+              className={cn('h-1.5 rounded-full', SKELETON_BAR_WIDTHS[i])}
+            />
           </div>
         </li>
       ))}
