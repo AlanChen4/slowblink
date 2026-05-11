@@ -9,7 +9,6 @@ import { getSupabase } from '../auth/client';
 import { getCurrentSession } from '../auth/session';
 import { getAppIconsForNames, getSamples as getSamplesFromDb } from '../db';
 import { aggregate } from './aggregator';
-import { mergeIconsIntoAggregate } from './enrich-icons';
 import { samplesToSegments } from './segmenter';
 
 const SUPABASE_PAGE_SIZE = 1000;
@@ -163,7 +162,12 @@ async function enrichAggregateWithIcons(
     const missing = names.filter((n) => !local.has(n));
     remote = await fetchSupabaseIconsByNames(missing);
   }
-  return mergeIconsIntoAggregate(agg, local, remote);
+  return {
+    apps: agg.apps.map((a) => ({
+      ...a,
+      iconDataUrl: local.get(a.app)?.dataUrl ?? remote.get(a.app) ?? null,
+    })),
+  };
 }
 
 async function getOverviewThisDevice(

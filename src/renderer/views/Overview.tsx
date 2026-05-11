@@ -33,8 +33,6 @@ function formatDayTitle(offset: number, dayStart: number): string {
 }
 
 export function Overview({ settings, plan = null }: Props) {
-  // Snapshot today at mount so fetches stay aligned to a stable anchor; the
-  // user can navigate days regardless of clock drift across midnight.
   const [todayAnchor] = useState(() => startOfDay());
   const [dayOffset, setDayOffset] = useState(0);
   const dayStart = todayAnchor - dayOffset * ONE_DAY_MS;
@@ -81,39 +79,26 @@ interface BodyProps {
 interface LoadHandlers {
   setOverview: (o: OverviewT) => void;
   setLoadError: (e: string) => void;
-  setLoading: (v: boolean) => void;
+  setLoading?: (v: boolean) => void;
 }
 
 async function loadOverview(
   scope: OverviewScope,
   dayStart: number,
-  dayEnd: number,
+  isToday: boolean,
   cancel: { value: boolean },
   handlers: LoadHandlers,
 ): Promise<void> {
+  const dayEnd = isToday ? Date.now() : dayStart + ONE_DAY_MS;
   try {
     const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
     if (!cancel.value) handlers.setOverview(result);
   } catch (err) {
-    if (!cancel.value)
+    if (!cancel.value) {
       handlers.setLoadError(err instanceof Error ? err.message : String(err));
+    }
   } finally {
-    if (!cancel.value) handlers.setLoading(false);
-  }
-}
-
-async function refreshOverview(
-  scope: OverviewScope,
-  dayStart: number,
-  dayEnd: number,
-  cancel: { value: boolean },
-  setOverview: (o: OverviewT) => void,
-): Promise<void> {
-  try {
-    const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
-    if (!cancel.value) setOverview(result);
-  } catch (err) {
-    if (!cancel.value) console.log('[overview] refresh failed:', err);
+    if (!cancel.value) handlers.setLoading?.(false);
   }
 }
 
@@ -132,22 +117,24 @@ function OverviewBody({
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // For today, end = "now" so segments only cover what's actually happened.
-  // For past days, end = end-of-day so we capture the full day's samples.
-  const dayEnd = () => (isToday ? Date.now() : dayStart + ONE_DAY_MS);
-
   useMountEffect(() => {
     const cancel = { value: false };
-    void loadOverview(scope, dayStart, dayEnd(), cancel, {
+    void loadOverview(scope, dayStart, isToday, cancel, {
       setOverview,
       setLoadError,
       setLoading,
     });
+    if (!isToday || scope !== 'this-device') {
+      return () => {
+        cancel.value = true;
+      };
+    }
     const unsubscribe = window.slowblink.onSampleInserted((sample) => {
-      if (cancel.value) return;
-      if (!isToday || scope !== 'this-device') return;
       if (sample.ts < dayStart) return;
-      void refreshOverview(scope, dayStart, Date.now(), cancel, setOverview);
+      void loadOverview(scope, dayStart, isToday, cancel, {
+        setOverview,
+        setLoadError,
+      });
     });
     return () => {
       cancel.value = true;
