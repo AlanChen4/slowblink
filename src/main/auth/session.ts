@@ -1,6 +1,7 @@
 import type { Session } from '@supabase/supabase-js';
 import type { AuthSession } from '../../shared/types';
 import { createEmitter } from '../emitter';
+import { logger } from '../logger';
 import { getStoredSession, setStoredSession } from '../settings';
 import { getSupabase } from './client';
 
@@ -59,7 +60,7 @@ export async function loadSessionFromDisk() {
       !parsed.access_token ||
       !parsed.refresh_token
     ) {
-      console.log('[auth] stored session failed shape check, clearing');
+      logger.log('[auth] stored session failed shape check, clearing');
       persist(null);
       return;
     }
@@ -73,14 +74,14 @@ export async function loadSessionFromDisk() {
       refresh_token: parsed.refresh_token,
     });
     if (error) {
-      console.log('[auth] failed to restore session:', error.message);
+      logger.log('[auth] failed to restore session:', error.message);
       persist(null);
       return;
     }
     const { data } = await sb.auth.getSession();
     persist(data.session ?? null);
   } catch (err) {
-    console.log('[auth] session restore threw:', err);
+    logger.log('[auth] session restore threw:', err);
     persist(null);
   }
 }
@@ -92,7 +93,7 @@ async function refreshSession() {
     refresh_token: currentSession.refresh_token,
   });
   if (error) {
-    console.log('[auth] refresh failed, clearing session:', error.message);
+    logger.log('[auth] refresh failed, clearing session:', error.message);
     persist(null);
     return;
   }

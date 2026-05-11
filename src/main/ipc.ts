@@ -12,6 +12,7 @@ import { settingsEqual, statusEqual } from './automation/state';
 import { openCheckout, openPortal } from './billing/checkout';
 import { getPlan, onPlanChange } from './billing/plan-cache';
 import { deleteAll, getLocalStorageSize, getSamples } from './db';
+import { getLogBuffer, onLogEntry } from './logger';
 import { getOverview } from './overview';
 import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
 import {
@@ -107,6 +108,8 @@ export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.devReplayLoggingSet, (_e, enabled: boolean) =>
     setReplayLoggingEnabled(enabled),
   );
+
+  ipcMain.handle(IPC.processLogsGet, () => getLogBuffer());
 }
 
 function sendToAllWindows(channel: string, payload: unknown) {
@@ -147,4 +150,8 @@ export function broadcastSyncUpdates() {
 
 export function broadcastPlanUpdates() {
   return broadcast(IPC.billingPlanUpdate, onPlanChange);
+}
+
+export function broadcastLogUpdates() {
+  return broadcast(IPC.processLogsUpdate, onLogEntry);
 }

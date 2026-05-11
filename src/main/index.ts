@@ -14,11 +14,13 @@ import { initDb } from './db';
 import { getDevDockIcon } from './dock-icon';
 import {
   broadcastAutomationUpdates,
+  broadcastLogUpdates,
   broadcastPlanUpdates,
   broadcastSessionUpdates,
   broadcastSyncUpdates,
   registerIpc,
 } from './ipc';
+import { installStdioSafetyNet, logger } from './logger';
 import {
   hasAccessibilityPermission,
   hasScreenPermission,
@@ -39,6 +41,14 @@ import {
   setStoredSettings,
 } from './settings';
 import { initSync } from './sync/flusher';
+
+// Belt-and-suspenders for the orphan-Electron-after-pnpm-dev-exit case:
+// once the parent shell that owns our stdio dies, any console.* write
+// would throw EPIPE and crash the process. The logger already gates
+// writes by `stream.writable`, but this catches anything in the import
+// graph that ran before logger init, plus any raw `process.stdout`
+// writes we don't control.
+installStdioSafetyNet();
 
 // Open the Chrome DevTools Protocol port in dev so agent-browser (and any
 // other CDP client) can attach for E2E checks. Skipped in packaged builds.
@@ -176,6 +186,7 @@ app.whenReady().then(async () => {
   disposers.push(broadcastSessionUpdates());
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
+  disposers.push(broadcastLogUpdates());
 
   initSync();
   initPlanCache();
@@ -207,7 +218,7 @@ app.on('before-quit', () => {
     try {
       dispose?.();
     } catch (err) {
-      console.log('[shutdown] disposer threw:', err);
+      logger.log('[shutdown] disposer threw:', err);
     }
   }
 });

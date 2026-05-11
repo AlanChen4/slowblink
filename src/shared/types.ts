@@ -112,6 +112,15 @@ export interface Overview {
   aggregate: OverviewAggregate;
 }
 
+export type LogLevel = 'log' | 'info' | 'warn' | 'error' | 'debug';
+
+export interface LogEntry {
+  id: number;
+  ts: number;
+  level: LogLevel;
+  message: string;
+}
+
 export interface OverviewDebug {
   range: {
     startTs: number;
@@ -177,6 +186,9 @@ export interface SlowblinkAPI {
 
   getReplayLogging(): Promise<boolean>;
   setReplayLogging(enabled: boolean): Promise<boolean>;
+
+  getProcessLogs(): Promise<LogEntry[]>;
+  onProcessLog(cb: (entry: LogEntry) => void): () => void;
 }
 
 declare global {

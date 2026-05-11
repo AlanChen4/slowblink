@@ -11,6 +11,7 @@ import {
   retryFailedSamples,
 } from '../db';
 import { createEmitter } from '../emitter';
+import { logger } from '../logger';
 import {
   getStoredSettings,
   onStoredSettingsChange,
@@ -163,7 +164,7 @@ async function flush(reason: 'periodic' | 'idle' | 'size' | 'manual') {
       return;
     }
     setRuntimeState('syncing');
-    console.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
+    logger.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
     const result = await postIngestBatch(batch);
     const syncedIds = batch
       .map((r) => r.id)

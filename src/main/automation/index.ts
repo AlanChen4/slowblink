@@ -1,6 +1,7 @@
 import { powerMonitor } from 'electron';
 import type { Settings, SettingsPatch } from '../../shared/types';
 import { createEmitter } from '../emitter';
+import { logger } from '../logger';
 import { createErrorTracker, type ErrorTracker } from './error-policy';
 import type { Runner } from './runner';
 import {
@@ -227,7 +228,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
       try {
         dispose?.();
       } catch (err) {
-        console.log('[automation] dispose threw:', err);
+        logger.log('[automation] dispose threw:', err);
       }
     }
     emit();
