@@ -34,14 +34,5 @@ export async function getOverviewDebug(
   };
 }
 
-export function refreshOverviewDebug(
-  rangeStart: number,
-  rangeEnd: number,
-  scope: OverviewScope,
-): Promise<OverviewDebug> {
-  // No cache to invalidate anymore; refresh just re-runs the same path.
-  return getOverviewDebug(rangeStart, rangeEnd, scope);
-}
-
 // Re-export for compatibility with any callers expecting a typed Overview.
 export { getOverview };

@@ -1,9 +1,7 @@
 import { format } from 'node:util';
 import { LOG_BUFFER_SIZE, type LogEntry, type LogLevel } from '../shared/types';
-import { createEmitter } from './emitter';
 
 const buffer: LogEntry[] = [];
-const entryEmitter = createEmitter<LogEntry>();
 let nextId = 1;
 
 function streamFor(level: LogLevel): NodeJS.WriteStream {
@@ -27,7 +25,6 @@ function record(level: LogLevel, args: unknown[]): void {
   const entry: LogEntry = { id: nextId++, ts: Date.now(), level, message };
   buffer.push(entry);
   if (buffer.length > LOG_BUFFER_SIZE) buffer.shift();
-  entryEmitter.emit(entry);
   safeWrite(streamFor(level), `${message}\n`);
 }
 
@@ -41,10 +38,6 @@ export const logger = {
 
 export function getLogBuffer(): LogEntry[] {
   return buffer.slice();
-}
-
-export function onLogEntry(cb: (entry: LogEntry) => void): () => void {
-  return entryEmitter.on(cb);
 }
 
 export function installStdioSafetyNet(): void {

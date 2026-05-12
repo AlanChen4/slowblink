@@ -178,22 +178,6 @@ export interface SlowblinkAPI {
     rangeEnd: number,
     scope: OverviewScope,
   ): Promise<Overview>;
-  getOverviewDebug(
-    rangeStart: number,
-    rangeEnd: number,
-    scope: OverviewScope,
-  ): Promise<OverviewDebug>;
-  refreshOverviewDebug(
-    rangeStart: number,
-    rangeEnd: number,
-    scope: OverviewScope,
-  ): Promise<OverviewDebug>;
-
-  getReplayLogging(): Promise<boolean>;
-  setReplayLogging(enabled: boolean): Promise<boolean>;
-
-  getProcessLogs(): Promise<LogEntry[]>;
-  onProcessLog(cb: (entry: LogEntry) => void): () => void;
 }
 
 declare global {

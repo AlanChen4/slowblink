@@ -1,33 +1,25 @@
-import { type EffectCallback, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import {
+  type CaptureStatus,
+  clearAll,
+  type FilterValue,
+  fetchStatus,
+  startPolling,
+  triggerCapture,
+  useMountEffect,
+} from './api';
+import { CaptureStatusPill } from './components/CaptureStatusPill';
+import { CapturesView } from './views/CapturesView';
+import { LogsView } from './views/LogsView';
+import { OverviewView } from './views/OverviewView';
 
-type Outcome = 'success' | 'dlp_blocked' | 'error';
-type FilterValue = 'all' | Outcome;
+type PrimaryTab = 'captures' | 'logs' | 'overview';
 
-interface CaptureListRow {
-  id: string;
-  sample_id: number | null;
-  captured_at: number;
-  request_started_at: number | null;
-  response_received_at: number | null;
-  provider: string;
-  model: string | null;
-  outcome: Outcome;
-  error_message: string | null;
-  focused_app: string | null;
-  focused_window: string | null;
-  image_size_bytes: number | null;
-}
-
-interface CaptureDetail extends CaptureListRow {
-  request: unknown;
-  response: unknown;
-  parsed_result: unknown;
-}
-
-const PAGE_SIZE = 50;
-const POLL_INTERVAL_MS = 3000;
-const CAPTURE_TIMEOUT_MS = 30_000;
-const CONTROL_ENDPOINT = 'http://127.0.0.1:5175/capture';
+const PRIMARY_TABS: { value: PrimaryTab; label: string }[] = [
+  { value: 'captures', label: 'Captures' },
+  { value: 'logs', label: 'Logs' },
+  { value: 'overview', label: 'Overview' },
+];
 
 const FILTERS: { value: FilterValue; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -36,163 +28,42 @@ const FILTERS: { value: FilterValue; label: string }[] = [
   { value: 'error', label: 'Error' },
 ];
 
-const OUTCOME_THEME: Record<Outcome, { fg: string; bg: string }> = {
-  success: { fg: '#3ecf8e', bg: '#3ecf8e22' },
-  dlp_blocked: { fg: '#f5a623', bg: '#f5a62322' },
-  error: { fg: '#e15a5a', bg: '#e15a5a22' },
-};
+const STATUS_POLL_MS = 2000;
 
-const EMPTY_VALUE = '—';
-
-function useMountEffect(effect: EffectCallback) {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
-  useEffect(effect, []);
-}
-
-async function fetchCaptures(
-  outcome: FilterValue,
-  before: number | null,
-): Promise<CaptureListRow[]> {
-  const params = new URLSearchParams({ limit: String(PAGE_SIZE) });
-  if (outcome !== 'all') params.set('outcome', outcome);
-  if (before !== null) params.set('before', String(before));
-  const res = await fetch(`/api/captures?${params.toString()}`);
-  if (!res.ok) throw new Error(`list failed: ${res.status}`);
-  const json = (await res.json()) as { captures: CaptureListRow[] };
-  return json.captures;
-}
-
-async function fetchCapture(id: string): Promise<CaptureDetail> {
-  const res = await fetch(`/api/captures/${id}`);
-  if (!res.ok) throw new Error(`detail failed: ${res.status}`);
-  const json = (await res.json()) as { capture: CaptureDetail };
-  return json.capture;
-}
-
-async function clearAll(): Promise<{ rows: number; files: number }> {
-  const res = await fetch('/api/clear', { method: 'POST' });
-  if (!res.ok) throw new Error(`clear failed: ${res.status}`);
-  return (await res.json()) as { rows: number; files: number };
-}
-
-async function triggerCapture(): Promise<void> {
-  const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(), CAPTURE_TIMEOUT_MS);
-  try {
-    const res = await fetch(CONTROL_ENDPOINT, {
-      method: 'POST',
-      signal: ac.signal,
-    });
-    if (res.status === 409) {
-      throw new Error(
-        'Replay logging is off — enable it in the Electron Dev tab.',
-      );
-    }
-    if (!res.ok) {
-      const body = (await res.json().catch(() => null)) as {
-        error?: string;
-      } | null;
-      throw new Error(body?.error ?? `capture failed: ${res.status}`);
-    }
-  } catch (err) {
-    if (err instanceof TypeError) {
-      throw new Error('Electron app not running.');
-    }
-    throw err;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-function formatTime(ts: number): string {
-  return new Date(ts).toLocaleString();
-}
-
-function formatLatency(start: number | null, end: number | null): string {
-  if (start === null || end === null) return EMPTY_VALUE;
-  return `${end - start} ms`;
+function statusEqual(a: CaptureStatus | null, b: CaptureStatus | null): boolean {
+  if (a === b) return true;
+  if (a === null || b === null) return false;
+  return (
+    a.running === b.running &&
+    a.lastError === b.lastError &&
+    a.autoPaused === b.autoPaused &&
+    a.hasPermission === b.hasPermission &&
+    a.hasAccessibility === b.hasAccessibility &&
+    a.hasApiKey === b.hasApiKey
+  );
 }
 
 export function App() {
+  const [primary, setPrimary] = useState<PrimaryTab>('captures');
   const [filter, setFilter] = useState<FilterValue>('all');
-  const [captures, setCaptures] = useState<CaptureListRow[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [detail, setDetail] = useState<CaptureDetail | null>(null);
-  const [listError, setListError] = useState<string | null>(null);
+  const [clearNonce, setClearNonce] = useState(0);
+  const [status, setStatus] = useState<CaptureStatus | null>(null);
+  const [connected, setConnected] = useState<boolean | null>(null);
   const [capturePending, setCapturePending] = useState(false);
   const [captureError, setCaptureError] = useState<string | null>(null);
 
-  const filterRef = useRef(filter);
-  filterRef.current = filter;
-  const capturesRef = useRef(captures);
-  capturesRef.current = captures;
-  const selectedRef = useRef(selectedId);
-  selectedRef.current = selectedId;
-
-  async function refresh() {
-    const usedFilter = filterRef.current;
-    try {
-      const fresh = await fetchCaptures(usedFilter, null);
-      if (filterRef.current !== usedFilter) return;
-      const previous = capturesRef.current;
-      const merged = mergeRows(previous, fresh);
-      setCaptures(merged);
-      const next = nextSelection(previous, merged, selectedRef.current);
-      if (next !== selectedRef.current) setSelectedId(next);
-    } catch (err) {
-      if (filterRef.current === usedFilter) setListError(String(err));
-    }
-  }
-
-  useMountEffect(() => {
-    void refresh();
-    const id = setInterval(() => {
-      void refresh();
-    }, POLL_INTERVAL_MS);
-    return () => clearInterval(id);
-  });
-
-  function changeFilter(next: FilterValue) {
-    if (next === filter) return;
-    filterRef.current = next;
-    capturesRef.current = [];
-    selectedRef.current = null;
-    setFilter(next);
-    setCaptures([]);
-    setSelectedId(null);
-    setListError(null);
-    void refresh();
-  }
-
-  async function loadMore() {
-    const oldest = captures[captures.length - 1];
-    if (!oldest) return;
-    try {
-      const more = await fetchCaptures(filter, oldest.captured_at);
-      setCaptures((prev) => [...prev, ...more]);
-    } catch (err) {
-      setListError(String(err));
-    }
-  }
-
-  async function onClear() {
-    if (!confirm('Delete all captured rows and JPEGs? This cannot be undone.'))
-      return;
-    try {
-      const result = await clearAll();
-      alert(`Cleared ${result.rows} row(s) and ${result.files} file(s).`);
-      capturesRef.current = [];
-      selectedRef.current = null;
-      setCaptures([]);
-      setSelectedId(null);
-      setDetail(null);
-      void refresh();
-    } catch (err) {
-      alert(
-        `Clear failed: ${err instanceof Error ? err.message : String(err)}`,
-      );
-    }
-  }
+  useMountEffect(() =>
+    startPolling(fetchStatus, STATUS_POLL_MS, {
+      onValue: (s) => {
+        setStatus((prev) => (statusEqual(prev, s) ? prev : s));
+        setConnected((prev) => (prev === true ? prev : true));
+      },
+      onError: () => {
+        setStatus((prev) => (prev === null ? prev : null));
+        setConnected((prev) => (prev === false ? prev : false));
+      },
+    }),
+  );
 
   async function onCaptureNow() {
     if (capturePending) return;
@@ -204,7 +75,20 @@ export function App() {
       setCaptureError(err instanceof Error ? err.message : String(err));
     } finally {
       setCapturePending(false);
-      void refresh();
+    }
+  }
+
+  async function onClear() {
+    if (!confirm('Delete all captured rows and JPEGs? This cannot be undone.'))
+      return;
+    try {
+      const result = await clearAll();
+      alert(`Cleared ${result.rows} row(s) and ${result.files} file(s).`);
+      setClearNonce((n) => n + 1);
+    } catch (err) {
+      alert(
+        `Clear failed: ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
   }
 
@@ -216,387 +100,202 @@ export function App() {
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          padding: '12px 16px',
-          borderBottom: '1px solid #222',
-          background: '#0f0f0f',
+      <Header
+        primary={primary}
+        onPrimaryChange={setPrimary}
+        filter={filter}
+        onFilterChange={setFilter}
+        status={status}
+        connected={connected}
+        capturePending={capturePending}
+        captureError={captureError}
+        onCaptureNow={() => {
+          void onCaptureNow();
         }}
-      >
-        <div style={{ display: 'flex', gap: 4 }}>
-          {FILTERS.map((f) => (
-            <button
-              type="button"
-              key={f.value}
-              onClick={() => changeFilter(f.value)}
-              style={{
-                padding: '4px 12px',
-                background: filter === f.value ? '#2a2a2a' : 'transparent',
-                color: filter === f.value ? '#fff' : '#999',
-                border: '1px solid #333',
-                borderRadius: 4,
-              }}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-        <div
-          style={{
-            marginLeft: 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          {captureError && (
-            <span style={{ color: '#ff8a8a', fontSize: 12 }}>
-              {captureError}
-            </span>
-          )}
-          <button
-            type="button"
-            onClick={onCaptureNow}
-            disabled={capturePending}
-            style={{
-              padding: '4px 12px',
-              background: capturePending ? '#1a2a1a' : '#1a3a1a',
-              color: capturePending ? '#888' : '#8aff8a',
-              border: '1px solid #2a5a2a',
-              borderRadius: 4,
-              cursor: capturePending ? 'wait' : 'pointer',
-            }}
-          >
-            {capturePending ? 'Capturing…' : 'Capture now'}
-          </button>
-          <button
-            type="button"
-            onClick={onClear}
-            style={{
-              padding: '4px 12px',
-              background: '#3a1a1a',
-              color: '#ff8a8a',
-              border: '1px solid #5a2a2a',
-              borderRadius: 4,
-            }}
-          >
-            Clear all
-          </button>
-        </div>
-      </header>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '240px 1fr',
-          minHeight: 0,
+        onClear={() => {
+          void onClear();
         }}
-      >
-        <ListPane
-          captures={captures}
-          selectedId={selectedId}
-          onSelect={setSelectedId}
-          onLoadMore={loadMore}
-          error={listError}
-        />
-        <DetailPane detail={detail} />
-      </div>
-      <CaptureDetailLoader
-        key={selectedId ?? 'none'}
-        id={selectedId}
-        onLoaded={setDetail}
       />
+      <main style={{ minHeight: 0 }}>
+        <RoutedView primary={primary} filter={filter} clearNonce={clearNonce} />
+      </main>
     </div>
   );
 }
 
-function mergeRows(
-  previous: CaptureListRow[],
-  fresh: CaptureListRow[],
-): CaptureListRow[] {
-  if (previous.length === 0) return fresh;
-  const previousIds = new Set(previous.map((r) => r.id));
-  const newRows = fresh.filter((r) => !previousIds.has(r.id));
-  if (newRows.length === 0) return previous;
-  return [...newRows, ...previous];
+interface HeaderProps {
+  primary: PrimaryTab;
+  onPrimaryChange: (next: PrimaryTab) => void;
+  filter: FilterValue;
+  onFilterChange: (next: FilterValue) => void;
+  status: CaptureStatus | null;
+  connected: boolean | null;
+  capturePending: boolean;
+  captureError: string | null;
+  onCaptureNow: () => void;
+  onClear: () => void;
 }
 
-function nextSelection(
-  previous: CaptureListRow[],
-  merged: CaptureListRow[],
-  currentSelected: string | null,
-): string | null {
-  const newTopId = merged[0]?.id ?? null;
-  if (newTopId === null) return null;
-  if (currentSelected === null) return newTopId;
-  const stillInList = merged.some((r) => r.id === currentSelected);
-  if (!stillInList) return newTopId;
-  const previousTopId = previous[0]?.id ?? null;
-  const haveNewerRows = previousTopId !== null && newTopId !== previousTopId;
-  if (haveNewerRows && currentSelected === previousTopId) return newTopId;
-  return currentSelected;
-}
-
-function CaptureDetailLoader({
-  id,
-  onLoaded,
-}: {
-  id: string | null;
-  onLoaded: (d: CaptureDetail | null) => void;
-}) {
-  useMountEffect(() => {
-    if (!id) {
-      onLoaded(null);
-      return;
-    }
-    let cancelled = false;
-    fetchCapture(id)
-      .then((d) => {
-        if (!cancelled) onLoaded(d);
-      })
-      .catch(() => {
-        if (!cancelled) onLoaded(null);
-      });
-    return () => {
-      cancelled = true;
-    };
-  });
-  return null;
-}
-
-function ListPane(props: {
-  captures: CaptureListRow[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
-  onLoadMore: () => void;
-  error: string | null;
-}) {
-  const { captures, selectedId, onSelect, onLoadMore, error } = props;
+function Header({
+  primary,
+  onPrimaryChange,
+  filter,
+  onFilterChange,
+  status,
+  connected,
+  capturePending,
+  captureError,
+  onCaptureNow,
+  onClear,
+}: HeaderProps) {
+  const onCaptures = primary === 'captures';
+  const showActions = connected !== false;
   return (
-    <div
+    <header
       style={{
-        borderRight: '1px solid #222',
-        overflowY: 'auto',
-        background: '#0c0c0c',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: '12px 16px',
+        borderBottom: '1px solid var(--border-soft)',
+        background: 'var(--bg-elevated)',
       }}
     >
-      {error && <div style={{ padding: 12, color: '#e15a5a' }}>{error}</div>}
-      {captures.length === 0 && !error && (
-        <div style={{ padding: 16, color: '#666', fontSize: 13 }}>
-          No captures yet. Toggle "Replay logging" on in the Electron Dev tab,
-          then run a capture.
-        </div>
+      <TabStrip items={PRIMARY_TABS} value={primary} onChange={onPrimaryChange} />
+      {onCaptures && <VerticalDivider />}
+      {onCaptures && (
+        <TabStrip items={FILTERS} value={filter} onChange={onFilterChange} />
       )}
-      {captures.map((c) => (
-        <button
-          type="button"
-          key={c.id}
-          onClick={() => onSelect(c.id)}
-          style={{
-            display: 'block',
-            width: '100%',
-            textAlign: 'left',
-            padding: '8px 12px',
-            background: selectedId === c.id ? '#1a1a2a' : 'transparent',
-            border: 'none',
-            borderBottom: '1px solid #181818',
-            color: '#e7e7e7',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              gap: 8,
-              alignItems: 'center',
-              minWidth: 0,
-            }}
-          >
-            <span
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: 999,
-                background: OUTCOME_THEME[c.outcome].fg,
-                flexShrink: 0,
-              }}
-            />
-            <span style={{ fontSize: 13, fontWeight: 500, flexShrink: 0 }}>
-              {c.focused_app ?? '(no app)'}
-            </span>
-            <span
-              style={{
-                fontSize: 13,
-                color: '#888',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                minWidth: 0,
-              }}
-            >
-              {c.focused_window ?? '(no window)'}
-            </span>
-          </div>
-          <div
-            style={{
-              fontSize: 11,
-              color: '#666',
-              marginTop: 4,
-            }}
-          >
-            {formatTime(c.captured_at)}
-          </div>
-        </button>
-      ))}
-      {captures.length > 0 && captures.length % PAGE_SIZE === 0 && (
-        <button
-          type="button"
-          onClick={onLoadMore}
-          style={{
-            display: 'block',
-            width: '100%',
-            padding: 8,
-            background: 'transparent',
-            color: '#888',
-            border: 'none',
-            borderTop: '1px solid #222',
-          }}
-        >
-          Load more
-        </button>
-      )}
-    </div>
-  );
-}
-
-function DetailPane({ detail }: { detail: CaptureDetail | null }) {
-  if (!detail) {
-    return (
-      <div style={{ padding: 24, color: '#666' }}>
-        Select a capture to inspect.
-      </div>
-    );
-  }
-  const hasImage = detail.image_size_bytes !== null;
-  return (
-    <div style={{ overflowY: 'auto', padding: 24 }}>
-      <div style={{ display: 'flex', gap: 32, marginBottom: 24 }}>
-        <DetailStat label="Provider" value={detail.provider} />
-        <DetailStat label="Model" value={detail.model ?? EMPTY_VALUE} />
-        <DetailStat
-          label="Latency"
-          value={formatLatency(
-            detail.request_started_at,
-            detail.response_received_at,
-          )}
-        />
-        <DetailStat
-          label="Sample"
-          value={
-            detail.sample_id !== null ? `#${detail.sample_id}` : EMPTY_VALUE
-          }
-        />
-      </div>
-
-      {detail.error_message && (
-        <Section title="Error">
-          <pre style={{ color: '#ff8a8a' }}>{detail.error_message}</pre>
-        </Section>
-      )}
-
-      <Section title="Screenshot">
-        {hasImage ? (
-          <img
-            src={`/captures/${detail.id}.jpg`}
-            alt="capture"
-            style={{
-              maxWidth: '100%',
-              border: '1px solid #222',
-              borderRadius: 4,
-            }}
-          />
-        ) : (
-          <div
-            style={{
-              padding: 24,
-              border: '1px dashed #333',
-              borderRadius: 4,
-              color: '#666',
-              fontSize: 13,
-            }}
-          >
-            No screenshot — capture failed before the image was produced.
-          </div>
-        )}
-      </Section>
-
-      <Section title="Request">
-        <pre>{JSON.stringify(detail.request, null, 2)}</pre>
-      </Section>
-
-      {detail.parsed_result !== null && (
-        <Section title="Parsed result">
-          <pre>{JSON.stringify(detail.parsed_result, null, 2)}</pre>
-        </Section>
-      )}
-
-      <Section title="Response">
-        <pre>{JSON.stringify(detail.response, null, 2)}</pre>
-      </Section>
-    </div>
-  );
-}
-
-function DetailStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
       <div
         style={{
-          fontSize: 11,
-          color: '#888',
-          textTransform: 'uppercase',
-          letterSpacing: 0.5,
-          marginBottom: 2,
+          marginLeft: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
         }}
       >
-        {label}
+        {captureError && (
+          <span style={{ color: 'var(--accent-error-fg)' }}>
+            {captureError}
+          </span>
+        )}
+        {showActions && onCaptures && (
+          <>
+            <CaptureNowButton pending={capturePending} onClick={onCaptureNow} />
+            <ClearAllButton onClick={onClear} />
+          </>
+        )}
+        <CaptureStatusPill status={status} connected={connected} />
       </div>
-      <div style={{ fontSize: 14, color: '#e7e7e7' }}>{value}</div>
-    </div>
+    </header>
   );
 }
 
-function Section({
-  title,
-  children,
+function RoutedView({
+  primary,
+  filter,
+  clearNonce,
 }: {
-  title: string;
-  children: React.ReactNode;
+  primary: PrimaryTab;
+  filter: FilterValue;
+  clearNonce: number;
+}) {
+  if (primary === 'captures') {
+    return <CapturesView key={`${filter}-${clearNonce}`} filter={filter} />;
+  }
+  if (primary === 'logs') return <LogsView />;
+  return <OverviewView />;
+}
+
+function CaptureNowButton({
+  pending,
+  onClick,
+}: {
+  pending: boolean;
+  onClick: () => void;
 }) {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <h3
-        style={{
-          margin: '0 0 8px',
-          fontSize: 13,
-          textTransform: 'uppercase',
-          letterSpacing: 0.5,
-          color: '#888',
-        }}
-      >
-        {title}
-      </h3>
-      <div
-        style={{
-          padding: 12,
-          background: '#111',
-          border: '1px solid #222',
-          borderRadius: 4,
-        }}
-      >
-        {children}
-      </div>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={pending}
+      style={{
+        padding: '4px 12px',
+        background: pending ? 'var(--capture-bg-pending)' : 'var(--capture-bg)',
+        color: pending ? 'var(--capture-fg-pending)' : 'var(--capture-fg)',
+        border: '1px solid var(--capture-border)',
+        borderRadius: 4,
+        cursor: pending ? 'wait' : 'pointer',
+      }}
+    >
+      {pending ? 'Capturing…' : 'Capture'}
+    </button>
+  );
+}
+
+function ClearAllButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        padding: '4px 12px',
+        background: 'var(--clear-bg)',
+        color: 'var(--clear-fg)',
+        border: '1px solid var(--clear-border)',
+        borderRadius: 4,
+      }}
+    >
+      Clear
+    </button>
+  );
+}
+
+function TabStrip<T extends string>({
+  items,
+  value,
+  onChange,
+}: {
+  items: { value: T; label: string }[];
+  value: T;
+  onChange: (next: T) => void;
+}) {
+  return (
+    <div style={{ display: 'flex', gap: 4 }}>
+      {items.map((t) => {
+        const active = value === t.value;
+        return (
+          <button
+            type="button"
+            key={t.value}
+            onClick={() => onChange(t.value)}
+            style={{
+              padding: '4px 12px',
+              background: active ? 'var(--bg-tab-active)' : 'transparent',
+              color: active ? 'var(--text-strong)' : 'var(--text-label)',
+              border: '1px solid var(--border-strong)',
+              borderRadius: 4,
+              fontWeight: active ? 500 : 400,
+            }}
+          >
+            {t.label}
+          </button>
+        );
+      })}
     </div>
+  );
+}
+
+function VerticalDivider() {
+  return (
+    <span
+      aria-hidden
+      style={{
+        display: 'inline-block',
+        width: 1,
+        height: 20,
+        background: 'var(--border-mid)',
+      }}
+    />
   );
 }

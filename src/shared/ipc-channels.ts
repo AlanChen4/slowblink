@@ -34,16 +34,8 @@ export const IPC = {
   billingPlanUpdate: 'billing:plan:update',
 
   overviewGet: 'overview:get',
-  overviewDebugGet: 'overview:debug:get',
-  overviewDebugRefresh: 'overview:debug:refresh',
 
   samplesInserted: 'samples:inserted',
 
   appIconsGet: 'appIcons:get',
-
-  devReplayLoggingGet: 'dev:replay-logging:get',
-  devReplayLoggingSet: 'dev:replay-logging:set',
-
-  processLogsGet: 'process-logs:get',
-  processLogsUpdate: 'process-logs:update',
 } as const;
