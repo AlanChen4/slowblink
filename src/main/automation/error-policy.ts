@@ -13,14 +13,16 @@ export function formatRunnerError(err: unknown): string {
   let cur: Error | undefined = err;
   const seen = new Set<unknown>([err]);
   while (cur) {
-    const cause = (cur as Error & { cause?: unknown }).cause;
+    const cause: unknown = (cur as Error & { cause?: unknown }).cause;
     if (!(cause instanceof Error) || seen.has(cause)) break;
     parts.push(cause.message);
     seen.add(cause);
     cur = cause;
   }
   const unique = Array.from(new Set(parts));
-  return unique.length === 1 ? unique[0] : `${unique[0]} — ${unique.slice(1).join(' — ')}`;
+  return unique.length === 1
+    ? unique[0]
+    : `${unique[0]} — ${unique.slice(1).join(' — ')}`;
 }
 
 export interface ErrorTracker {

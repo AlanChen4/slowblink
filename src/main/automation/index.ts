@@ -94,13 +94,16 @@ export function createAutomation(deps: AutomationDeps): Automation {
     stateEmitter.emit(next);
   }
 
+  function hasUsableApiKey(settings: Settings): boolean {
+    return settings.aiMode !== 'byo-key' || settings.hasApiKey;
+  }
+
   function canCapture(settings: Settings): boolean {
     if (suspended) return false;
     if (settings.paused) return false;
     if (errors.getState().autoPaused) return false;
     if (!deps.permissions.hasScreen()) return false;
-    if (settings.aiMode === 'byo-key' && !settings.hasApiKey) return false;
-    return true;
+    return hasUsableApiKey(settings);
   }
 
   function startTimer(intervalMs: number) {
