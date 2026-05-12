@@ -8,6 +8,7 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
+  autoPaused: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: true,

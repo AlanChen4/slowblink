@@ -21,8 +21,8 @@ function statusColor(
   paused: boolean,
   hasIssues: boolean,
 ): string {
-  if (hasIssues || status.lastError) return 'bg-destructive';
-  if (paused) return 'bg-amber-500';
+  if (hasIssues || status.autoPaused) return 'bg-destructive';
+  if (paused || status.lastError) return 'bg-amber-500';
   return 'bg-emerald-500';
 }
 

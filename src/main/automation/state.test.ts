@@ -141,6 +141,20 @@ describe('deriveStatus', () => {
       PERMISSIONS_ALL,
     );
     expect(status.lastError).toBe('transient');
+    expect(status.autoPaused).toBeNull();
+  });
+
+  test('autoPaused is exposed separately from lastError', () => {
+    const status = deriveStatus(
+      settings,
+      {
+        ...RUNTIME_IDLE,
+        lastError: 'transient',
+        autoPaused: 'auto-pause reason',
+      },
+      PERMISSIONS_ALL,
+    );
+    expect(status.autoPaused).toBe('auto-pause reason');
   });
 
   test('hasApiKey is true under cloud-ai regardless of saved key', () => {

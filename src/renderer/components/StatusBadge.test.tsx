@@ -8,6 +8,7 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
+  autoPaused: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: false,
@@ -134,5 +135,38 @@ describe('StatusBadge', () => {
 
     expect(screen.getByText('Paused')).toBeDefined();
     expect(screen.queryByText(/Error — /)).toBeNull();
+  });
+
+  test('transient lastError shows amber dot, not destructive', () => {
+    const { container } = render(
+      <StatusBadge
+        status={{ ...BASE_STATUS, lastError: 'empty thumbnail' }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    const dot = container.querySelector('span.rounded-full');
+    expect(dot?.className).toContain('bg-amber-500');
+    expect(dot?.className).not.toContain('bg-destructive');
+  });
+
+  test('autoPaused shows destructive dot', () => {
+    const { container } = render(
+      <StatusBadge
+        status={{
+          ...BASE_STATUS,
+          lastError: 'persistent failure',
+          autoPaused: 'persistent failure',
+        }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    const dot = container.querySelector('span.rounded-full');
+    expect(dot?.className).toContain('bg-destructive');
   });
 });

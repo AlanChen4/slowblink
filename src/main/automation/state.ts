@@ -82,6 +82,7 @@ export function deriveStatus(
   return {
     running: runtime.timer !== null,
     lastError: runtime.autoPaused ?? runtime.lastError,
+    autoPaused: runtime.autoPaused,
     hasPermission: permissions.hasScreen(),
     hasAccessibility: permissions.hasAccessibility(),
     hasApiKey: settings.aiMode === 'cloud-ai' ? true : settings.hasApiKey,
@@ -132,6 +133,7 @@ export function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
   return (
     a.running === b.running &&
     a.lastError === b.lastError &&
+    a.autoPaused === b.autoPaused &&
     a.hasPermission === b.hasPermission &&
     a.hasAccessibility === b.hasAccessibility &&
     a.hasApiKey === b.hasApiKey
