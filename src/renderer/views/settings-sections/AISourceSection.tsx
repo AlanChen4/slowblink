@@ -96,7 +96,7 @@ function RadioOption({
         htmlFor={id}
         className={
           disabled
-            ? 'cursor-not-allowed text-muted-foreground text-sm'
+            ? 'cursor-not-allowed text-sm text-muted-foreground'
             : 'cursor-pointer text-sm'
         }
       >

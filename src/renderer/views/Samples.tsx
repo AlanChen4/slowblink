@@ -73,9 +73,9 @@ export function Samples() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <h2 className="font-semibold text-lg">Samples</h2>
+      <h2 className="text-lg font-semibold">Samples</h2>
       {samples.length === 0 ? (
-        <p className="mt-4 text-muted-foreground text-sm">
+        <p className="mt-4 text-sm text-muted-foreground">
           No samples yet. Make sure permissions and API key are set, then wait
           for the first capture.
         </p>
@@ -83,7 +83,7 @@ export function Samples() {
         <div className="mt-4 min-h-0 flex-1 space-y-1 overflow-y-auto text-sm">
           {samples
             .slice(-50)
-            .reverse()
+            .toReversed()
             .map((s) => {
               const iconUrl = s.focusedApp ? icons[s.focusedApp] : null;
               return (

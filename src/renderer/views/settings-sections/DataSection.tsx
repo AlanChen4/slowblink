@@ -52,7 +52,7 @@ export function DataSection({
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-sm">Delete all data</p>
-          <p className="text-muted-foreground text-xs">
+          <p className="text-xs text-muted-foreground">
             Permanently remove all recorded data
             {storageBytes !== null && ` — ${formatBytes(storageBytes)}`}.
           </p>
@@ -90,7 +90,7 @@ export function DataSection({
             }
           />
           {lastError && (
-            <p className="text-destructive text-xs">Last error: {lastError}</p>
+            <p className="text-xs text-destructive">Last error: {lastError}</p>
           )}
         </div>
       )}

@@ -17,18 +17,23 @@ Run this at the end of a coding task to verify the change in the live app, clean
 The [electron skill](../electron/SKILL.md) has the full agent-browser reference. Short version for slowblink:
 
 1. **Start the dev server with CDP enabled.** Use `run_in_background`:
+
    ```bash
    pnpm dev -- --remote-debugging-port=9222
    ```
+
    Wait ~10–15s, then confirm the log shows `DevTools listening on ws://127.0.0.1:9222/...`.
 
 2. **If better-sqlite3 fails with `NODE_MODULE_VERSION` mismatch**, rebuild it against Electron:
+
    ```bash
    npx --yes @electron/rebuild@latest -f -w better-sqlite3
    ```
+
    Then kill Electron and restart `pnpm dev`.
 
 3. **Find the renderer target.** `agent-browser connect 9222` may land on `about:blank`. Query CDP directly and connect by websocket URL:
+
    ```bash
    curl -s http://127.0.0.1:9222/json
    # copy the webSocketDebuggerUrl for title "slowblink", then:
@@ -53,6 +58,7 @@ Invoke the `simplify` skill via the `Skill` tool. It launches three review agent
 ## Phase 3: Create or update the PR
 
 1. **Commit** any remaining changes using the [gitmoji convention](../../rules/git-workflow.md). Heredoc the message so newlines survive:
+
    ```bash
    git commit -m "$(cat <<'EOF'
    ♻️ Short description (50 chars max)
@@ -64,14 +70,17 @@ Invoke the `simplify` skill via the `Skill` tool. It launches three review agent
    EOF
    )"
    ```
+
    Pick the right gitmoji — `♻️` for refactor, `✨` for feature, `🐛` for bug fix, `💄` for UI polish. See the full list in the git-workflow rule.
 
 2. **Push** the branch:
+
    ```bash
    git push -u origin <branch>
    ```
 
 3. **Create or update the PR.** If no PR exists, create one:
+
    ```bash
    gh pr create --title "<gitmoji> <title>" --body "$(cat <<'EOF'
    ## Summary
@@ -87,6 +96,7 @@ Invoke the `simplify` skill via the `Skill` tool. It launches three review agent
    EOF
    )"
    ```
+
    If a PR already exists on this branch, additional commits update it automatically — no `gh pr edit` needed unless the description changed.
 
 4. **Return the PR URL** to the user.
@@ -94,6 +104,7 @@ Invoke the `simplify` skill via the `Skill` tool. It launches three review agent
 ## Reporting back
 
 End with a concise summary:
+
 - What landed in the PR (link it).
 - What the agent-browser test covered.
 - Any findings from /simplify that were applied.

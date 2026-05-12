@@ -18,18 +18,18 @@ Examples:
 
 ## Picking the gitmoji
 
-Pick the one that best describes the *outcome* of the issue, not the work performed. The most common picks for issues:
+Pick the one that best describes the _outcome_ of the issue, not the work performed. The most common picks for issues:
 
-| Gitmoji | When to use |
-|---------|-------------|
-| `✨` | New feature or user-facing capability |
-| `🐛` | Bug fix |
-| `🏗️` | Architectural change or HITL design ticket producing an ADR |
-| `♻️` | Refactor with no behavior change |
-| `📝` | Docs-only change |
-| `⚡️` | Performance improvement |
-| `🔒️` | Security fix |
-| `🧱` | Infrastructure (CI, build, deploy) |
+| Gitmoji | When to use                                                 |
+| ------- | ----------------------------------------------------------- |
+| `✨`    | New feature or user-facing capability                       |
+| `🐛`    | Bug fix                                                     |
+| `🏗️`    | Architectural change or HITL design ticket producing an ADR |
+| `♻️`    | Refactor with no behavior change                            |
+| `📝`    | Docs-only change                                            |
+| `⚡️`    | Performance improvement                                     |
+| `🔒️`    | Security fix                                                |
+| `🧱`    | Infrastructure (CI, build, deploy)                          |
 
 For any other case, consult the full list in [git-workflow.md](git-workflow.md).
 

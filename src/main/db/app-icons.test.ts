@@ -113,7 +113,10 @@ describe('app-icons', () => {
     upsertAppIcon(stmts, 'Cursor', 'data:2', 1100);
     const pending = getPendingAppIcons(stmts, 5000, 100);
     expect(pending.length).toBe(2);
-    expect(pending.map((p) => p.appName).sort()).toEqual(['Cursor', 'Safari']);
+    expect(pending.map((p) => p.appName).toSorted()).toEqual([
+      'Cursor',
+      'Safari',
+    ]);
     for (const p of pending) {
       expect(p.syncAttempts).toBe(0);
     }

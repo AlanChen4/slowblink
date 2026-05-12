@@ -17,7 +17,7 @@ function mergeEntries(prev: LogEntry[], fresh: LogEntry[]): LogEntry[] {
   const prevIds = new Set(prev.map((e) => e.id));
   const novel = fresh.filter((e) => !prevIds.has(e.id));
   if (novel.length === 0) return prev;
-  const merged = [...prev, ...novel].sort((a, b) => a.id - b.id);
+  const merged = [...prev, ...novel].toSorted((a, b) => a.id - b.id);
   return merged.slice(-VISIBLE_LOG_ROWS);
 }
 

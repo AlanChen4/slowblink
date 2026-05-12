@@ -12,10 +12,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const CLIENT_BUNDLES = [
-  'out/main/index.js',
-  'out/preload/index.js',
-];
+const CLIENT_BUNDLES = ['out/main/index.js', 'out/preload/index.js'];
 const RENDERER_ASSET_DIR = 'out/renderer/assets';
 
 // Forbidden *names* — if any of these strings appear in the bundle (as a

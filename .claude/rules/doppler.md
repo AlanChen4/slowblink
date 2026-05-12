@@ -100,4 +100,4 @@ empty strings as templates, not live values.
 - Running read-only commands (`pnpm lint`, `pnpm typecheck`, `pnpm knip`) —
   nothing reads env, skip the wrapper.
 - One-off SQL inspection via `psql` against the local stack — `supabase
-  status` prints the connection string inline.
+status` prints the connection string inline.

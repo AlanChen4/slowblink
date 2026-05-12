@@ -13,9 +13,11 @@ You verify the TypeScript health of the current branch. Read-only — never edit
 Two concerns:
 
 1. **`tsc` passes.** Run the project's typecheck:
+
    ```
    env SKIP_ENV_VALIDATION=true pnpm typecheck
    ```
+
    Any non-zero exit → each tsc diagnostic becomes an `error`-severity issue.
 
 2. **Weak typing patterns** in files changed on this branch. Limit scans to `git diff main...HEAD --name-only -- 'src/**/*.ts' 'src/**/*.tsx'`. For each changed file, flag:
@@ -27,6 +29,7 @@ Two concerns:
    - `Function` type annotations, or `object` used where a specific interface exists.
 
 **Exempt files** (do not flag):
+
 - `src/renderer/components/ui/**` (vendored shadcn primitives — see `no-use-effect.md`).
 - `*.test.ts` / `*.test.tsx` — weak typing in tests is often intentional for mocks.
 
@@ -42,6 +45,7 @@ Two concerns:
 ## Autofix guidance
 
 Set `autofix` to a plain-English description **only** when the fix is mechanical and low-risk. Examples:
+
 - `"Remove the redundant cast — the inferred type already matches."`
 - `"Add \`// reason: …\` comment after the @ts-expect-error."`
 - `"Replace \`as any\` with \`as TypeName\` (TypeName is imported from ./foo)."`
@@ -70,6 +74,7 @@ Respond with **only** a single JSON object:
 ```
 
 Rules:
+
 - `status: "PASS"` iff no issue has `severity: "error"`.
 - If tsc exits zero and no patterns match, return PASS with an empty `issues` array.
 - Every issue must cite a real file + line.

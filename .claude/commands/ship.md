@@ -10,6 +10,7 @@ You are the **coordinator**. You spawn five review agents in parallel, collect t
 ## Phase 0: Preflight
 
 Run these in parallel:
+
 - `git rev-parse --abbrev-ref HEAD` — must not be `main`.
 - `git status --porcelain` — must be empty. If not, stop and tell the user to commit or stash.
 - `git fetch origin main --quiet` — so the agents' `git diff main...HEAD` sees a current base.
@@ -32,6 +33,7 @@ Each prompt must also include: `"Working directory is the current git worktree; 
 ## Phase 2: Parse the five verdicts
 
 Each agent returns a final message. Extract the JSON from each (strip any stray whitespace / fence). If parsing fails for any agent:
+
 - Re-spawn that single agent once with `"Your previous output was not valid JSON. Return only the JSON object per your schema, nothing else."`
 - If it fails again, abort /ship and report the parse failure with the raw text.
 
@@ -52,13 +54,16 @@ If every agent's `status` is `"PASS"`, skip ahead to Phase 6.
 ## Phase 4: Apply auto-fixes (if any)
 
 Collect every issue across all verdicts where `autofix` is a non-null string. For each:
+
 1. Read the cited file.
 2. Apply the fix via `Edit`. Keep changes **minimal** — the autofix text describes intent; don't extend it into a broader refactor.
 3. If an autofix is ambiguous or you're not confident the edit matches the description, **skip it** and record it as "deferred".
 
 After applying edits:
-- Run `pnpm format` once (Biome is fast and deterministic). This keeps downstream lint stable.
+
+- Run `pnpm format` once (oxfmt is fast and deterministic). This keeps downstream lint stable.
 - Stage and commit the fixes on their own:
+
   ```
   git add -u
   git commit -m "$(cat <<'EOF'
@@ -70,6 +75,7 @@ After applying edits:
   EOF
   )"
   ```
+
 - If no fixes applied (e.g., all `error` issues had `autofix: null`), skip the commit. There is nothing the coordinator can do automatically — report the findings to the user and **stop**. Do not push.
 
 ## Phase 5: Re-run only the failing agents
@@ -79,6 +85,7 @@ Spawn only the agents whose previous verdict was FAIL, again in parallel (single
 Parse their new verdicts (Phase 2 logic). Merge with the previous PASSes.
 
 **Loop budget**: up to 3 total iterations (Phase 1 counts as 1). If after iteration 3 anything is still FAIL, abort:
+
 - Report which agents still fail and their remaining `error`-severity issues.
 - Tell the user: "Auto-fix loop exhausted. Review the findings above and resolve manually before re-running /ship."
 - Do **not** push.
@@ -89,11 +96,14 @@ If everything now PASSes, continue.
 
 1. `git push -u origin <branch>` (use the branch from Phase 0).
 2. Check for an existing PR:
+
    ```
    gh pr view --json url,state
    ```
+
    - If it exists and is open: the push has updated it; report the URL.
    - If it doesn't exist: `gh pr create` with title and body:
+
      ```
      gh pr create --title "<gitmoji> <subject line from latest non-fix commit>" --body "$(cat <<'EOF'
      ## Summary
@@ -120,13 +130,15 @@ If everything now PASSes, continue.
      EOF
      )"
      ```
-   Pick the gitmoji from the branch's last substantive commit (see `.claude/rules/git-workflow.md`).
+
+     Pick the gitmoji from the branch's last substantive commit (see `.claude/rules/git-workflow.md`).
 
 3. Return the PR URL to the user.
 
 ## Reporting back
 
 End with a short summary:
+
 - Which agents passed on the first try vs needed autofix rounds.
 - Any autofixes applied (1-line per fix, citing file).
 - The PR URL.

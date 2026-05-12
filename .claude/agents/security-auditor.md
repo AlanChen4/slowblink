@@ -63,6 +63,7 @@ Respond with **only** a single JSON object. No prose. No markdown code fence. Ex
 ```
 
 Rules:
+
 - `status: "PASS"` iff no issue has `severity: "error"`. Warnings may accompany a PASS.
 - `autofix` is **always** `null` for security issues — a human must decide.
 - If there are no changes vs `main`, return `{"agent":"security-auditor","status":"PASS","issues":[],"summary":"No changes to audit."}`.

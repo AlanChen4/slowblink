@@ -176,9 +176,9 @@ function StepShell({
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="font-semibold text-2xl">{title}</h1>
+        <h1 className="text-2xl font-semibold">{title}</h1>
         {subtitle && (
-          <p className="text-muted-foreground text-sm">{subtitle}</p>
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
         )}
       </div>
       {children}
@@ -194,7 +194,7 @@ function WelcomeStep({ onAdvance }: StepPanelProps) {
       subtitle="slowblink quietly captures what you work on and uses an AI model to summarize your day. Everything is opt-in."
       footer={<Button onClick={onAdvance}>Get started</Button>}
     >
-      <ul className="space-y-2 text-muted-foreground text-sm">
+      <ul className="space-y-2 text-sm text-muted-foreground">
         <li>• Keep everything on your Mac, or sync it to your account.</li>
         <li>• Bring your own AI key, or use our hosted model.</li>
         <li>• You can change these choices any time in Settings.</li>
@@ -226,8 +226,8 @@ function ChoiceCard({
       <div className="flex items-start gap-3">
         <div className="mt-0.5 text-muted-foreground">{icon}</div>
         <div className="flex-1 space-y-1">
-          <p className="font-medium text-sm">{title}</p>
-          <p className="text-muted-foreground text-xs">{description}</p>
+          <p className="text-sm font-medium">{title}</p>
+          <p className="text-xs text-muted-foreground">{description}</p>
         </div>
         {active && <Check className="text-primary" size={18} />}
       </div>
@@ -341,7 +341,7 @@ function SignInStep({ session, onAdvance, onBack }: StepPanelProps) {
           Continue with Google
         </Button>
         {launched && !session && (
-          <p className="text-muted-foreground text-xs">
+          <p className="text-xs text-muted-foreground">
             Waiting for Google sign-in… your browser should have opened.
           </p>
         )}
@@ -388,7 +388,7 @@ function UpgradeStep({ plan, onAdvance, onBack }: StepPanelProps) {
         {plan.tier === 'paid' ? (
           <p className="text-xs">Your plan is active. You can continue.</p>
         ) : (
-          <p className="text-muted-foreground text-xs">
+          <p className="text-xs text-muted-foreground">
             Complete checkout in your browser, then come back here.
           </p>
         )}

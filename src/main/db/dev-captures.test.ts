@@ -10,14 +10,14 @@ describe('reconcileOrphans', () => {
 
   test('files without rows are flagged for unlink', () => {
     const r = reconcileOrphans(['a', 'b', 'c'], ['a']);
-    expect(r.filesToUnlink.sort()).toEqual(['b', 'c']);
+    expect(r.filesToUnlink.toSorted()).toEqual(['b', 'c']);
     expect(r.rowsToDelete).toEqual([]);
   });
 
   test('rows without files are flagged for delete', () => {
     const r = reconcileOrphans(['a'], ['a', 'b', 'c']);
     expect(r.filesToUnlink).toEqual([]);
-    expect(r.rowsToDelete.sort()).toEqual(['b', 'c']);
+    expect(r.rowsToDelete.toSorted()).toEqual(['b', 'c']);
   });
 
   test('handles both directions of mismatch in one pass', () => {

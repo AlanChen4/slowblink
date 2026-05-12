@@ -156,14 +156,14 @@ function OverviewBody({
   function renderBody() {
     if (loading) {
       return (
-        <div className="fade-in-0 animate-in duration-150 [animation-delay:200ms] [animation-fill-mode:both]">
+        <div className="animate-in duration-150 fade-in-0 [animation-delay:200ms] [animation-fill-mode:both]">
           <TopAppsSkeleton />
         </div>
       );
     }
     if (loadError) {
       return (
-        <div className="fade-in-0 animate-in duration-150">
+        <div className="animate-in duration-150 fade-in-0">
           <OverviewErrorState
             scope={scope}
             error={loadError}
@@ -176,7 +176,7 @@ function OverviewBody({
     }
     if (!overview) return null;
     return (
-      <div className="fade-in-0 animate-in duration-150">
+      <div className="animate-in duration-150 fade-in-0">
         <TopApps apps={filteredApps} totalDurationMs={totalDurationMs} />
       </div>
     );
@@ -194,10 +194,10 @@ function OverviewBody({
           >
             <ChevronLeft className="size-4" />
           </Button>
-          <h1 className="font-semibold text-xl">
+          <h1 className="text-xl font-semibold">
             {formatDayTitle(dayOffset, dayStart)}
             {overview && (
-              <span className="fade-in-0 ml-3 animate-in text-muted-foreground duration-150">
+              <span className="ml-3 animate-in text-muted-foreground duration-150 fade-in-0">
                 {formatDuration(totalDurationMs)}
               </span>
             )}
@@ -244,7 +244,7 @@ function OverviewErrorState({
         <button
           type="button"
           onClick={onSwitchToThisDevice}
-          className="font-medium text-primary text-xs hover:underline"
+          className="text-xs font-medium text-primary hover:underline"
         >
           Switch to This device
         </button>

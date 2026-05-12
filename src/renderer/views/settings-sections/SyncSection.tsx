@@ -28,7 +28,7 @@ export function SyncSection({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-2">
-        <span className={locked ? 'text-muted-foreground text-sm' : 'text-sm'}>
+        <span className={locked ? 'text-sm text-muted-foreground' : 'text-sm'}>
           Sync to cloud
         </span>
         {locked && <Badge variant="secondary">Requires an account</Badge>}

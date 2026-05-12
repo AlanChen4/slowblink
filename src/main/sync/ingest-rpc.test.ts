@@ -1,3 +1,6 @@
+/* oxlint-disable vitest/no-disabled-tests, vitest/no-conditional-tests --
+   This integration suite intentionally skips itself when the local Supabase
+   stack isn't reachable so CI stays green. */
 import { createClient } from '@supabase/supabase-js';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 

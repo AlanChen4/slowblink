@@ -29,10 +29,10 @@ export function aggregate(segments: Segment[]): OverviewAggregate {
       const map = windowMsByApp.get(app) ?? new Map<string, number>();
       const windows: WindowDuration[] = [...map.entries()]
         .map(([window, durationMsW]) => ({ window, durationMs: durationMsW }))
-        .sort((a, b) => b.durationMs - a.durationMs);
+        .toSorted((a, b) => b.durationMs - a.durationMs);
       return { app, durationMs, windows, iconDataUrl: null };
     })
-    .sort((a, b) => b.durationMs - a.durationMs);
+    .toSorted((a, b) => b.durationMs - a.durationMs);
 
   return { apps };
 }

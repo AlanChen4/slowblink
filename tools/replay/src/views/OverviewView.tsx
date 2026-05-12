@@ -1,4 +1,4 @@
-import { aggregate } from '@shared/overview/aggregator';
+import { aggregate as computeAggregate } from '@shared/overview/aggregator';
 import { samplesToSegments } from '@shared/overview/segmenter';
 import { useMemo, useState } from 'react';
 import {
@@ -45,7 +45,9 @@ function formatDayTitle(offset: number, dayStart: number): string {
 type Source = { kind: 'live' } | { kind: 'fixture'; name: string };
 
 function suggestFixtureName(dayOffset: number): string {
-  const date = new Date(dayStartWithOffset(dayOffset)).toISOString().slice(0, 10);
+  const date = new Date(dayStartWithOffset(dayOffset))
+    .toISOString()
+    .slice(0, 10);
   return `samples-${date}`;
 }
 
@@ -301,7 +303,7 @@ function FixtureBody({ name }: { name: string }) {
   const computed = useMemo(() => {
     if (!samples) return null;
     const segments = samplesToSegments(samples);
-    return { samples, segments, aggregate: aggregate(segments) };
+    return { samples, segments, aggregate: computeAggregate(segments) };
   }, [samples]);
 
   if (loading)

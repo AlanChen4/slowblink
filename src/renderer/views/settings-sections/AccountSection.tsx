@@ -78,7 +78,7 @@ export function AccountSection({
         </div>
       ) : (
         <div className="flex items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             Create an account for sync and more cool features
           </p>
           <Button variant="outline" onClick={signIn}>

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "trailingComma": "all",
+  "semi": true,
+  "arrowParens": "always",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "sortTailwindcss": {
+    "stylesheet": "./src/renderer/index.css",
+    "functions": ["clsx", "cn", "cva", "twMerge"]
+  },
+  "ignorePatterns": ["out", "dist", "node_modules", "supabase"]
+}

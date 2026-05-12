@@ -11,6 +11,6 @@
   "project": ["src/**/*.{ts,tsx}"],
   "ignoreExportsUsedInFile": true,
   "ignore": ["src/renderer/components/ui/**"],
-  "ignoreDependencies": ["concurrently"],
+  "ignoreDependencies": ["concurrently", "tailwindcss", "tw-animate-css"],
   "ignoreBinaries": ["stripe"]
 }

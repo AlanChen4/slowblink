@@ -54,7 +54,7 @@ function makeHarness(opts: HarnessOpts = {}) {
   const permissionsListeners = new Set<() => void>();
   const suspendListeners = new Set<() => void>();
   const resumeListeners = new Set<() => void>();
-  const runner = vi.fn(opts.runner ?? (async () => {}));
+  const runner = vi.fn<() => Promise<void>>(opts.runner ?? (async () => {}));
 
   const automation = createAutomation({
     store: {

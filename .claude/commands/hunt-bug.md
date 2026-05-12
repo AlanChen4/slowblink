@@ -16,13 +16,14 @@ This is a loop, not a linear task. **Do not exit until both the new test passes 
 1. Read the bug description carefully. Identify:
    - The observable symptom (what the user sees that's wrong).
    - The smallest scenario that triggers it (what state, what action).
-   - The invariant being violated (what *should* be true but isn't).
+   - The invariant being violated (what _should_ be true but isn't).
 2. Pick the test shape that most directly exercises the invariant:
    - **Unit / component test** (vitest + `@testing-library/react` under `src/**/*.test.{ts,tsx}`) when the bug lives in a pure function, a component's render, or a well-scoped module. This is the default — prefer it.
    - **Main-process test** (vitest, `node` env) when the bug is in `src/main/` logic that doesn't need a renderer.
    - **Electron UI script** (agent-browser via the [electron skill](../skills/electron/SKILL.md)) only when the bug is inherently cross-process and can't be reproduced without the running app. Capture it as a repeatable script or test, not a one-shot manual check.
 3. Write the test so it **fails for the right reason** — it should assert on the invariant, not on the current buggy behavior. Verify the failure by running it (`pnpm test <path>`). If it passes unexpectedly, the reproduction is wrong; fix it before moving on.
 4. Commit the failing test on its own so the repro is recoverable:
+
    ```bash
    git add <test path>
    git commit -m "$(cat <<'EOF'
@@ -39,9 +40,9 @@ This is a loop, not a linear task. **Do not exit until both the new test passes 
 
 Read widely before editing. For state-flow bugs, map all the actors:
 
-- Where does the state *live* (store, module-level var, component state)?
-- Who *reads* it — and from which copy?
-- Who *writes* it — and what broadcasts does that writing trigger?
+- Where does the state _live_ (store, module-level var, component state)?
+- Who _reads_ it — and from which copy?
+- Who _writes_ it — and what broadcasts does that writing trigger?
 - Are there **multiple sources of truth** that can disagree during transitions? This is the pattern behind most "stale indicator" bugs.
 - Are there ordering assumptions between broadcasts/events that aren't guaranteed?
 
@@ -67,11 +68,11 @@ The new test must pass. No other test may regress. If the Stop hook runs format/
 
 ### 4b. Visual verification in the running Electron app
 
-Use the [electron skill](../skills/electron/SKILL.md) via agent-browser. Non-negotiable: you are verifying the *real* app, not just the model in the test.
+Use the [electron skill](../skills/electron/SKILL.md) via agent-browser. Non-negotiable: you are verifying the _real_ app, not just the model in the test.
 
 1. Start dev with CDP: `pnpm dev -- --remote-debugging-port=9222` (background). Wait for `DevTools listening on ws://...`. If better-sqlite3 mismatches, rebuild per the electron skill.
 2. Connect via the webSocketDebuggerUrl for the `slowblink` page (see the /go skill for the exact `curl`).
-3. Reproduce the *original* user scenario from Phase 1 through the UI. Click the buttons, toggle the settings, trigger the transition that was broken.
+3. Reproduce the _original_ user scenario from Phase 1 through the UI. Click the buttons, toggle the settings, trigger the transition that was broken.
 4. Confirm the visible state is now consistent. Screenshot the key state and check that every UI surface that reflects the bug's domain agrees with every other surface.
 5. Regression sweep: click through nearby UI that touches the same state. A "paused" fix could regress "running" rendering; verify both.
 6. Stop the dev server: `pkill -f "electron-vite"; pkill -f "Electron"`.
@@ -82,7 +83,7 @@ If agent-browser can't connect or the flow can't be driven from the UI, say so e
 
 If 4a or 4b fails:
 
-1. In your user-facing update, write one or two sentences: *what did I learn from this failure?* Be specific — "the badge still shows Paused for one render after clicking Resume" beats "it didn't work."
+1. In your user-facing update, write one or two sentences: _what did I learn from this failure?_ Be specific — "the badge still shows Paused for one render after clicking Resume" beats "it didn't work."
 2. Return to Phase 2 with that new information. Your previous hypothesis was incomplete or wrong — refine it before editing again.
 3. Re-run both verifications from scratch after the new fix. Don't skip 4a because "nothing test-relevant changed."
 
@@ -105,6 +106,7 @@ Push and open (or update) the PR yourself rather than delegating to `/go` — th
 
 1. **Push**: `git push -u origin <branch>` (the branch may be `main` if that's what you're on — check `git status`; if so, push the commits straight to main per the repo convention, otherwise push the feature branch).
 2. **Create or update the PR** with `gh pr create` (or rely on auto-update if a PR already exists on this branch). Title uses a gitmoji matching the primary commit (`🐛 …`). Body:
+
    ```
    ## Summary
    - The bug, one line.
@@ -116,11 +118,13 @@ Push and open (or update) the PR yourself rather than delegating to `/go` — th
    - [x] Visual verification in Electron via agent-browser (describe what you clicked).
    - [ ] Anything the human should verify manually (packaged build, permission flows).
    ```
+
 3. Return the PR URL to the user.
 
 ## Phase 8 — Report
 
 End with a concise summary:
+
 - What the bug was and where the divergent state / root cause lived.
 - Commits (test repro + fix + optional simplify) and the PR link.
 - Any findings from `/simplify` that were applied.
