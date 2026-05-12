@@ -3,7 +3,6 @@ import { providerIdFor, summarizeScreenshot } from '../ai/summarizer';
 import type { ProviderDebug } from '../ai/types';
 import { insertSample } from '../db';
 import { recordCapture } from '../replay/recorder';
-import { isReplayLoggingEnabled } from '../settings';
 import { resolveAndStoreAppIcon } from './app-icon';
 import { takeScreenshot } from './screen-capture';
 
@@ -16,7 +15,6 @@ export interface RunnerContext {
 export type Runner = (ctx: RunnerContext) => Promise<void>;
 
 export const runCaptureTick: Runner = async (ctx) => {
-  const replay = isReplayLoggingEnabled();
   const capturedAt = Date.now();
   let image: Buffer | null = null;
   let windowCtx: WindowContext | null = null;
@@ -47,41 +45,37 @@ export const runCaptureTick: Runner = async (ctx) => {
     if (shot.windowCtx.focusedApp) {
       void resolveAndStoreAppIcon(shot.windowCtx.focusedApp);
     }
-    if (replay) {
-      await recordCapture(
-        debug.blocked
-          ? {
-              kind: 'dlp_blocked',
-              capturedAt,
-              image,
-              windowCtx,
-              debug,
-              sampleId,
-            }
-          : {
-              kind: 'success',
-              capturedAt,
-              image,
-              windowCtx,
-              debug,
-              result: outcome.result,
-              sampleId,
-            },
-      );
-    }
+    await recordCapture(
+      debug.blocked
+        ? {
+            kind: 'dlp_blocked',
+            capturedAt,
+            image,
+            windowCtx,
+            debug,
+            sampleId,
+          }
+        : {
+            kind: 'success',
+            capturedAt,
+            image,
+            windowCtx,
+            debug,
+            result: outcome.result,
+            sampleId,
+          },
+    );
   } catch (err) {
-    if (replay) {
-      await recordCapture({
-        kind: 'error',
-        capturedAt,
-        image,
-        windowCtx,
-        debug,
-        sampleId,
-        errorMessage: err instanceof Error ? err.message : String(err),
-        providerId: providerIdFor(ctx.aiMode),
-      });
-    }
+    await recordCapture({
+      kind: 'error',
+      capturedAt,
+      image,
+      windowCtx,
+      debug,
+      sampleId,
+      errorMessage: err instanceof Error ? err.message : String(err),
+      providerId: providerIdFor(ctx.aiMode),
+    });
     throw err;
   }
 };

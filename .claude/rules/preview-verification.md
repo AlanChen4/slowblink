@@ -59,3 +59,16 @@ If `hidden` is `true`, `backgroundThrottling` is back on; the quickest recovery 
 ## When `preview_screenshot` is fine
 
 For the rare case where you want to inspect the Vite-served HTML in isolation (e.g. debugging a build artifact). Otherwise, default to agent-browser.
+
+## Don't open a separate browser to "see" the page
+
+If the appropriate tool is unavailable in the current session — `preview_screenshot` isn't registered, `agent-browser nav` would hijack the CDP-attached Electron window, etc. — **do not fall back to `osascript -e 'tell application "Safari" / "Google Chrome" …'`, `open -a 'Safari' …`, or `open <url>`** to spawn a fresh browser window. That opens a visible window the user didn't ask for, leaves a tab they have to clean up, and isn't what the visual check was for in the first place — the goal is verifying the change works, not staging it for the user.
+
+Instead, when a visual check isn't reachable from your toolbox:
+
+1. **Verify at the HTTP/data layer.** Curl the endpoints the page depends on, fetch the JS bundle URL to confirm it compiles through Vite, hit any control-server endpoints the page calls. For the replay viewer that's `/api/captures`, `/api/clear`, `/captures/*.jpg`, and (for control-server endpoints the Electron process owns) `http://127.0.0.1:5175/...`.
+2. **Hand off the visual confirmation.** Tell the user the URL and what to look for — don't open it for them.
+
+### Why this is a separate rule from agent-browser
+
+The agent-browser path uses the *running* Electron BrowserWindow over CDP — no new window appears, and the screenshot reflects the real renderer with its preload bridge attached. `osascript` / `open` launches a *new* browser process against the same URL, which both makes noise on the user's desktop and (for the Electron renderer specifically) renders without the preload, so the page is broken anyway. Either way it's the wrong tool — verify via HTTP or defer to the user.

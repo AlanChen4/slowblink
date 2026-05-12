@@ -1,12 +1,21 @@
-import { existsSync, readdirSync, readFileSync, unlinkSync } from 'node:fs';
-import type { ServerResponse } from 'node:http';
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 // node:sqlite (built-in to Node 22+) avoids the better-sqlite3 ABI conflict —
 // the slowblink Electron app rebuilds better-sqlite3 against Electron's Node
 // ABI, which doesn't match system Node, so we'd otherwise get a runtime
 // "compiled against a different Node.js version" error here.
 import { DatabaseSync, type StatementSync } from 'node:sqlite';
+import { fileURLToPath } from 'node:url';
 import type { Connect } from 'vite';
 
 interface DevCaptureRow {
@@ -222,32 +231,179 @@ function handleServeImage(res: ServerResponse, id: string): void {
   }
 }
 
+const FIXTURE_NAME_RE = /^[a-zA-Z0-9._-]+$/;
+
+function resolveFixturesDir(): string {
+  // tools/replay/src/middleware.ts → repo root → fixtures/
+  const here = dirname(fileURLToPath(import.meta.url));
+  return resolve(here, '../../../fixtures');
+}
+
+interface FixtureRow {
+  name: string;
+  samples: number;
+  sizeBytes: number;
+  mtime: number;
+}
+
+interface FixtureSample {
+  ts: number;
+  activity: string;
+  confidence: number | null;
+  focused_app: string | null;
+  focused_window: string | null;
+}
+
+interface FixtureFile {
+  samples?: FixtureSample[];
+}
+
+function readFixtureSamples(path: string): FixtureSample[] {
+  const raw = readFileSync(path, 'utf-8');
+  const parsed = JSON.parse(raw) as FixtureSample[] | FixtureFile;
+  return Array.isArray(parsed) ? parsed : (parsed.samples ?? []);
+}
+
+function listFixtures(): FixtureRow[] {
+  const dir = resolveFixturesDir();
+  if (!existsSync(dir)) return [];
+  const rows: FixtureRow[] = [];
+  for (const entry of readdirSync(dir)) {
+    if (!entry.endsWith('.json')) continue;
+    const fullPath = join(dir, entry);
+    const stat = statSync(fullPath);
+    let sampleCount = 0;
+    try {
+      sampleCount = readFixtureSamples(fullPath).length;
+    } catch {
+      // Skip malformed JSON — still list the file so the user sees it.
+    }
+    rows.push({
+      name: entry,
+      samples: sampleCount,
+      sizeBytes: stat.size,
+      mtime: stat.mtimeMs,
+    });
+  }
+  rows.sort((a, b) => b.mtime - a.mtime);
+  return rows;
+}
+
+function handleListFixtures(res: ServerResponse): void {
+  jsonResponse(res, 200, { fixtures: listFixtures() });
+}
+
+function fixturePath(name: string): string | null {
+  if (!FIXTURE_NAME_RE.test(name)) return null;
+  if (!name.endsWith('.json')) return null;
+  return join(resolveFixturesDir(), name);
+}
+
+function handleReadFixture(res: ServerResponse, name: string): void {
+  const path = fixturePath(name);
+  if (!path || !existsSync(path)) {
+    jsonResponse(res, 404, { error: 'fixture not found' });
+    return;
+  }
+  try {
+    const samples = readFixtureSamples(path);
+    jsonResponse(res, 200, { name, samples });
+  } catch (err) {
+    jsonResponse(res, 500, {
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
+}
+
+async function readJsonBody(req: IncomingMessage): Promise<unknown> {
+  const chunks: Buffer[] = [];
+  for await (const c of req) chunks.push(c as Buffer);
+  if (chunks.length === 0) return null;
+  return JSON.parse(Buffer.concat(chunks).toString('utf-8'));
+}
+
+interface WriteFixtureBody {
+  name?: unknown;
+  samples?: unknown;
+}
+
+function isFixtureSample(v: unknown): v is FixtureSample {
+  if (v === null || typeof v !== 'object') return false;
+  const o = v as Record<string, unknown>;
+  return typeof o.ts === 'number' && typeof o.activity === 'string';
+}
+
+async function handleWriteFixture(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const body = (await readJsonBody(req)) as WriteFixtureBody | null;
+  if (!body || typeof body.name !== 'string' || !Array.isArray(body.samples)) {
+    jsonResponse(res, 400, { error: 'invalid body' });
+    return;
+  }
+  const name = body.name.endsWith('.json') ? body.name : `${body.name}.json`;
+  const path = fixturePath(name);
+  if (!path) {
+    jsonResponse(res, 400, { error: 'invalid fixture name' });
+    return;
+  }
+  if (!body.samples.every(isFixtureSample)) {
+    jsonResponse(res, 400, { error: 'invalid samples shape' });
+    return;
+  }
+  const dir = resolveFixturesDir();
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(path, `${JSON.stringify(body.samples, null, 2)}\n`);
+  jsonResponse(res, 200, { name });
+}
+
 interface RouteDef {
   method: 'GET' | 'POST';
   pattern: RegExp;
-  handle: (res: ServerResponse, match: RegExpMatchArray, url: string) => void;
+  handle: (
+    req: IncomingMessage,
+    res: ServerResponse,
+    match: RegExpMatchArray,
+    url: string,
+  ) => void | Promise<void>;
 }
 
 const ROUTES: RouteDef[] = [
   {
     method: 'GET',
     pattern: /^\/api\/captures\?/,
-    handle: (res, _m, url) => handleListCaptures(res, url),
+    handle: (_req, res, _m, url) => handleListCaptures(res, url),
   },
   {
     method: 'GET',
     pattern: /^\/api\/captures\/([\w-]+)$/,
-    handle: (res, m) => handleGetCapture(res, m[1] ?? ''),
+    handle: (_req, res, m) => handleGetCapture(res, m[1] ?? ''),
   },
   {
     method: 'POST',
     pattern: /^\/api\/clear$/,
-    handle: (res) => jsonResponse(res, 200, clearAll()),
+    handle: (_req, res) => jsonResponse(res, 200, clearAll()),
+  },
+  {
+    method: 'GET',
+    pattern: /^\/api\/fixtures$/,
+    handle: (_req, res) => handleListFixtures(res),
+  },
+  {
+    method: 'GET',
+    pattern: /^\/api\/fixtures\/([\w.-]+)$/,
+    handle: (_req, res, m) => handleReadFixture(res, m[1] ?? ''),
+  },
+  {
+    method: 'POST',
+    pattern: /^\/api\/fixtures$/,
+    handle: (req, res) => handleWriteFixture(req, res),
   },
   {
     method: 'GET',
     pattern: /^\/captures\/([\w-]+)\.jpg$/,
-    handle: (res, m) => handleServeImage(res, m[1] ?? ''),
+    handle: (_req, res, m) => handleServeImage(res, m[1] ?? ''),
   },
 ];
 
@@ -272,7 +428,14 @@ export function devCapturesMiddleware(): Connect.NextHandleFunction {
     const found = findRoute(req.method, url);
     if (!found) return next();
     try {
-      found.def.handle(res, found.match, url);
+      const result = found.def.handle(req, res, found.match, url);
+      if (result instanceof Promise) {
+        result.catch((err) => {
+          jsonResponse(res, 500, {
+            error: err instanceof Error ? err.message : String(err),
+          });
+        });
+      }
     } catch (err) {
       jsonResponse(res, 500, {
         error: err instanceof Error ? err.message : String(err),

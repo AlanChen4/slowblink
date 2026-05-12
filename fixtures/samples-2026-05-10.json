@@ -1,0 +1,30 @@
+[
+  {
+    "ts": 1778455820732,
+    "activity": "Viewing the slowblink “Overview” page showing “No app activity yet.”",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778455823538,
+    "activity": "A popup in a web app is asking the user to allow screen recording/access to bypass the system private window picker and audio.",
+    "confidence": 0.9,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778455828556,
+    "activity": "Viewing the slowblink “Overview” page showing “No app activity yet” after a capture setup.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778455835520,
+    "activity": "Viewing the slowblink analytics dashboard/overview page showing “No app activity yet,” waiting for the app to capture data.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]

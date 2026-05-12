@@ -6,7 +6,6 @@ import type {
   SyncStatus,
 } from '@shared/types';
 import {
-  FlaskConical,
   LayoutDashboard,
   Monitor,
   Moon,
@@ -35,13 +34,12 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
-import { Dev } from '@/views/Dev';
 import { Onboarding } from '@/views/Onboarding';
 import { Overview } from '@/views/Overview';
 import { Samples } from '@/views/Samples';
 import { type SettingsSection, SettingsView } from '@/views/Settings';
 
-type NavId = 'overview' | 'samples' | 'dev' | 'settings';
+type NavId = 'overview' | 'samples' | 'settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
 
@@ -170,18 +168,6 @@ export default function App() {
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
-            {import.meta.env.DEV && (
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive={view === 'dev'}
-                  tooltip="Dev"
-                  onClick={() => setView('dev')}
-                >
-                  <FlaskConical />
-                  <span>Dev</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            )}
             <SidebarMenuItem>
               <ThemeToggle />
             </SidebarMenuItem>
@@ -206,7 +192,6 @@ export default function App() {
               <Overview settings={settings} session={session} plan={plan} />
             )}
             {view === 'samples' && <Samples />}
-            {view === 'dev' && <Dev />}
             {view === 'settings' && (
               <SettingsView
                 status={status}

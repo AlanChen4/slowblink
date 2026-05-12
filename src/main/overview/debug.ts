@@ -1,12 +1,25 @@
-import type { OverviewDebug, OverviewScope } from '../../shared/types';
-import { aggregate } from './aggregator';
-import {
-  buildLocalPipeline,
-  deriveRange,
-  fetchSupabaseSamples,
-  getOverview,
-} from './index';
-import { samplesToSegments } from './segmenter';
+import { aggregate } from '../../shared/overview/aggregator';
+import { samplesToSegments } from '../../shared/overview/segmenter';
+import type {
+  OverviewAggregate,
+  OverviewScope,
+  Sample,
+  Segment,
+} from '../../shared/types';
+import { buildLocalPipeline, deriveRange, fetchSupabaseSamples } from './index';
+
+export interface OverviewDebug {
+  range: {
+    startTs: number;
+    endTs: number;
+    rangeKey: string;
+    scope: OverviewScope;
+    timezone: string;
+  };
+  samples: Sample[];
+  segments: Segment[];
+  aggregate: OverviewAggregate;
+}
 
 export async function getOverviewDebug(
   rangeStart: number,
@@ -33,15 +46,3 @@ export async function getOverviewDebug(
     aggregate: agg,
   };
 }
-
-export function refreshOverviewDebug(
-  rangeStart: number,
-  rangeEnd: number,
-  scope: OverviewScope,
-): Promise<OverviewDebug> {
-  // No cache to invalidate anymore; refresh just re-runs the same path.
-  return getOverviewDebug(rangeStart, rangeEnd, scope);
-}
-
-// Re-export for compatibility with any callers expecting a typed Overview.
-export { getOverview };

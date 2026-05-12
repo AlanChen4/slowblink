@@ -3,7 +3,6 @@ import { IPC } from '../shared/ipc-channels';
 import type {
   AuthSession,
   CaptureStatus,
-  LogEntry,
   Plan,
   Sample,
   Settings,
@@ -26,7 +25,6 @@ const api: SlowblinkAPI = {
   getStatus: () => ipcRenderer.invoke(IPC.statusGet),
   pause: () => ipcRenderer.invoke(IPC.capturePause),
   resume: () => ipcRenderer.invoke(IPC.captureResume),
-  captureOnce: () => ipcRenderer.invoke(IPC.captureOnce),
   requestPermission: () => ipcRenderer.invoke(IPC.permissionRequest),
   openPermissionSettings: () => ipcRenderer.invoke(IPC.permissionOpen),
   requestAccessibilityPermission: () =>
@@ -58,17 +56,6 @@ const api: SlowblinkAPI = {
 
   getOverview: (start, end, scope) =>
     ipcRenderer.invoke(IPC.overviewGet, start, end, scope),
-  getOverviewDebug: (start, end, scope) =>
-    ipcRenderer.invoke(IPC.overviewDebugGet, start, end, scope),
-  refreshOverviewDebug: (start, end, scope) =>
-    ipcRenderer.invoke(IPC.overviewDebugRefresh, start, end, scope),
-
-  getReplayLogging: () => ipcRenderer.invoke(IPC.devReplayLoggingGet),
-  setReplayLogging: (enabled) =>
-    ipcRenderer.invoke(IPC.devReplayLoggingSet, enabled),
-
-  getProcessLogs: () => ipcRenderer.invoke(IPC.processLogsGet),
-  onProcessLog: (cb) => subscribe<LogEntry>(IPC.processLogsUpdate, cb),
 };
 
 contextBridge.exposeInMainWorld('slowblink', api);

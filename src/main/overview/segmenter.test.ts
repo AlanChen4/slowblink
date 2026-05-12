@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
-import type { Sample } from '../../shared/types';
 import {
   IDLE_GAP_MS,
   normalizeFocusedWindow,
   samplesToSegments,
-} from './segmenter';
+} from '../../shared/overview/segmenter';
+import type { Sample } from '../../shared/types';
 import {
   seedAudioPlayingFlicker,
   seedBrowserHeavyDay,

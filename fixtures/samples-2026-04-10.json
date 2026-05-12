@@ -1,0 +1,1878 @@
+[
+  {
+    "ts": 1775873149341,
+    "activity": "Configuring and managing screen-recording capture settings (interval, model, API key, permissions) in a Cloudflare dashboard page.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775873259518,
+    "activity": "Viewing Cloudflare AI Gateway documentation while setting up/using DLP capture settings (interval and model) and an OpenAI API key.",
+    "confidence": 0.86,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775873269355,
+    "activity": "Configuring Cloudflare AI Gateway DLP by setting capture interval/model and adding an OpenAI API key while reviewing permissions.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775873276340,
+    "activity": "Viewing Cloudflare AI Gateway documentation for the Data Loss Prevention (DLP) feature and its overview/settings.",
+    "confidence": 0.77,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775873286651,
+    "activity": "Reading Cloudflare AI Gateway documentation about Data Loss Prevention (DLP) and per-request DLP controls.",
+    "confidence": 0.82,
+    "focused_app": "Brave Browser",
+    "focused_window": "Data Loss Prevention (DLP) · Cloudflare AI Gateway docs - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873296406,
+    "activity": "Viewing AI Gateway logs and usage/cost metrics for the default gateway over the last 24 hours.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873306510,
+    "activity": "Viewing AI Gateway logs/usage details in Cloudflare’s dashboard for the “default” gateway (checking request/response, model, costs, and duration).",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873316969,
+    "activity": "Viewing Cloudflare AI Gateway logs for the default gateway to check recent model usage, cost, and request/response details.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873326532,
+    "activity": "Editing a TypeScript database file (db.ts) and reviewing related terminal output for build/runtime results.",
+    "confidence": 0.72,
+    "focused_app": "Cursor",
+    "focused_window": "db.ts — slowblink — vim/pycharm"
+  },
+  {
+    "ts": 1775873336737,
+    "activity": "Editing a TypeScript React component file (completion-by-type-chart.tsx) and inspecting its terminal output/logs for related changes.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "completion-by-type-chart.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873346567,
+    "activity": "Configuring a screen-capture/recording capture interval and OpenAI API key in slowblink while viewing related code changes.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775873356401,
+    "activity": "Editing and reviewing a TypeScript React component file (completion-by-type-chart.tsx) while checking test/terminal output for changes.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "completion-by-type-chart.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873366753,
+    "activity": "Viewing a Lumos Fellows web page (localhost admin/table applications) in the browser.",
+    "confidence": 0.66,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873376453,
+    "activity": "Viewing an application detail page in the Lumos Fellows admin interface and reviewing a candidate’s decision, notes, and interview status.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873387077,
+    "activity": "Reviewing an application/interview details page in the Lumos Fellows admin dashboard.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "New Tab - Inactive tab - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873396841,
+    "activity": "Viewing an email in Gmail from Lumos Fellows reminding them to book an interview and offering a scheduling link.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows: Reminder to Book Your Interview - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873406564,
+    "activity": "Editing a TypeScript React component (index.tsx) and reviewing server output/error logs on the right.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873416528,
+    "activity": "Reading a Gmail email reminder from Lumos Fellows about booking an interview time and considering the suggested reply.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows: Reminder to Book Your Interview - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873426637,
+    "activity": "Reading an email reminder from Lumos Fellows to book an interview slot and preparing to reply.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows: Reminder to Book Your Interview - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873436362,
+    "activity": "Reviewing an email reminder from Lumos Fellows about booking an interview and considering a reply.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows: Reminder to Book Your Interview - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873446400,
+    "activity": "Viewing the Google Search Console “Overview” performance dashboard for lumosfellows.com, including search clicks and recommendations.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Overview - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873456851,
+    "activity": "Viewing Google Search Console’s Overview page for the “lumosfellows.com” site, checking indexing/experience metrics.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Overview - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873466876,
+    "activity": "Reviews Google Search Console page indexing statistics for lumosfellows.com.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Page indexing - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873476536,
+    "activity": "Searching on Google for “Lumos Fellows” and reviewing the search result and site performance stats.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "lumos fellows - Google Search - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873486508,
+    "activity": "Searching Google for the Lumos Fellows site and viewing the site’s results and login/privacy-related pages.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "lumos fellows site:lumosfellows.com - Google Search - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873496344,
+    "activity": "Viewing an email titled “Lumos Fellows: Reminder to Book Your Interview” and drafting a suggested reply to schedule the interview.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows: Reminder to Book Your Interview - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873506714,
+    "activity": "Editing a TypeScript API route (route.ts) and reviewing server logs/terminal output for the request handler’s behavior.",
+    "confidence": 0.82,
+    "focused_app": "Cursor",
+    "focused_window": "route.ts — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873516418,
+    "activity": "Reviewing and editing the TypeScript file google-sheets.ts in a working tree while monitoring terminal output for the updated changes.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "google-sheets.ts (Working Tree) (google-sheets.ts) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873526767,
+    "activity": "Editing the google-sheets.ts (working tree) file in a frontend TypeScript project while reviewing terminal output and change suggestions.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "google-sheets.ts (Working Tree) (google-sheets.ts) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873537319,
+    "activity": "Editing a TypeScript interface in google-sheets.ts and reviewing terminal output for related changes/route updates.",
+    "confidence": 0.77,
+    "focused_app": "Cursor",
+    "focused_window": "google-sheets.ts — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873546872,
+    "activity": "Viewing and editing a Google Sheets spreadsheet for Lumos Fellows applications, reviewing application responses and status fields.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "(Test) Lumos Fellows Applications - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873557061,
+    "activity": "Viewing a database table (meeting_bookings) in a Table Editor/DB admin page, likely inspecting meeting booking records and links.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": null
+  },
+  {
+    "ts": 1775873566759,
+    "activity": "Viewing and editing an application entry (e.g., decision, aid offered, and interview status) for Alan Chen in the Lumos Fellows admin web dashboard.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873576725,
+    "activity": "Editing a TypeScript interface in google-sheets.ts and running/tests/inspecting server logs for API changes related to the hasBooked field.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "google-sheets.ts — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873592426,
+    "activity": "Editing the `index.tsx` file for an application interview follow-up email template and reviewing related runtime logs/output to verify changes.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873596274,
+    "activity": "Editing a TypeScript React component (index.tsx) for an application interview follow-up email template in the lumos-fellows-frontend project.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873606502,
+    "activity": "Viewing the “Applications” details page for a Lumos Fellows member (Alan Chen) and editing/setting the decision and interview follow-up info.",
+    "confidence": 0.8,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873616587,
+    "activity": "Viewing Cloudflare AI Gateway logs for the default gateway to monitor model usage, cost, and request durations over the last 24 hours.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873626518,
+    "activity": "Viewing AI Gateway logs and usage/cost details for a default gateway in Cloudflare’s dashboard.",
+    "confidence": 0.84,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873636683,
+    "activity": "Viewing AI Gateway logs and usage/cost details for Cloudflare’s default gateway in order to monitor model requests.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Build | AI | AI Gateway | Cloudflare - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873646555,
+    "activity": "Viewing the OpenAI API Usage dashboard for a service (Slowblink), likely reviewing spending/tokens/requests by date and category.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Usage - OpenAI API - Brave - Slowblink"
+  },
+  {
+    "ts": 1775873656742,
+    "activity": "Editing a TypeScript React file (index.tsx) and running/debugging code/tests in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873666771,
+    "activity": "Editing a TypeScript React component in index.tsx and viewing server logs/tests output in the terminal to debug a follow-up booking/email flow.",
+    "confidence": 0.8,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873676800,
+    "activity": "Editing a TypeScript React file (index.tsx) to adjust logic for an interview-followup email component while checking server/log output on the side.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873687151,
+    "activity": "Editing a TypeScript React file (index.tsx) to adjust application interview email content and related logic, while viewing API/log output in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873696926,
+    "activity": "Editing the route.ts file in a frontend project, working on a GET handler that fetches and enriches application data.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "route.ts (Working Tree) (route.ts) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873707324,
+    "activity": "Editing the React/TypeScript file application-filters.tsx and viewing API/server logs in the terminal while working in the lumos-fellows-frontend project.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775873717305,
+    "activity": "Viewing an application record in the Lumos Fellows admin dashboard and reviewing an applicant’s decision, offer percentage, and interview status, with options to send follow-up email.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873726527,
+    "activity": "Viewing and editing an application record in the Lumos Fellows admin dashboard, including decision status, aid offered, and interview settings.",
+    "confidence": 0.8,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873736610,
+    "activity": "Reading an email titled \"NCDOR Confirmation\" in Gmail from the North Carolina Department of Revenue confirming a tax submission receipt.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "NCDOR Confirmation - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873746479,
+    "activity": "Reading an email titled “open a account under wells fargo advisor” that explains how to open a brokerage account and includes a Wells Fargo application link.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "open a account under wells fargo advisor - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873756572,
+    "activity": "Viewing a Wells Fargo online application page stating the session ended due to inactivity (timed out).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Wells Fargo - Timed Out - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873766814,
+    "activity": "Viewing the Wells Fargo online banking login page and entering a username to sign in.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Wells Fargo Bank | Financial Services & Online Banking - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873776314,
+    "activity": "Looking at an unresponsive/blank Brave browser page (Wells Fargo tab shows “Timed Out”).",
+    "confidence": 0.62,
+    "focused_app": "Brave Browser",
+    "focused_window": "Wells Fargo - Timed Out - Inactive tab - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873786716,
+    "activity": "Viewing the Wells Fargo online application page that shows their session has timed out.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Wells Fargo - Timed Out - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873796817,
+    "activity": "Reading an email titled “open a account under wells fargo advisor” and the related message thread.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "open a account under wells fargo advisor - avchen4@gmail.com - Gmail - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873807146,
+    "activity": "Viewing a Wells Fargo WellsTrade page that compares account options (Standard, Traditional IRA, and Roth IRA) and how to open an account.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "WellsTrade Accounts - Applications - Wells Fargo - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873816543,
+    "activity": "Signing into Wells Fargo Advisors by entering a username and password on the online customer login page.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "WellsTrade - Getting Started - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775873826585,
+    "activity": "Filling out a Wells Fargo application form, entering residential and mailing address details (street, city, state, ZIP).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Wellstrade - Application Form - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874041467,
+    "activity": "Configuring a screen capture in the slowblink Electron app (setting capture interval/model, entering an OpenAI API key, and checking permissions).",
+    "confidence": 0.86,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1775874051162,
+    "activity": "Edits a React/TypeScript component (application-filters.tsx) and monitors build/test output in the terminal.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874061241,
+    "activity": "Editing the React/TypeScript file application-filters.tsx to adjust application filter UI logic.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874071252,
+    "activity": "Editing the React/TypeScript file application-filters.tsx in a working tree view while monitoring a terminal build/test output.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874081298,
+    "activity": "Editing a React/TypeScript file (application-filters.tsx) and running/reviewing test or build output in the terminal.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874091220,
+    "activity": "Editing the `application-filters.tsx` React component (application filter UI) while checking build/test output in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874101205,
+    "activity": "Editing the application-filters.tsx component and viewing build/runtime output in the terminal while tests/requests are running.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874111180,
+    "activity": "Editing the `application-filters.tsx` React component in the `lumos-fellows-frontend` project, adjusting application filter/search UI while a terminal runs tests/build output.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874121748,
+    "activity": "Editing application-filters.tsx in the project and running/debugging tests or lint/build while inspecting terminal logs.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874131312,
+    "activity": "Editing the React/TypeScript file `application-filters.tsx` and running/tests while reviewing terminal logs for API activity.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874141342,
+    "activity": "Editing a React/TypeScript component in application-filters.tsx and running/building the frontend while monitoring terminal output.",
+    "confidence": 0.83,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874151439,
+    "activity": "Editing React/TypeScript file application-filters.tsx and viewing runtime logs in the terminal while developing UI filter logic.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874161231,
+    "activity": "Editing the TypeScript React component application-filters.tsx while viewing terminal output and running code/build checks.",
+    "confidence": 0.84,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874292110,
+    "activity": "Editing the `application-filters.tsx` component and reviewing terminal output for API requests/build results and fixes.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874301569,
+    "activity": "Debugging and editing the React/TypeScript file application-filters.tsx while viewing terminal logs and a bug notes panel.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874311555,
+    "activity": "Editing application-filters.tsx in a frontend React/TypeScript project while viewing terminal output and debugging notes for issues in API/application routing.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874321672,
+    "activity": "Editing application-filters.tsx in a frontend project while reviewing terminal build/test output and debugging notes about API/application routing issues.",
+    "confidence": 0.83,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874331241,
+    "activity": "Viewing and editing the ApplicationFilters component in application-filters.tsx while checking server logs/terminal output for issues.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874341583,
+    "activity": "Editing application-filters.tsx in the lumos-fellows-frontend codebase while reviewing Next.js/server logs and a bug list in the terminal.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874351313,
+    "activity": "Editing the application-filters.tsx working tree file in a frontend React/TypeScript project while viewing build/test logs and terminal output.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874361388,
+    "activity": "Browsing the contents of a SQLite database table that logs user activity (e.g., app categories and focused/open window entries).",
+    "confidence": 0.72,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874371346,
+    "activity": "Browsing and filtering records in the slowblink.db database table to inspect usage/activity data.",
+    "confidence": 0.9,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874382582,
+    "activity": "Viewing rows in the slowblink SQLite database, filtering/searching the entries in the samples table.",
+    "confidence": 0.9,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874392478,
+    "activity": "Browsing the contents of the slowblink.db SQLite database, viewing records in the samples table and filtering/searching the fields.",
+    "confidence": 0.78,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874401855,
+    "activity": "Editing the application-filters.tsx React component and viewing compile/test output in the terminal while working in a working tree repo.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874411420,
+    "activity": "Reviewing a GitHub pull request (#47) for adding an interview booking follow-up flow, including the summary and test plan.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874421396,
+    "activity": "Reviews and edits code in a GitHub pull request for adding an interview booking follow-up flow.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874431222,
+    "activity": "Reviews and edits code in a GitHub pull request to add an interview booking follow-up flow.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874442411,
+    "activity": "Reviews and edits a GitHub pull request for adding an interview booking follow-up flow in the Lumos Fellows web app.",
+    "confidence": 0.8,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874451225,
+    "activity": "Reviews and edits a GitHub pull request to add an interview booking follow-up flow, inspecting server route code for fetching application/interview data.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874461338,
+    "activity": "Viewing and editing code in a GitHub page, specifically updating an Application Interview follow-up form/component (React/TypeScript).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Find in page\n    Untitled"
+  },
+  {
+    "ts": 1775874471568,
+    "activity": "Viewing and editing a GitHub code file related to application interview email templates (searching within an open pull request).",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Find in page\n    Untitled"
+  },
+  {
+    "ts": 1775874481526,
+    "activity": "Editing application-filters.tsx in the lumos-fellows-frontend codebase while checking build/test output in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874491374,
+    "activity": "Editing a React/TypeScript component (application-filters.tsx) and viewing build/test and git output in the terminal/console.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874501356,
+    "activity": "Editing application-filters.tsx in a working tree while checking terminal output for recent API/tests/build results.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874511229,
+    "activity": "Editing application-filters.tsx in a React/TypeScript project and reviewing terminal logs/tests for API route behavior.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874521527,
+    "activity": "Editing application-filters.tsx in a frontend React/TypeScript project while reviewing build/log output in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874531771,
+    "activity": "Browsing the contents of the slowblink SQLite database, viewing rows in the samples table.",
+    "confidence": 0.8,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874541546,
+    "activity": "Browsing and inspecting rows in the slowblink SQLite database, focusing on an “editing application filters” record in a table and its text content.",
+    "confidence": 0.78,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874552247,
+    "activity": "Browsing records in the slowblink SQLite database, reviewing columns like app category and focused/opened windows.",
+    "confidence": 0.74,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775874561308,
+    "activity": "Editing the React/TypeScript file application-filters.tsx and reviewing related API/log output in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874571471,
+    "activity": "Editing the TypeScript React file application-filters.tsx while debugging API requests in the terminal.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "application-filters.tsx (Working Tree) (application-filters.tsx) — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874581328,
+    "activity": "Reviewing a 2026 Notion page/notes while reference code and logs are open alongside.",
+    "confidence": 0.72,
+    "focused_app": "Notion",
+    "focused_window": "2026"
+  },
+  {
+    "ts": 1775874591555,
+    "activity": "Edits TypeScript React code (index.tsx) to generate an application interview follow-up email, while monitoring API/server logs in the terminal.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874601504,
+    "activity": "Editing a TypeScript React file (index.tsx) for the application interview follow-up email component while viewing server logs/terminal output for related API requests.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874611448,
+    "activity": "Debugging a TypeScript/React function in index.tsx while checking server/API logs and inspecting call behavior in the terminal.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874623109,
+    "activity": "Editing a TypeScript React file (index.tsx) for the application-interview follow-up email page while viewing server logs/build output in the terminal.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874631565,
+    "activity": "Editing a React/TypeScript component (index.tsx) and troubleshooting an email-sending/interview follow-up workflow shown in the terminal output.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874641379,
+    "activity": "Editing a TypeScript/React file (index.tsx) and reviewing console/terminal output with tests and typechecking results.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874651643,
+    "activity": "Editing a React/TypeScript component (index.tsx) and reviewing/compiling output and git status in the terminal while iterating on an application interview follow-up email UI.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775874661521,
+    "activity": "Reviews a GitHub pull request in the Lumos Fellows web repo, inspecting TypeScript changes related to an application interview follow-up flow.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874671954,
+    "activity": "Reviews a GitHub pull request to add an interview booking follow-up flow, inspecting changes in a TypeScript component/file.",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874681275,
+    "activity": "Reviewing and editing a GitHub pull request for adding an interview booking follow-up flow in a React/TypeScript file.",
+    "confidence": 0.84,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874691260,
+    "activity": "Reviewing a GitHub pull request and editing/viewing TypeScript code for an interview booking follow-up notification route.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874701259,
+    "activity": "Reviewing a GitHub pull request for “Add interview booking follow-up flow,” examining and editing TypeScript code in notify.ts related to sending student emails.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874711293,
+    "activity": "Reviewing and editing code in a GitHub pull request for an interview booking follow-up flow.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874721347,
+    "activity": "Viewing a GitHub pull request (#47) deployment and test/check status for an interview booking follow-up flow.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874731343,
+    "activity": "Viewing a GitHub pull request to add an interview booking follow-up flow and checking deployment/test status checks.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874741886,
+    "activity": "Reviewing a GitHub pull request’s deployment and CI checks, and preparing to comment before merging.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874751423,
+    "activity": "The user is viewing a webpage that is currently prompting for authentication (“Authenticating” / “Vercel Authentication”).",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Authentication Required - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874761071,
+    "activity": "Verifies a login/authentication status on the Lumos Fellows site (page shows “Authenticated”).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Authentication Required - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874771449,
+    "activity": "Viewing the Lumos Fellows landing page promoting a virtual 6-week AI product program for college applications.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874781322,
+    "activity": "Selecting a Google account to sign in to the Lumos Fellows web app.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874792475,
+    "activity": "Viewing the Lumos Fellows landing page promoting a “Build a Product” AI program and the “Apply Now” option.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874801716,
+    "activity": "Viewing the Lumos Fellows Admin web dashboard page for “My Interviews.”",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874811226,
+    "activity": "Viewing the Lumos Fellows admin page indicating no mentor profile is linked for the account.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874821311,
+    "activity": "Reviewing an applicant’s admissions status in the Lumos Fellows admin applications dashboard.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874831607,
+    "activity": "Reviewing a GitHub pull request (“Add interview booking follow-up flow”) and checking the status of deployed preview/test checks before merging.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874841433,
+    "activity": "Viewing a GitHub pull request for “Add interview booking follow-up flow” and reviewing the summary and test plan.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": ":sparkles: Add interview booking follow-up flow by AlanChen4 · Pull Request #47 · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874852832,
+    "activity": "Viewing open pull requests for the Lumos-Fellows/lumos-fellows-web repository on GitHub.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Pull requests · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874861638,
+    "activity": "Viewing the GitHub pull requests page for the Lumos Fellows web repository.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Pull requests · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874880682,
+    "activity": "Reading and responding to a technical discussion in the Lumos Fellows help channel about generating and integrating “hints” for code problems using the OpenAI API.",
+    "confidence": 0.82,
+    "focused_app": "Slack",
+    "focused_window": "help-aarush-goradia (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1775874892124,
+    "activity": "Reading and responding to a discussion in the “help-aarush-goradia” Slack channel about integrating an AI hint system for code problems.",
+    "confidence": 0.9,
+    "focused_app": "Slack",
+    "focused_window": "help-aarush-goradia (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1775874901753,
+    "activity": "Reading and composing a discussion in a Slack channel about integrating an AI hint system for code problems.",
+    "confidence": 0.9,
+    "focused_app": "Slack",
+    "focused_window": "help-aarush-goradia (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1775874911522,
+    "activity": "Reading and engaging in a technical discussion in the “help-aarush-goradia” Slack channel about storing problems and generating/monitoring AI hints using an OpenAI/AI API.",
+    "confidence": 0.9,
+    "focused_app": "Slack",
+    "focused_window": "help-aarush-goradia (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1775874921188,
+    "activity": "Viewing an open GitHub pull request list for the Lumos-Fellows/lumos-fellows-web repository, specifically looking at the PR “Add AI auto-grading for exercise submissions.”",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Pull requests · Lumos-Fellows/lumos-fellows-web - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874931249,
+    "activity": "Viewing a GitHub repository page for Lumos-Fellows/lumos-fellows-web and browsing its file/branch list.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos-Fellows/lumos-fellows-web: Let's build fast (and cheap) - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874940992,
+    "activity": "Viewing and editing an application record (Alan Chen) in the “Lumos Fellows” admin interface, including decision and interview follow-up details.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "New Tab - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874951135,
+    "activity": "Viewing the Lumos Fellows admin dashboard with member progress and review status charts.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874961087,
+    "activity": "Viewing the Lumos Fellows applications page/dashboard.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874971297,
+    "activity": "Viewing an application management page for Lumos Fellows, examining a specific applicant’s decision status, notes, and offer details.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874981301,
+    "activity": "Viewing and managing an applications list on the Lumos Fellows web dashboard, selecting a candidate and reviewing their interview decision and details.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775874991865,
+    "activity": "Viewing and managing an application in the Lumos Fellows dashboard, including decision status and interview details.",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875001341,
+    "activity": "Reviewing an applications list and details for a Lumos Fellows candidate (interview status and notes).",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875011323,
+    "activity": "Viewing a Lumos Fellows applications dashboard and browsing interview/application status entries.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875021808,
+    "activity": "Reviewing an email thread in a Gmail-like inbox (“Custom” / Help), reading messages related to an application timeline and next steps.",
+    "confidence": 0.76,
+    "focused_app": "Mail",
+    "focused_window": "Untitled"
+  },
+  {
+    "ts": 1775875031491,
+    "activity": "Viewing a Lumos Fellows applications page and reviewing the details/notes for a specific applicant (Mohamad Bdeir).",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875041451,
+    "activity": "Viewing the details of a Lumos Fellows college application, including decision status and interview information for a specific applicant.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875051368,
+    "activity": "Viewing the Resend “Metrics” dashboard for Lumos Fellows to check email delivery-related metrics over the last 15 days.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Metrics · Resend - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875061491,
+    "activity": "Reviewing an email message in Resend for Lumos Fellows notifications and checking delivery/status details.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "mohamad.moebdeir@gmail.com · Emails · Resend - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875072654,
+    "activity": "Viewing an applications management page in Lumos Fellows and reviewing the details/decision for a specific applicant.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875081938,
+    "activity": "Reviewing details of a college application candidate (Jacob Cohen) in Lumos Fellows, including interview status and notes.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875093007,
+    "activity": "Viewing a Lumos Fellows applications dashboard and reviewing a specific applicant’s decision and interview follow-up details.",
+    "confidence": 0.7,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875101706,
+    "activity": "Viewing and filtering/searching emails in a webmail interface for messages matching “Dahyun,” with results shown in the inbox list.",
+    "confidence": 0.74,
+    "focused_app": "Mail",
+    "focused_window": "Untitled"
+  },
+  {
+    "ts": 1775875111515,
+    "activity": "Searching the inbox for matching emails (Custom folder, 3 results) in Lumos Fellows Mail.",
+    "confidence": 0.9,
+    "focused_app": "Mail",
+    "focused_window": "Searching – Inbox — Custom, 3 results"
+  },
+  {
+    "ts": 1775875121471,
+    "activity": "Searching an email inbox for the address “dahh/daah” and viewing no matching messages.",
+    "confidence": 0.74,
+    "focused_app": "Mail",
+    "focused_window": "Untitled"
+  },
+  {
+    "ts": 1775875131561,
+    "activity": "Viewing an application profile in Lumos Fellows and reviewing decision/aid offer and interview follow-up details for a candidate.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875141368,
+    "activity": "Reviewing a candidate’s application details in the Lumos Fellows applications dashboard.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875151654,
+    "activity": "Viewing a Lumos Fellows applications dashboard and checking details/notes for a specific applicant’s submitted application and interview follow-up.",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875161667,
+    "activity": "Viewing an applicant’s page in the Lumos Fellows applications portal, reviewing submission/decision status and notes for an interview follow-up.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875171548,
+    "activity": "Viewing a Lumos Fellows application page and reviewing a selected applicant’s interview and decision details.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875181586,
+    "activity": "Searching inbox with custom filter showing three results.",
+    "confidence": 0.45,
+    "focused_app": "Mail",
+    "focused_window": "Searching – Inbox — Custom, 3 results"
+  },
+  {
+    "ts": 1775875191900,
+    "activity": "Viewing and managing a Lumos Fellows application record, including interview status and sending follow-up/interview decisions for Ethan Brooks.",
+    "confidence": 0.84,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875201628,
+    "activity": "Reviewing college application details in the Lumos Fellows applications dashboard, including a candidate’s submission and interview status.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875211860,
+    "activity": "Viewing email delivery metrics (deliverability rate, bounce rate, and complaint rate) in Resend’s Metrics dashboard.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Metrics · Resend - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875221452,
+    "activity": "Viewing an email message in Resend (Lumos Fellows) and checking its delivery/sent status and content for a follow-up interview booking.",
+    "confidence": 0.8,
+    "focused_app": "Brave Browser",
+    "focused_window": "ethanbrooks18@icloud.com · Emails · Resend - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875231494,
+    "activity": "Reviewing applications and interview status details on the Lumos Fellows applications dashboard.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875241565,
+    "activity": "Reviewing an application dashboard entry (decision, notes, and interview status) for Lumos Fellows.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875251569,
+    "activity": "Viewing an application management page in Lumos Fellows and reviewing a selected applicant’s decision, interview status, and application details.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875261719,
+    "activity": "Reviewing and entering details for a specific college application in the Lumos Fellows Applications dashboard (decision, interviewer, and notes).",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875271724,
+    "activity": "Reviewing and organizing a 2026 to-do list and related tasks in a Notion page.",
+    "confidence": 0.78,
+    "focused_app": "Notion",
+    "focused_window": "2026"
+  },
+  {
+    "ts": 1775875281364,
+    "activity": "Reviewing and editing a Notion page titled “2026” with a daily to-do list and interview-related follow-up tasks.",
+    "confidence": 0.72,
+    "focused_app": "Notion",
+    "focused_window": "2026"
+  },
+  {
+    "ts": 1775875291534,
+    "activity": "Reviewing and managing a Lumos Fellows student’s application details and interview follow-up status.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows | Build a Product & Strengthen Your College Application - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875301897,
+    "activity": "Reviewing and editing a spreadsheet of applications and decision/status data for Lumos Fellows.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875312583,
+    "activity": "Editing a Google Sheets spreadsheet titled “Lumos Fellows Applications, 2026,” and configuring data validation rules for a specific range.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875321743,
+    "activity": "Viewing and applying Google Sheets data validation settings, with a pop-up asking whether to apply the rule to all matching instances.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875331725,
+    "activity": "Reviews and likely fills out a Google Sheets spreadsheet for the “Lumos Fellows Applications 2026,” including response/dropdown fields and text entries.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875342797,
+    "activity": "Edits a TypeScript React file (index.tsx) and reviews terminal output/test results for the lumos-fellows-frontend project.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775875352359,
+    "activity": "Editing a TypeScript/React email follow-up component in index.tsx while running and reviewing terminal/build output for the project.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "index.tsx — lumos-fellows-frontend — vim/pycharm"
+  },
+  {
+    "ts": 1775875361381,
+    "activity": "The Cursor editor window is open but no readable content is visible (blank workspace).",
+    "confidence": 0.4,
+    "focused_app": "Cursor",
+    "focused_window": "Cursor"
+  },
+  {
+    "ts": 1775875372822,
+    "activity": "Reviewing and editing interview follow-up responses in a spreadsheet titled “Lumos Fellows Applications, 2026.”",
+    "confidence": 0.84,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875381752,
+    "activity": "Viewing and editing terminal/output instructions for an “ops” project, including an agent permission workflow (INSERT → bypass permissions) in the Cursor chat/agent pane.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875391685,
+    "activity": "Working in Cursor on an ops-related project, editing/running terminal output and discussing an issue in a chat prompt.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875401820,
+    "activity": "Working in Cursor to review and edit code in a terminal/chat panel, with focus on the `ops`/vim or pycharm workflow and updating permissions via an “INSERT → bypass permissions” instruction.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875411364,
+    "activity": "Editing a repository in Cursor and viewing terminal output while configuring or updating an ops workflow using a Vim-like interface.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875421544,
+    "activity": "Editing/iterating on an ops-related prompt or code in a Cursor terminal/chat, updating agent instructions (e.g., about google sheets permissions).",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875431828,
+    "activity": "Editing/running an ops project in Cursor’s terminal while working with a Vim/PyCharm-style interface to insert changes related to Google Sheets data.",
+    "confidence": 0.8,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875441347,
+    "activity": "Using Cursor’s terminal to debug and iterate on an ops prompt/query while viewing a notes/chat thread about Google sheets and bypass permissions.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875451775,
+    "activity": "Viewing an “ops” project in Cursor and reading instructions/output for running and executing an “ultralan” task with Claude Code.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875462944,
+    "activity": "Reviewing and responding to a request in Claude Code about updating a “statistics sheet” for Google Sheets within the Ultraplan project.",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875471550,
+    "activity": "Using Claude Code to generate/update code for the “ultramen: Add statistics sheet to Google Sheets” feature and is waiting for the process to run (“incubating”).",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875482720,
+    "activity": "Using Claude Code to continue working on a task titled “ultraplan: Add statistics sheet to Google Sheets application,” reviewing terminal output and waiting for a response.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875491431,
+    "activity": "Reviewing a Claude Code session for the “ultrlan: Add statistics sheet to Google Sheets application” task, reading generated output and guidance.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875502226,
+    "activity": "Browsing a table of rows in the slowblink SQLite database, viewing activity/category fields and associated focused window text.",
+    "confidence": 0.9,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775875511674,
+    "activity": "Browsing records in a SQLite database table (slowblink.db) showing app/activity/window information.",
+    "confidence": 0.86,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775875521814,
+    "activity": "Browsing records in the slowblink SQLite database, viewing entries in the samples table and their fields like activity/category/focused window.",
+    "confidence": 0.74,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775875531975,
+    "activity": "Browsing and filtering rows in a SQLite database table (slowblink.db) to inspect records and their fields like activity category and open windows.",
+    "confidence": 0.78,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775875542111,
+    "activity": "Reviewing a Claude Code session titled “ultraplan: Add statistics sheet to Google Sheets application” and reading the assistant’s response about the requested statistics sheet update.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875552110,
+    "activity": "Working in a Claude Code session to update and verify an “ultraperplan” Google Sheets task, reviewing prior run logs and the related code/output.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875562059,
+    "activity": "Reviews and edits a Google Sheets spreadsheet for Lumos Fellows applications, scanning applicant details and notes columns.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875571511,
+    "activity": "Reading a Claude Code/ultraplan prompt about adding a statistics sheet to a Google Sheets application and reviewing suggested options for how to determine a cohort list.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875581642,
+    "activity": "Reviewing and responding to an Ultraplan task discussion about adding a statistics sheet to Google Sheets, with queries about sheet structure and references.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875592331,
+    "activity": "Reviews and fills out applicant/interview follow-up responses in a Google Sheets spreadsheet titled “Lumos Fellows Applications, 2026.”",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875601820,
+    "activity": "Reviewing and editing a Google Sheets spreadsheet for “Lumos Fellows Applications, 2026,” focusing on rows of applicant responses and a notes/results column.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875611941,
+    "activity": "Viewing a Google Sheets spreadsheet titled “Lumos Fellows Applications, 2026” and reviewing/filtering application data in the table and response columns.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875621994,
+    "activity": "Viewing and scrolling through a Google Sheets document titled “Lumos Fellows Applications, 2026,” reviewing applicant responses and a column of yes/no outcomes.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875631815,
+    "activity": "Viewing and editing a Google Sheets spreadsheet for “Lumos Fellows Applications, 2026.”",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875642920,
+    "activity": "Reading and responding to a Claude Code prompt about adding a “Statistics” sheet/table to a Google Sheets application.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875653528,
+    "activity": "Reviewing and responding to a Claude Code prompt about adding a “Statistics” sheet to a Google Sheets application.",
+    "confidence": 0.82,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875661951,
+    "activity": "Reviewing and editing a Claude Code session for an ultraplans task about adding a statistics sheet to a Google Sheets application, including notes about how the sheets and references should be structured.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875671660,
+    "activity": "Working in Claude Code to update plans for an \"ultrаplan\" change—adding a statistics sheet to a Google Sheets application.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875681798,
+    "activity": "Reviewing a Claude Code conversation about updating a Google Sheets statistics sheet for an “ultraplan” application project.",
+    "confidence": 0.72,
+    "focused_app": "Brave Browser",
+    "focused_window": "ultraplan: Add statistics sheet to Google Sheets application | Claude Code - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775875691690,
+    "activity": "Editing and running an ops/vim (Python) workflow in the integrated terminal, including deploying an agent and inserting an 'outatplan' command.",
+    "confidence": 0.84,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875701562,
+    "activity": "Viewing and editing terminal output/code for an ops workflow related to Claude/Google Sheets, then preparing to continue in the chat session.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875711718,
+    "activity": "Editing or running code for an ops-related project in a terminal while reviewing a plan output.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875721586,
+    "activity": "Using Cursor/IDE to view an ops-related prompt and respond with code/commands in a terminal/chat window.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875731755,
+    "activity": "Reading and working on an ops chat/prompt in the Cursor editor while reviewing files in the sidebar.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875741667,
+    "activity": "Editing and running an ops/vim/pycharm workflow in Cursor while reviewing a terminal/chat response about updating Google Sheets.",
+    "confidence": 0.84,
+    "focused_app": "Cursor",
+    "focused_window": "ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875751658,
+    "activity": "Editing the summer-applications-rubric.md file in a Markdown/Vim-like editor and reviewing rubric/Google Sheets instructions and CLI commands.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875761770,
+    "activity": "Editing the summer-applications-rubric.md documentation in Cursor, reviewing and updating notes for accessing Google Sheets and grading logic.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875771862,
+    "activity": "Editing a Markdown rubric document and reviewing shell/CLI notes and examples in a split pane.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875781990,
+    "activity": "Editing the “summer-applications-rubric.md” Markdown rubric and reviewing/iterating on the workflow instructions and code-like steps in the document.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875791994,
+    "activity": "Editing a Markdown rubric file (summer-applications-rubric.md) and reviewing content around the Google Sheets setup and command usage in the ops section.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875802023,
+    "activity": "Editing a markdown document and working through/debugging ops-related shell/AWS-style commands and errors for Google Sheets access using `gws` CLI and bash.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875812246,
+    "activity": "Editing the summer-applications-rubric.md document and debugging a command/script in the terminal panel.",
+    "confidence": 0.84,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875902010,
+    "activity": "Editing a Markdown file for a “Summer Applications Rubric” while debugging a Python/CLI script error in the terminal output.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875912151,
+    "activity": "Editing a Markdown file (summer-applications-rubric.md) and reviewing/iterating on rubric instructions and related CLI/debug output in a terminal pane.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875921740,
+    "activity": "Editing the summer-applications-rubric.md documentation and viewing terminal output while working in a Markdown/Vim-like environment.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875932886,
+    "activity": "Editing a markdown rubric file for “Summer Applications Rubric” while viewing command-line output in a terminal pane.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875941835,
+    "activity": "Edits a markdown rubric file for Summer Applications and runs/inspects related terminal commands in the background.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775875952028,
+    "activity": "Editing the summer-applications-rubric.md ops document and running a terminal script/output related to Google Sheets API to inspect data.",
+    "confidence": 0.74,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876072582,
+    "activity": "Editing a Markdown document (summer-applications-rubric.md) and checking notes while reviewing rubric details and errors/results in the sidebar.",
+    "confidence": 0.76,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876082187,
+    "activity": "Editing a markdown rubric file for “Summer Applications” while reviewing/debugging related logs/output in a side panel.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876092237,
+    "activity": "Editing a markdown file (summer-applications-rubric.md) that contains rubric instructions and Google Sheets/GWS CLI notes, while reviewing console/output details.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876102115,
+    "activity": "Viewing the contents of a slowblink SQLite database, inspecting rows such as app focus and activity over time.",
+    "confidence": 0.86,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775876112107,
+    "activity": "Browsing rows in a local slowblink.db SQLite database, viewing entries from the “samples” table.",
+    "confidence": 0.9,
+    "focused_app": "DB Browser for SQLite",
+    "focused_window": "DB Browser for SQLite - /Users/ahchoo/Library/Application Support/slowblink/slowblink.db"
+  },
+  {
+    "ts": 1775876121991,
+    "activity": "Edits a Markdown document (summer-applications-rubric.md) while reviewing/processing some related command output in the terminal pane.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876132766,
+    "activity": "Viewing and editing a Markdown file for the “Summer Applications Rubric,” including a Google Sheets-based grading/rules document and related shell command output.",
+    "confidence": 0.86,
+    "focused_app": "Tomito",
+    "focused_window": null
+  },
+  {
+    "ts": 1775876142027,
+    "activity": "Editing a markdown document (summer-applications-rubric.md) and reviewing related grading/debug output in the terminal/logs.",
+    "confidence": 0.78,
+    "focused_app": "Cursor",
+    "focused_window": "summer-applications-rubric.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876162691,
+    "activity": "Viewing a blank/loading Google Slides page while working in a markdown/terminal-like editor behind it.",
+    "confidence": 0.76,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Start Page"
+  },
+  {
+    "ts": 1775876172160,
+    "activity": "Reading a Reddit post in an anonymous window and viewing an embedded content preview.",
+    "confidence": 0.82,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Reddit - The heart of the internet"
+  },
+  {
+    "ts": 1775876182248,
+    "activity": "Editing the SKILL.md documentation in a Cursor editor window, reviewing sections about gws-slides and related API/presentation resources.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876192191,
+    "activity": "Browsing Reddit’s Achievements page in a private Safari window while also viewing a coding/terminal setup on the desktop.",
+    "confidence": 0.78,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Inbox"
+  },
+  {
+    "ts": 1775876202107,
+    "activity": "Viewing a Reddit post about a 5-letter word guessing puzzle while browsing on Safari.",
+    "confidence": 0.84,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Reddit - The heart of the internet"
+  },
+  {
+    "ts": 1775876212176,
+    "activity": "Browsing Reddit posts about college admissions and application statistics.",
+    "confidence": 0.78,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Reddit - The heart of the internet"
+  },
+  {
+    "ts": 1775876222408,
+    "activity": "Viewing a Reddit post in r/chanceme to check admissions chances for “chance yaoi lover for hypsm + t20s.”",
+    "confidence": 0.86,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — chance yaoi lover for hypsm + t20s : r/chanceme"
+  },
+  {
+    "ts": 1775876232097,
+    "activity": "Viewing a Reddit r/chanceme post and scrolling through application-related details while also seeing a coding/debug output in another window.",
+    "confidence": 0.72,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — chance yaoi lover for hypsm + t20s : r/chanceme"
+  },
+  {
+    "ts": 1775876242046,
+    "activity": "Reading a Reddit post/comment thread about college chances (r/chanceme) and related application details.",
+    "confidence": 0.78,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — chance yaoi lover for hypsm + t20s : r/chanceme"
+  },
+  {
+    "ts": 1775876253296,
+    "activity": "Reading a Reddit thread about chance/college admissions (r/chanceme) while also viewing code/text in another area.",
+    "confidence": 0.8,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — chance yaoi lover for hypsm + t20s : r/chanceme"
+  },
+  {
+    "ts": 1775876263128,
+    "activity": "Viewing a Reddit post about whether to pick Ivy League schools (Yale/Brown/Princeton or other options) and related college admissions advice.",
+    "confidence": 0.86,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Reddit - The heart of the internet"
+  },
+  {
+    "ts": 1775876272059,
+    "activity": "Viewing a Reddit post in the r/ApplyingToCollege subreddit titled “You can’t make this up.”",
+    "confidence": 0.78,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — You can’t make this up. : r/ApplyingToCollege"
+  },
+  {
+    "ts": 1775876282040,
+    "activity": "Viewing a Reddit post on r/ApplyingToCollege about a rejected/waitlisted application experience.",
+    "confidence": 0.8,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — You can’t make this up. : r/ApplyingToCollege"
+  },
+  {
+    "ts": 1775876292612,
+    "activity": "Viewing a Reddit post comparing Caltech and Princeton.",
+    "confidence": 0.86,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Caltech, Princeton, and more... : r/collegecompare"
+  },
+  {
+    "ts": 1775876302056,
+    "activity": "Reading a Reddit thread comparing Princeton and related colleges, likely deciding which to apply to.",
+    "confidence": 0.74,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Caltech, Princeton, and more... : r/collegecompare"
+  },
+  {
+    "ts": 1775876312059,
+    "activity": "Browsing a Reddit thread comparing colleges (Caltech/Princeton and others) while viewing additional statistics in another pane/tab.",
+    "confidence": 0.75,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous II — Caltech, Princeton, and more... : r/collegecompare"
+  },
+  {
+    "ts": 1775876322134,
+    "activity": "Editing a Google Sheets spreadsheet for “Lumos Fellows Applications, 2026,” adjusting formatting/colors via the context menu.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876332063,
+    "activity": "Viewing a Google Sheets spreadsheet tracking Lumos Fellows application statistics by date (totals and acceptance/aid percentages).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876341862,
+    "activity": "Reviewing and analyzing application statistics in a Google Sheets spreadsheet (totals and acceptance/aid rates by date).",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876351859,
+    "activity": "Editing a Google Sheets spreadsheet for Lumos Fellows Applications, viewing acceptance and financial-aid statistics by date range.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876362066,
+    "activity": "Editing the SKILL.md documentation for the ops project, reviewing and modifying content around the gws-slides skill and its API/resources/commands.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876371938,
+    "activity": "Editing the ops/SKILL.md documentation in a Markdown file and reviewing related terminal output/logs.",
+    "confidence": 0.8,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876381889,
+    "activity": "Editing the SKILL.md documentation in a repository, reviewing and adding notes and command/API details in Markdown.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876391887,
+    "activity": "Editing the SKILL.md OPS documentation in Cursor while reviewing related CLI/API output and tables in the same screen.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876402496,
+    "activity": "Editing a Markdown file (SKILL.md/ops documentation) in the Cursor editor, reviewing API/operations details alongside a terminal/editor split view.",
+    "confidence": 0.86,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876412139,
+    "activity": "Viewing a Google Sheets spreadsheet titled “Lumos Fellows Applications, 2026” with totals and acceptance/aid metrics by date range.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876422174,
+    "activity": "Editing the ops/SKILL.md documentation in a code editor while reviewing an operations summary table and related stats on the right.",
+    "confidence": 0.9,
+    "focused_app": "Cursor",
+    "focused_window": "SKILL.md — ops — vim/pycharm"
+  },
+  {
+    "ts": 1775876432218,
+    "activity": "Viewing a Google Sheets spreadsheet tracking application counts and acceptance/financial aid rates by date range.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876441944,
+    "activity": "Reviewing and entering summary metrics in a Google Sheets spreadsheet for application totals and acceptance rates by date.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "Lumos Fellows Applications, 2026 - Google Sheets - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1775876452574,
+    "activity": "Configuring a screen capture/LLM capture interval and OpenAI API key in an Electron app.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]

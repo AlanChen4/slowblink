@@ -5,9 +5,10 @@ import {
   type ServerResponse,
 } from 'node:http';
 import { app } from 'electron';
+import type { OverviewScope } from '../../shared/types';
 import type { Automation } from '../automation';
-import { logger } from '../logger';
-import { isReplayLoggingEnabled } from '../settings';
+import { getLogBuffer, logger } from '../logger';
+import { getOverviewDebug } from '../overview/debug';
 
 const HOST = '127.0.0.1';
 const PORT = 5175;
@@ -24,7 +25,7 @@ export interface ControlServer {
 
 function setCors(res: ServerResponse): void {
   res.setHeader('access-control-allow-origin', ALLOWED_ORIGIN);
-  res.setHeader('access-control-allow-methods', 'POST, OPTIONS');
+  res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
   res.setHeader('access-control-allow-headers', 'content-type');
 }
 
@@ -46,10 +47,6 @@ async function handleCapture(
   res: ServerResponse,
   automation: Automation,
 ): Promise<void> {
-  if (!isReplayLoggingEnabled()) {
-    jsonResponse(res, 409, { error: 'replay-logging-off' });
-    return;
-  }
   try {
     await automation.captureNow();
     jsonResponse(res, 200, { ok: true });
@@ -59,26 +56,88 @@ async function handleCapture(
   }
 }
 
+function parseScope(raw: string | null): OverviewScope | null {
+  if (raw === 'this-device' || raw === 'all-devices') return raw;
+  return null;
+}
+
+async function handleOverviewDebug(
+  res: ServerResponse,
+  url: URL,
+): Promise<void> {
+  const start = Number(url.searchParams.get('start'));
+  const end = Number(url.searchParams.get('end'));
+  const scope = parseScope(url.searchParams.get('scope'));
+  if (!Number.isFinite(start) || !Number.isFinite(end) || !scope) {
+    jsonResponse(res, 400, { error: 'invalid-range' });
+    return;
+  }
+  try {
+    const debug = await getOverviewDebug(start, end, scope);
+    jsonResponse(res, 200, debug);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    jsonResponse(res, 500, { error: message });
+  }
+}
+
+interface Route {
+  method: 'GET' | 'POST';
+  path: string;
+  handle: (res: ServerResponse, url: URL, deps: ControlServerDeps) => void;
+}
+
+const ROUTES: Route[] = [
+  {
+    method: 'POST',
+    path: '/capture',
+    handle: (res, _u, deps) => {
+      void handleCapture(res, deps.automation);
+    },
+  },
+  {
+    method: 'GET',
+    path: '/status',
+    handle: (res, _u, deps) => {
+      jsonResponse(res, 200, deps.automation.getState().status);
+    },
+  },
+  {
+    method: 'GET',
+    path: '/logs',
+    handle: (res) => {
+      jsonResponse(res, 200, { entries: getLogBuffer() });
+    },
+  },
+  {
+    method: 'GET',
+    path: '/overview-debug',
+    handle: (res, url) => {
+      void handleOverviewDebug(res, url);
+    },
+  },
+];
+
 function handleRequest(
   req: IncomingMessage,
   res: ServerResponse,
   deps: ControlServerDeps,
 ): void {
-  if (req.url !== '/capture') {
-    jsonResponse(res, 404, { error: 'not-found' });
-    return;
-  }
+  const url = new URL(req.url ?? '/', `http://${HOST}:${PORT}`);
   if (req.method === 'OPTIONS') {
     setCors(res);
     res.writeHead(204);
     res.end();
     return;
   }
-  if (req.method === 'POST') {
-    void handleCapture(res, deps.automation);
+  const route = ROUTES.find(
+    (r) => r.method === req.method && r.path === url.pathname,
+  );
+  if (!route) {
+    jsonResponse(res, 404, { error: 'not-found' });
     return;
   }
-  jsonResponse(res, 405, { error: 'method-not-allowed' });
+  route.handle(res, url, deps);
 }
 
 export function createControlServer(deps: ControlServerDeps): ControlServer {

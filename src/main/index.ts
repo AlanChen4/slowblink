@@ -14,7 +14,6 @@ import { initDb } from './db';
 import { getDevDockIcon } from './dock-icon';
 import {
   broadcastAutomationUpdates,
-  broadcastLogUpdates,
   broadcastPlanUpdates,
   broadcastSampleUpdates,
   broadcastSessionUpdates,
@@ -193,7 +192,6 @@ app.whenReady().then(async () => {
   disposers.push(broadcastSessionUpdates());
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
-  disposers.push(broadcastLogUpdates());
   disposers.push(broadcastSampleUpdates());
 
   initSync();
