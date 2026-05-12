@@ -41,6 +41,20 @@ import {
 } from './settings';
 import { initSync } from './sync/flusher';
 
+// When `pnpm dev` (or any parent that owns our stdio) exits before the
+// Electron process does, the next `console.log` write hits a dead pipe and
+// surfaces as EPIPE — promoted to an Electron "Uncaught Exception" dialog.
+// Treat broken stdio as a silent no-op; we don't read these streams back.
+for (const stream of [process.stdout, process.stderr]) {
+  stream.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code !== 'EPIPE' && err.code !== 'ERR_STREAM_DESTROYED') throw err;
+  });
+}
+process.on('uncaughtException', (err: NodeJS.ErrnoException) => {
+  if (err.code === 'EPIPE' || err.code === 'ERR_STREAM_DESTROYED') return;
+  throw err;
+});
+
 // Open the Chrome DevTools Protocol port in dev so agent-browser (and any
 // other CDP client) can attach for E2E checks. Skipped in packaged builds.
 if (!app.isPackaged) {
