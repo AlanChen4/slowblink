@@ -4,9 +4,9 @@ import type {
   Sample,
   Segment,
 } from '../../shared/types';
-import { aggregate } from './aggregator';
+import { aggregate } from '../../shared/overview/aggregator';
+import { samplesToSegments } from '../../shared/overview/segmenter';
 import { buildLocalPipeline, deriveRange, fetchSupabaseSamples } from './index';
-import { samplesToSegments } from './segmenter';
 
 export interface OverviewDebug {
   range: {

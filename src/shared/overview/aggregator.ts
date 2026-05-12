@@ -3,7 +3,7 @@ import type {
   OverviewAggregate,
   Segment,
   WindowDuration,
-} from '../../shared/types';
+} from '../types';
 
 export function aggregate(segments: Segment[]): OverviewAggregate {
   const appMs = new Map<string, number>();

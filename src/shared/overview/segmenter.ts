@@ -1,4 +1,4 @@
-import type { Sample, Segment } from '../../shared/types';
+import type { Sample, Segment } from '../types';
 
 export const IDLE_GAP_MS = 60_000;
 

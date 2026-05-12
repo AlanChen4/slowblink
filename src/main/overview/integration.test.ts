@@ -4,8 +4,8 @@
  * pulls in Electron and the SQLite DB — those paths need a harness.
  */
 import { describe, expect, test } from 'vitest';
-import { aggregate } from './aggregator';
-import { samplesToSegments } from './segmenter';
+import { aggregate } from '../../shared/overview/aggregator';
+import { samplesToSegments } from '../../shared/overview/segmenter';
 import {
   seedAudioPlayingFlicker,
   seedBrowserHeavyDay,

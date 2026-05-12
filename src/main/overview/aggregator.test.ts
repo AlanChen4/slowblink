@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { aggregate } from './aggregator';
-import { samplesToSegments } from './segmenter';
+import { aggregate } from '../../shared/overview/aggregator';
+import { samplesToSegments } from '../../shared/overview/segmenter';
 import {
   seedBrowserHeavyDay,
   seedCodingDay,
