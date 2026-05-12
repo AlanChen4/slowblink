@@ -1,0 +1,156 @@
+[
+  {
+    "ts": 1776453218034,
+    "activity": "Debugging and running an Electron/slowblink setup while reviewing code output and system audio/screen recording permission toggles on macOS.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776453224981,
+    "activity": "Configuring an OpenAI API key and recording settings in slowblink to fix ARM64 app damaged on macOS.",
+    "confidence": 0.7,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776453235151,
+    "activity": "Viewing and debugging notes/code for fixing an Electron/slowblink macOS “ARM64 damaged” download issue.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776453244500,
+    "activity": "Reviewing and editing a written technical plan in Claude about fixing a macOS code-signing issue for an ARM64 download.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453255142,
+    "activity": "Reviewing recent GitHub sessions/PRs and discussing fixes for issues (e.g., updating offer letter deposit dates and repairing an ARM app error on macOS) with Claude.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453264252,
+    "activity": "Reviewing recent code sessions and pull request discussions in Claude, including a request to fix an ARM app error on macOS.",
+    "confidence": 0.75,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453274545,
+    "activity": "Reviewing and responding to coding-related suggestions or pull requests in Claude, focused on fixing errors (e.g., updating an offer letter deposit/payment dates and resolving an ARM app issue on macOS).",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453284300,
+    "activity": "Reviews prior sessions and discusses fixing GitHub-related issues in a chat thread.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453294452,
+    "activity": "Reviews GitHub pull requests and session updates while working on code-related fixes with Claude.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453304272,
+    "activity": "Reviewing recent GitHub pull requests and session messages, including one about fixing an ARM app error on macOS.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453314561,
+    "activity": "Reviewing and editing code/text for scheduling/deadline logic and tests in a web project update, then checking results and summarizing changes.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453324953,
+    "activity": "Reviews and edits a plan for updating “later deposit”/payment due dates and verifying timezone/date logic, including running tests and summarizing code changes.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453334714,
+    "activity": "Reviewing and editing code-related notes about date/time logic and testing results for a repository change (formatting deposit dates and clamping deadline dates).",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453344790,
+    "activity": "Reviewing and writing a technical response about fixing an ARM macOS app signing/build issue in a code discussion.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776453354472,
+    "activity": "Browsing the filesystem in Finder while viewing a project folder named “Code,” likely to navigate to relevant code/app directories.",
+    "confidence": 0.83,
+    "focused_app": "Finder",
+    "focused_window": "Code"
+  },
+  {
+    "ts": 1776453364294,
+    "activity": "Browsing the macOS Library folder contents and reviewing saved items/projects.",
+    "confidence": 0.78,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453374290,
+    "activity": "Viewing the Mac “Library” folder contents in Finder and selecting the Spotify directory.",
+    "confidence": 0.74,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453385013,
+    "activity": "Browsing the macOS “Library” folder and selecting items inside it.",
+    "confidence": 0.74,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453394541,
+    "activity": "Viewing the contents of the “Library” folder in Finder.",
+    "confidence": 0.74,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453406043,
+    "activity": "Viewing the ~/Library folder contents and recent items in a Finder window.",
+    "confidence": 0.78,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453414266,
+    "activity": "Browsing the Library folder in Finder and reviewing its directory contents.",
+    "confidence": 0.78,
+    "focused_app": "Finder",
+    "focused_window": "Library"
+  },
+  {
+    "ts": 1776453424385,
+    "activity": "Reviewing recent Finder directory activity in a timeline view while browsing the Library folder contents.",
+    "confidence": 0.76,
+    "focused_app": "Finder",
+    "focused_window": null
+  }
+]

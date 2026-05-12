@@ -1,0 +1,44 @@
+[
+  {
+    "ts": 1778275371845,
+    "activity": "Viewing the Slowblink “Today” analytics/overview page while monitoring logs and an open terminal output, including a fetch error.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778276318239,
+    "activity": "Reviews an “Today” app-activity overview in the slowblink dashboard while viewing related session/log details.",
+    "confidence": 0.66,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778276321849,
+    "activity": "Reviewing the slowblink app’s dashboard/logs and an in-page preview (top apps/today view) while monitoring running activity.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778276327828,
+    "activity": "Using slowblink to preview and monitor an app’s dashboard (Today/Top apps) and view an autoplay screenshot/capture result.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778276334613,
+    "activity": "Viewing the slowblink dashboard while inspecting a web-app “Today” page preview (top apps/logs) for captured activity/analytics.",
+    "confidence": 0.7,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778276498458,
+    "activity": "Using the slowblink app to review a captured “yesterday” top-apps/usage report and inspect session logs for the Electron (slowblink) dashboard.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]

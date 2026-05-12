@@ -1,0 +1,58 @@
+[
+  {
+    "ts": 1778020737724,
+    "activity": "Viewing and monitoring an “add evil server” checkout/plan in slowblink, reviewing logs and configuration details for the running job.",
+    "confidence": 0.84,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778020741075,
+    "activity": "Viewing the Logs page for a slowblink/Electron run, reading setup instructions and checking captured output.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778020745544,
+    "activity": "Viewing and monitoring logs for an “add evell server” checkout/plan run.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778021007647,
+    "activity": "Watching a slowblink replay/dashboard for the “Today” period while server logs are displayed.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778021012076,
+    "activity": "Reviewing and analyzing a Slowblink replay session log/output in Claude, likely debugging Electron/DevTools and capture status (success/blocked/error).",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778021017303,
+    "activity": "Reviewing and editing documentation/debug notes for a SlowBlink “replay”/server setup, with a browser window showing the replay interface and session logs/console output.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778021021301,
+    "activity": "Reviewing and debugging Claude’s SlowBlink replay/session results by reading logs and a JSON API response in the browser.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778021025971,
+    "activity": "Viewing a slowblink replay dashboard/logs in an Electron app, checking the “Today” overview and playback results (success/blocked/error) for an execution timeline.",
+    "confidence": 0.9,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]

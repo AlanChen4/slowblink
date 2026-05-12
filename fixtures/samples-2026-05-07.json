@@ -1,0 +1,1983 @@
+[
+  {
+    "ts": 1778196707897,
+    "activity": "Viewing an app performance/metrics dashboard for “Yesterday” while watching terminal output and debugging/recording related session logs.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196710236,
+    "activity": "Using the slowblink Electron app to review today’s app activity/summary and checking session logs while a terminal is open.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196716708,
+    "activity": "Viewing and reviewing slowblink app logs and performance/metrics in the Electron app while a terminal window is open.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196720475,
+    "activity": "Reviewing a code-related summary for a repository while viewing terminal logs and an Electron screen-capture capture results panel.",
+    "confidence": 0.75,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196725459,
+    "activity": "Reviewing and editing a code/documentation summary for an app-icons end-to-end implementation while viewing session/console logs and screenshot capture results in a side panel.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196730526,
+    "activity": "Reading a codebase summary and reviewing session/log output while preparing or responding to changes about app icon integration in the Slowblink project.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196735092,
+    "activity": "Reviewing and summarizing code/documentation in a Claude chat while capturing and examining screenshot-based session logs.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196740764,
+    "activity": "Reading and editing a plan/document in Claude for a project, updating and verifying a script (welcome.md) and associated checklist.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196745908,
+    "activity": "Reviewing and editing a GitHub/Markdown document that drafts a “Welcome to Lumos Fellows” script plan and checklist, using comments and suggested revisions.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196750547,
+    "activity": "Reviewing and editing a plan/checklist in a Claude document about adding curriculum scripts, while referencing files in the project directory.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196755302,
+    "activity": "Reviewing and editing curriculum-related notes/files, using the file list to reference content while working on an “0.1 Welcome to Lumos Fellows” document.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196760544,
+    "activity": "Reviewing and editing a plan in a Claude code/chat workspace, including checking and verifying curriculum-related files and text.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196765152,
+    "activity": "Reviewing and editing a long document about implementing a plan, while viewing associated files in the sidebar.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196770584,
+    "activity": "Reviewing and editing code/documentation in a Claude workspace while reading about a project plan and verification checklist.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196775272,
+    "activity": "Reviewing and editing a document while browsing a project file tree and reading the “Why now” section content.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196780943,
+    "activity": "Reading and reviewing a code/document plan in Claude while viewing related repository files.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196785514,
+    "activity": "Reviewing and editing a project/document (“add curriculum scripts”) with an open file tree and detailed text content in the workspace.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196791303,
+    "activity": "Reviewing and editing documentation/code discussion about updating curriculum scripts, checking a file tree and verifying notes in a project.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196795168,
+    "activity": "Reviewing and editing content in a Claude coding/document workspace while checking repository files in a sidebar.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196800152,
+    "activity": "Reading and editing a document in the Claude workspace while reviewing a project/code file list and associated notes.",
+    "confidence": 0.7,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196805273,
+    "activity": "Reading and editing a long document about “add curriculum scripts,” including a checklist and file/repository notes on the right.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196810296,
+    "activity": "Reviewing and editing repository-related text/code, comparing checklist notes with files in the project sidebar.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196815214,
+    "activity": "Using the slowblink Electron app to monitor app performance/latency logs and view session capture details in a “Today” dashboard.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196820222,
+    "activity": "Viewing the Slowblink dashboard for today’s app usage and reviewing session/log data.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196825548,
+    "activity": "Reviews logs and a screenshot capture dashboard in Claude to debug slowblink/add app icon capture results.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196830259,
+    "activity": "Reviewing terminal/session logs and past screenshot interactions while composing or validating a summary in a Claude chat.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196852999,
+    "activity": "Reviewing session/output logs and screenshot capture results while working on a web development/testing task.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196857225,
+    "activity": "Viewing the Slowblink app’s dashboard/overview for today’s top apps and logs while a terminal/debug window is open.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196862514,
+    "activity": "A permissions prompt is open asking to allow the Claude app to access and control Electron on the device (with options to Allow or Don’t Allow).",
+    "confidence": 0.7,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778196867286,
+    "activity": "Using Claude to review and debug code, referencing slowblink/app icons and Electron/Screenshot session logs.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196872655,
+    "activity": "Reviewing a software/testing workflow and session logs in Claude while preparing or analyzing updates to an app (e.g., running/validating “TopApps” UI/icon-related tests).",
+    "confidence": 0.76,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196879818,
+    "activity": "Reviewing a codebase and session logs in Claude while analyzing a screenshot/request.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196882174,
+    "activity": "Reviewing and editing a code-related request while checking session logs and screenshots in the Claude interface.",
+    "confidence": 0.77,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196887450,
+    "activity": "Reading and reviewing a software development conversation that discusses testing and icon/app rendering changes, alongside logs and a browser replay screenshot.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196892622,
+    "activity": "Reading and analyzing a software/testing log and screenshots in Claude while working on a developer task related to app icons and verification.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196897494,
+    "activity": "Reviewing and updating code/documentation in Claude while analyzing a video/UI issue related to text and cursor positioning, reading files and inspecting screenshots.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196902419,
+    "activity": "Reading and reviewing a Claude write-up about debugging cursor/text width and background color alignment in an app workflow, with references to several updated files and rendered results.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196907350,
+    "activity": "Reviewing and editing a curriculum scripts plan in Claude while viewing a file list and checking specific markdown/YAML documents (e.g., curriculum/v1 and exercises scripts) to verify the implementation.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196912634,
+    "activity": "Reviewing and updating notes/code for a project, including a checklist and reading files on the right sidebar.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196919213,
+    "activity": "Reading and reviewing repository files while discussing and verifying a plan/checklist for updating curriculum scripts.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196922418,
+    "activity": "Reviewing and editing a codebase plan while referencing a local file tree and verifying a checklist in a Claude document.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196927390,
+    "activity": "Reviews and edits a project plan/document, checking files and reading verification notes on the screen.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196932449,
+    "activity": "Reviewing and editing course-planning/script text in a Claude workspace while checking a verification checklist and updating document files.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196937509,
+    "activity": "Reviewing and editing a code-related plan/notes while browsing a repository file list (open README and other curriculum scripts) in Claude.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196942882,
+    "activity": "Reviews and edits a written plan/document about curriculum scripts while checking related files and implementing script changes in a code project.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196947421,
+    "activity": "Reading and reviewing notes/document text about updating curriculum scripts and implementation plans.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196952406,
+    "activity": "Reviewing and editing project notes in Claude, including analyzing a verification checklist and updating curriculum-related files.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196957608,
+    "activity": "Reviewing a software/engineering task list in Claude alongside captured Electron/Browser screenshots and logs to diagnose an app icon-rendering issue.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196962391,
+    "activity": "Using Claude to review and respond to a software development/testing log, discussing capture and verification results for an Electron app and related code changes.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196967348,
+    "activity": "Reviewing and responding to a software issue/debugging discussion that includes terminal/test output and a captured screenshot in a chat.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196973234,
+    "activity": "Discussing and troubleshooting missing app icons with Claude, including reviewing terminal test output and parsed/response logs.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196977697,
+    "activity": "Using Claude to investigate app icon/logging issues, reviewing session logs and troubleshooting why icons aren’t showing.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196983602,
+    "activity": "Claude is showing a code/documentation discussion with verification logs, and the user appears to be investigating why app icons aren’t rendering from a local Electron/terminal session screenshot.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196987910,
+    "activity": "Reviewing and editing repository documentation, verifying checklist details in a README file while checking related project files.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196993566,
+    "activity": "Reviewing and editing a repository planning/checklist document in Claude while viewing the project’s file list on the right.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778196998118,
+    "activity": "Reviewing and editing documentation about “add curriculum scripts” in a project, while browsing the file list on the right.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197005148,
+    "activity": "Viewing a Google search/chat results page for “html si” and “Ask Leo,” focused on a GitHub issue about requesting HTML slides to generate a PDF.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": null
+  },
+  {
+    "ts": 1778197008048,
+    "activity": "Searching the web for a GitHub/HTML slide generator that uses Claude code to create HTML presentations.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "html slides claude code - Google Search - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197014040,
+    "activity": "Viewing the GitHub README page for the “Frontend Slides” project and watching an embedded demo video.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197017976,
+    "activity": "Viewing the GitHub README page for the “Frontend Slides” project, which describes how it converts PowerPoint files into HTML presentation slides.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197023774,
+    "activity": "Viewing the GitHub README page for the “frontend-slides” project, including a demo video and description of its features.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197029474,
+    "activity": "Viewing the GitHub README page for “Frontend Slides” and watching a demo video of the slide generator.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197032787,
+    "activity": "Viewing a GitHub README for the “frontend-slides” project, which describes how to convert a PowerPoint into styled web slides.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197037799,
+    "activity": "Viewing the README on a GitHub page for a project that helps export web slides to PDF using tools like Playwright and Claude Code.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197043946,
+    "activity": "Reading the GitHub README for the frontend-slides project, specifically the section on sharing presentations via a live URL or exporting to PDF.",
+    "confidence": 0.84,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197049066,
+    "activity": "Reading the README on GitHub for the “frontend-slides” project, focusing on deployment and exporting slides to PDF.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197053323,
+    "activity": "Viewing the GitHub repository page for “zarazangrui/frontend-slides” and reviewing its files/readme information.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197059583,
+    "activity": "Viewing the GitHub page for “zarazangrui/frontend-slides,” including a README with a demo video and listed key features.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197064506,
+    "activity": "Viewing the GitHub README page for the “frontend-slides” project, including a demo video and key features/installation details.",
+    "confidence": 0.84,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197067854,
+    "activity": "Viewing the README page for the GitHub project “frontend-slides” and playing the embedded demo video.",
+    "confidence": 0.76,
+    "focused_app": "Brave Browser",
+    "focused_window": "zarazhangrui/frontend-slides: Create beautiful slides on the web using Claude's frontend skills - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197072824,
+    "activity": "Reviewing a GitHub pull request for the Lumos Fellows project, viewing and editing the PR summary/details for “feat: lumos-demo-video skill (v3)”. ",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197079528,
+    "activity": "Reviews and edits a GitHub pull request for the “feat: lumos-demo-video skill” (PR #3) by reading the submission summary and changes.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778197082829,
+    "activity": "Viewing the GitHub app-review pull request dashboard, selecting the “Yesterday” tab in the Top apps/overview section.",
+    "confidence": 0.76,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197087976,
+    "activity": "Reviewing a GitHub pull request/overview page and checking the “Today” top apps dashboard and related development status.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197092278,
+    "activity": "Reviewing logs and screenshots to debug why app icons aren’t rendering in an Electron app.",
+    "confidence": 0.76,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197097705,
+    "activity": "Using Claude to troubleshoot why app icons/screenshots aren’t appearing, reviewing logs and code output from an Electron/Brave Browser setup.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197102519,
+    "activity": "Debugging an Electron app’s missing icons by inspecting logs/output and searching for where rendering or data URLs might be failing.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197107533,
+    "activity": "Reviewing and analyzing notes/code about cursor positioning and text-edge/wipe animation behavior in a video, likely to verify how placeholder text aligns during typing.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197114729,
+    "activity": "Reviewing and refining a set of notes/code explanation about cursor positioning, text-edge estimates, and placeholder/input overlay alignment.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197117395,
+    "activity": "Reading and analyzing output text/documents about updating and rendering cursor/placeholder positioning, including checking background/input color and alignment behavior.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197122556,
+    "activity": "Reviewing and editing notes/text about video/app rendering, including cursor positioning and placeholder/text alignment, in a coding/chat workspace.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197127413,
+    "activity": "Reviewing and editing a code/documentation write-up about timing and cursor positioning, including notes on placeholder and text alignment behavior.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197132520,
+    "activity": "Reviewing and editing notes/code comments about improving a text-edge/cursor typing alignment issue, including inspecting example frames and input background color.",
+    "confidence": 0.88,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197137433,
+    "activity": "Reviewing and refining notes/code explanations about a UI text-edge/cursor overlay issue, referencing specific rendering frames and files.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197142556,
+    "activity": "Reviewing and editing code/documentation to optimize cursor positioning and text rendering, including analyzing frame/background behavior using screenshots.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197147415,
+    "activity": "Reading and discussing code/development notes in a Claude chat about cursor positioning and text/placeholder rendering in a “speed up vid” project.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197153923,
+    "activity": "Reviewing and editing code notes for a UI typing/placeholder rendering issue, including reading generated screenshots/frames and running commands to verify alignment and background color.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197157545,
+    "activity": "Reviewing and editing a document or code notes about a UI/text rendering issue, analyzing cursor positioning, placeholder text, and animation frames.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197162645,
+    "activity": "Reviews and edits a written technical explanation, including discussing cursor/placeholder text behavior and running commands, in a Claude chat/document.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197167441,
+    "activity": "Reading and editing notes/code discussion about tracking text-edge/cursor alignment and rendering behavior in a video capture.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197183487,
+    "activity": "Using Claude to debug an Electron app issue where app icons aren’t rendering, reviewing terminal logs and replaying a localhost capture to inspect the icon rendering behavior.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197188226,
+    "activity": "Reviews debugging output and screenshots while investigating why app icons aren’t rendering in a local Electron/Claude setup.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197192632,
+    "activity": "Reviewing and debugging why app icons aren’t rendering, checking Electron/IPC logs and testing icon capture in a local preview.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197197852,
+    "activity": "The user is debugging an Electron/Claude app issue by running commands and inspecting logs/screenshots to figure out why app icons aren’t rendering.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197202563,
+    "activity": "Investigating why app icons aren’t rendering in the Electron/Claude setup by running/debugging commands and reviewing capture output.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197207492,
+    "activity": "Investigating why app icons aren’t rendering in an Electron/Claude setup by reviewing terminal output and browser replays.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197212748,
+    "activity": "Reviewing and investigating why app icons aren’t rendering correctly, using terminal logs and an in-browser capture to debug an Electron/Claude app setup.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197217823,
+    "activity": "Discussing and debugging why app icons aren’t rendering correctly in an Electron/renderer setup while reviewing console/terminal logs and a screenshot of the UI.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197222529,
+    "activity": "Investigating why app icons aren’t rendering, reviewing console logs/screenshots while debugging an Electron/renderer issue.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197227651,
+    "activity": "Investigating why app icons aren’t rendering, reviewing logs/screenshots while troubleshooting an Electron/renderer issue.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197232565,
+    "activity": "Troubleshooting why app icons aren’t rendering, reviewing logs and code output in an Electron/renderer setup.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197237413,
+    "activity": "Investigating why icons are not rendering in an Electron app by reviewing logs and diagnostic results.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197244625,
+    "activity": "Chatting with Claude to troubleshoot why app icons aren’t rendering, reviewing logs and capture results.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197333000,
+    "activity": "Reading a debugging conversation about why app icons aren’t rendering and checking related Electron logs/screenshots.",
+    "confidence": 0.76,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197337637,
+    "activity": "Reviewing and editing detailed notes about optimizing a video/demo, including timing, click-cycle behavior, and video render output.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197342750,
+    "activity": "Reviewing notes about optimizing video playback/performance and animation tweaks in a project, likely while reading a documentation or PR-style summary.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197347867,
+    "activity": "Reviewing and revising notes/analysis for a video-creation or coding task, comparing a rendered video frame on the right with a technical write-up on the left.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197352786,
+    "activity": "Reviewing notes/output related to speeding up a video (e.g., timing, CSS/animation tweaks) while comparing it with the rendered video preview.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197358310,
+    "activity": "Reviewing and writing notes about a video/code change in Claude, including detailed bullet points on timing, CSS transforms, and performance for an “app-reviewer/speed up vid” task.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197362717,
+    "activity": "Reviewing and discussing notes/documentation for a video project while viewing an MP4 preview with the “STUDYISH KNOWS.” text.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197368041,
+    "activity": "Reviewing notes and watching a video snippet about an “app-reviewer” (speed up) process.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197372649,
+    "activity": "Reviewing and editing notes/documentation for a speed-up video project while watching the associated video preview.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197377534,
+    "activity": "Reviewing and documenting notes on a video/app implementation (tuning motion/typing and performance details) while watching the MP4 playback.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197382687,
+    "activity": "Reviewing notes and a video while drafting or editing a write-up about speeding up an MP4 (camera/animation timings and CSS/animation performance details).",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197387642,
+    "activity": "Reviewing a coding/video-generation writeup and previewing a related study video with playback controls.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197392953,
+    "activity": "Viewing a crash report dialog for an Electron app (“slowblink-dev quit unexpectedly”) to diagnose the application failure.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197397659,
+    "activity": "Viewing an app-review dashboard and reviewing usage metrics for the video file under “Today,” with a video preview open.",
+    "confidence": 0.7,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197402960,
+    "activity": "Reviewing the “Today” top apps list and viewing/update details for a rendered MP4 file in a video-monitoring app.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197407740,
+    "activity": "Viewing an app-review dashboard that shows usage analytics for “Today,” including top apps like Claude and Brave Browser.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197412779,
+    "activity": "Viewing an app review/analytics report for a video (agmoha-spring-2026-study...) and checking the “Today” top apps/usage breakdown.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197417773,
+    "activity": "Viewing an app review dashboard and checking the “Today” top apps (e.g., Claude and Brave Browser), alongside a video file preview.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197422826,
+    "activity": "Reading debugging notes in Claude while investigating why app icons aren’t rendering correctly, with console/log output visible from Electron.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197432239,
+    "activity": "Debugging an Electron app issue by inspecting console logs and screenshot results in a dev/test tool to determine why app icons aren’t rendering properly.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197438320,
+    "activity": "Reading an Electron slowblink debugging log in the app, investigating why app icons aren’t rendering and reviewing console output.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197442899,
+    "activity": "Reviews console/log output and an error popup related to the Electron app “slowblink” failing to load icons, while deciding whether to allow permissions.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197448058,
+    "activity": "Debugging an Electron app in the slowblink interface, inspecting why app icons aren’t rendering and reading session logs/console output to identify the issue.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197453271,
+    "activity": "Reviewing a troubleshooting/debug log for an Electron app where icons aren’t rendering, while inspecting network/output results and related permissions.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197458051,
+    "activity": "Viewing logs and debugging an Electron app to diagnose why app icons aren’t rendering, while adjusting a browser permission prompt.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197463103,
+    "activity": "Investigating why app icons aren’t rendering in an Electron/slowblink session using the terminal logs and an Electron permissions prompt.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197467957,
+    "activity": "Reviewing logs and discussion about Electron app permissions/icons not rendering, with a prompt to allow access for a specific app.",
+    "confidence": 0.66,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197472901,
+    "activity": "Reading a slowblink investigation/debugging thread about Electron icons not rendering, while a permissions prompt is open to allow access to a third-party app.",
+    "confidence": 0.66,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197478011,
+    "activity": "Viewing a debugging/logs interface for the slowblink Electron app and responding to an app permission prompt (Allow/Don't Allow) while inspecting why app icons aren’t rendering.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197483240,
+    "activity": "Reviewing a troubleshooting/debug conversation about an Electron app not rendering app icons, while viewing related runtime terminal logs and an “Allow/Don’t Allow” permission prompt.",
+    "confidence": 0.62,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197518090,
+    "activity": "Discussing and debugging why app icons aren’t rendering correctly in an Electron/Electron-based setup, examining logs and requests to locate the cause.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197523073,
+    "activity": "Using Claude to debug and investigate an Electron app issue where app icons aren’t rendering correctly, inspecting logs and a local web preview.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197528106,
+    "activity": "Investigating an issue with app icon rendering by reading logs/debug output and testing the Electron/DOM/icon resolver behavior.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197532800,
+    "activity": "Investigating a troubleshooting issue related to rendering/loading Electron app icons, checking logs and validating the correct icon data and resolver behavior.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197538009,
+    "activity": "Reviewing and editing notes about video playback/animation timing and click-cycle behavior, including retiming, validation steps, and output updates.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197543727,
+    "activity": "Reviewing and editing a technical write-up in a document titled about app-review/fast up video changes, including implementation notes and timing details.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197548447,
+    "activity": "Reviewing and editing technical notes/ code changes for a “speed up vid” app while watching a video playback in the document.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197555170,
+    "activity": "Reading and reviewing a detailed code discussion about speeding up a video/app, likely inspecting performance and typing/click-cycle timing changes.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197557927,
+    "activity": "Reviewing and editing detailed notes/code comments about improving animation/typing timing for a video preview.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197565555,
+    "activity": "Reviewing a code/video optimization summary for a UI/app (“app-reviewer / speed up vid”): reading notes and a preview clip about improving animations/performance.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197568559,
+    "activity": "Using Claude to debug an Electron/iframe setup by running and inspecting console/session logs to verify why app icons are returning a generic placeholder.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197572906,
+    "activity": "Viewing the Lumos Fellows Slack channel meetings list and a notification about a new booking/meeting.",
+    "confidence": 0.9,
+    "focused_app": "Slack",
+    "focused_window": "meetings (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1778197577913,
+    "activity": "Reviews a Slack “meetings” channel and clicks an “Allow” prompt for the Lumos bot/app permissions to control/join meetings.",
+    "confidence": 0.86,
+    "focused_app": "Slack",
+    "focused_window": "meetings (Channel) - Lumos Fellows - 1 new item - Slack"
+  },
+  {
+    "ts": 1778197583084,
+    "activity": "Reviewing and debugging a set of technical logs/code outputs, likely investigating an icon/placeholder rendering issue.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197591602,
+    "activity": "Viewing a webpage while simultaneously running a terminal session that prints image/URL rendering logs and launching capture/debug output.",
+    "confidence": 0.74,
+    "focused_app": "Safari",
+    "focused_window": "Anonymous I — Start Page"
+  },
+  {
+    "ts": 1778197599114,
+    "activity": "Viewing a dashboard/terminal output and troubleshooting setup issues while analyzing the “today” app-usage overview logs.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197603193,
+    "activity": "Reading and debugging an Electron/TypeScript issue in Claude, reviewing logs and re-running commands to diagnose why app icons return as generic placeholder images.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197608076,
+    "activity": "Reading and editing a detailed technical write-up about optimizing a click-cycle/video behavior and verification steps.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197612790,
+    "activity": "Reviewing notes/code output for speeding up a demo video, with a video preview shown on the right and bullet-point changes on the left.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197617961,
+    "activity": "Reading Claude notes/review text about improving a video app (e.g., camera zoom/click behavior, transitions) while previewing a rendered video in the right pane.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197622973,
+    "activity": "Reviewing and summarizing details about an app’s “speed up vid” implementation, including click/zoom and CSS/camera timing behavior.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197628251,
+    "activity": "Reviewing and summarizing changes to the “app-reviewer/speed up vid” code/documentation while watching a related video preview.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197632960,
+    "activity": "Reviews and explains code changes for a “speed up video” app while previewing a related video on the right.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197638328,
+    "activity": "Reviewing and summarizing code changes and performance notes for a “speed up vid”/Lumos video export, including camera/zoom behavior and click-beat timing tweaks.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197643025,
+    "activity": "Reviewing notes and code-related changes for an AppDemo video, describing UI/animation timing and performance improvements.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197647948,
+    "activity": "Reading a detailed explanation/notes about optimizing and speeding up an AppDemo video, likely summarizing changes and performance timings while viewing the video output.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197652970,
+    "activity": "Reviewing notes and code/video details for speeding up a UI/app video, focusing on click/timing and camera/zoom behaviors.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197658344,
+    "activity": "Reading and reviewing a technical write-up for speeding up and optimizing a video/app, likely related to camera/click/typing rendering behavior and performance changes.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197663327,
+    "activity": "Reviewing and discussing code/documentation for an “app-reviewer / speed up vid” task while watching a preview of a “Studylish” video on the right.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197668026,
+    "activity": "Reviews notes/code in a document describing changes to an app-video “speed up” function while watching an embedded video preview of the result.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197673136,
+    "activity": "Reviewing and editing notes/code changes for speeding up a video, with a preview player showing the resulting MP4.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197677943,
+    "activity": "Reading and reviewing detailed code/documentation notes for an app video (“speed up vid”) while watching a short video preview on the right.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197683012,
+    "activity": "Reviewing and discussing a code change summary while watching a short demo video about speeding up an app’s UI/video rendering.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197688139,
+    "activity": "Reviewing and discussing changes to an app’s video/interaction behavior while watching a preview video side-by-side in Claude.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197693081,
+    "activity": "Reviewing notes and a video preview about changes/performance improvements for a UI video (app reviewer/speed-up), likely for a project demo.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197698112,
+    "activity": "Reviewing and editing notes/code changes for speeding up a video, while watching a short video playback preview on the right.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197703004,
+    "activity": "Reviewing and editing notes/code comments in Claude about changes to an AppDemo video, specifically camera zoom/click behavior and related animation timing.",
+    "confidence": 0.76,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197708625,
+    "activity": "Reviewing and summarizing a code/documentation change list for an “app-reviewer/speed up vid” feature, including timing/typing/click-beat adjustments, while previewing an MP4 video on the right.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197713130,
+    "activity": "Reviews and summarizes documentation/notes about speeding up a video app feature, focusing on timing/zoom/click-beat behavior and related UI animation details.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197717935,
+    "activity": "Reading and reviewing detailed notes/code about optimizing an app’s camera/beat/click animations for a “speed up video” flow.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197724257,
+    "activity": "Reviewing detailed notes/code-style changes and a short video preview in the app-reviewer for a “speed up vid” of a lumos-fellows/app release.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197728032,
+    "activity": "Reading and reviewing debugging notes about an Electron app’s favicon/icon loading issue and testing changes, while checking related console/log output.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197733101,
+    "activity": "Using Claude to review and troubleshoot an Electron/Swift build issue, referencing terminal output and screenshot captures of recent runs.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197745185,
+    "activity": "Reviews and edits technical logs and discussion about an Electron app build/runtime issue, including network/dependency errors and how to restart or clear the dev server.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197749712,
+    "activity": "Reviewing debugging output and notes in Claude while working on an Electron/app build issue and related code changes.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197754748,
+    "activity": "Reviewing and troubleshooting Electron app build/test output while discussing icon resolution issues and next steps to rerun or clear caches.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197759747,
+    "activity": "Reviews a technical debugging discussion and deployment logs related to slowblink/Electron app icons and the Electron window capture.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197764649,
+    "activity": "Reviews debugging/testing output for an Electron app and inspects captured screenshot results in the Claude interface.",
+    "confidence": 0.76,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197769715,
+    "activity": "Reviewing and discussing development/debug logs and a fix plan for an Electron app bundle, including steps to rerun/reload and clear rows in the database.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197774978,
+    "activity": "Reading a chat thread with the contact “bubu,” including recent messages about preparing for a weekend and an image/video of a cat.",
+    "confidence": 0.83,
+    "focused_app": "Messages",
+    "focused_window": "bubu"
+  },
+  {
+    "ts": 1778197779804,
+    "activity": "Reviewing and editing technical notes/code output in a Claude chat, with an app permission prompt asking to allow access.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197784830,
+    "activity": "Reviewing a technical write-up and model output, with a pop-up permission prompt asking to allow Claude access to a specific app.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197789847,
+    "activity": "Reading logs and debugging an Electron/slowblink issue while reviewing prior runs and messages.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197794818,
+    "activity": "Reviewing and debugging an Electron app issue (icon resolver/PNG fallback) and viewing related terminal logs while discussing the fix with screenshots.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197800194,
+    "activity": "Viewing and debugging Electron app icon issues by reading a troubleshooting thread and stack traces.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197804887,
+    "activity": "Discussing and debugging an Electron app icon/PNG handling issue (electron build/dev server and app icon capture behavior) in a Claude chat.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197810453,
+    "activity": "In Claude, the user is debugging an Electron app issue about incorrect app icon URLs and deciding how to restart/clear the dev server and related processes.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197815534,
+    "activity": "Reviewing and discussing debugging notes for an Electron app’s icon loading issue, with the results visible in a terminal log and screenshot capture panel.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197819822,
+    "activity": "Reviewing and discussing debugging notes for an Electron app icon issue, alongside captured system/console logs in a replay panel.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197833658,
+    "activity": "Reviewing and summarizing detailed technical notes about a video/app performance verification, focusing on retiming, cursor/typing behavior, and animation timing in AppDemo.tsx.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197840782,
+    "activity": "Viewing app performance/usage metrics in the slowblink dashboard and running a latency/capture check while displaying results on-screen.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778197845824,
+    "activity": "Reviewing and troubleshooting a Slowblink/Electron app debugging issue, including bundle/icon handling and DevTools/terminal logs.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197850794,
+    "activity": "Reviewing and troubleshooting an Electron app/debugging issue in a Claude conversation, with terminal logs and screenshot capture results visible.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197857421,
+    "activity": "Viewing and editing notes/code in Claude while a system permission prompt asks to allow the “Claude.app” to access control of the computer for capturing/automation.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197862139,
+    "activity": "Reviewing conversation logs/code about an Electron/Slack app permission prompt and allowing Claude access.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197880119,
+    "activity": "Reviewing debugging notes and terminal output while working on Electron dev server issues for “slowblink.”",
+    "confidence": 0.86,
+    "focused_app": null,
+    "focused_window": null
+  },
+  {
+    "ts": 1778197888969,
+    "activity": "Reading and reviewing notes on code/output verification for a video-processing project (e.g., timing/animation tweaks in AppDemo.tsx) within Claude.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197898884,
+    "activity": "Reviewing a debugging conversation about an Electron app’s icon resolution issue and checking related terminal output and captured screenshots.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197907634,
+    "activity": "Reviewing and debugging Electron app icon–loading code by reading logs and suggestions in Claude.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197911207,
+    "activity": "Reviewing and debugging an Electron app’s icon-loading/fallback logic while reading terminal errors and notes.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197916005,
+    "activity": "Reviewing debug output and notes about an Electron app’s icon handling while troubleshooting capture/“bad PNG” resolver issues.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197922504,
+    "activity": "Reviewing and debugging Electron app icon/attachment code while checking console logs in a terminal and replay capture results.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197926432,
+    "activity": "Debugging an Electron app icon-loading issue by reviewing logs and development notes in Claude, including screenshot capture/replay of failed requests.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197932168,
+    "activity": "Reviewing and editing a debugging/status log for an Electron/Node project in Claude, including steps to restart the dev server and trigger a fresh screenshot/capture.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197936403,
+    "activity": "Reviewing log output and troubleshooting build/restart steps for an Electron app while preparing for the next UI capture.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197941228,
+    "activity": "Reading and analyzing a technical/debugging conversation in Claude while reviewing a screenshot/test results for an Electron/IPС capture workflow.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197944860,
+    "activity": "Reviewing code/debug logs and summarizing issues about Electron app builds and icon rendering in the Claude chat.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197952745,
+    "activity": "Using Claude to debug/optimize a SlowBlink integration, reviewing terminal logs and reviewing a “Capture” request/result screenshot.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197956329,
+    "activity": "Reviewing and responding to development logs and debugging steps for an Electron app, including restarting the dev server and checking capture/results in the terminal.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197961301,
+    "activity": "Using Claude to analyze an Electron app dev log/output and generate steps to debug/resolve repeated resolver errors and recapture UI state.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197966271,
+    "activity": "Using Claude to review and troubleshoot terminal/session logs for a local Electron/app capture workflow, then initiating or monitoring “capture now” actions.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197971837,
+    "activity": "Chatting with Claude about debugging an Electron app’s database/row resolution issue and reviewing terminal output during a capture/replay run.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197978801,
+    "activity": "Reviewing console output/logs while working through a Slowblink/Dev server database sync and capture process.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197983464,
+    "activity": "Reviewing and troubleshooting a slowblink Electron/database workflow and checking related session logs while viewing a screenshot in the terminal output.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197986749,
+    "activity": "Using Claude to review and troubleshoot a slowblink dev workflow, including running Electron/Node code and inspecting terminal logs and capture results in the UI.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197991673,
+    "activity": "Reviewing debugging notes and logs about a slowblink/“app_icons” pipeline, including restarting a dev server and triggering/replaying a capture in a terminal and browser view.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778197996238,
+    "activity": "Working with Claude to debug and propose steps for restarting an Electron app’s database/capture flow, reviewing command output and errors in the terminal and preview pane.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198001196,
+    "activity": "Reviewing console output and screenshot-related request details while debugging a SlowBlink/DB-related capture flow in Claude.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198006299,
+    "activity": "Reading and reviewing logs/output from a slowblink/IP capture workflow, with an error visible in the terminal and a request/analysis shown in Claude.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198009992,
+    "activity": "Reviews and troubleshoots a slowblink/app icon capture workflow, reading log output and error details while preparing to trigger and verify the next capture.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198016642,
+    "activity": "Reviewing logs and troubleshooting a request/error in a web/Electron app while discussing it in a Claude chat.",
+    "confidence": 0.7,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198021371,
+    "activity": "Reviewing and troubleshooting logs in Claude, likely related to restarting a dev server and triggering a capture/replay to resolve UI/icon issues.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198026369,
+    "activity": "Reviewing and executing instructions in Claude while debugging an Electron/DB capture flow (restarting a dev server and triggering a new capture to resolve issues).",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198031200,
+    "activity": "Reviewing and troubleshooting a development/debugging log in Claude while working on a slideshow or database/image capture workflow.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198036413,
+    "activity": "Working with Claude to troubleshoot or summarize a slowblinking/app screenshot-capture issue, including reading logs and reviewing a screenshot capture list in the chat.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198041203,
+    "activity": "Reviewing a coding/debugging discussion and comparing screenshot results in Claude while viewing terminal logs and a capture UI.",
+    "confidence": 0.7,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198046604,
+    "activity": "Reviewing session logs and troubleshooting a software capture/debug workflow while chatting with Claude.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198051179,
+    "activity": "Reviewing debugging logs and discussing app icon/screenshot capture steps in a Claude chat.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198101633,
+    "activity": "Reading debugging notes and a run log in Claude while working on a screenshot/UI capture workflow in a web app.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198106323,
+    "activity": "Reading and responding to a conversation about running a slowblink/IPC capture workflow, with a terminal error output and a screenshot capture UI visible.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198113791,
+    "activity": "Reviewing and responding to code/debug output in a Claude conversation while working through a “capture now”/screenshot-style UI workflow.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198116329,
+    "activity": "Reviewing the “Today” top-apps and overview panel in slowblink while monitoring app/session logs in the background.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198121290,
+    "activity": "Viewing the “Today” performance/usage overview in the slowblink app while monitoring app logs.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198126254,
+    "activity": "Viewing a “Today” productivity/usage dashboard for apps like Claude and Electron, alongside terminal output and a screen-capture/latency panel.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198131289,
+    "activity": "Reviewing and debugging logs/output in a development context, discussing capture/restart steps and checking app icon behavior.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198136361,
+    "activity": "Reviewing and editing a technical write-up about video/camera timing and click-beat behavior, with notes on retiming and output verification.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198141405,
+    "activity": "Reviewing and editing notes about optimizing and retiming a video/typography (AppDemo.tsx, screen-studio-style click/camera timing) in a long technical write-up.",
+    "confidence": 0.84,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198146381,
+    "activity": "Reviewing and editing notes/code explanations about verifying and retiming a video “speed up”/typing/camera animation pipeline in Claude.",
+    "confidence": 0.83,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198151454,
+    "activity": "Reviewing and editing notes/code output about speeding up a video, including details on camera timing, click beats, and typing effects.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198465314,
+    "activity": "Reviewing and continuing a conversation about generating a studio-style demo video, discussing zoom/crossfade timing and expected behavior while viewing summarized outputs.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198469763,
+    "activity": "Reviewing and responding to a technical write-up about re-timed crossfade/video demo implementation, including summaries and observations about input typing and zoom behavior.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198473875,
+    "activity": "Reviewing and editing a technical summary/conversation about a “re-timed crossfade” video demo and its typing/click animation behavior in a code/video workflow.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198478275,
+    "activity": "Reviewing and editing a technical write-up in Claude about re-timed crossfade behavior and summarizing previous demo conversation details.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198481301,
+    "activity": "Reviewing a development conversation about a video crossfade/zoom effect implementation and entering a follow-up prompt or command in the chat.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198488602,
+    "activity": "Reviews and edits a technical summary about re-timed crossfade/demo behavior, describing how click timing and zoom effects work.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198495984,
+    "activity": "Reading and editing a Claude conversation summary about re-timing a crossfade/zoom effect in a demo video, with notes on implementation details and typing behavior.",
+    "confidence": 0.82,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198498741,
+    "activity": "Reviewing and summarizing a prior conversation, including detailed notes about “Re-timed crossfade” and auto-demonstration behavior in a demo/video app.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198503281,
+    "activity": "Reviews and drafts explanations for an implementation/animation summary, including re-timed crossfade behavior and how zoom/click reveals are handled.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198509210,
+    "activity": "Reviewing and editing a summary of a video project involving a re-timed crossfade and zoom behavior, while drafting implementation notes.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198513692,
+    "activity": "Reviewing and continuing a conversation summary about optimizing a video demo/crossfade behavior, discussing preview/camera zoom timing, and iterating implementation details in the chat.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198518510,
+    "activity": "Reviewing a technical log/discussion about an Electron/auto-capture fix while inspecting Claude rendering screenshots and session request details.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198523395,
+    "activity": "Managing the slowblink app’s dashboard while a screen capture is attempted and shows a “Capture error: fetch failed” message.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198528724,
+    "activity": "Reviews and troubleshoots an Electron app’s slowlink/capture issue by reading terminal logs, session results, and a proposed multi-phase debugging analysis, then deciding what to do next.",
+    "confidence": 0.8,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198533448,
+    "activity": "Reviewing and debugging a capture/idle-timing issue with logs and hypotheses while viewing a screenshot capture results panel.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198538274,
+    "activity": "Discussing and troubleshooting a software timing/capture issue, referencing phases of hypotheses and reviewing terminal/session logs and screenshot results.",
+    "confidence": 0.74,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198543864,
+    "activity": "Reviewing a GitHub pull request for a Lumos Fellows project, specifically the “feat: lumos-demo-video skill (v3)” changes and its summary/notes.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198549137,
+    "activity": "Reviewing a GitHub pull request (“feat: lumos-demo-video skill” v3) and reading the PR description/summary to decide whether it’s ready to merge.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198553383,
+    "activity": "Viewing and reviewing a GitHub pull request (#3) for the “feat: lumos-demo-video skill” project, reading the PR’s summary and details before deciding to merge.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198558480,
+    "activity": "Reviewing a GitHub pull request for the “lumos-demo-video skill” and reading the PR’s summary/comments to confirm the changes are ready to merge.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198563783,
+    "activity": "Reviews a GitHub pull request for the “feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera)” and is reading the PR’s summary/commented changes.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198568763,
+    "activity": "Reviewing and reading the summary/comments for a GitHub pull request about adding a “lumos-demo-video” skill with an Apple-light identity, animated typing, and camera.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198573616,
+    "activity": "Reviewing and commenting on a GitHub pull request (#3) for the “feat: lumos-demo-video skill” in the Lumos Fellows app-reviewer repository.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198579145,
+    "activity": "Viewing and reviewing a GitHub pull request (#3) for the Lumos Fellows app-reviewer, focusing on the summary and code changes for a “lumos-demo-video skill” update.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198583721,
+    "activity": "Reviewing a GitHub pull request for the “feat: lumos-demo-video skill (v3)” and reading the PR summary comments/notes.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198588668,
+    "activity": "Reviews a GitHub pull request (#3) for the “lumos-demo-video skill” and reads the PR summary/comments to decide whether to merge.",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198593511,
+    "activity": "Reviewing a GitHub pull request for “Lumos Fellows/app-reviewer,” focusing on the summary/description of the “feat: lumos-demo-video skill (v3)” changes and whether it’s ready to merge.",
+    "confidence": 0.8,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198598552,
+    "activity": "Reviews a GitHub pull request (#3) for a “lumos-demo-video skill” and reads the PR summary/details.",
+    "confidence": 0.88,
+    "focused_app": "Brave Browser",
+    "focused_window": "feat: lumos-demo-video skill (v3 — Apple-light identity, animated typing, camera) by AlanChen4 · Pull Request #3 · Lumos-Fellows/app-reviewer - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1778198734884,
+    "activity": "Writing and reviewing a detailed analysis/debugging explanation in Claude, including observing terminal output and hypotheses about why video captures were paused and then resumed.",
+    "confidence": 0.9,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198739003,
+    "activity": "Reviewing and debugging a process that captures browser window data, including checking logs and verifying capture timing/results in the discussion.",
+    "confidence": 0.72,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198743831,
+    "activity": "Reviewing and debugging a performance/idle-time capture issue by reading terminal logs and summarizing observations in a Claude write-up.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198748990,
+    "activity": "Reviewing/debugging application idle and capture timing logs in a slowblink interface, while a browser window with a “Capture now” tool shows screenshot results.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198753989,
+    "activity": "Browsing a “Today” summary dashboard of top apps (e.g., Claude, Electron, Brave Browser) while viewing session logs and captured system output in an Electron-based slowblink app.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198758712,
+    "activity": "Reading and analyzing a response about troubleshooting an issue, with terminal output and a table of sample timings shown.",
+    "confidence": 0.77,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198763768,
+    "activity": "Reviewing and editing code in a repository (open ReadAppDemo.tsx) while discussing how to adjust speed-up video/timing behavior in an AI workflow.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198770912,
+    "activity": "Reviewing and responding to a developer note about re-timed crossfade/video demo behavior and summarizing how input typing and zoom effects should work.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198773672,
+    "activity": "Reviewing a technical discussion and writing prompts for a video crossfade/wipe effect, including notes on zoom timing and implementation details.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198778679,
+    "activity": "Reviewing and continuing a coding/chat discussion about a video effect (“Retimed crossfade”), summarizing implementation details and next questions in the conversation.",
+    "confidence": 0.86,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198783842,
+    "activity": "Reviewing and editing technical debugging notes/logs related to a capture/idle timing issue, with a “Capture now” screenshot and request details visible in a separate panel.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1778198789236,
+    "activity": "Viewing a “Today” usage/timing dashboard for top apps (e.g., Claude, Electron, Brave Browser) with session/task details.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1778198796216,
+    "activity": "Reviewing and analyzing terminal session logs and related web-capture results while discussing the timing/behavior of “focused Electron” and “slowblink” captures in a debugging thread.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "ts": 1776718403325,
+    "activity": "Reviewing and debugging a code issue by reading notes/changes and examining terminal output logs.",
+    "confidence": 0.78,
+    "focused_app": "Claude",
+    "focused_window": "Claude"
+  },
+  {
+    "ts": 1776718413033,
+    "activity": "Configuring slowblink to enable cloud sync and add an OpenAI API key for AI source/screenshot capture.",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776736721886,
+    "activity": "Configuring slowblink/electron capture settings such as capture interval, model, and recording permissions while running the capture.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776749426236,
+    "activity": "Is using the slowblink/Code app while running electron build/development, viewing logs in an integrated terminal.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776751442878,
+    "activity": "Running/building an Electron development bundle and viewing live terminal output/logs while preparing a local dev server",
+    "confidence": 0.78,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1776751452081,
+    "activity": "Building/launching an Electron app while viewing the slowblink UI and running terminal build output/logs.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]

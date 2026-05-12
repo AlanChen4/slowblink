@@ -1,0 +1,107 @@
+[
+  {
+    "ts": 1777489692448,
+    "activity": "Viewing logs and debugging an error in slowblink while reviewing planner/SQL ambiguity issues.",
+    "confidence": 0.7,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489699933,
+    "activity": "Selecting a Google account to sign into “Slowblink” on a Google sign-in page.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Sign in - Google Accounts - Brave - Lumos Fellows"
+  },
+  {
+    "ts": 1777489704131,
+    "activity": "Viewing a slowblink settings/data page in GitHub where they plan to delete recorded data.",
+    "confidence": 0.72,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489709276,
+    "activity": "Viewing a GitHub pull request page for issue #20 and adding a comment while a cloud sync/settings screen is open in the main app.",
+    "confidence": 0.68,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489714727,
+    "activity": "Viewing a GitHub Electron app page showing an error syncing and data upload statistics, with an option to delete all data.",
+    "confidence": 0.86,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489719292,
+    "activity": "Viewing a GitHub pull request page (fixing client_id ambiguity) and reviewing commits/checks before merging.",
+    "confidence": 0.9,
+    "focused_app": "Brave Browser",
+    "focused_window": "Accounts and sync, Not signed in"
+  },
+  {
+    "ts": 1777489724732,
+    "activity": "Viewing Supabase’s Table Editor and reviewing rows in a table (including fields like ts, activity, and confidence).",
+    "confidence": 0.86,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489728860,
+    "activity": "Reviewing a Table Editor/metrics dashboard and viewing the data deletion and upload status (e.g., successful/pending uploads).",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489734517,
+    "activity": "Viewing an admin “Table Editor” page and the Logs/Overview section where it shows data retention stats and a “Delete all data” option.",
+    "confidence": 0.76,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  },
+  {
+    "ts": 1777489739056,
+    "activity": "Viewing the Supabase Table Editor grid for the public schema, inspecting rows with columns like client_id, activity text, and app focus metrics.",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489745190,
+    "activity": "Viewing Supabase’s Table Editor data table and reviewing recent log/activity rows for debugging.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489748950,
+    "activity": "Viewing the Supabase Table Editor logs/grid and inspecting rows filtered by a rule/criteria.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489752659,
+    "activity": "Viewing the Supabase Table Editor logs/grid and inspecting rows filtered by a rule/criteria.",
+    "confidence": 0.78,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489759102,
+    "activity": "Viewing and inspecting a Supabase Table Editor grid showing sorted table rows (sample data with timestamps and activity text).",
+    "confidence": 0.74,
+    "focused_app": "Brave Browser",
+    "focused_window": "samples | Table Editor | Default Project | Default Organization | Supabase - Brave - Slowblink"
+  },
+  {
+    "ts": 1777489764568,
+    "activity": "Using a Table Editor UI to view and manage database table data, including reviewing logs and choosing to delete uploaded data.",
+    "confidence": 0.74,
+    "focused_app": "Electron",
+    "focused_window": "slowblink"
+  }
+]
