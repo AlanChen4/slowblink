@@ -5,6 +5,7 @@ An Electron app that uses AI to track how the user is spending their time on the
 ## Rules
 
 - [No useEffect](.claude/rules/no-use-effect.md) — Use derived state, event handlers, `useMountEffect`, or `key` props instead of `useEffect`
+- [Loading skeletons](.claude/rules/loading-skeletons.md) — Use shadcn `<Skeleton>` shaped like the real content; don't render "Loading…" text
 - [Main process layout](.claude/rules/main-process-layout.md) — AI code in `src/main/ai/`, tightly-coupled code stays together, new domains get subdirectories
 - [No section-separator comments](.claude/rules/no-section-comments.md) — Don't add banner/divider comments; split the file instead
 - [Git workflow](.claude/rules/git-workflow.md) — Commit with a gitmoji prefix from the provided list

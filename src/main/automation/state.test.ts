@@ -33,7 +33,6 @@ const STORED: StoredSettings = {
   aiMode: 'cloud-ai',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 0,
 };
 
 const STORE_FRAGMENT: Pick<
@@ -54,7 +53,6 @@ const PERMISSIONS_ALL: PermissionsAdapter = {
 const RUNTIME_IDLE: AutomationRuntime = {
   timer: null,
   lastError: null,
-  lastCaptureTs: null,
   autoPaused: null,
 };
 
@@ -109,7 +107,6 @@ describe('deriveStatus', () => {
     aiMode: 'cloud-ai',
     onboardingComplete: true,
     overviewScope: 'this-device',
-    overviewMinDurationMs: 0,
   };
 
   test('running mirrors timer presence', () => {
@@ -144,6 +141,20 @@ describe('deriveStatus', () => {
       PERMISSIONS_ALL,
     );
     expect(status.lastError).toBe('transient');
+    expect(status.autoPaused).toBeNull();
+  });
+
+  test('autoPaused is exposed separately from lastError', () => {
+    const status = deriveStatus(
+      settings,
+      {
+        ...RUNTIME_IDLE,
+        lastError: 'transient',
+        autoPaused: 'auto-pause reason',
+      },
+      PERMISSIONS_ALL,
+    );
+    expect(status.autoPaused).toBe('auto-pause reason');
   });
 
   test('hasApiKey is true under cloud-ai regardless of saved key', () => {

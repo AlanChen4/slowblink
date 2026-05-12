@@ -1,14 +1,15 @@
 /**
- * Dev CLI: export the local Electron DB's samples to a JSON file so they can
- * be reloaded after a schema reset via `pnpm overview:seed --from-file=...`.
+ * Dev CLI: export the local Electron DB's samples + app icons to a JSON file
+ * so they can be reloaded after a schema reset via
+ * `pnpm overview:seed --from-file=...`.
  *
  * Usage:
- *   pnpm overview:export-samples --name=<nickname>           write fixtures/samples-<nickname>.json
- *   pnpm overview:export-samples --name=<nickname> --force   overwrite an existing file
- *   pnpm overview:export-samples --out=<path>                write to a custom path
+ *   pnpm overview:export-db --name=<nickname>           write fixtures/db-<nickname>.json
+ *   pnpm overview:export-db --name=<nickname> --force   overwrite an existing file
+ *   pnpm overview:export-db --out=<path>                write to a custom path
  *
  * The nickname becomes part of the filename so multiple snapshots can coexist
- * in fixtures/ (e.g. an "investigation-2026-04-23" baseline + a later one).
+ * in fixtures/.
  *
  * Safe to run while slowblink is open — opens the DB read-only.
  */
@@ -23,6 +24,17 @@ interface SampleRow {
   confidence: number | null;
   focused_app: string | null;
   focused_window: string | null;
+}
+
+interface AppIconRow {
+  app_name: string;
+  data_url: string;
+  updated_at: number;
+}
+
+interface ExportFile {
+  samples: SampleRow[];
+  appIcons: AppIconRow[];
 }
 
 function getArg(name: string): string | null {
@@ -42,7 +54,7 @@ function resolveOutPath(): string {
   if (!name) {
     console.error(
       'Missing --name=<nickname> (or --out=<path>). Example:\n' +
-        '  pnpm overview:export-samples --name=investigation-2026-04-23',
+        '  pnpm overview:export-db --name=investigation-2026-04-23',
     );
     process.exit(1);
   }
@@ -52,7 +64,7 @@ function resolveOutPath(): string {
     );
     process.exit(1);
   }
-  return resolve(`fixtures/samples-${name}.json`);
+  return resolve(`fixtures/db-${name}.json`);
 }
 
 function main() {
@@ -66,19 +78,27 @@ function main() {
 
   const db = new DatabaseSync(dbPath, { readOnly: true });
   // Use ascending id order so re-seeding produces the same row layout.
-  const rows = db
+  const samples = db
     .prepare(
       'SELECT ts, activity, confidence, focused_app, focused_window FROM samples ORDER BY id ASC',
     )
     .all() as unknown as SampleRow[];
+  const appIcons = db
+    .prepare(
+      'SELECT app_name, data_url, updated_at FROM app_icons ORDER BY app_name ASC',
+    )
+    .all() as unknown as AppIconRow[];
   db.close();
 
+  const payload: ExportFile = { samples, appIcons };
   mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, JSON.stringify(rows, null, 2));
+  writeFileSync(out, JSON.stringify(payload, null, 2));
 
-  const first = rows[0]?.ts;
-  const last = rows[rows.length - 1]?.ts;
-  console.log(`Exported ${rows.length} samples to ${out}`);
+  const first = samples[0]?.ts;
+  const last = samples[samples.length - 1]?.ts;
+  console.log(
+    `Exported ${samples.length} samples + ${appIcons.length} app icons to ${out}`,
+  );
   if (first && last) {
     console.log(
       `  range: ${new Date(first).toISOString()} → ${new Date(last).toISOString()}`,

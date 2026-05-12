@@ -1,17 +1,13 @@
-import { execFile } from 'node:child_process';
 import { desktopCapturer, screen } from 'electron';
 import type { WindowContext } from '../../shared/types';
 import { logger } from '../logger';
+import { runOsascript } from './osascript';
 
 const EMPTY: WindowContext = {
   focusedApp: null,
   focusedWindow: null,
   openWindows: [],
 };
-
-// Node timeout must be larger than the AppleScript `with timeout` below so
-// AppleScript can report its own timeout cleanly instead of being SIGTERM'd.
-const NODE_TIMEOUT_MS = 8000;
 
 // Delimit with unit/record separator control chars so any embedded tabs or
 // newlines in window titles can't corrupt the framing.
@@ -69,16 +65,11 @@ with timeout of 6 seconds
 end timeout
 `;
 
-interface RawResult {
-  stdout: string;
-  stderr: string;
-}
-
 async function getWindowContext(): Promise<WindowContext> {
   if (process.platform !== 'darwin') return EMPTY;
   const started = Date.now();
   try {
-    const { stdout, stderr } = await runOsascript();
+    const { stdout, stderr } = await runOsascript(SCRIPT);
     return processOsascriptOutput(stdout, stderr, Date.now() - started);
   } catch (err) {
     logOsascriptFailure(err, Date.now() - started);
@@ -122,21 +113,6 @@ function logOsascriptFailure(err: unknown, elapsed: number): void {
   } else {
     logger.log(`[window-context] failed after ${elapsed}ms:`, err);
   }
-}
-
-function runOsascript(): Promise<RawResult> {
-  return new Promise((resolve, reject) => {
-    const child = execFile(
-      'osascript',
-      ['-e', SCRIPT],
-      { timeout: NODE_TIMEOUT_MS, maxBuffer: 1024 * 1024 },
-      (err, stdout, stderr) => {
-        if (err) reject(err);
-        else resolve({ stdout, stderr });
-      },
-    );
-    child.on('error', reject);
-  });
 }
 
 interface ParseResult {

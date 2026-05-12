@@ -32,6 +32,6 @@ echo "→ starting Electron + Stripe listener + Edge Functions"
 pnpm exec concurrently \
   --names electron,stripe,fns \
   --prefix-colors cyan,magenta,yellow \
-  "electron-vite dev" \
+  "electron-vite dev --watch" \
   "pnpm stripe:listen" \
   "pnpm db:functions:serve"

@@ -51,6 +51,24 @@ export const MIGRATIONS: Migration[] = [
       CREATE INDEX IF NOT EXISTS dev_captures_outcome ON dev_captures(outcome, captured_at DESC);
     `,
   },
+  {
+    version: 3,
+    sql: `
+      CREATE TABLE IF NOT EXISTS app_icons (
+        id TEXT PRIMARY KEY,
+        app_name TEXT NOT NULL UNIQUE,
+        data_url TEXT NOT NULL,
+        updated_at INTEGER NOT NULL,
+        sync_state TEXT NOT NULL DEFAULT 'pending',
+        sync_attempts INTEGER NOT NULL DEFAULT 0,
+        sync_next_attempt_ts INTEGER NOT NULL DEFAULT 0,
+        sync_ts INTEGER,
+        sync_error TEXT
+      );
+      CREATE INDEX IF NOT EXISTS app_icons_sync ON app_icons(sync_state, sync_next_attempt_ts);
+      CREATE INDEX IF NOT EXISTS app_icons_app_name ON app_icons(app_name);
+    `,
+  },
 ];
 
 export function runMigrations(db: Database.Database) {

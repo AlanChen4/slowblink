@@ -30,7 +30,7 @@ export function aggregate(segments: Segment[]): OverviewAggregate {
       const windows: WindowDuration[] = [...map.entries()]
         .map(([window, durationMsW]) => ({ window, durationMs: durationMsW }))
         .sort((a, b) => b.durationMs - a.durationMs);
-      return { app, durationMs, windows };
+      return { app, durationMs, windows, iconDataUrl: null };
     })
     .sort((a, b) => b.durationMs - a.durationMs);
 

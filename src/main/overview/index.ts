@@ -7,7 +7,7 @@ import type {
 } from '../../shared/types';
 import { getSupabase } from '../auth/client';
 import { getCurrentSession } from '../auth/session';
-import { getSamples as getSamplesFromDb } from '../db';
+import { getAppIconsForNames, getSamples as getSamplesFromDb } from '../db';
 import { aggregate } from './aggregator';
 import { samplesToSegments } from './segmenter';
 
@@ -127,17 +127,64 @@ export async function fetchSupabaseSamples(
   return samples;
 }
 
+interface SupabaseAppIconRow {
+  app_name: string;
+  data_url: string;
+}
+
+async function fetchSupabaseIconsByNames(
+  names: string[],
+): Promise<Map<string, string>> {
+  const out = new Map<string, string>();
+  if (names.length === 0) return out;
+  const client = getSupabase();
+  if (!client) return out;
+  if (!getCurrentSession()) return out;
+  const { data, error } = await client
+    .from('app_icons')
+    .select('app_name, data_url')
+    .in('app_name', names);
+  if (error) return out;
+  for (const r of (data ?? []) as SupabaseAppIconRow[]) {
+    out.set(r.app_name, r.data_url);
+  }
+  return out;
+}
+
+async function enrichAggregateWithIcons(
+  agg: OverviewAggregate,
+  scope: OverviewScope,
+): Promise<OverviewAggregate> {
+  const names = agg.apps.map((a) => a.app);
+  const local = getAppIconsForNames(names);
+  let remote = new Map<string, string>();
+  if (scope === 'all-devices') {
+    const missing = names.filter((n) => !local.has(n));
+    remote = await fetchSupabaseIconsByNames(missing);
+  }
+  return {
+    apps: agg.apps.map((a) => ({
+      ...a,
+      iconDataUrl: local.get(a.app)?.dataUrl ?? remote.get(a.app) ?? null,
+    })),
+  };
+}
+
 async function getOverviewThisDevice(
   rangeStart: number,
   rangeEnd: number,
 ): Promise<Overview> {
   const pipe = buildLocalPipeline(rangeStart, rangeEnd);
+  const enriched = await enrichAggregateWithIcons(
+    pipe.aggregate,
+    'this-device',
+  );
   return {
     scope: 'this-device',
     rangeStart,
     rangeEnd,
     segments: pipe.segments,
-    aggregate: pipe.aggregate,
+    aggregate: enriched,
   };
 }
 
@@ -147,12 +194,16 @@ async function getOverviewAllDevices(
 ): Promise<Overview> {
   const samples = await fetchSupabaseSamples(rangeStart, rangeEnd);
   const pipe = runPipeline(samples, rangeStart, rangeEnd);
+  const enriched = await enrichAggregateWithIcons(
+    pipe.aggregate,
+    'all-devices',
+  );
   return {
     scope: 'all-devices',
     rangeStart,
     rangeEnd,
     segments: pipe.segments,
-    aggregate: pipe.aggregate,
+    aggregate: enriched,
   };
 }
 

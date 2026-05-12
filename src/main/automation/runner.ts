@@ -4,6 +4,7 @@ import type { ProviderDebug } from '../ai/types';
 import { insertSample } from '../db';
 import { recordCapture } from '../replay/recorder';
 import { isReplayLoggingEnabled } from '../settings';
+import { resolveAndStoreAppIcon } from './app-icon';
 import { takeScreenshot } from './screen-capture';
 
 export interface RunnerContext {
@@ -12,11 +13,7 @@ export interface RunnerContext {
   aiMode: AIMode;
 }
 
-export interface RunnerResult {
-  sampleTs: number;
-}
-
-export type Runner = (ctx: RunnerContext) => Promise<RunnerResult>;
+export type Runner = (ctx: RunnerContext) => Promise<void>;
 
 export const runCaptureTick: Runner = async (ctx) => {
   const replay = isReplayLoggingEnabled();
@@ -47,6 +44,9 @@ export const runCaptureTick: Runner = async (ctx) => {
       focusedWindow: shot.windowCtx.focusedWindow,
     });
     sampleId = sample.id;
+    if (shot.windowCtx.focusedApp) {
+      void resolveAndStoreAppIcon(shot.windowCtx.focusedApp);
+    }
     if (replay) {
       await recordCapture(
         debug.blocked
@@ -69,7 +69,6 @@ export const runCaptureTick: Runner = async (ctx) => {
             },
       );
     }
-    return { sampleTs };
   } catch (err) {
     if (replay) {
       await recordCapture({

@@ -9,18 +9,20 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMountEffect } from '@/hooks/use-mount-effect';
-import { startOfDay } from '@/lib/categories';
-import { MinDurationControl } from './overview-sections/MinDurationControl';
+import { dayStartWithOffset } from '@/lib/categories';
+import {
+  filterApps,
+  formatDuration,
+  MIN_DURATION_MS,
+} from './overview-sections/format';
 import { ScopeToggle } from './overview-sections/ScopeToggle';
-import { TopApps } from './overview-sections/TopApps';
+import { TopApps, TopAppsSkeleton } from './overview-sections/TopApps';
 
 interface Props {
   settings: Settings;
   session?: AuthSession | null;
   plan?: Plan | null;
 }
-
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 function formatDayTitle(offset: number, dayStart: number): string {
   if (offset === 0) return 'Today';
@@ -33,11 +35,8 @@ function formatDayTitle(offset: number, dayStart: number): string {
 }
 
 export function Overview({ settings, plan = null }: Props) {
-  // Snapshot today at mount so fetches stay aligned to a stable anchor; the
-  // user can navigate days regardless of clock drift across midnight.
-  const [todayAnchor] = useState(() => startOfDay());
   const [dayOffset, setDayOffset] = useState(0);
-  const dayStart = todayAnchor - dayOffset * ONE_DAY_MS;
+  const dayStart = dayStartWithOffset(dayOffset);
   const isToday = dayOffset === 0;
 
   async function handleScopeChange(next: OverviewScope) {
@@ -46,76 +45,42 @@ export function Overview({ settings, plan = null }: Props) {
     }
   }
 
-  async function handleMinDurationChange(next: number) {
-    if (next !== settings.overviewMinDurationMs) {
-      await window.slowblink.setSettings({ overviewMinDurationMs: next });
-    }
-  }
-
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-6">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDayOffset((n) => n + 1)}
-            aria-label="Previous day"
-          >
-            <ChevronLeft className="size-4" />
-          </Button>
-          <h1 className="min-w-[8rem] text-center font-semibold text-xl">
-            {formatDayTitle(dayOffset, dayStart)}
-          </h1>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDayOffset((n) => Math.max(0, n - 1))}
-            disabled={isToday}
-            aria-label="Next day"
-          >
-            <ChevronRight className="size-4" />
-          </Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <MinDurationControl
-            value={settings.overviewMinDurationMs}
-            onChange={(next) => {
-              void handleMinDurationChange(next);
-            }}
-          />
-          <ScopeToggle
-            scope={settings.overviewScope}
-            settings={settings}
-            plan={plan}
-            onChange={(next) => {
-              void handleScopeChange(next);
-            }}
-          />
-        </div>
-      </div>
-      <OverviewForScope
+    <div className="flex flex-col gap-6 pb-10">
+      <OverviewBody
         key={`${settings.overviewScope}-${dayStart}`}
         scope={settings.overviewScope}
         dayStart={dayStart}
         isToday={isToday}
-        minDurationMs={settings.overviewMinDurationMs}
+        dayOffset={dayOffset}
+        onPrevDay={() => setDayOffset((n) => n + 1)}
+        onNextDay={() => setDayOffset((n) => Math.max(0, n - 1))}
+        settings={settings}
+        plan={plan}
+        onScopeChange={(next) => {
+          void handleScopeChange(next);
+        }}
       />
     </div>
   );
 }
 
-interface ScopedProps {
+interface BodyProps {
   scope: OverviewScope;
   dayStart: number;
   isToday: boolean;
-  minDurationMs: number;
+  dayOffset: number;
+  onPrevDay: () => void;
+  onNextDay: () => void;
+  settings: Settings;
+  plan: Plan | null;
+  onScopeChange: (next: OverviewScope) => void;
 }
 
 interface LoadHandlers {
   setOverview: (o: OverviewT) => void;
   setLoadError: (e: string) => void;
-  setLoading: (v: boolean) => void;
+  setLoading?: (v: boolean) => void;
 }
 
 async function loadOverview(
@@ -127,64 +92,136 @@ async function loadOverview(
 ): Promise<void> {
   try {
     const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
-    if (cancel.value) return;
-    handlers.setOverview(result);
+    if (!cancel.value) handlers.setOverview(result);
   } catch (err) {
-    if (cancel.value) return;
-    handlers.setLoadError(err instanceof Error ? err.message : String(err));
+    if (!cancel.value) {
+      handlers.setLoadError(err instanceof Error ? err.message : String(err));
+    }
   } finally {
-    if (!cancel.value) handlers.setLoading(false);
+    if (!cancel.value) handlers.setLoading?.(false);
   }
 }
 
-function OverviewForScope({
+function OverviewBody({
   scope,
   dayStart,
   isToday,
-  minDurationMs,
-}: ScopedProps) {
+  dayOffset,
+  onPrevDay,
+  onNextDay,
+  settings,
+  plan,
+  onScopeChange,
+}: BodyProps) {
   const [overview, setOverview] = useState<OverviewT | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // For today, end = "now" so segments only cover what's actually happened.
-  // For past days, end = end-of-day so we capture the full day's samples.
-  const dayEnd = () => (isToday ? Date.now() : dayStart + ONE_DAY_MS);
-
   useMountEffect(() => {
     const cancel = { value: false };
-    void loadOverview(scope, dayStart, dayEnd(), cancel, {
+    const dayEnd = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
+    void loadOverview(scope, dayStart, dayEnd, cancel, {
       setOverview,
       setLoadError,
       setLoading,
     });
+    if (!isToday || scope !== 'this-device') {
+      return () => {
+        cancel.value = true;
+      };
+    }
+    const unsubscribe = window.slowblink.onSampleInserted((sample) => {
+      if (sample.ts < dayStart) return;
+      void loadOverview(scope, dayStart, Date.now(), cancel, {
+        setOverview,
+        setLoadError,
+      });
+    });
     return () => {
       cancel.value = true;
+      unsubscribe();
     };
   });
+
+  const filteredApps = overview ? filterApps(overview.aggregate.apps) : [];
+  const totalDurationMs = filteredApps.reduce(
+    (s, a) => s + Math.floor(a.durationMs / MIN_DURATION_MS) * MIN_DURATION_MS,
+    0,
+  );
 
   async function handleSwitchToThisDevice() {
     await window.slowblink.setSettings({ overviewScope: 'this-device' });
   }
 
-  if (loading) {
-    return <p className="text-muted-foreground text-sm">Loading overview…</p>;
-  }
-  if (loadError) {
+  function renderBody() {
+    if (loading) {
+      return (
+        <div className="fade-in-0 animate-in duration-150 [animation-delay:200ms] [animation-fill-mode:both]">
+          <TopAppsSkeleton />
+        </div>
+      );
+    }
+    if (loadError) {
+      return (
+        <div className="fade-in-0 animate-in duration-150">
+          <OverviewErrorState
+            scope={scope}
+            error={loadError}
+            onSwitchToThisDevice={() => {
+              void handleSwitchToThisDevice();
+            }}
+          />
+        </div>
+      );
+    }
+    if (!overview) return null;
     return (
-      <OverviewErrorState
-        scope={scope}
-        error={loadError}
-        onSwitchToThisDevice={() => {
-          void handleSwitchToThisDevice();
-        }}
-      />
+      <div className="fade-in-0 animate-in duration-150">
+        <TopApps apps={filteredApps} totalDurationMs={totalDurationMs} />
+      </div>
     );
   }
-  if (!overview) return null;
 
   return (
-    <TopApps aggregate={overview.aggregate} minDurationMs={minDurationMs} />
+    <>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onPrevDay}
+            aria-label="Previous day"
+          >
+            <ChevronLeft className="size-4" />
+          </Button>
+          <h1 className="font-semibold text-xl">
+            {formatDayTitle(dayOffset, dayStart)}
+            {overview && (
+              <span className="fade-in-0 ml-3 animate-in text-muted-foreground duration-150">
+                {formatDuration(totalDurationMs)}
+              </span>
+            )}
+          </h1>
+          {!isToday && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onNextDay}
+              aria-label="Next day"
+            >
+              <ChevronRight className="size-4" />
+            </Button>
+          )}
+        </div>
+        <ScopeToggle
+          scope={settings.overviewScope}
+          settings={settings}
+          plan={plan}
+          onChange={onScopeChange}
+        />
+      </div>
+      {renderBody()}
+    </>
   );
 }
 

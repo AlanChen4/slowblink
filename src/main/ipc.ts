@@ -11,7 +11,13 @@ import type { Automation } from './automation';
 import { settingsEqual, statusEqual } from './automation/state';
 import { openCheckout, openPortal } from './billing/checkout';
 import { getPlan, onPlanChange } from './billing/plan-cache';
-import { deleteAll, getLocalStorageSize, getSamples } from './db';
+import {
+  deleteAll,
+  getAppIconsForNames,
+  getLocalStorageSize,
+  getSamples,
+  onSampleInserted,
+} from './db';
 import { getLogBuffer, onLogEntry } from './logger';
 import { getOverview } from './overview';
 import { getOverviewDebug, refreshOverviewDebug } from './overview/debug';
@@ -55,6 +61,17 @@ export function registerIpc(automation: Automation) {
     (_e, start: number, end: number, scope: OverviewScope) =>
       refreshOverviewDebug(start, end, scope),
   );
+
+  ipcMain.handle(IPC.appIconsGet, (_e, names: unknown) => {
+    if (!Array.isArray(names)) return {};
+    const safeNames = names.filter((n): n is string => typeof n === 'string');
+    const icons = getAppIconsForNames(safeNames);
+    const out: Record<string, string | null> = {};
+    for (const name of safeNames) {
+      out[name] = icons.get(name)?.dataUrl ?? null;
+    }
+    return out;
+  });
 
   ipcMain.handle(IPC.settingsGet, () => automation.getState().settings);
   ipcMain.handle(
@@ -154,4 +171,8 @@ export function broadcastPlanUpdates() {
 
 export function broadcastLogUpdates() {
   return broadcast(IPC.processLogsUpdate, onLogEntry);
+}
+
+export function broadcastSampleUpdates() {
+  return broadcast(IPC.samplesInserted, onSampleInserted);
 }

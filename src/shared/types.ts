@@ -25,7 +25,6 @@ export interface Settings {
   aiMode: AIMode;
   onboardingComplete: boolean;
   overviewScope: OverviewScope;
-  overviewMinDurationMs: number;
 }
 
 export type SettingsPatch = Partial<
@@ -35,7 +34,7 @@ export type SettingsPatch = Partial<
 export interface CaptureStatus {
   running: boolean;
   lastError: string | null;
-  lastCaptureTs: number | null;
+  autoPaused: string | null;
   hasPermission: boolean;
   hasAccessibility: boolean;
   hasApiKey: boolean;
@@ -98,6 +97,7 @@ export interface AppDuration {
   app: string;
   durationMs: number;
   windows: WindowDuration[];
+  iconDataUrl: string | null;
 }
 
 export interface OverviewAggregate {
@@ -152,6 +152,7 @@ export interface SlowblinkAPI {
   getLocalStorageSize(): Promise<number>;
   onStatus(cb: (s: CaptureStatus) => void): () => void;
   onSettings(cb: (s: Settings) => void): () => void;
+  onSampleInserted(cb: (s: Sample) => void): () => void;
 
   signIn(): Promise<void>;
   signOut(): Promise<void>;
@@ -167,6 +168,8 @@ export interface SlowblinkAPI {
   onPlan(cb: (p: Plan) => void): () => void;
   openCheckout(): Promise<void>;
   openPortal(): Promise<void>;
+
+  getAppIcons(names: string[]): Promise<Record<string, string | null>>;
 
   getOverview(
     rangeStart: number,

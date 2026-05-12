@@ -8,7 +8,7 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
-  lastCaptureTs: null,
+  autoPaused: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: true,
@@ -25,7 +25,6 @@ const BASE_SETTINGS: Settings = {
   aiMode: 'byo-key',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 5 * 60 * 1000,
 };
 
 // Regression guard: paused used to live on both `CaptureStatus` and `Settings`

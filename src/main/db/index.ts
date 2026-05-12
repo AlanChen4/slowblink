@@ -5,6 +5,18 @@ import { app } from 'electron';
 import type { Sample } from '../../shared/types';
 import { createEmitter } from '../emitter';
 import {
+  type AppIconStatements,
+  bumpAppIconSyncAttempts as bumpAppIconSyncAttemptsRaw,
+  getAppIcon as getAppIconRaw,
+  getAppIconsForNames as getAppIconsForNamesRaw,
+  getPendingAppIcons as getPendingAppIconsRaw,
+  markAppIconsFailed as markAppIconsFailedRaw,
+  markAppIconsSynced as markAppIconsSyncedRaw,
+  type PendingAppIconRow,
+  prepareAppIconStatements,
+  upsertAppIcon as upsertAppIconRaw,
+} from './app-icons';
+import {
   type DevCaptureRow,
   type DevCapturesStatements,
   deleteCapturesByIds,
@@ -37,6 +49,7 @@ interface DbHandles {
   samples: SampleStatements;
   sync: SyncStatements;
   devCaptures: DevCapturesStatements;
+  appIcons: AppIconStatements;
 }
 
 let handles: DbHandles | null = null;
@@ -45,6 +58,9 @@ let devCapturesDir: string | null = null;
 
 const sampleInsertEmitter = createEmitter<Sample>();
 export const onSampleInserted = sampleInsertEmitter.on;
+
+const appIconUpsertEmitter = createEmitter<string>();
+export const onAppIconUpserted = appIconUpsertEmitter.on;
 
 export function initDb() {
   dbPath = join(app.getPath('userData'), 'slowblink.db');
@@ -57,6 +73,7 @@ export function initDb() {
     samples: prepareSampleStatements(db),
     sync: prepareSyncStatements(db),
     devCaptures,
+    appIcons: prepareAppIconStatements(db),
   };
   devCapturesDir = join(app.getPath('userData'), 'dev-captures');
   if (!app.isPackaged) {
@@ -103,7 +120,9 @@ export function getSamples(rangeStart: number, rangeEnd: number): Sample[] {
 }
 
 export function deleteAll() {
-  requireHandles().samples.deleteAll.run();
+  const h = requireHandles();
+  h.samples.deleteAll.run();
+  h.appIcons.deleteAll.run();
 }
 
 export function getPendingForSync(
@@ -146,6 +165,55 @@ export function insertDevCapture(row: DevCaptureRow): void {
   insertCapture(requireHandles().devCaptures, row);
 }
 
+export function upsertAppIcon(
+  appName: string,
+  dataUrl: string,
+  now: number,
+): void {
+  upsertAppIconRaw(requireHandles().appIcons, appName, dataUrl, now);
+  appIconUpsertEmitter.emit(appName);
+}
+
+export function getAppIcon(appName: string) {
+  return getAppIconRaw(requireHandles().appIcons, appName);
+}
+
+export function getAppIconsForNames(names: string[]) {
+  return getAppIconsForNamesRaw(requireHandles().appIcons, names);
+}
+
+export function getPendingAppIcons(
+  now: number,
+  limit: number,
+): PendingAppIconRow[] {
+  return getPendingAppIconsRaw(requireHandles().appIcons, now, limit);
+}
+
+export function markAppIconsSynced(
+  rows: { appName: string; updatedAt: number }[],
+  syncTs: number,
+): void {
+  const h = requireHandles();
+  markAppIconsSyncedRaw(h.db, h.appIcons, rows, syncTs);
+}
+
+export function bumpAppIconSyncAttempts(
+  names: string[],
+  nextAttemptTs: number,
+  error: string,
+): void {
+  bumpAppIconSyncAttemptsRaw(
+    requireHandles().appIcons,
+    names,
+    nextAttemptTs,
+    error,
+  );
+}
+
+export function markAppIconsFailed(names: string[], error: string): void {
+  markAppIconsFailedRaw(requireHandles().appIcons, names, error);
+}
+
 function sweepDevCaptureOrphans(
   stmts: DevCapturesStatements,
   dir: string,
@@ -172,5 +240,6 @@ function sweepDevCaptureOrphans(
   if (rowsToDelete.length > 0) deleteCapturesByIds(stmts, rowsToDelete);
 }
 
+export type { AppIconRow, PendingAppIconRow } from './app-icons';
 export type { DevCaptureRow } from './dev-captures';
 export type { PendingSampleRow, SyncCounts } from './sync-state';

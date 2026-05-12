@@ -2,7 +2,6 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import type { ApiKeySource, AuthSession, Plan } from '../../shared/types';
 import type { StoredSettings } from '../settings';
 import { createAutomation } from './index';
-import type { RunnerResult } from './runner';
 
 vi.mock('electron', () => ({
   powerMonitor: { getSystemIdleState: () => 'active' },
@@ -31,7 +30,6 @@ const DEFAULT_STORED: StoredSettings = {
   aiMode: 'cloud-ai',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 0,
 };
 
 interface HarnessOpts {
@@ -41,7 +39,7 @@ interface HarnessOpts {
   hasScreen?: boolean;
   hasApiKey?: boolean;
   apiKey?: string | null;
-  runner?: () => Promise<RunnerResult>;
+  runner?: () => Promise<void>;
   isIdle?: () => boolean;
 }
 
@@ -54,7 +52,7 @@ function makeHarness(opts: HarnessOpts = {}) {
   const sessionListeners = new Set<() => void>();
   const planListeners = new Set<() => void>();
   const permissionsListeners = new Set<() => void>();
-  const runner = vi.fn(opts.runner ?? (async () => ({ sampleTs: Date.now() })));
+  const runner = vi.fn(opts.runner ?? (async () => {}));
 
   const automation = createAutomation({
     store: {
@@ -196,7 +194,6 @@ describe('automation', () => {
       runner: async () => {
         calls += 1;
         if (calls <= 3) throw new Error('boom');
-        return { sampleTs: 1234 };
       },
     });
     h.automation.start();
@@ -232,13 +229,13 @@ describe('automation', () => {
 
   test('captureNow() awaits in-flight tick, runs forced, propagates errors', async () => {
     vi.useRealTimers();
-    const resolvers: ((r: RunnerResult) => void)[] = [];
+    const resolvers: (() => void)[] = [];
     const h = makeHarness({
       stored: { aiMode: 'cloud-ai' },
       session: SIGNED_IN,
       plan: PAID,
       runner: () =>
-        new Promise<RunnerResult>((resolve) => {
+        new Promise<void>((resolve) => {
           resolvers.push(resolve);
         }),
     });
@@ -252,9 +249,9 @@ describe('automation', () => {
     await new Promise((r) => setImmediate(r));
     expect(resolvers.length).toBe(1);
 
-    resolvers[0]?.({ sampleTs: 1 });
+    resolvers[0]?.();
     await waitFor(() => resolvers.length >= 2);
-    resolvers[1]?.({ sampleTs: 2 });
+    resolvers[1]?.();
     await forcedPromise;
     expect(h.runner).toHaveBeenCalledTimes(2);
 

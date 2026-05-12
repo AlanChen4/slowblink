@@ -16,6 +16,7 @@ import {
   broadcastAutomationUpdates,
   broadcastLogUpdates,
   broadcastPlanUpdates,
+  broadcastSampleUpdates,
   broadcastSessionUpdates,
   broadcastSyncUpdates,
   registerIpc,
@@ -43,11 +44,11 @@ import {
 import { initSync } from './sync/flusher';
 
 // Belt-and-suspenders for the orphan-Electron-after-pnpm-dev-exit case:
-// once the parent shell that owns our stdio dies, any console.* write
-// would throw EPIPE and crash the process. The logger already gates
-// writes by `stream.writable`, but this catches anything in the import
-// graph that ran before logger init, plus any raw `process.stdout`
-// writes we don't control.
+// once the parent shell that owns our stdio dies, any write would throw
+// EPIPE and crash the process. The logger already gates writes by
+// `stream.writable`, but this catches anything in the import graph that
+// ran before logger init, plus raw `process.stdout` writes we don't
+// control.
 installStdioSafetyNet();
 
 // Open the Chrome DevTools Protocol port in dev so agent-browser (and any
@@ -81,6 +82,12 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
+      // In dev, keep the compositor running when the window is hidden so
+      // CDP `Page.captureScreenshot` (and therefore agent-browser screenshots)
+      // doesn't block forever waiting on a frame from a suspended renderer.
+      // In production the renderer UI is rarely visible and throttling is the
+      // right battery-saving default.
+      backgroundThrottling: app.isPackaged,
     },
   });
 
@@ -187,6 +194,7 @@ app.whenReady().then(async () => {
   disposers.push(broadcastSyncUpdates());
   disposers.push(broadcastPlanUpdates());
   disposers.push(broadcastLogUpdates());
+  disposers.push(broadcastSampleUpdates());
 
   initSync();
   initPlanCache();
