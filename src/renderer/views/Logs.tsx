@@ -96,79 +96,75 @@ export function Logs() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-6">
-      <section className="flex min-h-0 flex-col">
+      <section className="flex min-h-0 flex-1 flex-col">
         <h2 className="font-semibold text-lg">Process logs</h2>
-        <div className="mt-4 min-h-0 flex-1">
-          {processLogs.length === 0 ? (
-            <p className="text-muted-foreground text-sm">
-              No log lines from the main process yet.
-            </p>
-          ) : (
-            <div className="min-h-0 flex-1 space-y-0.5 overflow-y-auto font-mono text-xs">
-              {processLogs
-                .slice(-200)
-                .reverse()
-                .map((entry) => (
-                  <div key={entry.id} className="flex items-start gap-3">
-                    <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
-                      {new Date(entry.ts).toLocaleTimeString()}
-                    </span>
-                    <span
-                      className={`min-w-0 break-all ${LOG_LEVEL_COLOR[entry.level]}`}
-                    >
-                      {entry.message}
-                    </span>
-                  </div>
-                ))}
-            </div>
-          )}
-        </div>
+        {processLogs.length === 0 ? (
+          <p className="mt-4 text-muted-foreground text-sm">
+            No log lines from the main process yet.
+          </p>
+        ) : (
+          <div className="mt-4 min-h-0 flex-1 space-y-0.5 overflow-y-auto font-mono text-xs">
+            {processLogs
+              .slice(-200)
+              .reverse()
+              .map((entry) => (
+                <div key={entry.id} className="flex items-start gap-3">
+                  <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
+                    {new Date(entry.ts).toLocaleTimeString()}
+                  </span>
+                  <span
+                    className={`min-w-0 break-all ${LOG_LEVEL_COLOR[entry.level]}`}
+                  >
+                    {entry.message}
+                  </span>
+                </div>
+              ))}
+          </div>
+        )}
       </section>
 
-      <section className="flex min-h-0 flex-col">
+      <section className="flex min-h-0 flex-1 flex-col">
         <h2 className="font-semibold text-lg">Samples</h2>
-        <div className="mt-4">
-          {samples.length === 0 ? (
-            <p className="text-muted-foreground text-sm">
-              No samples yet. Make sure permissions and API key are set, then
-              wait for the first capture.
-            </p>
-          ) : (
-            <div className="min-h-0 flex-1 space-y-1 overflow-y-auto text-sm">
-              {samples
-                .slice(-50)
-                .reverse()
-                .map((s) => {
-                  const iconUrl = s.focusedApp ? icons[s.focusedApp] : null;
-                  return (
-                    <div key={s.id} className="flex items-center gap-3">
-                      <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
-                        {new Date(s.ts).toLocaleTimeString()}
+        {samples.length === 0 ? (
+          <p className="mt-4 text-muted-foreground text-sm">
+            No samples yet. Make sure permissions and API key are set, then
+            wait for the first capture.
+          </p>
+        ) : (
+          <div className="mt-4 min-h-0 flex-1 space-y-1 overflow-y-auto text-sm">
+            {samples
+              .slice(-50)
+              .reverse()
+              .map((s) => {
+                const iconUrl = s.focusedApp ? icons[s.focusedApp] : null;
+                return (
+                  <div key={s.id} className="flex items-center gap-3">
+                    <span className="w-24 shrink-0 text-muted-foreground tabular-nums">
+                      {new Date(s.ts).toLocaleTimeString()}
+                    </span>
+                    <span className="flex w-28 shrink-0 items-center gap-1.5 text-muted-foreground">
+                      {iconUrl ? (
+                        <img
+                          src={iconUrl}
+                          alt=""
+                          className="size-4 shrink-0 rounded-sm"
+                        />
+                      ) : (
+                        <span
+                          className="size-4 shrink-0"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span className="min-w-0 truncate">
+                        {s.focusedApp ?? '—'}
                       </span>
-                      <span className="flex w-28 shrink-0 items-center gap-1.5 text-muted-foreground">
-                        {iconUrl ? (
-                          <img
-                            src={iconUrl}
-                            alt=""
-                            className="size-4 shrink-0 rounded-sm"
-                          />
-                        ) : (
-                          <span
-                            className="size-4 shrink-0"
-                            aria-hidden="true"
-                          />
-                        )}
-                        <span className="min-w-0 truncate">
-                          {s.focusedApp ?? '—'}
-                        </span>
-                      </span>
-                      <span className="min-w-0 truncate">{s.activity}</span>
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-        </div>
+                    </span>
+                    <span className="min-w-0 truncate">{s.activity}</span>
+                  </div>
+                );
+              })}
+          </div>
+        )}
       </section>
     </div>
   );
