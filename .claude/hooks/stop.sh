@@ -18,28 +18,37 @@ if [ -n "$UNTRACKED_TS" ]; then
   exit 0
 fi
 
-FAILED=0
-OUTPUT=""
+RESULTS_DIR=$(mktemp -d)
+trap 'rm -rf "$RESULTS_DIR"' EXIT
 
-run_check() {
+start_check() {
   local name="$1"
   shift
-  local result
-  if result=$("$@" 2>&1); then
+  ("$@" > "$RESULTS_DIR/$name.out" 2>&1; echo $? > "$RESULTS_DIR/$name.status") &
+}
+
+start_check "format" pnpm format
+start_check "lint" pnpm exec oxlint --deny-warnings --ignore-pattern '.claude/worktrees/**'
+start_check "typecheck" env SKIP_ENV_VALIDATION=true pnpm typecheck
+start_check "knip" pnpm knip
+start_check "deprecated" node scripts/check-deprecated.js
+start_check "test" env SKIP_ENV_VALIDATION=true pnpm test
+
+wait
+
+FAILED=0
+OUTPUT=""
+for name in format lint typecheck knip deprecated test; do
+  status=$(cat "$RESULTS_DIR/$name.status")
+  if [ "$status" -eq 0 ]; then
     echo "✅ $name passed" >&2
   else
     FAILED=1
+    result=$(cat "$RESULTS_DIR/$name.out")
     OUTPUT="$OUTPUT\n\n❌ $name FAILED:\n$result"
     echo "❌ $name failed" >&2
   fi
-}
-
-run_check "format" pnpm format
-run_check "lint" pnpm exec oxlint --deny-warnings --ignore-pattern '.claude/worktrees/**'
-run_check "typecheck" env SKIP_ENV_VALIDATION=true pnpm typecheck
-run_check "knip" pnpm knip
-run_check "deprecated" node scripts/check-deprecated.js
-run_check "test" env SKIP_ENV_VALIDATION=true pnpm test
+done
 
 if [ $FAILED -ne 0 ]; then
   echo "" >&2
