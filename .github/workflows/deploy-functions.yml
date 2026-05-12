@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "supabase/functions/**"
+      - 'supabase/functions/**'
 
 jobs:
   deploy-production:

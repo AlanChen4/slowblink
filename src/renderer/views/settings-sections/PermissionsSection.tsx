@@ -65,7 +65,7 @@ export function PermissionRow({
             {granted ? 'Granted' : 'Not granted'}
           </Badge>
         </div>
-        {hint && <p className="text-muted-foreground text-xs">{hint}</p>}
+        {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
       </div>
       <div className="flex shrink-0 items-center gap-2">
         {!granted && (

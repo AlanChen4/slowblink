@@ -47,14 +47,14 @@ pnpm dev
 
 ### Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start in development mode |
-| `pnpm build` | Build the app |
-| `pnpm package:mac` | Package a macOS DMG |
-| `pnpm lint` | Run linter |
-| `pnpm typecheck` | Run type checking |
-| `pnpm test` | Run tests |
+| Command            | Description               |
+| ------------------ | ------------------------- |
+| `pnpm dev`         | Start in development mode |
+| `pnpm build`       | Build the app             |
+| `pnpm package:mac` | Package a macOS DMG       |
+| `pnpm lint`        | Run linter                |
+| `pnpm typecheck`   | Run type checking         |
+| `pnpm test`        | Run tests                 |
 
 ## License
 

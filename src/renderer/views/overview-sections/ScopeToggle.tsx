@@ -34,8 +34,8 @@ export function ScopeToggle({ scope, settings, plan, onChange }: Props) {
             onClick={() => onChange(opt.id)}
             className={
               active
-                ? 'rounded-sm bg-secondary px-3 py-1 font-medium text-secondary-foreground text-xs'
-                : 'rounded-sm px-3 py-1 text-muted-foreground text-xs hover:text-foreground'
+                ? 'rounded-sm bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground'
+                : 'rounded-sm px-3 py-1 text-xs text-muted-foreground hover:text-foreground'
             }
           >
             {opt.label}

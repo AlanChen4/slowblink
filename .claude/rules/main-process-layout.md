@@ -2,10 +2,10 @@
 
 Keep `src/main/` organized by domain. Do not add top-level files for new concerns — place them in the appropriate subdirectory.
 
-| Directory | Purpose |
-|-----------|---------|
-| `src/main/ai/` | AI/LLM integration (prompts, model wrappers, summarization) |
-| `src/main/automation/` | Capture orchestration: scheduler, error policy, state shape, screen-capture, per-tick runner |
+| Directory                | Purpose                                                                                                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/main/ai/`           | AI/LLM integration (prompts, model wrappers, summarization)                                                                                                      |
+| `src/main/automation/`   | Capture orchestration: scheduler, error policy, state shape, screen-capture, per-tick runner                                                                     |
 | `src/main/` (root files) | Core Electron plumbing: app lifecycle (`index.ts`), IPC (`ipc.ts`), database (`db.ts`), settings (`settings.ts`), permissions (`permissions.ts`), env (`env.ts`) |
 
 ## Rules

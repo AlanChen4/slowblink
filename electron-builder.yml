@@ -1,6 +1,6 @@
 appId: com.slowblink.app
 productName: slowblink
-copyright: "Copyright © 2026 Alan Chen"
+copyright: 'Copyright © 2026 Alan Chen'
 directories:
   output: dist
   buildResources: build
@@ -20,8 +20,8 @@ mac:
         - x64
         - arm64
   extendInfo:
-    NSScreenCaptureUsageDescription: "slowblink captures periodic screenshots to summarize your activity locally."
-    NSAppleEventsUsageDescription: "slowblink uses AppleScript to read window titles for activity tracking."
+    NSScreenCaptureUsageDescription: 'slowblink captures periodic screenshots to summarize your activity locally.'
+    NSAppleEventsUsageDescription: 'slowblink uses AppleScript to read window titles for activity tracking.'
     LSUIElement: true
     CFBundleURLTypes:
       - CFBundleURLName: slowblink
@@ -35,9 +35,9 @@ dmg:
   icon: build/icon.icns
   contents:
     - x: 130
-      "y": 220
+      'y': 220
     - x: 410
-      "y": 220
+      'y': 220
       type: link
       path: /Applications
 publish:

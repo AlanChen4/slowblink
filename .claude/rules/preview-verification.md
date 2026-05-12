@@ -71,4 +71,4 @@ Instead, when a visual check isn't reachable from your toolbox:
 
 ### Why this is a separate rule from agent-browser
 
-The agent-browser path uses the *running* Electron BrowserWindow over CDP — no new window appears, and the screenshot reflects the real renderer with its preload bridge attached. `osascript` / `open` launches a *new* browser process against the same URL, which both makes noise on the user's desktop and (for the Electron renderer specifically) renders without the preload, so the page is broken anyway. Either way it's the wrong tool — verify via HTTP or defer to the user.
+The agent-browser path uses the _running_ Electron BrowserWindow over CDP — no new window appears, and the screenshot reflects the real renderer with its preload bridge attached. `osascript` / `open` launches a _new_ browser process against the same URL, which both makes noise on the user's desktop and (for the Electron renderer specifically) renders without the preload, so the page is broken anyway. Either way it's the wrong tool — verify via HTTP or defer to the user.

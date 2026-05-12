@@ -55,10 +55,7 @@ for (const configPath of configPaths) {
           diag.file,
           diag.start,
         );
-        const message = ts.flattenDiagnosticMessageText(
-          diag.messageText,
-          '\n',
-        );
+        const message = ts.flattenDiagnosticMessageText(diag.messageText, '\n');
         const relPath = path.relative(process.cwd(), fileName);
         console.error(`${relPath}:${line + 1}:${character + 1} - ${message}`);
         hasErrors = true;

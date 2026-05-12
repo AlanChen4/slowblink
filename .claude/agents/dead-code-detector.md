@@ -11,9 +11,11 @@ You find code that should no longer exist: unused exports, unreferenced files, s
 ## Scope
 
 1. **Knip output.** Run:
+
    ```
    pnpm knip
    ```
+
    Each reported unused file, export, type, enum, or dependency → one issue. `knip.json` already ignores vendored shadcn and `concurrently`; trust its config. Do not second-guess knip's ignore list.
 
 2. **Stub implementations** in files changed on this branch (`git diff main...HEAD --name-only -- 'src/**/*.ts' 'src/**/*.tsx'`). A stub is a function/method whose body is one of:
@@ -62,6 +64,7 @@ Respond with **only** a single JSON object:
 ```
 
 Rules:
+
 - Knip findings are `error` (they already reflect a conservative ignore-list).
 - Stubs in code new-to-this-branch are `error`; pre-existing stubs the branch didn't touch are out of scope.
 - `status: "PASS"` iff no `error` issues.

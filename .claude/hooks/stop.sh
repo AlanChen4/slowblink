@@ -35,7 +35,7 @@ run_check() {
 }
 
 run_check "format" pnpm format
-run_check "lint" pnpm exec biome check --error-on-warnings
+run_check "lint" pnpm exec oxlint --deny-warnings
 run_check "typecheck" env SKIP_ENV_VALIDATION=true pnpm typecheck
 run_check "knip" pnpm knip
 run_check "deprecated" node scripts/check-deprecated.js

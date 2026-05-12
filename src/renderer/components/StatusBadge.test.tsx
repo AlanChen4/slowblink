@@ -76,7 +76,7 @@ describe('StatusBadge', () => {
   });
 
   test('renders "No API Key" as a button that fires onNavigateToApiKey', () => {
-    const onNavigateToApiKey = vi.fn();
+    const onNavigateToApiKey = vi.fn<() => void>();
     render(
       <StatusBadge
         status={BASE_STATUS}

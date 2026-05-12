@@ -78,7 +78,7 @@ export const OUTCOME_THEME: Record<Outcome, { fg: string; bg: string }> = {
 };
 
 export function useMountEffect(effect: EffectCallback): void {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
+  // oxlint-disable-next-line react-hooks/exhaustive-deps -- intentional mount-only effect
   useEffect(effect, []);
 }
 
@@ -150,7 +150,7 @@ async function controlFetch<T>(path: string, init?: RequestInit): Promise<T> {
     return (await res.json()) as T;
   } catch (err) {
     if (err instanceof TypeError) {
-      throw new Error('Electron app not running.');
+      throw new Error('Electron app not running.', { cause: err });
     }
     throw err;
   }

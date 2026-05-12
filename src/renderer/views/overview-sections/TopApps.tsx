@@ -57,7 +57,7 @@ export function TopApps({ apps, totalDurationMs }: Props) {
                 ) : (
                   <div className="size-10 shrink-0" aria-hidden="true" />
                 )}
-                <span className="truncate font-medium text-base">{a.app}</span>
+                <span className="truncate text-base font-medium">{a.app}</span>
               </div>
               <span className="shrink-0 text-base tabular-nums">
                 {formatDuration(a.durationMs)}
@@ -74,7 +74,7 @@ export function TopApps({ apps, totalDurationMs }: Props) {
                 {a.windows.map((w) => (
                   <li key={w.window} className="space-y-1.5">
                     <div className="flex items-baseline justify-between gap-3">
-                      <span className="min-w-0 flex-1 truncate font-medium text-base text-muted-foreground">
+                      <span className="min-w-0 flex-1 truncate text-base font-medium text-muted-foreground">
                         {w.window}
                       </span>
                       <span className="shrink-0 text-base text-muted-foreground tabular-nums">
@@ -92,7 +92,7 @@ export function TopApps({ apps, totalDurationMs }: Props) {
                 {showOther && (
                   <li className="space-y-1.5">
                     <div className="flex items-baseline justify-between gap-3">
-                      <span className="min-w-0 flex-1 truncate font-medium text-base text-muted-foreground">
+                      <span className="min-w-0 flex-1 truncate text-base font-medium text-muted-foreground">
                         Other, &lt;1 minute visits
                       </span>
                       <span className="shrink-0 text-base text-muted-foreground tabular-nums">
@@ -144,6 +144,7 @@ function DurationBar({ pct, className }: { pct: number; className?: string }) {
   const clamped = Math.max(0, Math.min(1, pct));
   return (
     <div
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- nested-div progress bar; <progress> can't be styled to match
       role="progressbar"
       aria-valuenow={Math.round(clamped * 100)}
       aria-valuemin={0}

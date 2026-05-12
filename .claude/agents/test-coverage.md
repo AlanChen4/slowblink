@@ -13,9 +13,11 @@ You verify that the current branch is tested. Read-only — never edit. Output i
 Two concerns:
 
 1. **Suite passes.** Run:
+
    ```
    env SKIP_ENV_VALIDATION=true pnpm test
    ```
+
    Any failing test → `error`-severity issue citing the test file + the failure message (first line only).
 
 2. **New code paths have tests.** Use `git diff main...HEAD --name-only` and look at changed source files under `src/`. For each changed non-test file, decide:
@@ -24,10 +26,12 @@ Two concerns:
    - **No test and non-trivial** — the file contains branching logic, reducers, parsers, state machines, or domain functions. `error`-severity issue: "No test file covers \`<changed-function>\` in \`<file>\`."
 
 Additionally flag (`warning`):
+
 - `.only(` or `.skip(` in any test file.
 - `describe.skip` / `it.skip` without a trailing TODO comment explaining when it will be re-enabled.
 
 **Exempt from the "needs test" check**:
+
 - `src/renderer/components/ui/**` (vendored shadcn).
 - `src/main/index.ts`, `src/preload/index.ts`, `src/renderer/main.tsx` (entry points — integration-tested via the Electron app, not unit tests).
 - Files changed only by formatting / renames (use `git diff main...HEAD -- <file>` to check; a no-op diff means skip).
@@ -67,5 +71,6 @@ Respond with **only** a single JSON object:
 ```
 
 Rules:
+
 - `status: "PASS"` iff the suite passes **and** no issue has `severity: "error"`.
 - If the diff is empty, return PASS with `"No changes to cover."`.

@@ -99,9 +99,8 @@ describe('samplesToSegments', () => {
     const unique = new Set(windows);
     expect(unique.size).toBeGreaterThanOrEqual(4);
     for (const seg of segments) {
-      if (seg.focusedApp !== null) {
-        expect(seg.focusedApp).toBe('Brave Browser');
-      }
+      // oxlint-disable-next-line vitest/no-conditional-expect -- segmenter may drop focusedApp; only assert when present
+      if (seg.focusedApp !== null) expect(seg.focusedApp).toBe('Brave Browser');
     }
   });
 

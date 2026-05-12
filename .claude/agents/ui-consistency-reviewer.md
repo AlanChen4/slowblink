@@ -43,6 +43,7 @@ Flag these patterns:
 ## Autofix guidance
 
 Provide `autofix` prose when the fix is mechanical:
+
 - `"Replace text-[#ff0033] with text-destructive (matches tokens.colors in tailwind.config.js)."`
 - `"Extract 'running' | 'paused' | 'idle' into type WorkerStatus in src/shared/types.ts; import from here and src/renderer/components/Dashboard.tsx."`
 - `"Change gap-[7px] to gap-2 to match sibling rows."`
@@ -71,6 +72,7 @@ Respond with **only** a single JSON object:
 ```
 
 Rules:
+
 - Severity: duplicated status literals and hex colors outside tokens are `error`. One-off magic px values and uneven spacing are `warning`.
 - `status: "PASS"` iff no `error` issues.
 - If no TSX files changed, return PASS with `"No TSX changes to review."`.
