@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { OverviewInspector } from './dev-sections/OverviewInspector';
+import { ProcessLogs } from './dev-sections/ProcessLogs';
 
 export function Dev() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -19,6 +20,7 @@ export function Dev() {
         <DevCaptureButton />
       </div>
       {import.meta.env.DEV && <ReplayLoggingToggle />}
+      <ProcessLogs />
       {settings && <OverviewInspector settings={settings} />}
     </div>
   );

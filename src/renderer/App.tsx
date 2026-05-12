@@ -36,12 +36,12 @@ import {
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { Dev } from '@/views/Dev';
-import { Logs } from '@/views/Logs';
 import { Onboarding } from '@/views/Onboarding';
 import { Overview } from '@/views/Overview';
+import { Samples } from '@/views/Samples';
 import { type SettingsSection, SettingsView } from '@/views/Settings';
 
-type NavId = 'overview' | 'logs' | 'dev' | 'settings';
+type NavId = 'overview' | 'samples' | 'dev' | 'settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
 
@@ -156,12 +156,12 @@ export default function App() {
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    isActive={view === 'logs'}
-                    tooltip="Logs"
-                    onClick={() => setView('logs')}
+                    isActive={view === 'samples'}
+                    tooltip="Samples"
+                    onClick={() => setView('samples')}
                   >
                     <ScrollText />
-                    <span>Logs</span>
+                    <span>Samples</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -205,7 +205,7 @@ export default function App() {
             {view === 'overview' && (
               <Overview settings={settings} session={session} plan={plan} />
             )}
-            {view === 'logs' && <Logs />}
+            {view === 'samples' && <Samples />}
             {view === 'dev' && <Dev />}
             {view === 'settings' && (
               <SettingsView
