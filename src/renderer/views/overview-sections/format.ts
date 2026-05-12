@@ -9,7 +9,7 @@ export function formatDuration(ms: number): string {
   return min === 0 ? `${hours}h` : `${hours}h ${min}m`;
 }
 
-const MIN_DURATION_MS = 60_000;
+export const MIN_DURATION_MS = 60_000;
 
 export function filterApps(apps: AppDuration[]): AppDuration[] {
   return apps

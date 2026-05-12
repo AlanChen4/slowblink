@@ -9,8 +9,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMountEffect } from '@/hooks/use-mount-effect';
-import { startOfDay } from '@/lib/categories';
-import { filterApps, formatDuration } from './overview-sections/format';
+import { dayStartWithOffset } from '@/lib/categories';
+import {
+  filterApps,
+  formatDuration,
+  MIN_DURATION_MS,
+} from './overview-sections/format';
 import { ScopeToggle } from './overview-sections/ScopeToggle';
 import { TopApps, TopAppsSkeleton } from './overview-sections/TopApps';
 
@@ -19,8 +23,6 @@ interface Props {
   session?: AuthSession | null;
   plan?: Plan | null;
 }
-
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 function formatDayTitle(offset: number, dayStart: number): string {
   if (offset === 0) return 'Today';
@@ -33,9 +35,8 @@ function formatDayTitle(offset: number, dayStart: number): string {
 }
 
 export function Overview({ settings, plan = null }: Props) {
-  const [todayAnchor] = useState(() => startOfDay());
   const [dayOffset, setDayOffset] = useState(0);
-  const dayStart = todayAnchor - dayOffset * ONE_DAY_MS;
+  const dayStart = dayStartWithOffset(dayOffset);
   const isToday = dayOffset === 0;
 
   async function handleScopeChange(next: OverviewScope) {
@@ -45,7 +46,7 @@ export function Overview({ settings, plan = null }: Props) {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-10">
       <OverviewBody
         key={`${settings.overviewScope}-${dayStart}`}
         scope={settings.overviewScope}
@@ -85,11 +86,10 @@ interface LoadHandlers {
 async function loadOverview(
   scope: OverviewScope,
   dayStart: number,
-  isToday: boolean,
+  dayEnd: number,
   cancel: { value: boolean },
   handlers: LoadHandlers,
 ): Promise<void> {
-  const dayEnd = isToday ? Date.now() : dayStart + ONE_DAY_MS;
   try {
     const result = await window.slowblink.getOverview(dayStart, dayEnd, scope);
     if (!cancel.value) handlers.setOverview(result);
@@ -119,7 +119,8 @@ function OverviewBody({
 
   useMountEffect(() => {
     const cancel = { value: false };
-    void loadOverview(scope, dayStart, isToday, cancel, {
+    const dayEnd = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
+    void loadOverview(scope, dayStart, dayEnd, cancel, {
       setOverview,
       setLoadError,
       setLoading,
@@ -131,7 +132,7 @@ function OverviewBody({
     }
     const unsubscribe = window.slowblink.onSampleInserted((sample) => {
       if (sample.ts < dayStart) return;
-      void loadOverview(scope, dayStart, isToday, cancel, {
+      void loadOverview(scope, dayStart, Date.now(), cancel, {
         setOverview,
         setLoadError,
       });
@@ -143,7 +144,10 @@ function OverviewBody({
   });
 
   const filteredApps = overview ? filterApps(overview.aggregate.apps) : [];
-  const totalDurationMs = filteredApps.reduce((s, a) => s + a.durationMs, 0);
+  const totalDurationMs = filteredApps.reduce(
+    (s, a) => s + Math.floor(a.durationMs / MIN_DURATION_MS) * MIN_DURATION_MS,
+    0,
+  );
 
   async function handleSwitchToThisDevice() {
     await window.slowblink.setSettings({ overviewScope: 'this-device' });

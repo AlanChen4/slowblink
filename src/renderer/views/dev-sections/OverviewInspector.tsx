@@ -5,14 +5,12 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useMountEffect } from '@/hooks/use-mount-effect';
-import { startOfDay } from '@/lib/categories';
+import { dayStartWithOffset } from '@/lib/categories';
 import { formatDuration } from '../overview-sections/format';
 
 interface Props {
   settings: Settings;
 }
-
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 function formatDayTitle(offset: number, dayStart: number): string {
   if (offset === 0) return 'Today';
@@ -51,13 +49,11 @@ async function fetchDebug(
 
 export function OverviewInspector({ settings }: Props) {
   const [scope, setScope] = useState<OverviewScope>(settings.overviewScope);
-  const [todayAnchor] = useState(() => startOfDay());
   const [dayOffset, setDayOffset] = useState(0);
   return (
     <OverviewInspectorBody
       key={`${scope}-${dayOffset}`}
       scope={scope}
-      todayAnchor={todayAnchor}
       dayOffset={dayOffset}
       onScopeChange={setScope}
       onDayOffsetChange={setDayOffset}
@@ -67,7 +63,6 @@ export function OverviewInspector({ settings }: Props) {
 
 interface BodyProps {
   scope: OverviewScope;
-  todayAnchor: number;
   dayOffset: number;
   onScopeChange: (scope: OverviewScope) => void;
   onDayOffsetChange: (offset: number) => void;
@@ -75,12 +70,11 @@ interface BodyProps {
 
 function OverviewInspectorBody({
   scope,
-  todayAnchor,
   dayOffset,
   onScopeChange,
   onDayOffsetChange,
 }: BodyProps) {
-  const dayStart = todayAnchor - dayOffset * ONE_DAY_MS;
+  const dayStart = dayStartWithOffset(dayOffset);
   const isToday = dayOffset === 0;
   const [debug, setDebug] = useState<OverviewDebug | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,7 +83,7 @@ function OverviewInspectorBody({
   const cancelRef = useRef<{ value: boolean }>({ value: false });
 
   async function load() {
-    const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
+    const end = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
     await fetchDebug(
       () => window.slowblink.getOverviewDebug(dayStart, end, scope),
       cancelRef.current,
@@ -98,7 +92,7 @@ function OverviewInspectorBody({
   }
 
   async function refresh() {
-    const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
+    const end = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
     await fetchDebug(
       () => window.slowblink.refreshOverviewDebug(dayStart, end, scope),
       cancelRef.current,

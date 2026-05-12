@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/empty';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { formatDuration } from './format';
+import { formatDuration, MIN_DURATION_MS } from './format';
 
 interface Props {
   apps: AppDuration[];
@@ -34,55 +34,82 @@ export function TopApps({ apps, totalDurationMs }: Props) {
   }
   return (
     <ul className="space-y-3">
-      {apps.map((a) => (
-        <li key={a.app} className="space-y-1.5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex min-w-0 flex-1 items-center gap-3">
-              {a.iconDataUrl ? (
-                <img
-                  src={a.iconDataUrl}
-                  alt=""
-                  className="size-10 shrink-0 rounded-md"
-                />
-              ) : (
-                <div className="size-10 shrink-0" aria-hidden="true" />
-              )}
-              <span className="truncate font-medium text-base">{a.app}</span>
-            </div>
-            <span className="shrink-0 text-base tabular-nums">
-              {formatDuration(a.durationMs)}
-            </span>
-          </div>
-          <div className="pl-[3.25rem]">
-            <DurationBar
-              pct={totalDurationMs > 0 ? a.durationMs / totalDurationMs : 0}
-              className="h-1.5"
-            />
-          </div>
-          {a.windows.length > 0 && (
-            <ul className="space-y-1.5 pl-[3.25rem]">
-              {a.windows.map((w) => (
-                <li key={w.window} className="space-y-1.5">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="min-w-0 flex-1 truncate font-medium text-base text-muted-foreground">
-                      {w.window}
-                    </span>
-                    <span className="shrink-0 text-base text-muted-foreground tabular-nums">
-                      {formatDuration(w.durationMs)}
-                    </span>
-                  </div>
-                  <DurationBar
-                    pct={
-                      totalDurationMs > 0 ? w.durationMs / totalDurationMs : 0
-                    }
-                    className="h-1.5"
+      {apps.map((a) => {
+        const appMin = Math.floor(a.durationMs / MIN_DURATION_MS);
+        const visibleWindowMin = a.windows.reduce(
+          (s, w) => s + Math.floor(w.durationMs / MIN_DURATION_MS),
+          0,
+        );
+        const otherMs =
+          Math.max(0, appMin - visibleWindowMin) * MIN_DURATION_MS;
+        const showOther = otherMs >= MIN_DURATION_MS;
+        const hasChildren = a.windows.length > 0 || showOther;
+        return (
+          <li key={a.app} className="space-y-1.5">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                {a.iconDataUrl ? (
+                  <img
+                    src={a.iconDataUrl}
+                    alt=""
+                    className="size-10 shrink-0 rounded-md"
                   />
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))}
+                ) : (
+                  <div className="size-10 shrink-0" aria-hidden="true" />
+                )}
+                <span className="truncate font-medium text-base">{a.app}</span>
+              </div>
+              <span className="shrink-0 text-base tabular-nums">
+                {formatDuration(a.durationMs)}
+              </span>
+            </div>
+            <div className="pl-[3.25rem]">
+              <DurationBar
+                pct={totalDurationMs > 0 ? a.durationMs / totalDurationMs : 0}
+                className="h-1.5"
+              />
+            </div>
+            {hasChildren && (
+              <ul className="space-y-1.5 pl-[3.25rem]">
+                {a.windows.map((w) => (
+                  <li key={w.window} className="space-y-1.5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="min-w-0 flex-1 truncate font-medium text-base text-muted-foreground">
+                        {w.window}
+                      </span>
+                      <span className="shrink-0 text-base text-muted-foreground tabular-nums">
+                        {formatDuration(w.durationMs)}
+                      </span>
+                    </div>
+                    <DurationBar
+                      pct={
+                        totalDurationMs > 0 ? w.durationMs / totalDurationMs : 0
+                      }
+                      className="h-1.5"
+                    />
+                  </li>
+                ))}
+                {showOther && (
+                  <li className="space-y-1.5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="min-w-0 flex-1 truncate font-medium text-base text-muted-foreground">
+                        Other, &lt;1 minute visits
+                      </span>
+                      <span className="shrink-0 text-base text-muted-foreground tabular-nums">
+                        {formatDuration(otherMs)}
+                      </span>
+                    </div>
+                    <DurationBar
+                      pct={totalDurationMs > 0 ? otherMs / totalDurationMs : 0}
+                      className="h-1.5"
+                    />
+                  </li>
+                )}
+              </ul>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
