@@ -44,27 +44,9 @@ function formatDayTitle(offset: number, dayStart: number): string {
 
 type Source = { kind: 'live' } | { kind: 'fixture'; name: string };
 
-const EXPORT_DAY_OPTIONS = [1, 3, 7, 14, 30];
-
-function exportRange(
-  dayOffset: number,
-  exportDays: number,
-): { earliest: number; latest: number } {
-  const earliest = dayStartWithOffset(dayOffset + exportDays - 1);
-  const latest =
-    dayOffset === 0 ? Date.now() : dayStartWithOffset(dayOffset - 1);
-  return { earliest, latest };
-}
-
-function suggestFixtureName(dayOffset: number, exportDays: number): string {
-  const latestDate = new Date(dayStartWithOffset(dayOffset))
-    .toISOString()
-    .slice(0, 10);
-  if (exportDays === 1) return `samples-${latestDate}`;
-  const earliestDate = new Date(dayStartWithOffset(dayOffset + exportDays - 1))
-    .toISOString()
-    .slice(0, 10);
-  return `samples-${earliestDate}-to-${latestDate}`;
+function suggestFixtureName(dayOffset: number): string {
+  const date = new Date(dayStartWithOffset(dayOffset)).toISOString().slice(0, 10);
+  return `samples-${date}`;
 }
 
 async function trySaveFixture(
@@ -88,7 +70,6 @@ export function OverviewView() {
   const [dayOffset, setDayOffset] = useState(0);
   const [source, setSource] = useState<Source>({ kind: 'live' });
   const [fixtures, setFixtures] = useState<FixtureListEntry[]>([]);
-  const [exportDays, setExportDays] = useState(1);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
@@ -115,8 +96,10 @@ export function OverviewView() {
 
   async function onExport() {
     if (exporting) return;
-    const { earliest, latest } = exportRange(dayOffset, exportDays);
-    const suggested = suggestFixtureName(dayOffset, exportDays);
+    const earliest = dayStartWithOffset(dayOffset);
+    const latest =
+      dayOffset === 0 ? Date.now() : dayStartWithOffset(dayOffset - 1);
+    const suggested = suggestFixtureName(dayOffset);
     const name = window.prompt('Save samples as fixture name:', suggested);
     if (!name) return;
     setExporting(true);
@@ -152,14 +135,12 @@ export function OverviewView() {
         scope={scope}
         dayOffset={dayOffset}
         fixtures={fixtures}
-        exportDays={exportDays}
         exporting={exporting}
         exportError={exportError}
         onScopeChange={setScope}
         onDayOffsetChange={setDayOffset}
         onLoadFixture={onLoadFixture}
         onBackToLive={onBackToLive}
-        onExportDaysChange={setExportDays}
         onExport={() => {
           void onExport();
         }}
@@ -174,14 +155,12 @@ interface ToolbarProps {
   scope: OverviewScope;
   dayOffset: number;
   fixtures: FixtureListEntry[];
-  exportDays: number;
   exporting: boolean;
   exportError: string | null;
   onScopeChange: (s: OverviewScope) => void;
   onDayOffsetChange: (n: number) => void;
   onLoadFixture: (name: string) => void;
   onBackToLive: () => void;
-  onExportDaysChange: (n: number) => void;
   onExport: () => void;
 }
 
@@ -190,14 +169,12 @@ function Toolbar({
   scope,
   dayOffset,
   fixtures,
-  exportDays,
   exporting,
   exportError,
   onScopeChange,
   onDayOffsetChange,
   onLoadFixture,
   onBackToLive,
-  onExportDaysChange,
   onExport,
 }: ToolbarProps) {
   const isLive = source.kind === 'live';
@@ -237,15 +214,7 @@ function Toolbar({
         {exportError && (
           <span style={{ color: 'var(--accent-error-fg)' }}>{exportError}</span>
         )}
-        {isLive && (
-          <>
-            <ExportDaysSelect
-              value={exportDays}
-              onChange={onExportDaysChange}
-            />
-            <ExportButton pending={exporting} onClick={onExport} />
-          </>
-        )}
+        {isLive && <ExportButton pending={exporting} onClick={onExport} />}
         <FixtureSelect
           fixtures={fixtures}
           currentName={source.kind === 'fixture' ? source.name : null}
@@ -254,36 +223,6 @@ function Toolbar({
         {isLive && <ScopeSwitch scope={scope} onChange={onScopeChange} />}
       </div>
     </div>
-  );
-}
-
-function ExportDaysSelect({
-  value,
-  onChange,
-}: {
-  value: number;
-  onChange: (n: number) => void;
-}) {
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(Number(e.target.value))}
-      title="Days of samples to include in export"
-      style={{
-        height: 24,
-        padding: '0 6px',
-        background: 'var(--bg-panel)',
-        color: 'var(--text-secondary)',
-        border: '1px solid var(--border-mid)',
-        borderRadius: 4,
-      }}
-    >
-      {EXPORT_DAY_OPTIONS.map((d) => (
-        <option key={d} value={d}>
-          {d === 1 ? '1 day' : `${d} days`}
-        </option>
-      ))}
-    </select>
   );
 }
 
