@@ -121,6 +121,8 @@ export interface LogEntry {
   message: string;
 }
 
+export const LOG_BUFFER_SIZE = 500;
+
 export interface OverviewDebug {
   range: {
     startTs: number;

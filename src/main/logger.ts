@@ -1,16 +1,7 @@
 import { format } from 'node:util';
+import { LOG_BUFFER_SIZE, type LogEntry, type LogLevel } from '../shared/types';
 import { createEmitter } from './emitter';
 
-export type LogLevel = 'log' | 'info' | 'warn' | 'error' | 'debug';
-
-export interface LogEntry {
-  id: number;
-  ts: number;
-  level: LogLevel;
-  message: string;
-}
-
-const BUFFER_SIZE = 500;
 const buffer: LogEntry[] = [];
 const entryEmitter = createEmitter<LogEntry>();
 let nextId = 1;
@@ -35,7 +26,7 @@ function record(level: LogLevel, args: unknown[]): void {
   const message = format(...args);
   const entry: LogEntry = { id: nextId++, ts: Date.now(), level, message };
   buffer.push(entry);
-  if (buffer.length > BUFFER_SIZE) buffer.shift();
+  if (buffer.length > LOG_BUFFER_SIZE) buffer.shift();
   entryEmitter.emit(entry);
   safeWrite(streamFor(level), `${message}\n`);
 }
@@ -63,7 +54,13 @@ export function installStdioSafetyNet(): void {
 }
 
 function handlePipeError(err: NodeJS.ErrnoException): void {
-  if (err.code === 'EPIPE' || err.code === 'EBADF') return;
+  if (
+    err.code === 'EPIPE' ||
+    err.code === 'EBADF' ||
+    err.code === 'ERR_STREAM_DESTROYED'
+  ) {
+    return;
+  }
   // Anything else: replicate Node's default uncaught behavior. We
   // intentionally bypass `logger` here — this may run before init.
   if (process.stderr.writable) {
