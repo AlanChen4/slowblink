@@ -1,5 +1,15 @@
 import { format } from 'node:util';
-import { LOG_BUFFER_SIZE, type LogEntry, type LogLevel } from '../shared/types';
+
+export type LogLevel = 'log' | 'info' | 'warn' | 'error' | 'debug';
+
+export interface LogEntry {
+  id: number;
+  ts: number;
+  level: LogLevel;
+  message: string;
+}
+
+const LOG_BUFFER_SIZE = 500;
 
 const buffer: LogEntry[] = [];
 let nextId = 1;

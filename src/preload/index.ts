@@ -25,7 +25,6 @@ const api: SlowblinkAPI = {
   getStatus: () => ipcRenderer.invoke(IPC.statusGet),
   pause: () => ipcRenderer.invoke(IPC.capturePause),
   resume: () => ipcRenderer.invoke(IPC.captureResume),
-  captureOnce: () => ipcRenderer.invoke(IPC.captureOnce),
   requestPermission: () => ipcRenderer.invoke(IPC.permissionRequest),
   openPermissionSettings: () => ipcRenderer.invoke(IPC.permissionOpen),
   requestAccessibilityPermission: () =>

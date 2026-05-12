@@ -1,12 +1,25 @@
-import type { OverviewDebug, OverviewScope } from '../../shared/types';
+import type {
+  OverviewAggregate,
+  OverviewScope,
+  Sample,
+  Segment,
+} from '../../shared/types';
 import { aggregate } from './aggregator';
-import {
-  buildLocalPipeline,
-  deriveRange,
-  fetchSupabaseSamples,
-  getOverview,
-} from './index';
+import { buildLocalPipeline, deriveRange, fetchSupabaseSamples } from './index';
 import { samplesToSegments } from './segmenter';
+
+export interface OverviewDebug {
+  range: {
+    startTs: number;
+    endTs: number;
+    rangeKey: string;
+    scope: OverviewScope;
+    timezone: string;
+  };
+  samples: Sample[];
+  segments: Segment[];
+  aggregate: OverviewAggregate;
+}
 
 export async function getOverviewDebug(
   rangeStart: number,
@@ -33,6 +46,3 @@ export async function getOverviewDebug(
     aggregate: agg,
   };
 }
-
-// Re-export for compatibility with any callers expecting a typed Overview.
-export { getOverview };

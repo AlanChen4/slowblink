@@ -112,30 +112,6 @@ export interface Overview {
   aggregate: OverviewAggregate;
 }
 
-export type LogLevel = 'log' | 'info' | 'warn' | 'error' | 'debug';
-
-export interface LogEntry {
-  id: number;
-  ts: number;
-  level: LogLevel;
-  message: string;
-}
-
-export const LOG_BUFFER_SIZE = 500;
-
-export interface OverviewDebug {
-  range: {
-    startTs: number;
-    endTs: number;
-    rangeKey: string;
-    scope: OverviewScope;
-    timezone: string;
-  };
-  samples: Sample[];
-  segments: Segment[];
-  aggregate: OverviewAggregate;
-}
-
 export interface SlowblinkAPI {
   getSamples(rangeStart: number, rangeEnd: number): Promise<Sample[]>;
   getSettings(): Promise<Settings>;
@@ -145,7 +121,6 @@ export interface SlowblinkAPI {
   getStatus(): Promise<CaptureStatus>;
   pause(): Promise<void>;
   resume(): Promise<void>;
-  captureOnce(): Promise<void>;
   requestPermission(): Promise<boolean>;
   openPermissionSettings(): Promise<void>;
   requestAccessibilityPermission(): Promise<boolean>;

@@ -20,7 +20,6 @@ import {
 } from './db';
 import { getOverview } from './overview';
 import {
-  hasScreenPermission,
   openAccessibilityPermissionSettings,
   openScreenPermissionSettings,
   requestAccessibilityPermission,
@@ -76,11 +75,9 @@ export function registerIpc(automation: Automation) {
   ipcMain.handle(IPC.captureResume, () => {
     automation.applyIntent({ paused: false });
   });
-  ipcMain.handle(IPC.captureOnce, () => automation.captureNow());
 
   ipcMain.handle(IPC.permissionRequest, () => requestScreenPermission());
   ipcMain.handle(IPC.permissionOpen, () => openScreenPermissionSettings());
-  ipcMain.handle(IPC.permissionHas, () => hasScreenPermission());
 
   ipcMain.handle(IPC.permissionAccessibilityRequest, () =>
     requestAccessibilityPermission(),
