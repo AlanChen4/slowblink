@@ -1,5 +1,13 @@
 import type { EffectCallback } from 'react';
 import { useEffect } from 'react';
+import type {
+  OverviewAggregate,
+  OverviewScope,
+  Sample,
+  Segment,
+} from '@shared/types';
+
+export type { OverviewAggregate, OverviewScope, Sample, Segment };
 
 export type Outcome = 'success' | 'dlp_blocked' | 'error';
 export type FilterValue = 'all' | Outcome;
@@ -23,34 +31,6 @@ export interface CaptureDetail extends CaptureListRow {
   request: unknown;
   response: unknown;
   parsed_result: unknown;
-}
-
-export type OverviewScope = 'this-device' | 'all-devices';
-
-export interface Sample {
-  id: number;
-  ts: number;
-  activity: string;
-  confidence: number;
-  focusedApp: string | null;
-  focusedWindow: string | null;
-}
-
-export interface Segment {
-  startTs: number;
-  endTs: number;
-  durationMs: number;
-  focusedApp: string | null;
-  focusedWindow: string | null;
-}
-
-export interface OverviewAggregate {
-  apps: {
-    app: string;
-    durationMs: number;
-    windows: { window: string; durationMs: number }[];
-    iconDataUrl: string | null;
-  }[];
 }
 
 export interface OverviewDebug {
@@ -210,6 +190,78 @@ export function fetchOverviewDebug(
   return controlFetch<OverviewDebug>(`/overview-debug?${params.toString()}`);
 }
 
+export interface FixtureSampleRow {
+  ts: number;
+  activity: string;
+  confidence: number | null;
+  focused_app: string | null;
+  focused_window: string | null;
+}
+
+export interface FixtureListEntry {
+  name: string;
+  samples: number;
+  sizeBytes: number;
+  mtime: number;
+}
+
+export async function fetchFixtures(): Promise<FixtureListEntry[]> {
+  const res = await fetch('/api/fixtures');
+  if (!res.ok) throw new Error(`list fixtures failed: ${res.status}`);
+  const json = (await res.json()) as { fixtures: FixtureListEntry[] };
+  return json.fixtures;
+}
+
+export async function fetchFixture(name: string): Promise<FixtureSampleRow[]> {
+  const res = await fetch(`/api/fixtures/${encodeURIComponent(name)}`);
+  if (!res.ok) throw new Error(`read fixture failed: ${res.status}`);
+  const json = (await res.json()) as { samples: FixtureSampleRow[] };
+  return json.samples;
+}
+
+export async function saveFixture(
+  name: string,
+  samples: Sample[],
+): Promise<{ name: string }> {
+  const body = JSON.stringify({
+    name,
+    samples: samples.map(sampleToFixtureRow),
+  });
+  const res = await fetch('/api/fixtures', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body,
+  });
+  if (!res.ok) {
+    const errBody = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    throw new Error(errBody?.error ?? `save fixture failed: ${res.status}`);
+  }
+  return (await res.json()) as { name: string };
+}
+
+function sampleToFixtureRow(sample: Sample): FixtureSampleRow {
+  return {
+    ts: sample.ts,
+    activity: sample.activity,
+    confidence: sample.confidence,
+    focused_app: sample.focusedApp,
+    focused_window: sample.focusedWindow,
+  };
+}
+
+export function fixtureRowsToSamples(rows: FixtureSampleRow[]): Sample[] {
+  return rows.map((row, i) => ({
+    id: i + 1,
+    ts: row.ts,
+    activity: row.activity,
+    confidence: row.confidence ?? 0,
+    focusedApp: row.focused_app,
+    focusedWindow: row.focused_window,
+  }));
+}
+
 export function dayStartWithOffset(offset: number, now = new Date()): number {
   const d = new Date(now);
   d.setDate(d.getDate() - offset);
@@ -220,10 +272,14 @@ export function dayStartWithOffset(offset: number, now = new Date()): number {
 export function formatDuration(ms: number): string {
   if (ms <= 0) return '0m';
   const totalMin = Math.floor(ms / 60_000);
-  if (totalMin < 60) return `${totalMin}m`;
-  const hours = Math.floor(totalMin / 60);
+  const days = Math.floor(totalMin / 1440);
+  const hours = Math.floor((totalMin % 1440) / 60);
   const min = totalMin % 60;
-  return min === 0 ? `${hours}h` : `${hours}h ${min}m`;
+  const parts: string[] = [];
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (min > 0 || parts.length === 0) parts.push(`${min}m`);
+  return parts.join(' ');
 }
 
 export function formatTime(ts: number): string {

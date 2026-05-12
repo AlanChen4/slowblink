@@ -30,7 +30,10 @@ const FILTERS: { value: FilterValue; label: string }[] = [
 
 const STATUS_POLL_MS = 2000;
 
-function statusEqual(a: CaptureStatus | null, b: CaptureStatus | null): boolean {
+function statusEqual(
+  a: CaptureStatus | null,
+  b: CaptureStatus | null,
+): boolean {
   if (a === b) return true;
   if (a === null || b === null) return false;
   return (
@@ -161,7 +164,11 @@ function Header({
         background: 'var(--bg-elevated)',
       }}
     >
-      <TabStrip items={PRIMARY_TABS} value={primary} onChange={onPrimaryChange} />
+      <TabStrip
+        items={PRIMARY_TABS}
+        value={primary}
+        onChange={onPrimaryChange}
+      />
       {onCaptures && <VerticalDivider />}
       {onCaptures && (
         <TabStrip items={FILTERS} value={filter} onChange={onFilterChange} />
