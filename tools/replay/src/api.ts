@@ -1,11 +1,11 @@
-import type { EffectCallback } from 'react';
-import { useEffect } from 'react';
 import type {
   OverviewAggregate,
   OverviewScope,
   Sample,
   Segment,
 } from '@shared/types';
+import type { EffectCallback } from 'react';
+import { useEffect } from 'react';
 
 export type { OverviewAggregate, OverviewScope, Sample, Segment };
 

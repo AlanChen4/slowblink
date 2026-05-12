@@ -1,20 +1,20 @@
-import { useMemo, useState } from 'react';
 import { aggregate } from '@shared/overview/aggregator';
 import { samplesToSegments } from '@shared/overview/segmenter';
+import { useMemo, useState } from 'react';
 import {
   dayStartWithOffset,
+  type FixtureListEntry,
   fetchFixture,
   fetchFixtures,
   fetchOverviewDebug,
-  type FixtureListEntry,
   fixtureRowsToSamples,
   formatDuration,
   type OverviewAggregate,
   type OverviewDebug,
   type OverviewScope,
   type Sample,
-  saveFixture,
   type Segment,
+  saveFixture,
   startPolling,
   useMountEffect,
 } from '../api';
@@ -45,6 +45,43 @@ function formatDayTitle(offset: number, dayStart: number): string {
 type Source = { kind: 'live' } | { kind: 'fixture'; name: string };
 
 const EXPORT_DAY_OPTIONS = [1, 3, 7, 14, 30];
+
+function exportRange(
+  dayOffset: number,
+  exportDays: number,
+): { earliest: number; latest: number } {
+  const earliest = dayStartWithOffset(dayOffset + exportDays - 1);
+  const latest =
+    dayOffset === 0 ? Date.now() : dayStartWithOffset(dayOffset - 1);
+  return { earliest, latest };
+}
+
+function suggestFixtureName(dayOffset: number, exportDays: number): string {
+  const latestDate = new Date(dayStartWithOffset(dayOffset))
+    .toISOString()
+    .slice(0, 10);
+  if (exportDays === 1) return `samples-${latestDate}`;
+  const earliestDate = new Date(dayStartWithOffset(dayOffset + exportDays - 1))
+    .toISOString()
+    .slice(0, 10);
+  return `samples-${earliestDate}-to-${latestDate}`;
+}
+
+async function trySaveFixture(
+  name: string,
+  earliest: number,
+  latest: number,
+  scope: OverviewScope,
+): Promise<string | null> {
+  try {
+    const debug = await fetchOverviewDebug(earliest, latest, scope);
+    if (debug.samples.length === 0) return 'No samples in selected range.';
+    await saveFixture(name, debug.samples);
+    return null;
+  } catch (err) {
+    return err instanceof Error ? err.message : String(err);
+  }
+}
 
 export function OverviewView() {
   const [scope, setScope] = useState<OverviewScope>('this-device');
@@ -78,35 +115,16 @@ export function OverviewView() {
 
   async function onExport() {
     if (exporting) return;
-    const earliestOffset = dayOffset + exportDays - 1;
-    const earliest = dayStartWithOffset(earliestOffset);
-    const latest =
-      dayOffset === 0 ? Date.now() : dayStartWithOffset(dayOffset - 1);
-    const earliestDate = new Date(earliest).toISOString().slice(0, 10);
-    const latestDate = new Date(dayStartWithOffset(dayOffset))
-      .toISOString()
-      .slice(0, 10);
-    const suggested =
-      exportDays === 1
-        ? `samples-${latestDate}`
-        : `samples-${earliestDate}-to-${latestDate}`;
+    const { earliest, latest } = exportRange(dayOffset, exportDays);
+    const suggested = suggestFixtureName(dayOffset, exportDays);
     const name = window.prompt('Save samples as fixture name:', suggested);
     if (!name) return;
     setExporting(true);
     setExportError(null);
-    try {
-      const debug = await fetchOverviewDebug(earliest, latest, scope);
-      if (debug.samples.length === 0) {
-        setExportError('No samples in selected range.');
-        return;
-      }
-      await saveFixture(name, debug.samples);
-      await reloadFixtures();
-    } catch (err) {
-      setExportError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setExporting(false);
-    }
+    const errMsg = await trySaveFixture(name, earliest, latest, scope);
+    setExporting(false);
+    if (errMsg === null) await reloadFixtures();
+    else setExportError(errMsg);
   }
 
   const body =
@@ -302,7 +320,8 @@ function LiveBody({ scope, dayOffset }: LiveBodyProps) {
     ),
   );
 
-  if (loading) return <div style={{ color: 'var(--text-muted)' }}>Loading…</div>;
+  if (loading)
+    return <div style={{ color: 'var(--text-muted)' }}>Loading…</div>;
   if (error)
     return <div style={{ color: 'var(--accent-error-fg)' }}>{error}</div>;
   if (!debug) return null;
@@ -346,7 +365,8 @@ function FixtureBody({ name }: { name: string }) {
     return { samples, segments, aggregate: aggregate(segments) };
   }, [samples]);
 
-  if (loading) return <div style={{ color: 'var(--text-muted)' }}>Loading…</div>;
+  if (loading)
+    return <div style={{ color: 'var(--text-muted)' }}>Loading…</div>;
   if (error)
     return <div style={{ color: 'var(--accent-error-fg)' }}>{error}</div>;
   if (!computed) return null;

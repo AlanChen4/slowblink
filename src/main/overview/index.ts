@@ -1,3 +1,5 @@
+import { aggregate } from '../../shared/overview/aggregator';
+import { samplesToSegments } from '../../shared/overview/segmenter';
 import type {
   Overview,
   OverviewAggregate,
@@ -5,8 +7,6 @@ import type {
   Sample,
   Segment,
 } from '../../shared/types';
-import { aggregate } from '../../shared/overview/aggregator';
-import { samplesToSegments } from '../../shared/overview/segmenter';
 import { getSupabase } from '../auth/client';
 import { getCurrentSession } from '../auth/session';
 import { getAppIconsForNames, getSamples as getSamplesFromDb } from '../db';
