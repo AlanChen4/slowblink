@@ -27,7 +27,11 @@ start_check() {
   ("$@" > "$RESULTS_DIR/$name.out" 2>&1; echo $? > "$RESULTS_DIR/$name.status") &
 }
 
-start_check "format" pnpm format
+# format writes files in place — run sequentially before parallel read-only
+# checks so lint/typecheck/test see a stable file tree.
+pnpm format > "$RESULTS_DIR/format.out" 2>&1
+echo $? > "$RESULTS_DIR/format.status"
+
 start_check "lint" pnpm exec oxlint --deny-warnings --ignore-pattern '.claude/worktrees/**'
 start_check "typecheck" env SKIP_ENV_VALIDATION=true pnpm typecheck
 start_check "knip" pnpm knip
