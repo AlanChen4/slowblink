@@ -8,7 +8,7 @@ afterEach(cleanup);
 const BASE_STATUS: CaptureStatus = {
   running: true,
   lastError: null,
-  lastCaptureTs: null,
+  autoPaused: null,
   hasPermission: true,
   hasAccessibility: true,
   hasApiKey: false,
@@ -25,7 +25,6 @@ const BASE_SETTINGS: Settings = {
   aiMode: 'byo-key',
   onboardingComplete: true,
   overviewScope: 'this-device',
-  overviewMinDurationMs: 5 * 60 * 1000,
 };
 
 describe('collectIssues', () => {
@@ -105,5 +104,69 @@ describe('StatusBadge', () => {
 
     expect(screen.queryByRole('button', { name: 'No API Key' })).toBeNull();
     expect(screen.getByText('No API Key')).toBeDefined();
+  });
+
+  test('renders error label when lastError is set', () => {
+    render(
+      <StatusBadge
+        status={{
+          ...BASE_STATUS,
+          running: false,
+          lastError: 'fetch failed',
+        }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Error — fetch failed')).toBeDefined();
+  });
+
+  test('paused beats lastError in the label', () => {
+    render(
+      <StatusBadge
+        status={{ ...BASE_STATUS, lastError: 'fetch failed' }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true, paused: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Paused')).toBeDefined();
+    expect(screen.queryByText(/Error — /)).toBeNull();
+  });
+
+  test('transient lastError shows amber dot, not destructive', () => {
+    const { container } = render(
+      <StatusBadge
+        status={{ ...BASE_STATUS, lastError: 'empty thumbnail' }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    const dot = container.querySelector('span.rounded-full');
+    expect(dot?.className).toContain('bg-amber-500');
+    expect(dot?.className).not.toContain('bg-destructive');
+  });
+
+  test('autoPaused shows destructive dot', () => {
+    const { container } = render(
+      <StatusBadge
+        status={{
+          ...BASE_STATUS,
+          lastError: 'persistent failure',
+          autoPaused: 'persistent failure',
+        }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    const dot = container.querySelector('span.rounded-full');
+    expect(dot?.className).toContain('bg-destructive');
   });
 });

@@ -21,16 +21,14 @@ function statusColor(
   paused: boolean,
   hasIssues: boolean,
 ): string {
-  if (hasIssues || status.lastError) return 'bg-destructive';
-  if (paused) return 'bg-amber-500';
+  if (hasIssues || status.autoPaused) return 'bg-destructive';
+  if (paused || status.lastError) return 'bg-amber-500';
   return 'bg-emerald-500';
 }
 
-function statusLabel(status: CaptureStatus, paused: boolean): string {
-  if (paused) return 'Paused';
-  if (status.lastCaptureTs) {
-    return `Last Updated at ${new Date(status.lastCaptureTs).toLocaleTimeString()}`;
-  }
+function statusLabel(status: CaptureStatus, settings: Settings): string {
+  if (settings.paused) return 'Paused';
+  if (status.lastError) return `Error — ${status.lastError}`;
   return 'Running';
 }
 
@@ -68,7 +66,7 @@ export function StatusBadge({
       {issues.length > 0 ? (
         <IssueList issues={issues} onNavigateToApiKey={onNavigateToApiKey} />
       ) : (
-        (syncPart ?? statusLabel(status, settings.paused))
+        (syncPart ?? statusLabel(status, settings))
       )}
     </div>
   );

@@ -12,6 +12,7 @@
  * Quit slowblink before running — SQLite doesn't tolerate a second writer on
  * the same file.
  */
+import { randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -52,14 +53,29 @@ interface ExportedSample {
   focused_window: string | null;
 }
 
-function loadFromFile(path: string): Sample[] {
+interface ExportedAppIcon {
+  app_name: string;
+  data_url: string;
+  updated_at: number;
+}
+
+interface LoadedFile {
+  samples: Sample[];
+  appIcons: ExportedAppIcon[];
+}
+
+function loadFromFile(path: string): LoadedFile {
   const raw = readFileSync(path, 'utf-8');
-  const parsed = JSON.parse(raw) as ExportedSample[];
-  if (!Array.isArray(parsed)) {
-    console.error('export file is not a JSON array');
+  const parsed = JSON.parse(raw) as
+    | ExportedSample[]
+    | { samples: ExportedSample[]; appIcons?: ExportedAppIcon[] };
+  const sampleRows = Array.isArray(parsed) ? parsed : parsed.samples;
+  const iconRows = Array.isArray(parsed) ? [] : (parsed.appIcons ?? []);
+  if (!Array.isArray(sampleRows)) {
+    console.error('export file has no samples array');
     process.exit(1);
   }
-  return parsed.map((row, i) => ({
+  const samples = sampleRows.map((row, i) => ({
     id: i + 1,
     ts: row.ts,
     activity: row.activity,
@@ -67,12 +83,18 @@ function loadFromFile(path: string): Sample[] {
     focusedApp: row.focused_app,
     focusedWindow: row.focused_window,
   }));
+  return { samples, appIcons: iconRows };
 }
 
-function pickSamples(): { samples: Sample[]; label: string } {
+function pickSamples(): {
+  samples: Sample[];
+  appIcons: ExportedAppIcon[];
+  label: string;
+} {
   const fromFile = getArg('from-file');
   if (fromFile) {
-    return { samples: loadFromFile(fromFile), label: `file:${fromFile}` };
+    const loaded = loadFromFile(fromFile);
+    return { ...loaded, label: `file:${fromFile}` };
   }
   const profile = getArg('profile');
   if (!profile) {
@@ -88,7 +110,7 @@ function pickSamples(): { samples: Sample[]; label: string } {
     );
     process.exit(1);
   }
-  return { samples: factory(), label: `profile:${profile}` };
+  return { samples: factory(), appIcons: [], label: `profile:${profile}` };
 }
 
 function migrate(db: DatabaseSync) {
@@ -110,7 +132,7 @@ function migrate(db: DatabaseSync) {
 }
 
 function main() {
-  const { samples, label } = pickSamples();
+  const { samples, appIcons, label } = pickSamples();
   const force = hasFlag('force');
   const dbPath = resolveDbPath();
   mkdirSync(dirname(dbPath), { recursive: true });
@@ -132,11 +154,31 @@ function main() {
   db.exec('BEGIN');
   try {
     db.prepare('DELETE FROM samples').run();
-    const insert = db.prepare(
+    db.prepare('DELETE FROM app_icons').run();
+    const insertSample = db.prepare(
       'INSERT INTO samples (ts, activity, confidence, focused_app, focused_window) VALUES (?, ?, ?, ?, ?)',
     );
     for (const s of samples) {
-      insert.run(s.ts, s.activity, s.confidence, s.focusedApp, s.focusedWindow);
+      insertSample.run(
+        s.ts,
+        s.activity,
+        s.confidence,
+        s.focusedApp,
+        s.focusedWindow,
+      );
+    }
+    const insertIcon = db.prepare(
+      `INSERT OR REPLACE INTO app_icons
+       (id, app_name, data_url, updated_at, sync_state)
+       VALUES (?, ?, ?, ?, 'synced')`,
+    );
+    for (const icon of appIcons) {
+      insertIcon.run(
+        randomUUID(),
+        icon.app_name,
+        icon.data_url,
+        icon.updated_at,
+      );
     }
     db.exec('COMMIT');
   } catch (err) {
@@ -144,7 +186,9 @@ function main() {
     throw err;
   }
   db.close();
-  console.log(`Wrote ${samples.length} samples from ${label} to ${dbPath}`);
+  console.log(
+    `Wrote ${samples.length} samples + ${appIcons.length} app icons from ${label} to ${dbPath}`,
+  );
 }
 
 main();

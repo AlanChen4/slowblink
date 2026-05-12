@@ -45,7 +45,6 @@ export interface StateDeps {
 export interface AutomationRuntime {
   timer: NodeJS.Timeout | null;
   lastError: string | null;
-  lastCaptureTs: number | null;
   autoPaused: string | null;
 }
 
@@ -72,7 +71,6 @@ export function deriveSettings(
     aiMode: effectiveAiMode(stored.aiMode, session, plan),
     onboardingComplete: stored.onboardingComplete,
     overviewScope: stored.overviewScope,
-    overviewMinDurationMs: stored.overviewMinDurationMs,
   };
 }
 
@@ -84,7 +82,7 @@ export function deriveStatus(
   return {
     running: runtime.timer !== null,
     lastError: runtime.autoPaused ?? runtime.lastError,
-    lastCaptureTs: runtime.lastCaptureTs,
+    autoPaused: runtime.autoPaused,
     hasPermission: permissions.hasScreen(),
     hasAccessibility: permissions.hasAccessibility(),
     hasApiKey: settings.aiMode === 'cloud-ai' ? true : settings.hasApiKey,
@@ -127,8 +125,7 @@ export function settingsEqual(a: Settings, b: Settings): boolean {
     a.storageMode === b.storageMode &&
     a.aiMode === b.aiMode &&
     a.onboardingComplete === b.onboardingComplete &&
-    a.overviewScope === b.overviewScope &&
-    a.overviewMinDurationMs === b.overviewMinDurationMs
+    a.overviewScope === b.overviewScope
   );
 }
 
@@ -136,7 +133,7 @@ export function statusEqual(a: CaptureStatus, b: CaptureStatus): boolean {
   return (
     a.running === b.running &&
     a.lastError === b.lastError &&
-    a.lastCaptureTs === b.lastCaptureTs &&
+    a.autoPaused === b.autoPaused &&
     a.hasPermission === b.hasPermission &&
     a.hasAccessibility === b.hasAccessibility &&
     a.hasApiKey === b.hasApiKey

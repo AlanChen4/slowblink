@@ -18,7 +18,6 @@ export interface StoredSettings {
   aiMode: AIMode;
   onboardingComplete: boolean;
   overviewScope: OverviewScope;
-  overviewMinDurationMs: number;
 }
 
 interface StoreShape extends StoredSettings {
@@ -55,7 +54,6 @@ export async function initSettings(): Promise<void> {
       supabaseSessionEncrypted: null,
       planCache: null,
       overviewScope: 'this-device',
-      overviewMinDurationMs: 5 * 60 * 1000,
       replayLogging: false,
     },
   }) as unknown as StoreInstance;
@@ -86,7 +84,6 @@ export function getStoredSettings(): StoredSettings {
     aiMode: s.get('aiMode'),
     onboardingComplete: s.get('onboardingComplete'),
     overviewScope: s.get('overviewScope'),
-    overviewMinDurationMs: s.get('overviewMinDurationMs'),
   };
 }
 
@@ -104,9 +101,6 @@ export function setStoredSettings(patch: SettingsPatch): StoredSettings {
   }
   if (patch.overviewScope !== undefined) {
     s.set('overviewScope', patch.overviewScope);
-  }
-  if (patch.overviewMinDurationMs !== undefined) {
-    s.set('overviewMinDurationMs', Math.max(0, patch.overviewMinDurationMs));
   }
   const next = getStoredSettings();
   storedSettingsEmitter.emit(next);

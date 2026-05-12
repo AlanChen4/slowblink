@@ -44,14 +44,13 @@ export function createAutomation(deps: AutomationDeps): Automation {
   let timer: NodeJS.Timeout | null = null;
   let currentIntervalMs: number | null = null;
   let inFlight: Promise<void> | null = null;
-  let lastCaptureTs: number | null = null;
   let lastEmitted: AutomationState | null = null;
   let started = false;
   const unsubs: (() => void)[] = [];
 
   function runtime(): AutomationRuntime {
     const { lastError, autoPaused } = errors.getState();
-    return { timer, lastError, lastCaptureTs, autoPaused };
+    return { timer, lastError, autoPaused };
   }
 
   function getState(): AutomationState {
@@ -110,9 +109,8 @@ export function createAutomation(deps: AutomationDeps): Automation {
     emit();
   }
 
-  function recordSuccess(sampleTs: number) {
+  function recordSuccess() {
     if (!started) return;
-    lastCaptureTs = sampleTs;
     errors.clearFailures();
     emit();
   }
@@ -155,8 +153,8 @@ export function createAutomation(deps: AutomationDeps): Automation {
     force: boolean,
   ) {
     try {
-      const { sampleTs } = await runner(ctx);
-      recordSuccess(sampleTs);
+      await runner(ctx);
+      recordSuccess();
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       recordFailure(msg);

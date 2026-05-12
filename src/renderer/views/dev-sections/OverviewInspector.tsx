@@ -1,17 +1,16 @@
 import type { OverviewDebug, OverviewScope, Settings } from '@shared/types';
 import { ChevronLeft, ChevronRight, Copy, RefreshCw } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useMountEffect } from '@/hooks/use-mount-effect';
-import { startOfDay } from '@/lib/categories';
+import { dayStartWithOffset } from '@/lib/categories';
 import { formatDuration } from '../overview-sections/format';
 
 interface Props {
   settings: Settings;
 }
-
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 function formatDayTitle(offset: number, dayStart: number): string {
   if (offset === 0) return 'Today';
@@ -23,70 +22,102 @@ function formatDayTitle(offset: number, dayStart: number): string {
   });
 }
 
+interface DebugFetchHandlers {
+  setLoading: (v: boolean) => void;
+  setError: (e: string | null) => void;
+  setDebug: (d: OverviewDebug) => void;
+}
+
+async function fetchDebug(
+  fetcher: () => Promise<OverviewDebug>,
+  cancel: { value: boolean },
+  handlers: DebugFetchHandlers,
+): Promise<void> {
+  handlers.setLoading(true);
+  handlers.setError(null);
+  try {
+    const result = await fetcher();
+    if (cancel.value) return;
+    handlers.setDebug(result);
+    handlers.setLoading(false);
+  } catch (err) {
+    if (cancel.value) return;
+    handlers.setError(err instanceof Error ? err.message : String(err));
+    handlers.setLoading(false);
+  }
+}
+
 export function OverviewInspector({ settings }: Props) {
   const [scope, setScope] = useState<OverviewScope>(settings.overviewScope);
-  const [todayAnchor] = useState(() => startOfDay());
   const [dayOffset, setDayOffset] = useState(0);
-  const dayStart = todayAnchor - dayOffset * ONE_DAY_MS;
+  return (
+    <OverviewInspectorBody
+      key={`${scope}-${dayOffset}`}
+      scope={scope}
+      dayOffset={dayOffset}
+      onScopeChange={setScope}
+      onDayOffsetChange={setDayOffset}
+    />
+  );
+}
+
+interface BodyProps {
+  scope: OverviewScope;
+  dayOffset: number;
+  onScopeChange: (scope: OverviewScope) => void;
+  onDayOffsetChange: (offset: number) => void;
+}
+
+function OverviewInspectorBody({
+  scope,
+  dayOffset,
+  onScopeChange,
+  onDayOffsetChange,
+}: BodyProps) {
+  const dayStart = dayStartWithOffset(dayOffset);
   const isToday = dayOffset === 0;
   const [debug, setDebug] = useState<OverviewDebug | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const cancelRef = useRef<{ value: boolean }>({ value: false });
 
-  async function load(
-    nextScope: OverviewScope = scope,
-    nextOffset: number = dayOffset,
-  ) {
-    setLoading(true);
-    setError(null);
-    const start = todayAnchor - nextOffset * ONE_DAY_MS;
-    const end = nextOffset === 0 ? Date.now() : start + ONE_DAY_MS;
-    try {
-      const result = await window.slowblink.getOverviewDebug(
-        start,
-        end,
-        nextScope,
-      );
-      setDebug(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setLoading(false);
-    }
+  async function load() {
+    const end = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
+    await fetchDebug(
+      () => window.slowblink.getOverviewDebug(dayStart, end, scope),
+      cancelRef.current,
+      { setLoading, setError, setDebug },
+    );
   }
 
   async function refresh() {
-    setRefreshing(true);
-    setError(null);
-    const end = isToday ? Date.now() : dayStart + ONE_DAY_MS;
-    try {
-      const result = await window.slowblink.refreshOverviewDebug(
-        dayStart,
-        end,
-        scope,
-      );
-      setDebug(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setRefreshing(false);
-    }
+    const end = isToday ? Date.now() : dayStartWithOffset(dayOffset - 1);
+    await fetchDebug(
+      () => window.slowblink.refreshOverviewDebug(dayStart, end, scope),
+      cancelRef.current,
+      { setLoading: setRefreshing, setError, setDebug },
+    );
   }
 
   useMountEffect(() => {
-    void load(scope, dayOffset);
+    cancelRef.current = { value: false };
+    const cancel = cancelRef.current;
+    void load();
+    if (!isToday || scope !== 'this-device') {
+      return () => {
+        cancel.value = true;
+      };
+    }
+    const unsubscribe = window.slowblink.onSampleInserted((sample) => {
+      if (sample.ts < dayStart) return;
+      void refresh();
+    });
+    return () => {
+      cancel.value = true;
+      unsubscribe();
+    };
   });
-
-  function handleScopeChange(next: OverviewScope) {
-    setScope(next);
-    void load(next, dayOffset);
-  }
-
-  function handleDayChange(nextOffset: number) {
-    setDayOffset(nextOffset);
-    void load(scope, nextOffset);
-  }
 
   return (
     <div className="space-y-3">
@@ -98,7 +129,7 @@ export function OverviewInspector({ settings }: Props) {
               variant="ghost"
               size="icon"
               className="h-7 w-7"
-              onClick={() => handleDayChange(dayOffset + 1)}
+              onClick={() => onDayOffsetChange(dayOffset + 1)}
               aria-label="Previous day"
             >
               <ChevronLeft className="size-3.5" />
@@ -110,14 +141,14 @@ export function OverviewInspector({ settings }: Props) {
               variant="ghost"
               size="icon"
               className="h-7 w-7"
-              onClick={() => handleDayChange(Math.max(0, dayOffset - 1))}
+              onClick={() => onDayOffsetChange(Math.max(0, dayOffset - 1))}
               disabled={isToday}
               aria-label="Next day"
             >
               <ChevronRight className="size-3.5" />
             </Button>
           </div>
-          <ScopeSwitch scope={scope} onChange={handleScopeChange} />
+          <ScopeSwitch scope={scope} onChange={onScopeChange} />
           <Button
             variant="secondary"
             size="sm"
@@ -133,9 +164,7 @@ export function OverviewInspector({ settings }: Props) {
           </Button>
         </div>
       </div>
-      {loading && (
-        <p className="text-muted-foreground text-xs">Loading debug payload…</p>
-      )}
+      {loading && <InspectorPanesSkeleton />}
       {!loading && error && <p className="text-destructive text-xs">{error}</p>}
       {!loading && !error && debug && <InspectorPanes debug={debug} />}
     </div>
@@ -195,6 +224,28 @@ function InspectorPanes({ debug }: { debug: OverviewDebug }) {
         value={debug.segments}
       />
       <JsonPane title="Aggregate" value={debug.aggregate} />
+    </div>
+  );
+}
+
+function InspectorPanesSkeleton() {
+  return (
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-x-4 gap-y-1">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="h-3 w-20" />
+      </div>
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-md border border-border bg-card"
+        >
+          <div className="flex items-center justify-between gap-2 px-3 py-2">
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-7 w-16" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
