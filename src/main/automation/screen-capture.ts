@@ -1,5 +1,6 @@
 import { desktopCapturer, screen } from 'electron';
 import type { WindowContext } from '../../shared/types';
+import { logger } from '../logger';
 import { runOsascript } from './osascript';
 
 const EMPTY: WindowContext = {
@@ -82,17 +83,17 @@ function processOsascriptOutput(
   elapsed: number,
 ): WindowContext {
   if (stderr?.trim()) {
-    console.log('[window-context] osascript stderr:', stderr.trim());
+    logger.log('[window-context] osascript stderr:', stderr.trim());
   }
   const { ctx, errors } = parse(stdout);
   for (const e of errors) {
-    console.log(`[window-context] AppleScript error (${e.where}): ${e.msg}`);
+    logger.log(`[window-context] AppleScript error (${e.where}): ${e.msg}`);
   }
-  console.log(
+  logger.log(
     `[window-context] focused=${ctx.focusedApp ?? 'null'} windows=${ctx.openWindows.length} (${elapsed}ms, stdout=${stdout.length}b)`,
   );
   if (ctx.openWindows.length === 0 && errors.length === 0) {
-    console.log(
+    logger.log(
       '[window-context] empty openWindows list — likely missing Accessibility permission. Grant it in Settings → Permissions.',
     );
   }
@@ -106,11 +107,11 @@ function logOsascriptFailure(err: unknown, elapsed: number): void {
     'killed' in err &&
     (err as { killed?: boolean }).killed === true;
   if (isKilled) {
-    console.log(
+    logger.log(
       `[window-context] osascript timed out after ${elapsed}ms — check Accessibility + Automation (System Events) permissions.`,
     );
   } else {
-    console.log(`[window-context] failed after ${elapsed}ms:`, err);
+    logger.log(`[window-context] failed after ${elapsed}ms:`, err);
   }
 }
 
@@ -181,7 +182,7 @@ export async function takeScreenshot(): Promise<{
   const RETRY_DELAYS_MS = [300, 600, 1200];
   if (primary.thumbnail.isEmpty()) {
     for (const delay of RETRY_DELAYS_MS) {
-      console.log(`[capture] empty thumbnail, retrying in ${delay}ms…`);
+      logger.log(`[capture] empty thumbnail, retrying in ${delay}ms…`);
       await new Promise((r) => setTimeout(r, delay));
       const retry = await desktopCapturer.getSources({
         types: ['screen'],

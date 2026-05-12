@@ -6,6 +6,7 @@ import {
 } from 'node:http';
 import { app } from 'electron';
 import type { Automation } from '../automation';
+import { logger } from '../logger';
 import { isReplayLoggingEnabled } from '../settings';
 
 const HOST = '127.0.0.1';
@@ -88,10 +89,10 @@ export function createControlServer(deps: ControlServerDeps): ControlServer {
     if (server) return;
     server = createServer((req, res) => handleRequest(req, res, deps));
     server.on('error', (err) => {
-      console.error('[replay control] server error:', err);
+      logger.error('[replay control] server error:', err);
     });
     server.listen(PORT, HOST, () => {
-      console.log(`[replay control] listening on http://${HOST}:${PORT}`);
+      logger.log(`[replay control] listening on http://${HOST}:${PORT}`);
     });
   }
 

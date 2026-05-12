@@ -4,6 +4,27 @@ export interface ErrorState {
   consecutiveErrors: number;
 }
 
+// Node/Electron's fetch throws a bare `TypeError: fetch failed` and tucks the
+// real reason (DNS, TCP, TLS) into `err.cause`. Walk the chain so the message
+// surfaced to the user is actionable rather than generic.
+export function formatRunnerError(err: unknown): string {
+  if (!(err instanceof Error)) return String(err);
+  const parts = [err.message];
+  let cur: Error | undefined = err;
+  const seen = new Set<unknown>([err]);
+  while (cur) {
+    const cause: unknown = (cur as Error & { cause?: unknown }).cause;
+    if (!(cause instanceof Error) || seen.has(cause)) break;
+    parts.push(cause.message);
+    seen.add(cause);
+    cur = cause;
+  }
+  const unique = Array.from(new Set(parts));
+  return unique.length === 1
+    ? unique[0]
+    : `${unique[0]} — ${unique.slice(1).join(' — ')}`;
+}
+
 export interface ErrorTracker {
   recordFailure(msg: string): void;
   clearFailures(): void;

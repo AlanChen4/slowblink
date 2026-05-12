@@ -12,6 +12,7 @@ import {
   retryFailedSamples,
 } from '../db';
 import { createEmitter } from '../emitter';
+import { logger } from '../logger';
 import {
   getStoredSettings,
   onStoredSettingsChange,
@@ -161,7 +162,7 @@ async function flush(reason: 'periodic' | 'idle' | 'size' | 'manual') {
   try {
     if (batch.length > 0) {
       setRuntimeState('syncing');
-      console.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
+      logger.log(`[sync] flushing ${batch.length} rows (reason=${reason})`);
       const result = await postIngestBatch(batch);
       const syncedIds = batch
         .map((r) => r.id)
@@ -189,14 +190,14 @@ async function flushAppIcons(
   try {
     const result = await uploadPendingAppIcons(backoffFor);
     if (result.attempted > 0) {
-      console.log(
+      logger.log(
         `[sync] uploaded ${result.uploaded}/${result.attempted} app icons (reason=${reason})`,
       );
       lastFlushTs = Date.now();
     }
   } catch (err) {
     if (err instanceof AuthRequiredError) throw err;
-    console.log('[sync] app icons upload failed:', err);
+    logger.log('[sync] app icons upload failed:', err);
   }
 }
 

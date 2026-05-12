@@ -3,6 +3,7 @@ import { IPC } from '../shared/ipc-channels';
 import type {
   AuthSession,
   CaptureStatus,
+  LogEntry,
   Plan,
   Sample,
   Settings,
@@ -65,6 +66,9 @@ const api: SlowblinkAPI = {
   getReplayLogging: () => ipcRenderer.invoke(IPC.devReplayLoggingGet),
   setReplayLogging: (enabled) =>
     ipcRenderer.invoke(IPC.devReplayLoggingSet, enabled),
+
+  getProcessLogs: () => ipcRenderer.invoke(IPC.processLogsGet),
+  onProcessLog: (cb) => subscribe<LogEntry>(IPC.processLogsUpdate, cb),
 };
 
 contextBridge.exposeInMainWorld('slowblink', api);

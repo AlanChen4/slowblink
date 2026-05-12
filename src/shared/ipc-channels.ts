@@ -43,4 +43,7 @@ export const IPC = {
 
   devReplayLoggingGet: 'dev:replay-logging:get',
   devReplayLoggingSet: 'dev:replay-logging:set',
+
+  processLogsGet: 'process-logs:get',
+  processLogsUpdate: 'process-logs:update',
 } as const;

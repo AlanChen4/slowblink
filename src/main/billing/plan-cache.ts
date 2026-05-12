@@ -2,6 +2,7 @@ import type { Plan } from '../../shared/types';
 import { getSupabase } from '../auth/client';
 import { getCurrentSession, onSessionChange } from '../auth/session';
 import { createEmitter } from '../emitter';
+import { logger } from '../logger';
 import { getPlanCache, setPlanCache } from '../settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
@@ -41,7 +42,7 @@ export async function refreshPlan(): Promise<Plan> {
       .abortSignal(AbortSignal.timeout(PLAN_FETCH_TIMEOUT_MS))
       .maybeSingle();
     if (error) {
-      console.log('[billing] plan fetch failed:', error.message);
+      logger.log('[billing] plan fetch failed:', error.message);
       return current;
     }
     const tier = data?.tier === 'paid' ? 'paid' : 'free';
@@ -52,7 +53,7 @@ export async function refreshPlan(): Promise<Plan> {
     });
     return current;
   } catch (err) {
-    console.log('[billing] plan fetch threw:', err);
+    logger.log('[billing] plan fetch threw:', err);
     return current;
   }
 }

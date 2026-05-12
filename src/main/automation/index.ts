@@ -1,7 +1,12 @@
 import { powerMonitor } from 'electron';
 import type { Settings, SettingsPatch } from '../../shared/types';
 import { createEmitter } from '../emitter';
-import { createErrorTracker, type ErrorTracker } from './error-policy';
+import { logger } from '../logger';
+import {
+  createErrorTracker,
+  type ErrorTracker,
+  formatRunnerError,
+} from './error-policy';
 import type { Runner } from './runner';
 import {
   type AutomationRuntime,
@@ -16,9 +21,32 @@ export type { AutomationState } from './state';
 const ERROR_PAUSE_THRESHOLD = 3;
 const IDLE_THRESHOLD_SECONDS = 60;
 
+export interface PowerAdapter {
+  onSuspend(cb: () => void): () => void;
+  onResume(cb: () => void): () => void;
+}
+
 export interface AutomationDeps extends StateDeps {
   runner: Runner;
   isIdle?: () => boolean;
+  power?: PowerAdapter;
+}
+
+function defaultPower(): PowerAdapter {
+  return {
+    onSuspend(cb) {
+      powerMonitor.on('suspend', cb);
+      return () => {
+        powerMonitor.off('suspend', cb);
+      };
+    },
+    onResume(cb) {
+      powerMonitor.on('resume', cb);
+      return () => {
+        powerMonitor.off('resume', cb);
+      };
+    },
+  };
 }
 
 export interface Automation {
@@ -36,6 +64,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
     deps.isIdle ??
     (() =>
       powerMonitor.getSystemIdleState(IDLE_THRESHOLD_SECONDS) !== 'active');
+  const power = deps.power ?? defaultPower();
   const stateEmitter = createEmitter<AutomationState>();
   const errors: ErrorTracker = createErrorTracker({
     threshold: ERROR_PAUSE_THRESHOLD,
@@ -46,6 +75,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
   let inFlight: Promise<void> | null = null;
   let lastEmitted: AutomationState | null = null;
   let started = false;
+  let suspended = false;
   const unsubs: (() => void)[] = [];
 
   function runtime(): AutomationRuntime {
@@ -64,12 +94,16 @@ export function createAutomation(deps: AutomationDeps): Automation {
     stateEmitter.emit(next);
   }
 
+  function hasUsableApiKey(settings: Settings): boolean {
+    return settings.aiMode !== 'byo-key' || settings.hasApiKey;
+  }
+
   function canCapture(settings: Settings): boolean {
+    if (suspended) return false;
     if (settings.paused) return false;
     if (errors.getState().autoPaused) return false;
     if (!deps.permissions.hasScreen()) return false;
-    if (settings.aiMode === 'byo-key' && !settings.hasApiKey) return false;
-    return true;
+    return hasUsableApiKey(settings);
   }
 
   function startTimer(intervalMs: number) {
@@ -104,6 +138,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
 
   function recordFailure(msg: string) {
     if (!started) return;
+    if (suspended) return;
     errors.recordFailure(msg);
     if (errors.getState().autoPaused) stopTimer();
     emit();
@@ -156,7 +191,8 @@ export function createAutomation(deps: AutomationDeps): Automation {
       await runner(ctx);
       recordSuccess();
     } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
+      const msg = formatRunnerError(err);
+      logger.log('[capture] failed:', msg);
       recordFailure(msg);
       if (force) throw err;
     }
@@ -178,8 +214,7 @@ export function createAutomation(deps: AutomationDeps): Automation {
   }
 
   function applyIntent(patch: SettingsPatch): AutomationState {
-    const before = deps.store.get();
-    if (patch.paused === false && before.paused) {
+    if (patch.paused === false) {
       errors.clearFailures();
     }
     deps.store.set(patch);
@@ -212,6 +247,20 @@ export function createAutomation(deps: AutomationDeps): Automation {
           reconcile();
         }),
       );
+      unsubs.push(
+        power.onSuspend(() => {
+          suspended = true;
+          stopTimer();
+          emit();
+        }),
+      );
+      unsubs.push(
+        power.onResume(() => {
+          suspended = false;
+          errors.clearFailures();
+          reconcile();
+        }),
+      );
     }
     errors.clearFailures();
     reconcile();
@@ -219,13 +268,14 @@ export function createAutomation(deps: AutomationDeps): Automation {
 
   function stop(): void {
     started = false;
+    suspended = false;
     stopTimer();
     while (unsubs.length) {
       const dispose = unsubs.pop();
       try {
         dispose?.();
       } catch (err) {
-        console.log('[automation] dispose threw:', err);
+        logger.log('[automation] dispose threw:', err);
       }
     }
     emit();

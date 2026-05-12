@@ -5,6 +5,7 @@ import { app } from 'electron';
 import type { WindowContext } from '../../shared/types';
 import type { ProviderDebug, ProviderId, SummarizeResult } from '../ai/types';
 import { type DevCaptureRow, getDevCapturesDir, insertDevCapture } from '../db';
+import { logger } from '../logger';
 
 interface SuccessEvent {
   kind: 'success';
@@ -107,7 +108,7 @@ export async function recordCapture(
   try {
     await Promise.all(tasks);
   } catch (err) {
-    console.error('[replay] failed to record capture:', err);
+    logger.error('[replay] failed to record capture:', err);
     return null;
   }
   return row.id;

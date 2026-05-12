@@ -169,4 +169,23 @@ describe('StatusBadge', () => {
     const dot = container.querySelector('span.rounded-full');
     expect(dot?.className).toContain('bg-destructive');
   });
+
+  test('autoPaused label is distinct from a transient error', () => {
+    render(
+      <StatusBadge
+        status={{
+          ...BASE_STATUS,
+          running: false,
+          lastError: 'fetch failed',
+          autoPaused: 'fetch failed',
+        }}
+        settings={{ ...BASE_SETTINGS, hasApiKey: true }}
+        sync={null}
+        issues={[]}
+      />,
+    );
+
+    expect(screen.getByText('Auto-paused — fetch failed')).toBeDefined();
+    expect(screen.queryByText('Error — fetch failed')).toBeNull();
+  });
 });

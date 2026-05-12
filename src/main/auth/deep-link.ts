@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import { refreshPlan } from '../billing/plan-cache';
+import { logger } from '../logger';
 import { completeOAuthCallback } from './session';
 
 export const PROTOCOL = 'slowblink';
@@ -17,15 +18,15 @@ async function handleAuthCallback(url: URL) {
   if (!code) {
     const error = url.searchParams.get('error');
     const description = url.searchParams.get('error_description');
-    console.log('[deep-link] no code in callback:', { error, description });
+    logger.log('[deep-link] no code in callback:', { error, description });
     return;
   }
   try {
     await completeOAuthCallback(code);
-    console.log('[deep-link] session established');
+    logger.log('[deep-link] session established');
     focusMainWindow();
   } catch (err) {
-    console.log('[deep-link] auth callback failed:', err);
+    logger.log('[deep-link] auth callback failed:', err);
   }
 }
 
@@ -49,15 +50,15 @@ async function handleUrl(rawUrl: string) {
   try {
     url = new URL(rawUrl);
   } catch {
-    console.log('[deep-link] not a parseable url, ignoring');
+    logger.log('[deep-link] not a parseable url, ignoring');
     return;
   }
-  console.log(
+  logger.log(
     '[deep-link] received:',
     `${url.protocol}//${url.host}${url.pathname}`,
   );
   if (url.protocol !== `${PROTOCOL}:`) {
-    console.log('[deep-link] wrong protocol, ignoring:', url.protocol);
+    logger.log('[deep-link] wrong protocol, ignoring:', url.protocol);
     return;
   }
   switch (url.host) {
@@ -71,7 +72,7 @@ async function handleUrl(rawUrl: string) {
       await handleBillingReturn(true);
       return;
     default:
-      console.log('[deep-link] unknown host, ignoring:', url.host);
+      logger.log('[deep-link] unknown host, ignoring:', url.host);
   }
 }
 

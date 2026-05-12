@@ -1,6 +1,7 @@
 import { net } from 'electron';
 import type { WindowContext } from '../../../shared/types';
 import { cloudAuthHeaders, requireCloudEndpoint } from '../../cloud/endpoint';
+import { logger } from '../../logger';
 import {
   blockedResult,
   type ProviderDebug,
@@ -77,7 +78,7 @@ export async function summarizeWithCloud(
   const data = (await res.json()) as CloudSummarizeResponse;
   const responseReceivedAt = Date.now();
   if (data.blocked) {
-    console.log('[cloud-ai] response blocked by DLP:', data.reason);
+    logger.log('[cloud-ai] response blocked by DLP:', data.reason);
     return {
       result: blockedResult(),
       debug: makeDebug(

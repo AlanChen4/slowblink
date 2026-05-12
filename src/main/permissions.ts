@@ -1,6 +1,7 @@
 import { exec } from 'node:child_process';
 import { desktopCapturer, shell, systemPreferences } from 'electron';
 import { createEmitter } from './emitter';
+import { logger } from './logger';
 
 const SCREEN_CAPTURE_PREF_URL =
   'x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture';
@@ -48,7 +49,7 @@ export async function requestScreenPermission(): Promise<boolean> {
   permissionsEmitter.emit();
 
   const status = systemPreferences.getMediaAccessStatus('screen');
-  console.log('[permissions] requestScreenPermission: status =', status);
+  logger.log('[permissions] requestScreenPermission: status =', status);
   if (status === 'granted') return true;
 
   // CRITICAL: open System Settings BEFORE touching desktopCapturer.
@@ -69,9 +70,9 @@ export async function requestScreenPermission(): Promise<boolean> {
       fetchWindowIcons: false,
     })
     .then(
-      () => console.log('[permissions] desktopCapturer.getSources resolved'),
+      () => logger.log('[permissions] desktopCapturer.getSources resolved'),
       (err) =>
-        console.log('[permissions] desktopCapturer.getSources rejected:', err),
+        logger.log('[permissions] desktopCapturer.getSources rejected:', err),
     );
 
   return false;
@@ -99,16 +100,16 @@ export function openAccessibilityPermissionSettings(): Promise<void> {
 
 async function openPrefPane(url: string, label: string): Promise<void> {
   if (process.platform !== 'darwin') return;
-  console.log(`[permissions] opening System Settings (${label}):`, url);
+  logger.log(`[permissions] opening System Settings (${label}):`, url);
   try {
     await shell.openExternal(url);
-    console.log('[permissions] shell.openExternal returned');
+    logger.log('[permissions] shell.openExternal returned');
   } catch (err) {
-    console.log('[permissions] shell.openExternal threw, falling back:', err);
+    logger.log('[permissions] shell.openExternal threw, falling back:', err);
     // Fallback: shell.openExternal occasionally drops custom URL schemes in
     // dev. `open` from the command line is the most reliable invocation.
     exec(`open ${JSON.stringify(url)}`, (e) => {
-      if (e) console.log('[permissions] open fallback failed:', e);
+      if (e) logger.log('[permissions] open fallback failed:', e);
     });
   }
 }

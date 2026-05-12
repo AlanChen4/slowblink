@@ -4,7 +4,9 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useMountEffect } from '@/hooks/use-mount-effect';
+import { CaptureStatus } from './dev-sections/CaptureStatus';
 import { OverviewInspector } from './dev-sections/OverviewInspector';
+import { ProcessLogs } from './dev-sections/ProcessLogs';
 
 export function Dev() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -19,6 +21,8 @@ export function Dev() {
         <DevCaptureButton />
       </div>
       {import.meta.env.DEV && <ReplayLoggingToggle />}
+      <CaptureStatus />
+      <ProcessLogs />
       {settings && <OverviewInspector settings={settings} />}
     </div>
   );

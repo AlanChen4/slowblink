@@ -36,12 +36,12 @@ import {
 } from '@/components/ui/sidebar';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 import { Dev } from '@/views/Dev';
-import { Logs } from '@/views/Logs';
 import { Onboarding } from '@/views/Onboarding';
 import { Overview } from '@/views/Overview';
+import { Samples } from '@/views/Samples';
 import { type SettingsSection, SettingsView } from '@/views/Settings';
 
-type NavId = 'overview' | 'logs' | 'dev' | 'settings';
+type NavId = 'overview' | 'samples' | 'dev' | 'settings';
 
 const DEFAULT_PLAN: Plan = { tier: 'free', renewsAt: null };
 
@@ -135,7 +135,7 @@ export default function App() {
             }}
           />
           {status && issues.length === 0 && (
-            <PauseButton paused={settings.paused} />
+            <PauseButton stopped={settings.paused || !!status.autoPaused} />
           )}
         </div>
       </div>
@@ -156,12 +156,12 @@ export default function App() {
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    isActive={view === 'logs'}
-                    tooltip="Logs"
-                    onClick={() => setView('logs')}
+                    isActive={view === 'samples'}
+                    tooltip="Samples"
+                    onClick={() => setView('samples')}
                   >
                     <ScrollText />
-                    <span>Logs</span>
+                    <span>Samples</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -205,7 +205,7 @@ export default function App() {
             {view === 'overview' && (
               <Overview settings={settings} session={session} plan={plan} />
             )}
-            {view === 'logs' && <Logs />}
+            {view === 'samples' && <Samples />}
             {view === 'dev' && <Dev />}
             {view === 'settings' && (
               <SettingsView
@@ -225,11 +225,11 @@ export default function App() {
   );
 }
 
-function PauseButton({ paused }: { paused: boolean }) {
+function PauseButton({ stopped }: { stopped: boolean }) {
   function toggle() {
-    return paused ? window.slowblink.resume() : window.slowblink.pause();
+    return stopped ? window.slowblink.resume() : window.slowblink.pause();
   }
-  const label = paused ? 'Resume capture' : 'Pause capture';
+  const label = stopped ? 'Resume capture' : 'Pause capture';
   return (
     <Button
       variant="ghost"
@@ -239,7 +239,7 @@ function PauseButton({ paused }: { paused: boolean }) {
       aria-label={label}
       title={label}
     >
-      {paused ? (
+      {stopped ? (
         <Play className="size-4 text-muted-foreground" />
       ) : (
         <Pause className="size-4 text-muted-foreground" />

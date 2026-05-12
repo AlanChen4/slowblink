@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process';
 import { nativeImage } from 'electron';
 import { getAppIcon, upsertAppIcon } from '../db';
+import { logger } from '../logger';
 
 const ICON_SIZE = 64;
 
@@ -33,7 +34,7 @@ export async function resolveAndStoreAppIcon(appName: string): Promise<void> {
     upsertAppIcon(appName, dataUrl, Date.now());
   } catch (err) {
     sessionNegativeCache.add(appName);
-    console.log(`[app-icon] resolve failed for ${appName}:`, err);
+    logger.log(`[app-icon] resolve failed for ${appName}:`, err);
   }
 }
 
