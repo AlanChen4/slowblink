@@ -1,5 +1,8 @@
 import { LOG_BUFFER_SIZE, type LogEntry } from '@shared/types';
+import { Copy } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import { useMountEffect } from '@/hooks/use-mount-effect';
 
 const VISIBLE_LOG_ROWS = 200;
@@ -32,6 +35,15 @@ function mergeSnapshot(prev: LogEntry[], snapshot: LogEntry[]): LogEntry[] {
   return [...prefix, ...prev].slice(-LOG_BUFFER_SIZE);
 }
 
+function formatForClipboard(entries: LogEntry[]): string {
+  return entries
+    .map((entry) => {
+      const time = new Date(entry.ts).toLocaleTimeString();
+      return `${time} [${entry.level}] ${entry.message}`;
+    })
+    .join('\n');
+}
+
 export function ProcessLogs() {
   const [processLogs, setProcessLogs] = useState<LogEntry[]>([]);
 
@@ -48,15 +60,40 @@ export function ProcessLogs() {
     return unsubscribe;
   });
 
+  async function copy() {
+    if (processLogs.length === 0) return;
+    try {
+      await navigator.clipboard.writeText(formatForClipboard(processLogs));
+      toast.success('Copied');
+    } catch (err) {
+      toast.error('Copy failed', {
+        description: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
   return (
     <div className="space-y-2">
-      <p className="font-medium text-sm">Process logs</p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="font-medium text-sm">Process logs</p>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled={processLogs.length === 0}
+          onClick={() => {
+            void copy();
+          }}
+        >
+          <Copy className="size-3.5" />
+          Copy
+        </Button>
+      </div>
       {processLogs.length === 0 ? (
         <p className="text-muted-foreground text-xs">
           No log lines from the main process yet.
         </p>
       ) : (
-        <div className="max-h-96 space-y-0.5 overflow-y-auto rounded-md border border-muted-foreground/40 border-dashed p-3 font-mono text-xs">
+        <div className="max-h-28 space-y-0.5 overflow-y-auto rounded-md border border-muted-foreground/40 border-dashed p-3 font-mono text-xs">
           {processLogs
             .slice(-VISIBLE_LOG_ROWS)
             .reverse()
