@@ -28,6 +28,7 @@ function statusColor(
 
 function statusLabel(status: CaptureStatus, settings: Settings): string {
   if (settings.paused) return 'Paused';
+  if (status.autoPaused) return `Auto-paused — ${status.autoPaused}`;
   if (status.lastError) return `Error — ${status.lastError}`;
   return 'Running';
 }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { createErrorTracker } from './error-policy';
+import { createErrorTracker, formatRunnerError } from './error-policy';
 
 describe('createErrorTracker', () => {
   test('starts clean', () => {
@@ -64,5 +64,48 @@ describe('createErrorTracker', () => {
     const t = createErrorTracker({ threshold: 1 });
     t.recordFailure('boom');
     expect(t.getState().autoPaused).toBe('boom');
+  });
+});
+
+describe('formatRunnerError', () => {
+  test('returns the message of a plain Error', () => {
+    expect(formatRunnerError(new Error('boom'))).toBe('boom');
+  });
+
+  test('appends a single Error cause', () => {
+    const cause = new Error('connect ENOTFOUND api.openai.com');
+    const err = new TypeError('fetch failed', { cause });
+    expect(formatRunnerError(err)).toBe(
+      'fetch failed — connect ENOTFOUND api.openai.com',
+    );
+  });
+
+  test('walks nested Error causes', () => {
+    const inner = new Error('socket hang up');
+    const middle = new Error('TLS handshake failed', { cause: inner });
+    const outer = new TypeError('fetch failed', { cause: middle });
+    expect(formatRunnerError(outer)).toBe(
+      'fetch failed — TLS handshake failed — socket hang up',
+    );
+  });
+
+  test('dedupes repeated cause messages', () => {
+    const cause = new Error('fetch failed');
+    const err = new TypeError('fetch failed', { cause });
+    expect(formatRunnerError(err)).toBe('fetch failed');
+  });
+
+  test('terminates on a cycle', () => {
+    const a = new Error('a');
+    const b = new Error('b');
+    (a as Error & { cause?: unknown }).cause = b;
+    (b as Error & { cause?: unknown }).cause = a;
+    expect(formatRunnerError(a)).toBe('a — b');
+  });
+
+  test('stringifies non-Error values', () => {
+    expect(formatRunnerError('weird')).toBe('weird');
+    expect(formatRunnerError(42)).toBe('42');
+    expect(formatRunnerError(null)).toBe('null');
   });
 });

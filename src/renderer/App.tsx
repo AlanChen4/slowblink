@@ -135,7 +135,7 @@ export default function App() {
             }}
           />
           {status && issues.length === 0 && (
-            <PauseButton paused={settings.paused} />
+            <PauseButton stopped={settings.paused || !!status.autoPaused} />
           )}
         </div>
       </div>
@@ -225,11 +225,11 @@ export default function App() {
   );
 }
 
-function PauseButton({ paused }: { paused: boolean }) {
+function PauseButton({ stopped }: { stopped: boolean }) {
   function toggle() {
-    return paused ? window.slowblink.resume() : window.slowblink.pause();
+    return stopped ? window.slowblink.resume() : window.slowblink.pause();
   }
-  const label = paused ? 'Resume capture' : 'Pause capture';
+  const label = stopped ? 'Resume capture' : 'Pause capture';
   return (
     <Button
       variant="ghost"
@@ -239,7 +239,7 @@ function PauseButton({ paused }: { paused: boolean }) {
       aria-label={label}
       title={label}
     >
-      {paused ? (
+      {stopped ? (
         <Play className="size-4 text-muted-foreground" />
       ) : (
         <Pause className="size-4 text-muted-foreground" />

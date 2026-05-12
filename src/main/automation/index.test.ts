@@ -52,6 +52,8 @@ function makeHarness(opts: HarnessOpts = {}) {
   const sessionListeners = new Set<() => void>();
   const planListeners = new Set<() => void>();
   const permissionsListeners = new Set<() => void>();
+  const suspendListeners = new Set<() => void>();
+  const resumeListeners = new Set<() => void>();
   const runner = vi.fn(opts.runner ?? (async () => {}));
 
   const automation = createAutomation({
@@ -92,6 +94,16 @@ function makeHarness(opts: HarnessOpts = {}) {
         return () => permissionsListeners.delete(cb);
       },
     },
+    power: {
+      onSuspend: (cb) => {
+        suspendListeners.add(cb);
+        return () => suspendListeners.delete(cb);
+      },
+      onResume: (cb) => {
+        resumeListeners.add(cb);
+        return () => resumeListeners.delete(cb);
+      },
+    },
     runner,
     isIdle: opts.isIdle ?? (() => false),
   });
@@ -110,6 +122,12 @@ function makeHarness(opts: HarnessOpts = {}) {
     setHasScreen: (v: boolean) => {
       hasScreen = v;
       for (const l of permissionsListeners) l();
+    },
+    fireSuspend: () => {
+      for (const l of suspendListeners) l();
+    },
+    fireResume: () => {
+      for (const l of resumeListeners) l();
     },
     getStored: () => ({ ...stored }),
   };
@@ -183,6 +201,30 @@ describe('automation', () => {
     expect(state.reasons.autoPaused).toBe('boom');
     expect(state.status.running).toBe(false);
     expect(h.getStored().paused).toBe(false);
+  });
+
+  test('applyIntent({paused: false}) clears auto-pause even when not user-paused', async () => {
+    let calls = 0;
+    const h = makeHarness({
+      stored: { aiMode: 'cloud-ai' },
+      session: SIGNED_IN,
+      plan: PAID,
+      runner: async () => {
+        calls += 1;
+        if (calls <= 3) throw new Error('boom');
+      },
+    });
+    h.automation.start();
+    await vi.runOnlyPendingTimersAsync();
+    await vi.advanceTimersByTimeAsync(5000);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(h.automation.getState().reasons.autoPaused).toBe('boom');
+    expect(h.getStored().paused).toBe(false);
+
+    h.automation.applyIntent({ paused: false });
+    await vi.runOnlyPendingTimersAsync();
+    expect(h.automation.getState().reasons.autoPaused).toBeNull();
+    expect(h.automation.getState().status.running).toBe(true);
   });
 
   test('start() after auto-pause resets failure state and resumes', async () => {
@@ -285,6 +327,72 @@ describe('automation', () => {
     expect(h.automation.getState().status.running).toBe(true);
     expect(h.automation.getState().status.hasPermission).toBe(true);
     expect(h.getStored().paused).toBe(false);
+  });
+
+  test('suspend stops the loop without persisting paused; resume restarts it', async () => {
+    const h = makeHarness({
+      stored: { aiMode: 'cloud-ai' },
+      session: SIGNED_IN,
+      plan: PAID,
+    });
+    h.automation.start();
+    await vi.runOnlyPendingTimersAsync();
+    expect(h.automation.getState().status.running).toBe(true);
+
+    h.fireSuspend();
+    expect(h.automation.getState().status.running).toBe(false);
+    expect(h.getStored().paused).toBe(false);
+
+    h.fireResume();
+    await vi.runOnlyPendingTimersAsync();
+    expect(h.automation.getState().status.running).toBe(true);
+  });
+
+  test('failures recorded while suspended do not trip auto-pause', async () => {
+    vi.useRealTimers();
+    const h = makeHarness({
+      stored: { aiMode: 'cloud-ai' },
+      session: SIGNED_IN,
+      plan: PAID,
+      runner: async () => {
+        throw new Error('asleep');
+      },
+    });
+    h.automation.start();
+    h.fireSuspend();
+
+    // Forced ticks still surface the error to the caller, but the suspended
+    // guard prevents the failure counter from advancing toward auto-pause.
+    await expect(h.automation.captureNow()).rejects.toThrow('asleep');
+    await expect(h.automation.captureNow()).rejects.toThrow('asleep');
+    await expect(h.automation.captureNow()).rejects.toThrow('asleep');
+    expect(h.automation.getState().reasons.autoPaused).toBeNull();
+
+    h.automation.stop();
+  });
+
+  test('resume clears a pre-sleep auto-pause and restarts the loop', async () => {
+    let calls = 0;
+    const h = makeHarness({
+      stored: { aiMode: 'cloud-ai' },
+      session: SIGNED_IN,
+      plan: PAID,
+      runner: async () => {
+        calls += 1;
+        if (calls <= 3) throw new Error('boom');
+      },
+    });
+    h.automation.start();
+    await vi.runOnlyPendingTimersAsync();
+    await vi.advanceTimersByTimeAsync(5000);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(h.automation.getState().reasons.autoPaused).toBe('boom');
+
+    h.fireSuspend();
+    h.fireResume();
+    await vi.runOnlyPendingTimersAsync();
+    expect(h.automation.getState().reasons.autoPaused).toBeNull();
+    expect(h.automation.getState().status.running).toBe(true);
   });
 
   test('applyIntent({intervalMs}) re-arms the timer at the new interval', async () => {
