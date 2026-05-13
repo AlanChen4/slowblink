@@ -1,0 +1,2441 @@
+{
+  "taxonomy": {
+    "categories": [
+      {
+        "name": "Working on Lumos Fellows",
+        "subcategories": [
+          "Hiring interviews",
+          "Lumos email",
+          "Lumos coding",
+          "Admin and billing",
+          "Admin and review",
+          "Email observability",
+          "Mentor support",
+          "Interviewer onboarding",
+          "Interviewer coordination",
+          "Slack activity feed",
+          "Planning"
+        ]
+      },
+      {
+        "name": "Working on slowblink",
+        "subcategories": [
+          "slowblink coding",
+          "Testing slowblink"
+        ]
+      },
+      {
+        "name": "Personal browsing and entertainment",
+        "subcategories": [
+          "YouTube and entertainment",
+          "Social feed"
+        ]
+      },
+      {
+        "name": "Reading and research",
+        "subcategories": [
+          "AI and tech news",
+          "GTM and competitor research"
+        ]
+      },
+      {
+        "name": "Personal communication",
+        "subcategories": [
+          "iMessage chats",
+          "Calls",
+          "Personal email"
+        ]
+      },
+      {
+        "name": "System and personal admin",
+        "subcategories": [
+          "System tooling",
+          "Files and downloads",
+          "Personal finance and shopping"
+        ]
+      }
+    ]
+  },
+  "classifications": [
+    {
+      "segmentHash": "3f2e0a9df8fea6754f25db716bbe12423c5bf96fbb3feeae2a0e32d7bab9f644",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "15e5646c19602f5ad294d195d53b4fdab419066cf65fcce4ffbfe888e23bb3b8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "7c4d8c80a9c6496cd9b3fb52dab8aeadd751452253e56ebb4bd9e6a75d227273",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "ba423ac122b8d0abe8eafbed8db361be4427f43d13be162bc2d8d198bd564976",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "fef6caeb7ea3bc7c89284d034b1797f0813f6a12f2ff206ed51314ceee304edc",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "7079bba95c34851d6668823a51b6b7d1a28b4ef4cc3a5bc56c9521c5e658cb25",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "3fcaed998d6da6e5a683996bf6ef8406713166d95dfbb7539e1342b032338b86",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "fb97779050978d1c2f919fccfbbe761ed4e342299f69a15a364ef4e200116b2b",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "077357111ee883512e0e93290b4aa1fcf7cba88264dfbe6496aaa6869ad6dcbb",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "a35e8dfc5286973435eafd8bb8407a688ce49a7a872894fc97e1a231929dadf2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "010a2d3a129a45f7645d090ae79f2716973e3616134dadb0c6418dd883c16551",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "4f150614a258756eb47813b0b91ef28d504b2bc93bbcbe027832964c2799593f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "f3c79eb87a6d6c2d778bb0490b1f568f71b7188463c1b7f62f7d84a9aceb7cf2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "7209aacefb4cdafcbfceeab93e1ed53450b5bd00aab077662dc4603cb4f993aa",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "5b3765313a24d4da6b2bf375300ed3351c4063593ea2c65176b151cfd72c36c1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "466c6c2b85bf637424bb1259e9d37327c3aaf5ab0ea66993a272c97997b7fc71",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "b92d1d395f1df37bd2b2246cbeb38edaf67118aaf4626a7b0f7fa8c8074d19bd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "19e6dc6ac4d9c93e3dd72c40295942f90b62b44f79abf18f8b2a1af7b69167a4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "27b53255196d19e6ae1cad62665c1dae4d82578f47e391a72b395e81013d9190",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "364aec219931168dc49050dc9bf93a6df2a30ae6960643a6c234ba3d964ef047",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "cef4be3778117c98c7bbf7ef6bffb081c993315e5e0e730e7fdff69bae9789fb",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "27e77e529a5b7291123d778e91ed251086ab981d9b339e5a99b6855e6be557e6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "3ee4d22c1f9178a7c8bf2f66ad2459dc0de23719e510ddd54a6b4853442acc18",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "4b88998079c8ab829cdddd76f21fa5780aca6764ed9b11aa4f35e3e1111ac7a8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "c2d1cea883843d33da1a8d6b57a876ccb497866d2afb5811500628632827bb8b",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "4f8b191ef356fb1fe4d0e3f23e1ccb533e6c7170874cb2725da3725049425eab",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "473d19da80fc4b04af6058e0c042f89456cf4ddb31a752f5a77535e84cbbad63",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "c5b000773f9c0b68fa994169f54973bb2a49f11e15f3712f58d29009bbc6dbd4",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "69e0cabf6bac115d4fa1d31d33ca56968db2936b3c21f277925bfb0e8b4d72b4",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "4d5031325d900419d226a9012aaf894e165a4700bfa2e8730a143d6705ed0407",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "37c4ee3f667e62fbfd7d8c91c81f6a2a3d4ad8eb711f0c2346da906a8c4b3ddd",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "53acc3e88538d18e9734933681e05cb2831d16c7165853b227559cd53fb0c7e9",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "6de34b5e96b57fc14a46fe80be1ec5efa291b8637b8b451940103aa36754331d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "7a1dddaf93c4d0e16e1991bce79ab958334b807b28037527c5659a9cdd6b4245",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "eaf83365ad3f5a6f0f4ec6301341f4d677a24b5f1d8f6a8ca67bc3210cb4b1ee",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "e18c63792a187d27e34ed9842fe4d3d16208d0dee2ef5eb55806d2809978ebb2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "384c00f4e90829f89601203e3c19d34140522d0e5bf5bef182af49de5bea9984",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "c61a1d89f3ebbe7ce366ac196f2f387fa830afe9420a59e5220583300476b8fd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "26d2855883102f30c586183dd36e6416d323b909cafb04b00a999fc3e9f7ab54",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "bbd58609300ff55d03ee20a98d76dc8093a6cbff7964ccc69fca9138ac395dc3",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "d201fe666115463387772257916e06197c078640f4cfb31b9e5ebe1311ecd804",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "797475c88cd44dd8077d6bdd56c31048d14a1b7fa088b5b52772fc1d49def965",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "6cd8644c8a50408b189feef6e829034f775db45a17d8f14aecd26e79644c5809",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "2bea9922469cc35419b01cdfc82cb2999ddc80ece7755128c3a99f9b399d04ef",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "b6f8066efc0b5b2bfab9b78fcefa6ade1278595b94e5caae18180df6aa7073b0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "f4d99ae5af79f27d57458e7d2b94ff0ca6447abdfcf7c5ea83cc49383a2e5605",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "cd576d669fbf3f2ed02e4e763d33c104feda8e8ba0bf30dd0fc00092467c466b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "bf5fb2cc4a14fac18b51e2dbddc33ffaeeee912558a1782169f300030e339631",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "1ec70d73d312902066f72a66f5217c80925616000fb4d2ee170124e1447c4ae4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "192bbe6f4e5826bdc9628097a6ea8d6ea5165b6d86638adfe5abc8a46d3960df",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "67b6545e07a81e1f31afbdeaaefc2fb68388e33ea11bdc7d43ff96b319f4fa63",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "18fd1e03a573ed9abc25997f21045c37a2814af804b93e9ec57272f8d7329979",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "c0c9d308d0b7e2a85819b295631cc97c5fe98584839761812296c3b4c7ee00aa",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "7a1e0d11f495431c16533f0b7ed66b44a396e3027fbd83ea92f351af699447bb",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "c9a2fe3a8ed05ac9f47049f9c2d7ca6fe16d1a812f5f0c3ef813945e5387d6fe",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "f48a1785ecad6af863d691eb353d165ba454bfc4d26cfa81c9b809bfa8902162",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "8a9fc4149e46ba12a350564b78e8fc10e9c6b707b0291e6b2f5487b48095f950",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "993ced75bd6763c7a853c8c7e81fa1621ca4a4bc7db8a8399668db0d05e733f7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "6eb21efca3de1428b55c8f1f55e67ea6b63edc480058b65b87e16120094ff184",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "5589e53c2829244c85698feb3a305adc2a85a934462d89784ca5ff80a392d29c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "02f70aea7aaf230d6979248e359475aa4bd7eb1b8dee5ebd14af430eadf6e25f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "20d0a1e4ae0fd1d3434db7584cec4957fcda2ae7dc2c58c54ee93b57fdd34dfd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "8ad9bdd2457ac630b384c7dfd31febf0a076d9cdd1e5d2c9e4ee79fc00870133",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1aedc43e66ea79c76e5ebe43cc6c59486b9936ec896ce0936ea2f620b69d4bde",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "c009dd794491b304f896be6537910fdcd1804d78e0dc591d07f621dc0fd170b8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "b681798e5a6b1c4f15846ff9e0988c39ddb203d5860c9eff529fc4545438ae52",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "3fa49ec9bd7cd6007c7016cc4ecf37ba7a7f61a165d10a77a7c67f94cb66f412",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "45c7288c3ee765bd25f9b0dd4d68a21178a4682e7c67e8dd2376caf7d31af0df",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "19d4be864f72b49aed85dde29f5d2c0e7e21104e4e77529a61ebdef397e50718",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "fcb14a7c476e633f12cc41b3f50561f39d5acf5064e39a930b69b613678f108f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "a29c6205c65dd1f9179ce9a55d00b94bf41fcf4781bb076aaeae19ec8f3b8cda",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "4e9ddb42415973275d4d95d84577530489ef701c9ff1532c1d450427a1e5265d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "d295ab8dc786c4b6ebc9327558a1a39ba4177d0b560bb2409402dbdd6516c220",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "a6ca6887433c78ebe5097d1178954d438c72102db40674aa7f4951ca2b83cee6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "f5dd768529b9696653bdf6159e239b870d6a03aefc927bd486a9f7946e1fc0a4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "8c78b2aabad65714df380de6e6c4c05a4c0db3bd852bb40064d7f49b208cbb26",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "40c354e1ef515a0f5f818b124301a5ecb0f2da411d86f0663d4b7320188c396b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "d0686f15640878bd54e996d2061392d4995d13f85631baa8d36523dfb7fd51aa",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "7797415d8fa7a8d7b9dd33f18ecc92ac14fb812f627e736339f4b1746a742563",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "31f3ca531984655bf50efb4a598035b968ee7e088013fad9eab0b5900945521a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c366b9b17320c972870b1e10bc98c81c96bdec874458675b893ea26e4b19e286",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "2dc2c040746c2549adc24ff6f702253c827173deef034405282cedc9a39b9406",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "c366b9b17320c972870b1e10bc98c81c96bdec874458675b893ea26e4b19e286",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "419521ec9f890a8313a1b5642d1f862e9a91f34e486884d311ee1183266ec5b8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "c8948b1ed45d81945202dcd6bced54af7183038cea9b8384bff8f86b134c3cfe",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "8d8032b1232048fdb56724c7bde7f20cfe3d552106858df19eb8b309b4b121d8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "36f3b240afb087e86538b7b46ea6962efe6c493f441909cd7fcd383ea74bba43",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "1bd6ac990910b1ada33052d28bd49ddf474a048bf0c7f3bc0b4b56a52660d435",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "a14f7875947dd7cbe415ebe95c9fc4543be913206a09161fa5063d85ac0bb0a4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "40841283cbcafd2fd231e654866d0ae4fbdebc637da283623fe59decfc0bbf49",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "73a90ce58aec9357bbbebe4c41e3927185b5519449aa9aae33ec7e23466121ac",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "4270a52f4503e6171b034c4f6df2f95a98f57f37e6a41715d4c9ff8bc4a51693",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "815264c948d1942075232d65a4726b3f6d958030d93ffa0660ae4763009bf8f2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "e5de6530291976322cc5bdaff8e36b5cf7e803c3269924fc9694fed4ea712648",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "49ccbdf31f2d4d0949e5006ee8a1fad0a6e22645f8f6867c74ab672986f5832f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "4d35d0876bd0f30a7f48aaa6f782b41987db11bf9582d1d98ad7e9e37a46858a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2c6f5e6c026ecde2df80cb8857ea8ee68887825750a05f3a52d0a1cdb8e96808",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "6916f0d66e6b6e9212e5189b60df04950044ae8bfc8a7c2302b62cdc25761fc8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ae342d9f4dc31c57f727b0a8089be2e9dab8dc7661344b54a31baa72723784af",
+      "category": "Personal communication",
+      "subcategory": "Calls"
+    },
+    {
+      "segmentHash": "68a6ceb2898eaf8367699a49d9c9fd7bf641cadbad01cad80798574d9d6e9599",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1cd5e9c9dd29505e70c30ae47e521bb435aef17fa108741eeeebd5a327927a15",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "ddfec7a28128be8b5bcfd28befecc077a06b887ac6e91f376367a34c649b82d4",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "8e676f00c253b1dd69aaa2244b5e7c285654fad8f4c24bfeffed1fb824d1ca22",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "6be82f080878fd3a4e91e6fa61f99d083113ca6a8e6eed5b4de1a9287ecbf22e",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "470255f185c7a4b785b50d892e075ab00e5848b6adaf7df48907f5c259d542e2",
+      "category": "System and personal admin",
+      "subcategory": "System tooling"
+    },
+    {
+      "segmentHash": "48336da961829e434fb4b7ecc21afe74a2a7960d26f30e5de8066b5cce8bac24",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "1feec46e042e0800da4a5bd7db712ccc93a553695ee2f1be3819a41355881221",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "7079ec2cae1299fed495933ca9e646fcef61b703577e0ff8cd48d967d9cc827c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "e9c2ee38807adb1ee0ea4ede3751e59435efe468bd0e1f68c5d77b4a8281090e",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "306e3390bdee8fb98595e22ffe9843b6e00933896c91043e2b5072e7f6b5e226",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "084c8eaea75c3675ca414fc228bd550d78296a5cab9fbec63ebc209ea89d7eeb",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "e918a2dd2284c37b9bad7868a2c81eb1d5158f01ae5f4e5ba1ce2958c3496397",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "112b13aa588a8beaa3fc7512bbf6dcb710ea31f914e73f0102e33af1f309d35c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "de2dd51894d111418fde0981c29405af295f2de32a53f161746d6c6795388e42",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "8e3187a1d1ee3debf8e054a6533415500453b89d4b1354190beed267aa733e4e",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "25a2873dd9cfc5a6a46f8461cb66bab79addfaae8c24f6984d045f966b976816",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ac6dfe925d8bb1718ec65a99e0d03371a67498351ac65cb71928f6de0dac83fa",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "4800343b9e60597b5bbf97a9f1e9e91f790fd47b1765ad282229604e18b3e774",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "85c8bdb0cdd8f9db84ee4d867092538d1288201ec1479d2dee62cd1dfdd961de",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "9b43e49c3c8bf040aefc2607dbdd0dfbfa9da4fa6c4a0f3c2c84626bf4b93c5c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "af0f2666a90145b4b292ebd89654d13c788ff216dff7139145508df829f38389",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "21f43a4e64867b23a850c46f4c17eaf004efc5b673cc48cc2696aeac9302622d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "69bb85f94c0839a5021dcb8278afbffaff050e5ce1fa7ce93ebb94c133501de9",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "7d05622ba757d8fa9835eb5b51a8e30ceda22ccc82d573805e7e53160949e44d",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "05b581f24321bb1bda91038860646545c22393903f66c1b83216e27732ac3362",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "95647742d21a01f6c297df4138edb458e313d5cf6c48f761176ec1b7e375fbd5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "de7be4feedb1cfa63a8272071895fa28c3e9dc03f93e03092f968b4a79e98891",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "2a9d31778499a982fb1465f1e145723e6fce6feb0ae30ab1e2adf4d4ebde8566",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2ff5fb74ab8c574b66171b6c5b624fdcc4cd42d1feae4f4394992b436b29b9ba",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "7bb5f2be746149c7f8812904de88cb05e58625596403fe39079d4523c5094a7c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c83531cc4a6521ccb3ba114d50a2bd25ec5e4a2b0ee78347c824db1f16024880",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "4bc6da8fa8633a7865873d06e926ce6f7ee6652e86c60a0d3832ec2628ac47f2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "340dcc9486bdae98ed1ec895a9dd817ceb262d7e51561163f8f6fe2633b38d14",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "059962f3e1cbc14a4750a158d0a53407a95279ea2de86bb8a70f59a85fe48591",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "6ff429ade1cfbb1dcb95dbbded772ed12bb343694081b07cca069d87758de041",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "7cc851bd176b9d3e6782e4b17f6b3a4be17deca4fe7bec38493a5e11f1285a43",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "939ca69f843a142ea06082c76fb547d36af807d81a7f1decc8b2be02cb269333",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "062d62f6b720edcfaab01433b340ca94e9704066f9e7ea2eb1e6e405e8d6dcd6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1d68d31ed551f18ded324a50c5910705928ee7c3ebee86f89d78edade56cf351",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2aa4e4020d4bdaef57caa9998b70ea5db11069e3320831d710bf300eb1cab916",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "a54f0cbd83c5a4b55469cdd5dd687d73743b619a055e77b7b7c478a0f0286954",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "382c80fbec2a4fa5900cf9f6e322f69b0c5ed6a8adccf648fb8fe1d9dc927ed7",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "49294a6caff0b9a07585369f04931a1658be5556f1cb9bab138d8d0a6afc082a",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "e978ef226675b04670813022ce2a353c75f1b9832cab2676ffa11721d34b7813",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "9f30e2b506ef9f529934933652ebef65a37edd7258cc85844efa83716bd962b6",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "35b58769da117f50ba2a2c91b3f13c44405be7f43d15b8f62a9bb4fc70d2565c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "b9669b5aba23d856e1738bc7d5ddee3008d994e553814b8831f115e61e83d7c9",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "0e3c2806a0668693593aaefe112cf09b378222703fe0b3e81d34fbadf3f1a879",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "d9adb0bffa57d3608b25fd78b3c298480d31e5527a7ec8f28bdf9a1c7bbfcc93",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "08d67be9e683fad6cb239e9dae04bd6c687202f662d8afcb1f7373ab989da759",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "c0c98d8faf3db5e8bbfdef96668532fb8646fcb584d56b282eca53eb0acacb9c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "af7c89ff289846d4de1814106e43ed32572fb87ffb6a51cfb2d6ee335806b74c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "4a7eace8396fc167394824c029a5bd5377a0f362d5e9c4086751877cdb9214de",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "2858eeea694a766cf0d9e1b454c24a540b44def58a93564209ab0bfef059d81e",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "416d2059fecd32c06a89695da6e3e157d22f21c701b9652fee025492119aa6e1",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "dad340bf4f43b161502af4f651db89a614aed28e0d4ead63c7ceaf71dee4244d",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "cd8754c122be55893ab22e72f86cd5f66b3f2ba1b1bc2dfe9dd247f2215608ec",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "d3044ba34bd48138e97a0983ee0c12fc4ddf62bb944435c5f6191111891c4e40",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "4086243f7cbe077c7eff1f15ba5519c5772dc063ffb4ac2d5371fce25e910a47",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Mentor support"
+    },
+    {
+      "segmentHash": "0a11b5a01703b4ed8c7a3411e1174e1c543db5d6b958707760de5bd989621772",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "373b77da5b9a96d200310c91907237d2fa8ffd0dd2121052d08686125d06b9c5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "a9b8dc8ce23b168587f823bcb093639c3e4b4956c8c346a37c2266d2aeb4e136",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "1e1c63975109057705203ecd1a3463199e573bbdf7de0f4619b973bf8a8111b7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "c910d9a17de35cec628c6ff4106ec67e1e340ec718cca4eeca73a97b4d3c55e4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "dc0eadfb4fd5614543dafcc1fd90035266e234120245933f9df1e6352e8f6bc8",
+      "category": "Personal communication",
+      "subcategory": "Personal email"
+    },
+    {
+      "segmentHash": "8050f722a3c3ca0c80b1e3a32867a2bb94f466a59c19b12a70dd8efe53f8bf1c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "43857db9006f6fb21a6435dfa88f4e9f7bbc63534eb55c6498f14be0023b2eb7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "3e77d33580a597f57a9c1ac6998006ef039c1b266d1ecce93d4f7f4cdbb0fe87",
+      "category": "Personal communication",
+      "subcategory": "Personal email"
+    },
+    {
+      "segmentHash": "8fb1df7d45c8a8df04f8a5deffaac569a241d587a7bb44c01b1e6ce172fbd7ca",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "3fff9cc4ef6a22fb2b78b917c55659ac0ea2efefcbb2ff13349f019ad3ceab59",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "5d1342d08e9d7e8f8278e79aeb44b983186fd9829322a7ded6f6d97ff3cbc8e7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "15c17a8c1776b985d531c945e6fab1c0d4bbb7a2cd98c9cb9e5b8e34b0c7e3db",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "a79a2c259578108ef5bc5fa4883444e30c00642bfee6dd46c1ca6086c3f73361",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "88c7f59f95c72b1fc0a76c7eef88d656877cba16cf76d5c59784f0ce435e07f0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "b5952064dac376331db635461901841c24c04218e0aa0613480f4d2fd19f4cee",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "474d3145491629072a92e0b569077ce918c9f14f6e9e15f5add0fa1048184fe2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "87273dfdebed9b0dfb753445a0db64f3c931d09cf07de07e43f84d3e6ae4e858",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "fff6b99026f206cbf447b1543bc782454b757fe6ce0f7b671e8822f4b799c6b5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "7d1d01235a3197ceec3b5278ae078d45af8d909c3cb278a4908024b99e0e1c90",
+      "category": "System and personal admin",
+      "subcategory": "Files and downloads"
+    },
+    {
+      "segmentHash": "f6714a427a674df054fdc628ddb2baf7fb1b9430af2d2873ab7f35395bbe46c3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "23b1afa8a3bf50f5480cd602fde2b61152db07707e0c3786f0cd2283a63468bd",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "e837d0968c207dd21f809bed4e76940917744d3b6e70b0814cb7654bddcef714",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "13312184571ab6da24ca4566bc68b4d93ef7dec6d4c9fed9ec1e62ad6a975e8b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "8e291d5900641886513153637c43228888259964a50b96413d1a7e8193d2e921",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "cf202dcd9f7c7ecbc879729ca699055e21ef9eb3f88eeb16bc5804b83f21a30b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "38949b6d67c86423c7ede8a5957d828c5e53eb4ca074ab89be87d9a07a58b0f2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "610e699d07a8746ebd6e319ce8c690f81248354faf3785fd74a9ac621c4b6741",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "07be0074cae66d89eb32eb7ae06d23327e6ec2ffd5681752dd6162975f09a07d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "66264d1b124c615f9c380dcc478aaeaa9af95cd929348c0ad2073148eb6f1d13",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "2077b089b2d181b41a800337e432fc7827592ce76c0e273436dc53ea4ab8dd27",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "82e59b9e1e30e025fb0af72d9bcb160feeb2f99e89f8630859ffa43dd25661ec",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "b695326c3d490a03ac4045ca6cc71b203b3bcb2158fd9b84b9e6be7fab52f833",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "086c861e6b74b1ce0866af298577caeb067df480963ff33a45d611bcd2ec47f4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "2d0ac5f928d2b76c2c9b2e85b8affff7cea75ec7bc5e136cafe2c8469c5f3d83",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "03d1c27fed5b4ebb2a1c72975663b3244b760bef301860d32473487bfc7ef2aa",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "1238ebb5b0c686ef0c980737e9836e6aa3ab9dd9cba094a909580d53bcb965c2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "b60c845ea3f2a76e7ae96e93740463ff89bf830b2310a64d15c9bab51b9e73f1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "fd8b1d5b65c961d2838a1f049cfb430ec96d13f33ea00ceb3826958010dfba96",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "05d67eb9797a562d53e9d49f781be4c9b546ee74bdec63a830e90074feac907e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "faf09dc82893264a334bb9d632803a884ef3c7beb04d78642eaf091d82bffb69",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "da37f33b3e5692665258883fbcc5e95d2f682bf7659e7db47d2a8dc31769461d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "464c574f1b61dc26f165c4f44c559abaf3dd1857600203cc5b1639be23b67a53",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "739088113c25655aa2ea7e7c5e3ab48b1c46f6da7c2c65e1c2c8dbf99431dcfd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "a6944972ba40536b26db94b1a62ab94b684c7d27a1a4ecb776292d06778b000d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "372322eb8a1de347d82a8c346ad073f4fb507ccd813c6c17692865ac464d5952",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "50fe908fe4114cef5920c8f46223eb99cf5badb375c9960b150dc5d024e32a94",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "e006c405c6be7d65805eccaf77a85d1fda2a60ad4571c3e8f1b51d687bacd786",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "b0eb65c3dc70090443efb43cf3999de3956c4984ca2197c27f607a322babba34",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "f3828d247863ec9a266ec807a4f654eaf7c50612266792ea10a2faf151c7b5b5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "eb2c35188e3733e32c52db1137eae1d0e508be166093c42e57e0113a400cd19f",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "461c7b080a7bb754b1debac4f1c289cc127ba98caafb7d048e099fb9d4d2584f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "dac531be6b68769091cf38d1f57da33f7b3c08c31821acc0c13aaba122a39bc4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "7a6f3d79b3b0cfe376f554d9767a45a9f0fac4880c41e8f2e0df77f03974e4e3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "781374947e8c80979a0af47ce21b59047beaf28738bd6e3ab00b0d530860a642",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "00f3d2fb47a39ee7746da433cb66ad61f0ce576799f79dc36c33d525f9d11f49",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "f6408ba33ea44840262ad3c1b94f831298cce64f8fc4c76afd5395b5b8b418c4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "65d3f9a6537230f36d0b1d273b17c139f994e95f8c8e17ae37c2428618543bd2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "f99feda3e0cf82c2ff19cb11db8d864f92aeafc56e3246a47fca0dc56c0ce5fd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "bbc678e626e94fe6324b1342e1814352a6c0e04286035604e4425052de361dd6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "bf2c0d2e1013d4d5dd2544f58df55fecc5d5a1cf7ae34c9c942489c23d1b7f15",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "eb02e5a2764158e7074b298e2841902f79adc6abf203bab9243109aaffa3204d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "636a6ef937af5f15a3a5ede51df2bdac3f373ba4b7cea0469d8513b442b7b8be",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "c64b4d5f25516c86f5a43fe3c15f8e94771fb317b744b8b75527573f7df7f872",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "afcef45098f7eb8570e509db9bee26d4f5208651c0b39405c6034f21b6a0726d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "85e0d8fab415967c30edf540386db715efeb48338bce61c6c7e8a2525472dbd4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "fc86c977412027051c4e8445722b857c64bb6fa271852194fac18cb4e63cc3e6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "358db974cd6eb7104774c24079047ba053ef979094eb256e83f227f2f26a496d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "532218310f8747025fe6daeccee69d031122d661e1386f47f3065af09ca03c40",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "5aca88cb23420fd334822c8b28819b855ce8057e51589bcc65da42efa805d43a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "dff33df05ded81c6de7dc0131ae36de5a349986b03e272907ecd70c966d00f53",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "69f8ba9f6cee868e4bf10ed61d18fd687c63a44dad72cb88d960b4c8f4df8208",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "0e0f76aceab1da79e8f9f22475e45bb1df0ab4780d35efcf1e85b96c9bac7d0c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "f35bae3f522d84cf88f5d3af3e5ca32dde6d0c4b0ad63a39424a51e34958cb8c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "abd0346effe51c894002f02239725317d8f5d7c72581a151b5f5b0f6381e068e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "70a5d5ac384dd4749d6abe5bb04e9de8d7da7e64e569e26a4e7af5bf1e5ed9d3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9429ff073c5664aa95176dc3a4f8bb2000583565ae2e535149156ddaf13b6696",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "f7d2aae7a2e5fc4ab9e9ade448544d13a2035aea7b84e8ceb69ecdefbacf568e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "a64034e736e0b54d946f6170d00a3074276c4a992bccd42f4e3b0d7f1496251f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "8c5066d6ce2187e567c9f581e79b36f9b41eb2a8039f1282c96ef178aa6ed845",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "2c6cc77a556d6f146f79e914d13627e64015d3b0a22aa257a2a65f6dc54e47ab",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1e5fe9f9ac78a03a05feae0a5cdb88cd7fea76340bf9bbcea390cf11748b6f7c",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "e7663bcef535b91e0b75349cc17216a661c7ccb2290ff7add7d16c79d45fc5fb",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "8b227b2b63d25931e8749bc3275b6752f9788bbb0bb253ce6b24168d9aa20ddb",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "c3ccb178658b71b4eab12af1b7c264d5419e702d497b3e38e92e88ef892e3ab6",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "8da434e126ebdc54176c56e780cdf22dbdd4dcfc42de2a679c76cec70ca80c00",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "16726206951f1d86abad7e840898418936bcd88f01f78f4cc687c36b1794c4a5",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "1d75b2413fb36eff1d01767267db9e82a23c6c91dbad0cd02568c994682eae98",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "76b6693a70c741d15721b66480b5e9a18280f8a0dd32bd17e93b58e4517f524c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "e7c661e4c13b5a3343a9fdfc9c4961615d65344b2fe60dd595eb305375ff10e3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "7c7b021bb56f9d86f948401fbef2e19b58c597b5ffabf766c332419db1a63ee7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "ada3496e371956d2f56ebf8b856126914ab3fe73cb8a55695f1512657a846457",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "64cb29acf35b429e10491381705a56b7693d99ee1bd88c91b42dc32b0a740fff",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "5e39deeec732c15b2e162acafff5d3c6aef98b1189ab9a36c02c7118ca730695",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "1b4898e7c483bfeb6b869273b1f6c522853f0349a0f9fd1673504078b8e18c23",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "320f0ef654ad13dc8f08833b36ae7091216a2215df9bb9566af667bd2d9aa3db",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "f67a2e6cfc18916468f5cfb8d9441655aa4486e5aa32292058998c84b3426bb8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "e4043f3dd24172a1778debd9d49af77c0e00e67faea600f723996fef1b7ca2bd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2493706a729913fea66b9c1afe22f435a6134c20c4dc9dabc8f76cd67295c807",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "6b2fae8166d06f35bf28fa1edbb78587ff3d0250fb945a2f9f024f55725fb63f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ff05b15555c6bd705e73351032a73e54c91cc7a0fbb3828852eef30fd45097c1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "0a5ae500eea22f45d7d254283c1381813d075c32b7289ebb028ec420a3b9b298",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9c6f9a79e98cc81491c06d93803a7f9b37c172ffcad8fd41ebc7fc8a6cc8fbee",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "b6efc628918e1d217ec66c52a0d20e3101700f05b163714c98e71e553a59644e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c5f6d4113f7fd2b10590bc1ea52eee529227f09c9404d6cec3359ba098d07519",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "7bb7e45d8e852eea70c500dc2e26e7003d6e42de01ded97eb236df3d7d2105b7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "923b43d8fde27576e97fef3e80e3b1fd6971e56f1a670b188b85fe9e87fb490a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ccdaec495998aece2bcc19543dac79fe716f41542d6cb10b3102910f76167b4a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "855368b2fc200c72835f9b1a4f6ba17f11bfe2f1e6ac2187416904ebe4177cd0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "98526028162eac09a00fbd6bc98080cfc9a504c1c61c4061a91fc6648d501594",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "f1bbfd132b94b7d9fe7019ed21e5aac3c06ecd99496c8715a2b48ec64a3c60b8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "0f3f6c1e5ab1c05e3f13c6e5a20225a1b7f12f1d79567d24e0f19a120d2a2617",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ff39e739507445530aadbb654cad336b3592d6fe6b60d20e53dfcb87f4991592",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "cf4dd8631ccdbe55c08a73f88b2c136827a58f98adc7e0baf58719f12f2b16de",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "787dc916a4a2e07556bb4a73d4bc0efa3558afa46e8173e0f62041ed31bb5abb",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2c82d49a5f991b59ab3418737a947285d50dc835d05ae32eefbd9cff13704b23",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ce7df306dd838cdcbeb89ad5a043c35f4000ade3f7aadea651cebd2daa0d47e0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "46340a39a652e0a9654d2f3fba9c51d92fe078e2b014ee5a8efc152f2243901b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "998b9c5c8d4387c81d0da244478c6a8dbfc371195532b261d7bbf573dd60818f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ef987e7912dd858670732bc8e7dc9e40c87d1d09b29d956c9515a50b6474098d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "fba99c4d7710a640778f524a6a49e4933bb1daa2f5524eb78c2d0c933c52857c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "05211bfa82df20d733add428748b7508b05b1620c0a4a4aa0a67e3feebfeb0be",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "4e41e48ce50494868869e50c06eb4b0f4b64fc02f8c0fa544003c8cf00ce7006",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "56b299335872d949d81da2fa375730499a98a00b90ad25564d2c35e6d749da2f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "492c31aba5c2518ad179a01c27acea9c40c199d4ec0fb3376f26bea01c6f8801",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1dde92851f140e0d4e1679473041940e092c6b8c74b19030dd95fc95f7e02ece",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "a407c9b79b1a0a5d5abe0ad9d88c91dbb8f795047399b0034f4effbca67a75f7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "b73b3d899584b003f48b48571ef2c40a18ab5546bd599ebda051082fdc8c673e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "762bd10367619916849283acede18e1e056bb8417c32922a4f33c1c0536239a8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "5305ad5a6adb186d4d12c452dbfc675abe660ee32092ab15f4cc67d9aa8b9358",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "758c51994885fb6a4df3c8b7c9b000d6e6d250f6d902829ce4400cf7f61e07e8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "648c61e6d210223eb7354ebf181e8b38a661cab174595efd4e328253c7bd8930",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "6df4c19efdab1aa027c234839d261c3736474871110ac157d1b407a2d6e8b620",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "58f69bbd757f216fad49637e66dce077b9532df23504af8c9b09f2a98da76016",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "6609b4611321c986a1b4e035054db06cb1902cc31e882c9791fce4b9f25e6f27",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "9f6c329ec66fbd8278df15071f1cb6f75a97726530630678c4e23e544ad960e7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "19a3477f578b33ae57c6819756cffa9364dd12572ce079f8507b116ea236b0c1",
+      "category": "System and personal admin",
+      "subcategory": "Files and downloads"
+    },
+    {
+      "segmentHash": "fb6846e5f705c8a6a53b433e58567fe83df26f52665a23697f0ef4d5f18068d1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "0ff9c0817e7d5965c94c91889371ff7ebf5971ecc23db9a1d821731df3030a2d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "96818f0d3f483c84193df77e4c7d32ce172b26a6c4c8689e948f160c43c3e886",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2e379bb4ccc472017dc36a296281f5e03969137bc3ecec133ad853256cef4368",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "f0e3169c240c7432ae316061007cc08135e9e66bf5903cb2e37dd2cc77bced72",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "57f1d7f4efbd9d53d33c0c5a25b07cd0189ca69c171575f0561f896a7eff9fdc",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1bdc9c5e2ce90313153de589806a1ad7c278ce2488aed220da60b57c4d654118",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "c7a2a5654fe87d70b026f9f90133b7651b7772fa1ec3640835e09296d52c95c0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "26e97143d63bb67bf55baa5277a825eee67bc790da3f57ec50e6638a14fc9f01",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "fd0baa94f92ae65e7fd632fc9db7f526cda862d45df45375300d36621500b72b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "57a885ae0edef3b1e70d1914fad6caf0a2132bec7018e176eeecb52446e5db6e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "60ffde58fe1fa853419bdb396cd2f7d8dc08bb859ab7468fdfa9f5a59270ac90",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "953cb451406b233f6aa9c5e746ebd4a55e5d728f5a5177329a8f7266b4add7bf",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "123dfb615725da2c2b7d402bcfe10a23e38b79056e344e8b62fe0b173957accb",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "b6e4ef5bb7c50aa603c72c2d05056fcced00dea4b9880d1d0f16b531375806cd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "daf8b2938eb983b3d80ff6133212ec7fa286f56c1a1fd964f9243b6d49b90d14",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "1a5e6329d6154c6ba3cb8a3af8dee75206da9713e48b5ed8917a7eceb185183f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "ec7166aece25bca02988e2b51ddb1207baf0bfe99c59f8de949fa560c7a6a141",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "a449c360ded25c720f93e60cfe43aaf6f17bfc71e9c74f1662962329fe1fe15c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "9e3821b3df9b90b41040a3e962982c287465746a1e3d6efe5f33872232d443b5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Email observability"
+    },
+    {
+      "segmentHash": "f85625d7a96c6f55b056495852601e7f0622a80e8759c10eab72a74fa2376175",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "efb7c751abc3ebf2a7b08be0150acf65a79d4aa666b99437d66e4dd35c2abc57",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "edc3c3bccdc778c968cce92f73092d68f2a8d01d0a936ee3a0d13483aff224e8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "675d47b3be9c95edf814bec49729eaafaa49b49f6bcf9a624a14c29d9bef435c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "436b8cc45beb8dbc98958b6973b3793c3a3317b747e4562e817f8048ab4bb477",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "6366bd6520ab04e938865c96d16896f683ba4eab86b07544e05536ecf5588c93",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "10a5bf55d927358d8b6c2ffa2955ab4c1600274f1d5d6a923a37e5a38a8a2fa4",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "5e35db83797671bda686739b7751d02ecc1d6776c38f3609de1a0656c0af4196",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9babe2b0cd5c69543172a4133f80e683ae6cda46199358beefdc4f37cf123311",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "9205454751f52b5f03316fc1ace8d8722f5f66774a0c1b6d2ec3cf028092fbe5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "e366938e26573623f424a85975e5c65a3644833bd77c0a22678967b41c156f55",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "80efd59298f0c203d18c12f280bd536f45605037e56fd13cab6896c2ebaf7977",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "63d5839237d1cd9afcfb7c1225ac8533ebb69c402bcb66746a095a23175243ce",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "74b4bc703243f208f918ea00c87ee9275147d73ddbae0ab6b29ac3187158b54d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9e29ab7bbaed928084912083348bb2e6d2a076e36456dc7b8acd41369cf31e3f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "64481b938ba6b91a38c29fbe8566d6308e909937aea18db7ee279139869f76e2",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "e5646c2a7cbd5153f45372bd4ba5b8d2a3f3e1d8b50bcb6c0b8c262a809ebe5b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "071b5634eee9883f416db79d9e81670144f58c054c67a3400ca3042bd3711b7b",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "83d79cf2cfb2de290dc0f8975f2fb2f11c19a7285f9f6e7bf7b53cf474811643",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "e96e2b8a780733e466ac3f244c12ddec2df7675d15cb91f684163e3987081753",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "935d42d0237f9d5c438e04b37a30bc9c354b740214b95ddf7a8d07cd4e0abd23",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "7a43df8679e2caeb7fdd08f49e341dad6ae8896ba37b99e5627bc1b471363421",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "0effda58a80ae9edd62c7c837aeda56c5f2d0afcb19a1903e7102c5340da9497",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "a666cd31623c6d5b8af8186484f89e67272fe9d706094a5add01bb59b150b1af",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "01cc878a795e44f982f1483f25efae3e6799346a03f330018a447f4bf238341c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "7b2b44817368c28652bd7c63369d7b07aa66dea9206a484771c9615a442f553b",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "52934204a20dd7b170bf8bd275388bb341aa3e6a1a30d75538dc5516bffccef1",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "dac9c33fa133bbb46dc2f5dfa6cd3102973afe036684ec749b98f22d1bc51f19",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "286bcb8bd44277422566f79afe9b921b449bd461120e833238ba94001ff69dc1",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "834f35221ad205cf391ea13c3fd81314f7a73e14dc8948cafdfac7416e62e03e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "f35277d00631f59bd58d5d04e1c2840722e20e24d0d66da4e40ca88fddf08a82",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "4d66099b8d000e2dec0972b35aad2f517d4d2254527b9f801c705d3a2a5bb9f0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "db7867eaa3cf5af157109ec4386f6e6d6411805a31073c4dc49152eee4f0a5ed",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "2c257279869e181f7ccf85e26a09be7598cf9307f670e8782facd7a68a974ea0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "3a821cb079cf0f6dcae761c3a7dca353bc121394b4a709a478c139e47474c7ba",
+      "category": "Personal communication",
+      "subcategory": "Personal email"
+    },
+    {
+      "segmentHash": "e3877c3429c32c9506cb16c39c8b1c6ecdd44cd3b83d033bd08a2cad1cfcb5b1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "9e532610578771a0e3ea937baeb0d0ab13f98cea73cbdf87a514da01efcf9c61",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "97d6a7a19f958ce878eb4920b57d45ee6695fb20772411366621d067b3382522",
+      "category": "Personal communication",
+      "subcategory": "Personal email"
+    },
+    {
+      "segmentHash": "f72c86b88c14a853b59e33b6c47f77ae0817cf773f9046a9c95b289a176ce18e",
+      "category": "Personal communication",
+      "subcategory": "Personal email"
+    },
+    {
+      "segmentHash": "7755b82254464e174aebf44a0a4b90ee73efc50102eb5fe1c90de1d281db51be",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "925bbc48121883235dab606fb7833dac33dd3791231fa52272a1cacb879fd2d4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "d13737cfc18981c46c6597b3d241860b37cc0e8ded1464aa48e5badefe8e5353",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c2884f4de9d45e56df2dbc8f93d61ec99ac46aedb5f404448a43fade2e0bb005",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "d24dced837925a7c0f66c4996f8934cf882f62c5fe44c3c5f3959fd208fd41c3",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "481d9d1a2f08ecca9252d8390f123fc7cf16110409a9b356ef60bc80c3e6a516",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "84fdf43a2a9f5cbb60d5a946ab6a099c8d0160305e895f05e23f6606e4b13922",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "deedf7192fe74caac0f3d2429c5ccdae888264a1f552bbe41a596a4ba33a5cd3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Slack activity feed"
+    },
+    {
+      "segmentHash": "30daa5591f967333729b850088fcba454b3c866984209d3640f920debebcd4f1",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "Social feed"
+    },
+    {
+      "segmentHash": "cd67b18e088f9af497485770557c22b73d0e0c6008fec20d4e97836dde5d2b34",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "Social feed"
+    },
+    {
+      "segmentHash": "515e076cf1a56711e5be2b6fee54498ef94c197d31dc7c89044f16ad342fff01",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "e5d6622d113657d75bbfa265eae9024e8c0f08851eecbcecb574e64969b3bf50",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "305365d74e0a7b7b261a1f84931c8021106fa77869246cdbb99da4619f54e20b",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "757c3971cd5ecb790bb75c91e42101ede89d0f07f00a845315bfbc2de19c74ce",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "a730c8aafd11550060efdd738401876ee0b3cb5b9201c14dc7b9ab25df2dfe8f",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "dd7790bcf60599c3bdb1bfb3d3d764228d1dfce602d74a12c2a0c3b38397363c",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "1ec61a9d9a9a1ce4a0a6b3d724e1075eed12b73f1c9bb32d5926b140525a94a0",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "42e00cded198631e14da4bffeaa8c532c715325274b67602cae033f1c23ebb7e",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "9ecfbd56f876e39eefd91613959bd816f17e1203f9219426215c719c9909e187",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Slack activity feed"
+    },
+    {
+      "segmentHash": "bc85087c5fe273ae7cb8703bcdd366178d866aed1c83101d99c4149e8f5a4ce0",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "ea2706bd5dcf90eeef911bc83037bf754cc790d3797fdf5aad0c82f04847169b",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "34036f6be90efb71029e857723f42ddd5147d91361d35fcfbd9f0dc55ba39b8d",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "1a73cdea2ea10a8d6a429a1355adfe67407c43e0b8d0a616f7a6f5f211545ce8",
+      "category": "Reading and research",
+      "subcategory": "GTM and competitor research"
+    },
+    {
+      "segmentHash": "83abd2762bf6a5c3fd4b40e249e8b01673077d27a1c1891efcc4a2bf6c4dbfd4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Slack activity feed"
+    },
+    {
+      "segmentHash": "251980ecf03a271210d31b83c1e37347fdf0280cdbfbbee978daee81021e8ba9",
+      "category": "System and personal admin",
+      "subcategory": "System tooling"
+    },
+    {
+      "segmentHash": "3229455396a26e817a40ffcb2a5a6be95bfb4ca3722a8385078b477f341aefcb",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "996bf1265aaa07c952292d46e7f553192435b81480be0005487dbc5135cf0e26",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "f3ae6be6f0bace18825360e9cbb522815998f9b7fce70f77a8841acd7c4d3636",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "f254fe9f900e5e56bcdc437105c85d095fb13dcd239d41f68b303d0b05777e1b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "61cc5bd5b0c17a324ad1c6f12a46b0938cabf720597a6e622e7b924bb1870ba4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "3bbf7adb8282e50f389124f457468f3fa1582b94b96250d57dd5a95c59a0a7d5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and billing"
+    },
+    {
+      "segmentHash": "bb03455fca4d986f23299822f5dbac81a2c4f70d9b30e53a1acc32b7c2005a2d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1db5bb55143fc717d4847e83ba1965ec68bff555b94d293256bde3acb3feec73",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    },
+    {
+      "segmentHash": "01aadf83e43506f5bf4908fc6ecc860c6337ad6f97a6595376be456049a0bcc3",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "dd2ff13f92cb7f33a185938310a4990e132c4941014070fcda40e1bd7c259ad7",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer onboarding"
+    },
+    {
+      "segmentHash": "89041799a15d243e3496b3f6b1d369b749e2a146550e66607380d416491c0d24",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "6b717837fcc20acd527cbd4fb5f5cfa1c11e16a9710bc6649fd47a6e5815e661",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "10fa2f9480d8b8c6de4c7c586a976feb1fb36afa8fd0f74a029e0b466da00e0f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer onboarding"
+    },
+    {
+      "segmentHash": "c308d0e916ed488231f2abdc10dfef832e2a4ffc87d4b6c06e0ba82d64d64107",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "32b8425683782fdbbd107fbafd1768bf9adef7029a176e3c80137b73a2af9176",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "82ef2db739b7039622cd4aad907f7c90025ded32df282846fad926bcdc4f2227",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "1de1bc3fe82da80cf2233dbc877812054cd29018a3434822cc105e601ac27e38",
+      "category": "Personal communication",
+      "subcategory": "iMessage chats"
+    },
+    {
+      "segmentHash": "375e193b524520cfb86a6a7b6e83ce9e819381d661b06c302b79d4bd04c3453f",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "a92e18be4e4ea92dead847e7eb52c9987d481fb3a948acbd78b83a1474357614",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "a188549c9d85ae139d7bd560d9d41ceebfbfe30743a140b9f8534bbf8d382264",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "5b35973153ad6b8591118bdb94a96738993fb96836ab926d0d2ffb7573af0233",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "908d25c7eb2b3fee4c37b5e29a24375ade451a415d150182a9003c1e765747a6",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "2e552ba807a1ec2a191775dc057fc13871366a1abd397e4a05ba1c56f8d6e34c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1d8fa290438964a9b2b6e2e3f4968fcf3c14aaa41bd95e84c3d2d5c01355d1d1",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "644f3ac70524c8f989253dd5969bab46324b5f000bda6eb184e77eb037df2ff8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "16ca75f2b89bf57233a8c0fe0856fe4ddf2a4392a5b7128308d77251042b066b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "3ee5a5208f67a7f3c9e90860d5c6a9baf84ded9466d14197685189ec31db5552",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "2b8ed69a4a16813999db9b37e624a3a0c86c8af6361e4b076089e54c85871878",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "ba0fead2a5bd2b2e6108146f09558f46af1b56de40c33e00aab75fb778b646b0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "5594aaa95afd67cb09559e16b8f88af0bd2bb6d3bab7ec04c192b7e5792bdc4e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "3faa46ee0091d0210a6d4486b2fe1aba94a1921cf7a49a7df49fc234966de9e2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "964560ee9e5867676298bd45b5874a9b7781eb9e8e9d8727e4dbab36095e39b8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer onboarding"
+    },
+    {
+      "segmentHash": "321d625b3257b4a4de193e496ea35bf2f0c0a46d3f5f18de273897b7e4e55512",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos email"
+    },
+    {
+      "segmentHash": "6cf6478a039c36c90fd35618e877f2f01b411904e9409550ab81718b123ffd96",
+      "category": "Reading and research",
+      "subcategory": "AI and tech news"
+    },
+    {
+      "segmentHash": "0086eb986f871d1fefa897b54ba91d69da7ea7b6d439a21d8a6ead7f8f0e2433",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "54189b92efede23c3cd72e7fda3524ebd4a7cb5f42cb44b8ab9ff59570a66d3f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "f05cb21d55b27a39c5af8352297a85db6ff0188bf0e47b77b31439d222e18512",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "3ac304725a4c2eacefc7baa690a0625b3c38b0c7e7a8babb2de6572191d1c6fc",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer onboarding"
+    },
+    {
+      "segmentHash": "632fb95b63a5772291337186635b44086b07510fea0c8f0dcf118fdf6e1e49f4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "41c18ab27530bb2d2484739565624b311686a617c7286bc76304e9fee241e7d5",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "66db48b066dce7fa6e6e40bfa2dc16d86c6d3140162f483b99f39ff330f8540e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "f645523510ef21023fc68e1fcaa3d36a69f3ca68cd57c87b1e0aa0c41c82fa8b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "eecce5cad76e0062b04f22c98594e5cef0b12cec2a24125e7f17d82488e8dff2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "382b1c7841930082b4963f0177cdfd0b55b703cb6d69987d491d71960894f2de",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "ddda025560d4501a23bf57764655f7478bc36275964640a66320d8fe2f3f6817",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "d90fa37b74414f5198449930591f9067919b0cf99aa7729303a8e4875766ed21",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "67fc9a2276876da80918422444dca7d7c44d9fce40e00d2a82db31cd7e9a35c9",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "389f3b9e0dde3cf4b6931537591cdcf5bef6df192e41fd91c39041b61c531bc8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "396c2b810cc688a40e2d41dbfcf98c21973b75ac0317c24be625e3206ac86ba4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9e3d0e552fa65eccc7f0e8672733847d9c97bf9bcaf2affe0a00963a613e1a8d",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "0590b93ec61be40f5e562906e138e07041b6f895c189f539c9d4587766317de8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "e3c0f4f93bfc288aa5543939c6f51aaa3dc5a5c1f37a0b617d4ff3078dcb37a4",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "693feadc9a2221e1b84adc1876649f69736b33cb9e0544f271f632dcf1b940e2",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Planning"
+    },
+    {
+      "segmentHash": "054d22abca9e428dbf478d1c126ca1cec721ac1ad351595600d0bada3f03fa57",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "049b94317d7f44ef0c238a1ed62622fee4e0e7e50e2355ada7ad7736f6bf9607",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "edd48eb14c9334e31947d175962fa37a98566b369189fa833b19488f7ab486b2",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "baead18d6e56fae8e31020d53b134251c166d65a1431c338af28431da8fcce45",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "c16fd120d5d523a38eaa610f57be66125a7c73adeab0985e007e8603ec795c40",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "b57e74a9cce2b234649ca0e0b2712a7e95d5193bcb50c63e1592fd83ea30bdc4",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "eb7d686ffb79b7b647c13d5bb4f2911491dc8c5bc0a61b85bf6391b660d8a16a",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "3267795ccd6cd71cc4b9f3d4192b4a84caa2d29c88fc403136ca29e75727d70c",
+      "category": "Personal browsing and entertainment",
+      "subcategory": "YouTube and entertainment"
+    },
+    {
+      "segmentHash": "923cc11acc73744af88a87220075ca3d941f26d06794bff7075b04cf39efa6fb",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "8e0cc91711ab5d08ba9d82925cf3815fea4c78c2bfdd6196455b1f981c70f29f",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "835f618ac38e09e6908ecdde054906081dcbd342f6ef3911fe8ee6815be1d43c",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "a42472f08cd85862465eb233f8ef4fed8031c914b554226f74b8adadf1888581",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "6f259cbe18aee060f12f8d52986e08c26d0158438df209a2d510874ec9cd6cec",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "98d2fa157a65463a2d6549dd9be9b69bcc1c9c4f315d56fa5dfa59e6382d92fd",
+      "category": "System and personal admin",
+      "subcategory": "Personal finance and shopping"
+    },
+    {
+      "segmentHash": "852ad0ff0ea00bbfe002dd9e580033c3e429903cf1a2f5668650751359d759a3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "ebb628823ea980b9c827ed4d6c6f041980bdcb49a3998b1ca9cbc51dcbbc2d1a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "64c0fa5fe2c45094a5ad190f739a0dca2e0980d0de18e43bdab311d6ad8cb729",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "b46d2ad3f59f9231bb5b6d515bfecfd1f4a8dc03c17d98477d2e2d9837e534bd",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "c80a0cc5b8c954dcc9b63dd40815559db67705d2169fa879de53a6f083169369",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "f23dd3af96cca325b43cee78f5a199426917ce3d792ceab82e57c438066b0b58",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "9a82ce522b8c308d8a59f5448ee70cc23ad70642fbdad0f381c2e361cf39700c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "72cd4d62556373ced4c6b2f8ceded0ae857ca70bff71f7307667a1743de0890b",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "522b70c389146e12353018740e209e40ce1ef0184ff6e83372f26be1eb956c8c",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c976137509c466eaf69548efcf852d64fff0e0f5e93e409bfb1fec5e248c2dc0",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "d48eadbbbfd1afade3f0f6e7e89e748996226714d40eca4ed74c8ee8966eb1f8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "c9aa173a0997dc64b6118a13f0ca04a96eb86c551b9f5e5b747aea2bac27c9eb",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "8b3fb3145d4c602ddc59a482835ad2941f7830fb6a0f348d068f006e38ef462a",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "657b38dd6ba1d7e5aaa54a40526f9298190daa7a49ab7dc076250dd7cad22092",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "203e203773556080955aaf6fcbac5d344d0a53e5cd78dff10ad4fecdad7dc9ea",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "400c12906f58bd7285623f9778a13cd3b6840ec3fe9c841fcabea892d3d21906",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "98a99456015860eebbc07a12ebb76fc09845b01d20f8f0890312272ffc2d5710",
+      "category": null,
+      "subcategory": null
+    },
+    {
+      "segmentHash": "d02b8dac0b4657fe61322b10593f6fc4adadf0ab3a4e197c9bf92d9c1a3fc97e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Admin and review"
+    },
+    {
+      "segmentHash": "af25e56d4701e993a8272dbaeaeaa758ed4b402791d0a0892922ef802c15fd50",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "1063d3d683423eaed3c2233deb1daed5accd4ddb7eedaddc026b168670062bbc",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "a1e3482807f627b92b9d6cfba0e5d3dc9fa6187420e7d9da8e462d7ffa6263b3",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "42dc4ccc197e546728ac0593dbb3cc41ca8031f9d9713ab72f103466611b8e0f",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "ce09759e407672b21d7db9eb13ba7a3a55a35347f8ebe202df0c264dc51b1182",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "2270b71ffc4688807c7dd2687adc1e72a614bebcb5b12ca0fe9c3f3fd548a38e",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "7b5cb287731b9ffcdad0e52cf0c6156adc589d842802d0994167cf4e64ad9411",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Hiring interviews"
+    },
+    {
+      "segmentHash": "645f8562ca2ceb6c5a6c265b81eb571a1d82f58d7e2eba9b6c4a100ea1781cf8",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Interviewer coordination"
+    },
+    {
+      "segmentHash": "a04391e90aa650e55fd7a20e24ee1b4e2fcb78b76de57634f025ba60033ec182",
+      "category": "Working on Lumos Fellows",
+      "subcategory": "Lumos coding"
+    },
+    {
+      "segmentHash": "f059967ca89d06704454b263d96187d7f17a7a8220987e5b7fc0218ee8139993",
+      "category": "Working on slowblink",
+      "subcategory": "slowblink coding"
+    },
+    {
+      "segmentHash": "7f85fba961b23082f40dbebe69e97fdd4f5825941ecf27f0a385d83f4b1d2fdf",
+      "category": "Working on slowblink",
+      "subcategory": "Testing slowblink"
+    }
+  ]
+}

@@ -29,6 +29,7 @@
     "format:check": "oxfmt --check",
     "knip": "knip",
     "test": "vitest run",
+    "test:eval": "VITEST_EVAL=1 vitest run",
     "package": "electron-vite build && electron-builder",
     "package:mac": "electron-vite build && electron-builder --mac",
     "icon:build": "bash scripts/build-icon.sh",
