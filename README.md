@@ -20,12 +20,12 @@
 
 ## Plans
 
-|             | Free                  | Pro — $8/month                          |
-| ----------- | --------------------- | --------------------------------------- |
-| **AI**      | Your OpenAI API key   | Hosted by slowblink, with PII filtering |
-| **Sync**    | This Mac only         | Across all your Macs                    |
-| **History** | Forever, on this Mac  | Forever, on this Mac + cloud            |
-| **Sign-in** | Not required          | Google sign-in                          |
+|             | Free                 | Pro — $8/month                          |
+| ----------- | -------------------- | --------------------------------------- |
+| **AI**      | Your OpenAI API key  | Hosted by slowblink, with PII filtering |
+| **Sync**    | This Mac only        | Across all your Macs                    |
+| **History** | Forever, on this Mac | Forever, on this Mac + cloud            |
+| **Sign-in** | Not required         | Google sign-in                          |
 
 Pro starts with a 14-day free trial — card required up front, cancel any time before day 14 with no charge.
 
