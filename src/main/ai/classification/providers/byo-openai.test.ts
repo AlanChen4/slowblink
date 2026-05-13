@@ -177,8 +177,8 @@ describe('createByoOpenAIProvider', () => {
     });
     const call = generateText.mock.calls[0][0];
     const texts = call.messages[0].content
-      .filter((c: { type: string }) => c.type === 'text')
-      .map((c: { text: string }) => c.text)
+      .filter((c) => c.type === 'text')
+      .map((c) => c.text ?? '')
       .join('\n');
     expect(texts).toContain('CTX-MARKER-ABC');
   });

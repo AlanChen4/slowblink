@@ -1,16 +1,19 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 type NetFetchOpts = {
-  method?: string;
-  headers?: Record<string, string>;
-  body?: string;
+  method: string;
+  headers: Record<string, string>;
+  body: string;
 };
 type NetFetchResponse = {
   ok: boolean;
   status: number;
   json: () => Promise<unknown>;
 };
-type NetFetchFn = (url: string, opts: NetFetchOpts) => Promise<NetFetchResponse>;
+type NetFetchFn = (
+  url: string,
+  opts: NetFetchOpts,
+) => Promise<NetFetchResponse>;
 type CloudAuthHeadersFn = () => Record<string, string>;
 type RequireCloudEndpointFn = (direct: string, supabasePath: string) => string;
 
