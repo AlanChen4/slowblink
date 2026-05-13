@@ -60,7 +60,7 @@ function dedupAndSortActivities(activities: string[]): string[] {
     if (trimmed.length === 0) continue;
     out.add(truncate(trimmed, MAX_ACTIVITY_LEN));
   }
-  return [...out].sort();
+  return [...out].toSorted();
 }
 
 function serializeTaxonomy(taxonomy: Taxonomy | null): string {

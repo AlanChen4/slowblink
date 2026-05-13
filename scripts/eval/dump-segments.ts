@@ -11,8 +11,8 @@ import { samplesToSegments } from '../../src/shared/overview/segmenter';
 import { segmentHash } from '../../src/main/ai/classification/hash';
 import { loadFixtureSamples } from '../../src/main/ai/classification/testing/fixtures';
 
-const __filename = fileURLToPath(import.meta.url);
-const REPO_ROOT = resolve(__filename, '..', '..', '..');
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
+const REPO_ROOT = resolve(SCRIPT_PATH, '..', '..', '..');
 
 function attachActivities(
   segments: ReturnType<typeof samplesToSegments>,

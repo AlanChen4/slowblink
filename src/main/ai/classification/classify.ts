@@ -63,7 +63,7 @@ async function runWithConcurrency<T, R>(
   limit: number,
   task: (item: T, index: number) => Promise<R>,
 ): Promise<R[]> {
-  const results = new Array<R>(items.length);
+  const results = Array.from<R | undefined>({ length: items.length }) as R[];
   let cursor = 0;
 
   async function worker(): Promise<void> {

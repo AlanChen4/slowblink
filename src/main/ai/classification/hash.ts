@@ -11,7 +11,7 @@ export function segmentHash(
   const app = seg.focusedApp ?? '';
   const window =
     normalizeFocusedWindow(seg.focusedWindow, seg.focusedApp) ?? '';
-  const activityKey = [...new Set(activities)].sort().join('\n');
+  const activityKey = [...new Set(activities)].toSorted().join('\n');
   const composite = [app, window, activityKey].join(UNIT_SEPARATOR);
   return createHash('sha256').update(composite).digest('hex');
 }

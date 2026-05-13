@@ -19,32 +19,19 @@
       },
       {
         "name": "Working on slowblink",
-        "subcategories": [
-          "slowblink coding",
-          "Testing slowblink"
-        ]
+        "subcategories": ["slowblink coding", "Testing slowblink"]
       },
       {
         "name": "Personal browsing and entertainment",
-        "subcategories": [
-          "YouTube and entertainment",
-          "Social feed"
-        ]
+        "subcategories": ["YouTube and entertainment", "Social feed"]
       },
       {
         "name": "Reading and research",
-        "subcategories": [
-          "AI and tech news",
-          "GTM and competitor research"
-        ]
+        "subcategories": ["AI and tech news", "GTM and competitor research"]
       },
       {
         "name": "Personal communication",
-        "subcategories": [
-          "iMessage chats",
-          "Calls",
-          "Personal email"
-        ]
+        "subcategories": ["iMessage chats", "Calls", "Personal email"]
       },
       {
         "name": "System and personal admin",

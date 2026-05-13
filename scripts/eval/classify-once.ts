@@ -15,8 +15,8 @@ import {
   type Taxonomy,
 } from '../../src/main/ai/classification/types';
 
-const __filename = fileURLToPath(import.meta.url);
-const SCRIPT_DIR = resolve(__filename, '..');
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
+const SCRIPT_DIR = resolve(SCRIPT_PATH, '..');
 const REPO_ROOT = resolve(SCRIPT_DIR, '..', '..');
 
 function loadLabelsTaxonomy(date: string): Taxonomy | null {
@@ -39,7 +39,9 @@ function formatDuration(ms: number): string {
   const h = Math.floor(totalSeconds / 3600);
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
-  return h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${s}s` : `${s}s`;
+  if (h > 0) return `${h}h ${m}m`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
 }
 
 interface Summary {
