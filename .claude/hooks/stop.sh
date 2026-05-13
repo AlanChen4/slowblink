@@ -3,8 +3,21 @@ set -uo pipefail
 
 if [ -n "${CI:-}" ]; then exit 0; fi
 
-if [ ! -d node_modules ]; then
-  echo "📦 node_modules missing — running pnpm install..." >&2
+# Reconcile node_modules with the lockfile. Triggers when node_modules is
+# missing OR when pnpm-lock.yaml has been updated since the last install
+# (.modules.yaml is the marker pnpm writes after each install). Without the
+# second check, a lockfile bump that adds new bins (e.g. the Biome→oxc swap)
+# silently leaves node_modules stale and `pnpm format` / `pnpm lint` fail
+# with "command not found".
+NEEDS_INSTALL=0
+if [ ! -d node_modules ] || [ ! -f node_modules/.modules.yaml ]; then
+  NEEDS_INSTALL=1
+elif [ pnpm-lock.yaml -nt node_modules/.modules.yaml ]; then
+  NEEDS_INSTALL=1
+fi
+
+if [ $NEEDS_INSTALL -eq 1 ]; then
+  echo "📦 node_modules out of date — running pnpm install --frozen-lockfile..." >&2
   if ! pnpm install --frozen-lockfile >&2; then
     echo "❌ pnpm install failed" >&2
     exit 2
