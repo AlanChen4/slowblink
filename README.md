@@ -1,42 +1,32 @@
-# slowblink
+<p align="center">
+  <img src=".github/hero.png" alt="slowblink" width="720" />
+</p>
 
-A macOS menu-bar app that periodically captures screenshots of your screen and uses AI to summarize how you're spending your time.
+<h1 align="center">slowblink</h1>
 
-## How it works
+<p align="center">
+  Screen Time, but it tells you what you <em>actually</em> did.
+</p>
 
-slowblink runs in your menu bar and captures a screenshot every few seconds (configurable). Each screenshot is sent to an AI model (OpenAI by default) which returns a short description of what you're doing and a category like "coding", "browsing", or "meeting". Screenshots are analyzed and discarded — only the text summaries are stored locally in a SQLite database.
+<p align="center">
+  <a href="https://github.com/AlanChen4/slowblink/releases/latest"><strong>Download for macOS →</strong></a>
+</p>
 
-## Requirements
+---
 
-- macOS 13+
-- An [OpenAI API key](https://platform.openai.com/api-keys)
+- **See what you actually did.** Not "Chrome, 2h" — "Researched React hooks, 47m."
+- **Local-first.** Activity stays in a SQLite file on your Mac. Screenshots are discarded after analysis.
+- **Bring your own key.** No subscription. Pay your OpenAI usage directly.
 
-## Install
+## First run
 
-1. Download the latest `.dmg` from [GitHub Releases](https://github.com/AlanChen4/slowblink/releases)
-2. Open the DMG and drag slowblink to Applications
-3. Launch slowblink — it will appear in your menu bar
-
-## Setup
-
-On first launch, slowblink will ask for two macOS permissions:
-
-- **Screen Recording** — to capture screenshots
-- **Accessibility** — to read window titles for better activity context
-
-Grant both in **System Settings > Privacy & Security**. You may need to restart the app after granting permissions.
-
-Then enter your OpenAI API key in the app settings. Your key is encrypted and stored in your macOS Keychain.
-
-## Usage
-
-- Click the menu bar icon to open the main window
-- The icon shows capture status: **●** running, **◌** paused, **●!** missing permission or API key
-- Right-click the icon to pause/resume capture or quit
+1. Grant **Screen Recording** in System Settings → Privacy & Security
+2. Grant **Accessibility** in the same place
+3. Add your [OpenAI API key](https://platform.openai.com/api-keys) in slowblink's settings
 
 ## Privacy
 
-slowblink stores all activity data locally on your machine. Screenshots are sent to your configured AI provider for analysis but are not saved to disk. See [PRIVACY.md](PRIVACY.md) for full details.
+All activity data stays on your Mac. Screenshots are sent to your AI provider for analysis but never written to disk. Full details in [PRIVACY.md](PRIVACY.md).
 
 ## Development
 
@@ -44,17 +34,6 @@ slowblink stores all activity data locally on your machine. Screenshots are sent
 pnpm install
 pnpm dev
 ```
-
-### Scripts
-
-| Command            | Description               |
-| ------------------ | ------------------------- |
-| `pnpm dev`         | Start in development mode |
-| `pnpm build`       | Build the app             |
-| `pnpm package:mac` | Package a macOS DMG       |
-| `pnpm lint`        | Run linter                |
-| `pnpm typecheck`   | Run type checking         |
-| `pnpm test`        | Run tests                 |
 
 ## License
 
