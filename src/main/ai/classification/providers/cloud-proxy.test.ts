@@ -1,10 +1,26 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
+type NetFetchOpts = {
+  method?: string;
+  headers?: Record<string, string>;
+  body?: string;
+};
+type NetFetchResponse = {
+  ok: boolean;
+  status: number;
+  json: () => Promise<unknown>;
+};
+type NetFetchFn = (url: string, opts: NetFetchOpts) => Promise<NetFetchResponse>;
+type CloudAuthHeadersFn = () => Record<string, string>;
+type RequireCloudEndpointFn = (direct: string, supabasePath: string) => string;
+
 const { netFetch, cloudAuthHeaders, requireCloudEndpoint } = vi.hoisted(() => ({
-  netFetch: vi.fn(),
-  cloudAuthHeaders: vi.fn(() => ({ authorization: 'Bearer test-token' })),
-  requireCloudEndpoint: vi.fn(
-    (_direct: string, supabasePath: string) =>
+  netFetch: vi.fn<NetFetchFn>(),
+  cloudAuthHeaders: vi.fn<CloudAuthHeadersFn>(() => ({
+    authorization: 'Bearer test-token',
+  })),
+  requireCloudEndpoint: vi.fn<RequireCloudEndpointFn>(
+    (_direct, supabasePath) =>
       `https://cloud.example.test/functions/v1/${supabasePath}`,
   ),
 }));

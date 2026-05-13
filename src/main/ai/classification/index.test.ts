@@ -23,14 +23,21 @@ interface FakeProviderOpts {
   ) => Promise<ProposedTaxonomyAdditions | { blocked: true; reason: string }>;
 }
 
+type GenerateFn = (
+  req: TaxonomyRequest,
+) => Promise<ProposedTaxonomyAdditions | { blocked: true; reason: string }>;
+type ClassifyFn = (
+  req: ClassifyBatchRequest,
+) => Promise<ClassifiedSegment[] | { blocked: true; reason: string }>;
+
 function makeFakeProvider(opts: FakeProviderOpts = {}) {
-  const generate = vi.fn(
+  const generate = vi.fn<GenerateFn>(
     opts.generate ??
       (async () => ({ newCategories: [], newSubcategories: [] })),
   );
-  const classify = vi.fn(
+  const classify = vi.fn<ClassifyFn>(
     opts.classify ??
-      (async (req: ClassifyBatchRequest) =>
+      (async (req) =>
         req.segments.map(() => ({
           category: 'Work',
           subcategory: 'Coding',

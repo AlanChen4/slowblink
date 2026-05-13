@@ -1,13 +1,26 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
+type OpenAIBuilderFn = (modelId: string) => unknown;
+type CreateOpenAIFn = () => OpenAIBuilderFn;
+type OutputObjectFn = (opts: { schema: unknown }) => unknown;
+type GenerateTextMessage = {
+  role: string;
+  content: { type: string; text?: string }[];
+};
+type GenerateTextFn = (opts: {
+  model: unknown;
+  output: unknown;
+  messages: GenerateTextMessage[];
+}) => Promise<{ output: unknown }>;
+
 const { generateText, createOpenAI, openaiBuilder, OutputObject } = vi.hoisted(
   () => ({
-    generateText: vi.fn(),
-    openaiBuilder: vi.fn((modelId: string) => ({
+    generateText: vi.fn<GenerateTextFn>(),
+    openaiBuilder: vi.fn<OpenAIBuilderFn>((modelId) => ({
       __mockOpenAIModel: modelId,
     })),
-    createOpenAI: vi.fn(),
-    OutputObject: vi.fn((opts: { schema: unknown }) => ({
+    createOpenAI: vi.fn<CreateOpenAIFn>(),
+    OutputObject: vi.fn<OutputObjectFn>((opts) => ({
       __schemaSentinel: opts.schema,
     })),
   }),
