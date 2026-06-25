@@ -1,0 +1,47 @@
+# slowblink
+
+An Electron app that uses AI to track how the user is spending their time on their computer.
+
+## Rules
+
+- [No useEffect](.Codex/rules/no-use-effect.md) — Use derived state, event handlers, `useMountEffect`, or `key` props instead of `useEffect`
+- [Loading skeletons](.Codex/rules/loading-skeletons.md) — Use shadcn `<Skeleton>` shaped like the real content; don't render "Loading…" text
+- [Main process layout](.Codex/rules/main-process-layout.md) — AI code in `src/main/ai/`, tightly-coupled code stays together, new domains get subdirectories
+- [No section-separator comments](.Codex/rules/no-section-comments.md) — Don't add banner/divider comments; split the file instead
+- [Git workflow](.Codex/rules/git-workflow.md) — Commit with a gitmoji prefix from the provided list
+- [Issue titles](.Codex/rules/issue-titles.md) — Prefix issue titles with the matching gitmoji (`✨` features, `🐛` bugs, `🏗️` design, etc.)
+- [Worktree paths](.Codex/rules/worktree-paths.md) — In a worktree session, verify edit paths and brief subagents to stay inside the worktree root
+- [Doppler secrets](.Codex/rules/doppler.md) — Recommended secret manager; when `.doppler.yaml` is present, prefix dev commands with `doppler run --`. Falls back to `.env.local` + `supabase/.env`.
+- [Preview verification](.Codex/rules/preview-verification.md) — Verify Electron changes via agent-browser on CDP port 9222, not `preview_screenshot` (the Vite URL renders blank without the preload bridge).
+
+## Skills
+
+- [Electron automation](.agents/skills/electron/SKILL.md) — Automate Electron apps via Chrome DevTools Protocol using agent-browser
+- [/go](.Codex/skills/go/SKILL.md) — End-of-task workflow: test via agent-browser, run /simplify, then create or update a PR
+- [/ship](.Codex/commands/ship.md) — Parallel multi-agent review (security, types, tests, UI consistency, dead code), auto-fix loop, then push + PR
+
+## Review agents
+
+The `/ship` workflow spawns five specialist agents in parallel. Each returns a structured JSON verdict; `/ship` is the coordinator that applies auto-fixable findings, re-runs failing agents (up to 3 iterations), and only pushes + opens a PR when every agent returns PASS.
+
+- [security-auditor](.Codex/agents/security-auditor.md) — Secret leakage, Supabase RLS, Electron IPC validation, injection surfaces
+- [type-safety-checker](.Codex/agents/type-safety-checker.md) — `tsc` + weak typing (`any`, unsafe casts, Zod gaps on boundaries)
+- [test-coverage](.Codex/agents/test-coverage.md) — `pnpm test` + new code paths have tests + no stray `.only`/`.skip`
+- [ui-consistency-reviewer](.Codex/agents/ui-consistency-reviewer.md) — Inline hex colors, duplicated status strings, spacing drift in TSX
+- [dead-code-detector](.Codex/agents/dead-code-detector.md) — `knip` + stub implementations + unused exports
+
+Agents are read-only: they report, the coordinator decides. An agent can be invoked standalone via the `Agent` tool with `subagent_type: "<agent-name>"` when you want just one facet reviewed without the full ship loop.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues at `AlanChen4/slowblink`. Use the `gh` CLI. See [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md).
+
+### Triage labels
+
+Five canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See [docs/agents/triage-labels.md](docs/agents/triage-labels.md).
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See [docs/agents/domain.md](docs/agents/domain.md).

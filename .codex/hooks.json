@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/ahchoo/Code/slowblink/.codex/hooks/stop.sh'",
+            "timeout": 300,
+            "statusMessage": "Running checks"
+          }
+        ]
+      }
+    ]
+  }
+}
