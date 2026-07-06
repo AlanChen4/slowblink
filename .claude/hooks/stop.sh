@@ -3,9 +3,12 @@ set -uo pipefail
 
 if [ -n "${CI:-}" ]; then exit 0; fi
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+PNPM_BIN="${PNPM_BIN:-pnpm}"
+
 if [ ! -d node_modules ]; then
   echo "📦 node_modules missing — running pnpm install..." >&2
-  if ! pnpm install --frozen-lockfile >&2; then
+  if ! "$PNPM_BIN" install --frozen-lockfile >&2; then
     echo "❌ pnpm install failed" >&2
     exit 2
   fi
@@ -29,14 +32,14 @@ start_check() {
 
 # format writes files in place — run sequentially before parallel read-only
 # checks so lint/typecheck/test see a stable file tree.
-pnpm format > "$RESULTS_DIR/format.out" 2>&1
+"$PNPM_BIN" format > "$RESULTS_DIR/format.out" 2>&1
 echo $? > "$RESULTS_DIR/format.status"
 
-start_check "lint" pnpm exec oxlint --deny-warnings --ignore-pattern '.claude/worktrees/**'
-start_check "typecheck" env SKIP_ENV_VALIDATION=true pnpm typecheck
-start_check "knip" pnpm knip
+start_check "lint" "$PNPM_BIN" exec oxlint --deny-warnings --ignore-pattern '.claude/worktrees/**'
+start_check "typecheck" env SKIP_ENV_VALIDATION=true "$PNPM_BIN" typecheck
+start_check "knip" "$PNPM_BIN" knip
 start_check "deprecated" node scripts/check-deprecated.js
-start_check "test" env SKIP_ENV_VALIDATION=true pnpm test
+start_check "test" env SKIP_ENV_VALIDATION=true "$PNPM_BIN" test
 
 wait
 
