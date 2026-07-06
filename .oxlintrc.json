@@ -10,14 +10,24 @@
     "no-nested-ternary": "error",
     "react/jsx-no-useless-fragment": "error",
     "react/react-in-jsx-scope": "off",
+    "react/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
+    "typescript/no-explicit-any": "error",
     "typescript/no-non-null-assertion": "warn",
     "no-await-in-loop": "off",
     "unicorn/consistent-function-scoping": "off",
     "vitest/no-disabled-tests": "error",
     "vitest/no-focused-tests": "error"
   },
-  "ignorePatterns": ["out", "dist", "node_modules", "supabase", "build"],
+  "ignorePatterns": [
+    "out",
+    "dist",
+    "node_modules",
+    "supabase",
+    "build",
+    ".agents/skills/**",
+    "skills/**"
+  ],
   "overrides": [
     {
       "files": ["src/renderer/components/ui/**"],
