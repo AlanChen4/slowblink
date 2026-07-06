@@ -1,11 +1,11 @@
 ---
 name: go
-description: End-of-task workflow for slowblink. Use when the user says "/go" or asks you to wrap up a change by testing in the Electron app, simplifying the diff, and opening or updating a PR. Runs agent-browser against the Electron app, runs the /simplify skill, and creates/updates a pull request with a gitmoji-prefixed commit.
+description: End-of-task workflow for slowblink. Use when the user says "/go" or asks you to wrap up a change by testing in the Electron app, running the thermo review/fix PR loop, and opening or updating a PR.
 ---
 
 # /go — ship a change
 
-Run this at the end of a coding task to verify the change in the live app, clean up the diff, and open or update a PR. Execute each phase in order.
+Run this at the end of a coding task to verify the change in the live app, clean up the diff through thermo review/fix, and open or update a PR. Execute each phase in order.
 
 ## Prerequisites
 
@@ -51,55 +51,62 @@ The [electron skill](../electron/SKILL.md) has the full agent-browser reference.
 
 If you can't test the UI (e.g. change isn't renderer-facing, or agent-browser fails to connect), say so explicitly to the user — don't claim success.
 
-## Phase 2: Run /simplify
+## Phase 2: Run thermo review/fix PR
 
-Invoke the `simplify` skill via the `Skill` tool. It launches three review agents (reuse, quality, efficiency) in parallel against the current diff and aggregates findings. Apply any actionable fixes; skip false positives. Report what changed (or that the code was already clean).
+Load and follow the [thermo-review-fix-pr](../../../.agents/skills/thermo-review-fix-pr/SKILL.md) skill, adapted from:
+https://github.com/Lumos-Fellows/lumos-fellows-web/tree/main/.agents/skills/thermo-review-fix-pr
+
+Use the Electron verification from Phase 1 as browser QA evidence for the PR body. The thermo workflow owns the maintainability review, fix loop, validation, commit, push, and PR creation/update.
+
+If the subagent tool is unavailable or the review scope is too small to justify delegation, perform the same thermo-nuclear review locally using [thermo-nuclear-code-quality-review](../../../.agents/skills/thermo-nuclear-code-quality-review/SKILL.md), apply high-conviction findings, and continue to Phase 3.
 
 ## Phase 3: Create or update the PR
 
-1. **Commit** any remaining changes using the [gitmoji convention](../../rules/git-workflow.md). Heredoc the message so newlines survive:
+If Phase 2 already committed, pushed, and opened or updated the PR, do not duplicate that work. Verify the PR URL with `gh pr view --json url,state` and skip to reporting.
 
-   ```bash
-   git commit -m "$(cat <<'EOF'
-   ♻️ Short description (50 chars max)
+If Phase 2 stopped before publishing, commit any remaining changes using the [gitmoji convention](../../rules/git-workflow.md). Heredoc the message so newlines survive:
 
-   - Bullet point 1
-   - Bullet point 2
+```bash
+git commit -m "$(cat <<'EOF'
+♻️ Short description (50 chars max)
 
-   Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
-   EOF
-   )"
-   ```
+- Bullet point 1
+- Bullet point 2
 
-   Pick the right gitmoji — `♻️` for refactor, `✨` for feature, `🐛` for bug fix, `💄` for UI polish. See the full list in the git-workflow rule.
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+EOF
+)"
+```
 
-2. **Push** the branch:
+Pick the right gitmoji — `♻️` for refactor, `✨` for feature, `🐛` for bug fix, `💄` for UI polish. See the full list in the git-workflow rule.
 
-   ```bash
-   git push -u origin <branch>
-   ```
+Push the branch:
 
-3. **Create or update the PR.** If no PR exists, create one:
+```bash
+git push -u origin <branch>
+```
 
-   ```bash
-   gh pr create --title "<gitmoji> <title>" --body "$(cat <<'EOF'
-   ## Summary
+Create or update the PR. If no PR exists, create one:
 
-   - What changed and why (1–3 bullets).
+```bash
+gh pr create --title "<gitmoji> <title>" --body "$(cat <<'EOF'
+## Summary
 
-   ## Test plan
+- What changed and why (1–3 bullets).
 
-   - [x] Items you verified via agent-browser.
-   - [ ] Items the human should verify manually (e.g. prod build, permission flows).
+## Test plan
 
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
-   EOF
-   )"
-   ```
+- [x] Items you verified via agent-browser.
+- [ ] Items the human should verify manually (e.g. prod build, permission flows).
 
-   If a PR already exists on this branch, additional commits update it automatically — no `gh pr edit` needed unless the description changed.
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
 
-4. **Return the PR URL** to the user.
+If a PR already exists on this branch, additional commits update it automatically — no `gh pr edit` needed unless the description changed.
+
+Return the PR URL to the user.
 
 ## Reporting back
 
@@ -107,5 +114,5 @@ End with a concise summary:
 
 - What landed in the PR (link it).
 - What the agent-browser test covered.
-- Any findings from /simplify that were applied.
+- Any thermo review findings that were applied.
 - Any caveats (tests you couldn't run, follow-ups worth separate PRs).
