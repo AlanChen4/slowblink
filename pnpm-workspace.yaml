@@ -1,0 +1,8 @@
+minimumReleaseAge: 1440
+strictDepBuilds: true
+
+allowBuilds:
+  better-sqlite3: true
+  electron: true
+  esbuild: true
+  supabase: true

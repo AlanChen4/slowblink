@@ -3,6 +3,8 @@
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 80,
+  "endOfLine": "lf",
+  "experimentalSortPackageJson": true,
   "singleQuote": true,
   "jsxSingleQuote": false,
   "quoteProps": "as-needed",
@@ -15,5 +17,13 @@
     "stylesheet": "./src/renderer/index.css",
     "functions": ["clsx", "cn", "cva", "twMerge"]
   },
-  "ignorePatterns": ["out", "dist", "node_modules", "supabase"]
+  "ignorePatterns": [
+    "out",
+    "dist",
+    "node_modules",
+    "supabase",
+    ".agents/skills/**",
+    "skills/**",
+    "**/*.md"
+  ]
 }
