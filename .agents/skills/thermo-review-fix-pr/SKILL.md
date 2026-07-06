@@ -12,9 +12,6 @@ Use this skill for the full loop:
 3. validate the final diff
 4. commit, push, and create or update the PR
 
-This workflow is adapted from the Lumos Fellows skill at:
-https://github.com/Lumos-Fellows/lumos-fellows-web/tree/main/.agents/skills/thermo-review-fix-pr
-
 ## Workflow
 
 1. Load `thermo-nuclear-code-quality-review/SKILL.md`.

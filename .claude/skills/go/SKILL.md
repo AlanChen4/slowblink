@@ -53,8 +53,7 @@ If you can't test the UI (e.g. change isn't renderer-facing, or agent-browser fa
 
 ## Phase 2: Run thermo review/fix PR
 
-Load and follow the [thermo-review-fix-pr](../../../.agents/skills/thermo-review-fix-pr/SKILL.md) skill, adapted from:
-https://github.com/Lumos-Fellows/lumos-fellows-web/tree/main/.agents/skills/thermo-review-fix-pr
+Load and follow the [thermo-review-fix-pr](../../../.agents/skills/thermo-review-fix-pr/SKILL.md) skill.
 
 Use the Electron verification from Phase 1 as browser QA evidence for the PR body. The thermo workflow owns the maintainability review, fix loop, validation, commit, push, and PR creation/update.
 
